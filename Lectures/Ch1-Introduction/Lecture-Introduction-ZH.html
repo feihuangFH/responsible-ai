@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="黄斐,新南威尔士大学">
+
+<title>负责任人工智能导论 – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../index-ZH.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b6aba4ac4b850922cff467f5e3088352.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html">第一章:导论</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">负责任人工智能</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">首页</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第一章:导论</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标">学习目标</a></li>
+  <li><a href="#为什么需要负责任人工智能" id="toc-为什么需要负责任人工智能" class="nav-link" data-scroll-target="#为什么需要负责任人工智能">为什么需要负责任人工智能?</a>
+  <ul class="collapse">
+  <li><a href="#机遇与挑战" id="toc-机遇与挑战" class="nav-link" data-scroll-target="#机遇与挑战">机遇与挑战</a></li>
+  <li><a href="#失败并不总是显而易见" id="toc-失败并不总是显而易见" class="nav-link" data-scroll-target="#失败并不总是显而易见">失败并不总是显而易见</a></li>
+  </ul></li>
+  <li><a href="#人工智能伦理的主要原则" id="toc-人工智能伦理的主要原则" class="nav-link" data-scroll-target="#人工智能伦理的主要原则">人工智能伦理的主要原则</a>
+  <ul class="collapse">
+  <li><a href="#六项原则" id="toc-六项原则" class="nav-link" data-scroll-target="#六项原则">六项原则</a></li>
+  <li><a href="#三大支柱多方利益相关者" id="toc-三大支柱多方利益相关者" class="nav-link" data-scroll-target="#三大支柱多方利益相关者">三大支柱,多方利益相关者</a></li>
+  <li><a href="#从原则到实践" id="toc-从原则到实践" class="nav-link" data-scroll-target="#从原则到实践">从原则到实践</a></li>
+  </ul></li>
+  <li><a href="#伦理人工智能生命周期" id="toc-伦理人工智能生命周期" class="nav-link" data-scroll-target="#伦理人工智能生命周期">伦理人工智能生命周期</a>
+  <ul class="collapse">
+  <li><a href="#人工智能的失败并非始于部署阶段" id="toc-人工智能的失败并非始于部署阶段" class="nav-link" data-scroll-target="#人工智能的失败并非始于部署阶段">人工智能的失败并非始于部署阶段</a></li>
+  <li><a href="#六阶段生命周期视角" id="toc-六阶段生命周期视角" class="nav-link" data-scroll-target="#六阶段生命周期视角">六阶段生命周期视角</a></li>
+  <li><a href="#为什么问题建构最为重要" id="toc-为什么问题建构最为重要" class="nav-link" data-scroll-target="#为什么问题建构最为重要">为什么问题建构最为重要</a></li>
+  </ul></li>
+  <li><a href="#监管背景" id="toc-监管背景" class="nav-link" data-scroll-target="#监管背景">监管背景</a>
+  <ul class="collapse">
+  <li><a href="#快速演变的格局" id="toc-快速演变的格局" class="nav-link" data-scroll-target="#快速演变的格局">快速演变的格局</a></li>
+  <li><a href="#美国分行业监管" id="toc-美国分行业监管" class="nav-link" data-scroll-target="#美国分行业监管">美国:分行业监管</a></li>
+  <li><a href="#欧盟横向人工智能监管" id="toc-欧盟横向人工智能监管" class="nav-link" data-scroll-target="#欧盟横向人工智能监管">欧盟:横向人工智能监管</a></li>
+  <li><a href="#澳大利亚原则导向多监管机构并行" id="toc-澳大利亚原则导向多监管机构并行" class="nav-link" data-scroll-target="#澳大利亚原则导向多监管机构并行">澳大利亚:原则导向、多监管机构并行</a></li>
+  <li><a href="#澳大利亚未来动向" id="toc-澳大利亚未来动向" class="nav-link" data-scroll-target="#澳大利亚未来动向">澳大利亚:未来动向</a></li>
+  <li><a href="#中国约束性分行业规则" id="toc-中国约束性分行业规则" class="nav-link" data-scroll-target="#中国约束性分行业规则">中国:约束性、分行业规则</a></li>
+  <li><a href="#新加坡自愿性原则导向框架" id="toc-新加坡自愿性原则导向框架" class="nav-link" data-scroll-target="#新加坡自愿性原则导向框架">新加坡:自愿性、原则导向框架</a></li>
+  <li><a href="#跨司法辖区的共同主题" id="toc-跨司法辖区的共同主题" class="nav-link" data-scroll-target="#跨司法辖区的共同主题">跨司法辖区的共同主题</a></li>
+  </ul></li>
+  <li><a href="#课程路线图" id="toc-课程路线图" class="nav-link" data-scroll-target="#课程路线图">课程路线图</a>
+  <ul class="collapse">
+  <li><a href="#结构原则与实践" id="toc-结构原则与实践" class="nav-link" data-scroll-target="#结构原则与实践">结构:原则与实践</a></li>
+  <li><a href="#三个值得牢记的案例" id="toc-三个值得牢记的案例" class="nav-link" data-scroll-target="#三个值得牢记的案例">三个值得牢记的案例</a></li>
+  <li><a href="#一门量化课程" id="toc-一门量化课程" class="nav-link" data-scroll-target="#一门量化课程">一门量化课程</a></li>
+  <li><a href="#三大支柱的相互关联" id="toc-三大支柱的相互关联" class="nav-link" data-scroll-target="#三大支柱的相互关联">三大支柱的相互关联</a></li>
+  <li><a href="#推荐阅读" id="toc-推荐阅读" class="nav-link" data-scroll-target="#推荐阅读">推荐阅读</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">负责任人工智能导论</h1>
+<p class="subtitle lead">负责任人工智能:原则、治理与量化方法</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>黄斐,新南威尔士大学 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="学习目标" class="level3">
+<h3 class="anchored" data-anchor-id="学习目标">学习目标</h3>
+<p>学完本章后,你应当能够:</p>
+<ul>
+<li>说明为什么负责任人工智能对重大自动化决策(即会实质性影响一个人生活的决策,例如谁能获得贷款、工作或保险保单)整体上很重要,并特别针对保险、信贷、招聘和医疗等高风险领域加以阐述。</li>
+<li>描述人工智能伦理的六项主要原则及其在专业实践中的意义。</li>
+<li>概述从问题定义到部署的伦理人工智能生命周期。</li>
+<li>识别不同司法辖区和行业中,与人工智能驱动型歧视相关的关键监管动态。</li>
+<li>将本课程的三大支柱(公平性、可解释性与隐私)与更广泛的负责任人工智能框架联系起来。</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>保险贯穿本课程,作为反复出现的实例场景。这是一个人工智能监管与量化公平性/隐私方法都异常成熟的领域。但这些原则本身适用于任何重大自动化决策:招聘、信贷、医疗资源分配以及刑事司法风险评估都在其列。</p>
+</div>
+</div>
+</section>
+<section id="为什么需要负责任人工智能" class="level2">
+<h2 class="anchored" data-anchor-id="为什么需要负责任人工智能">为什么需要负责任人工智能?</h2>
+<section id="机遇与挑战" class="level3">
+<h3 class="anchored" data-anchor-id="机遇与挑战">机遇与挑战</h3>
+<p>负责任人工智能,是指以某种方式设计、部署和治理人工智能系统,使自动化决策不仅追求准确,还要做到公平、可解释并尊重隐私。机器学习和人工智能正在改变各行各业的决策方式:为保险风险定价的精算师、评估贷款的信贷员、筛选求职者的人力资源团队,以及为患者分诊的临床医生,都在与影响重大结果的自动化系统协同工作。</p>
+<p><strong>机遇:</strong></p>
+<ul>
+<li>更准确的风险评估与结果预测</li>
+<li>对申请、理赔(保单持有人在遭受损失后提出的赔付请求)或案件的筛查与处理更快、更一致</li>
+<li>新型数据来源(车载远程信息技术,即智能手机或车载传感器等追踪驾驶等行为的设备或应用程序,以及可穿戴设备、交易记录、数字足迹)使决策得以做到更精细</li>
+<li>常规决策的自动化,使专业人员得以从事更高价值的工作</li>
+</ul>
+<p><strong>挑战:</strong></p>
+<ul>
+<li>自动化系统所做出的重大决策,影响着数以百万计的人获得机会、定价与准入</li>
+<li>复杂性使决策过程变得难以理解,无论对受影响者、监管者,还是从业者本身皆然</li>
+<li>数据反映的是历史模式,其中也包括过去的歧视</li>
+<li>错误与偏差会随自动化规模而自动扩大</li>
+</ul>
+<blockquote class="blockquote">
+<p>负责任人工智能并非要放慢创新的脚步——而是要让创新经得起审视与辩护。</p>
+</blockquote>
+</section>
+<section id="失败并不总是显而易见" class="level3">
+<h3 class="anchored" data-anchor-id="失败并不总是显而易见">失败并不总是显而易见</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="示例:保险中隐蔽的代理性歧视">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>示例:保险中隐蔽的代理性歧视
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>设想一家车险公司正在构建一个新的机器学习定价模型。团队为回应监管压力而移除了性别变量(例如在欧盟,自欧洲法院2011年 <em>Test-Achats</em> 判决 <span class="citation" data-cites="ecj2011testachats">(<a href="#ref-ecj2011testachats" role="doc-biblioref">European Court of Justice 2011年</a>)</span> 以来,性别已成为保险定价中的受保护属性)。模型从未将 <code>gender</code>(性别)作为输入变量。</p>
+<p>但 <code>vehicle engine size</code>(车辆发动机排量)和 <code>annual mileage</code>(年行驶里程)仍然保留在模型中,而这两者在训练数据中都与性别存在相关性。因此,这些变量可能成为性别的代理变量,这意味着仅仅移除性别变量本身,并不足以消除模型输出结果中与性别相关的差异。</p>
+</div>
+</div>
+<p>同样的结构在其他场景中反复出现。一个招聘模型移除了求职者性别、却保留了连续工作年限,便是一例。一个信贷模型移除了种族、却保留了邮编,则是另一例。</p>
+<p><strong>由此产生的问题:</strong></p>
+<ul>
+<li>这个模型是否公平?依据哪一种公平性定义?</li>
+<li>该机构能否向监管者解释,为什么某个特定个体获得了某个特定结果?</li>
+<li>用于训练模型的行为数据,其隐私将何去何从?</li>
+<li>当模型产生有害结果时,谁应当承担责任?</li>
+</ul>
+<p>这些正是本课程旨在回答的问题。公平性、可解释性与隐私将被逐一以量化方式展开,各自拥有一套自己的方法工具。问责制也会被论及,但主要通过文档记录与责任人指定等治理实践来实现,这部分内容将在第八章得到最充分的展开,而不是作为一个独立的量化方法模块。</p>
+</section>
+</section>
+<section id="人工智能伦理的主要原则" class="level2">
+<h2 class="anchored" data-anchor-id="人工智能伦理的主要原则">人工智能伦理的主要原则</h2>
+<section id="六项原则" class="level3">
+<h3 class="anchored" data-anchor-id="六项原则">六项原则</h3>
+<p>人工智能伦理框架普遍认同六项适用于各行业与各监管背景的核心原则 <span class="citation" data-cites="huang2025checkyourai">(<a href="#ref-huang2025checkyourai" role="doc-biblioref">Huang 2025年</a>)</span>。</p>
+<p><strong>1. 公平性与非歧视</strong> 人工智能系统不应在受保护群体(即由受保护属性所界定的群体,受保护属性是指种族、性别或年龄等反歧视法禁止用于决策的特征)之间产生不合理的差异性结果。这既包括直接歧视(直接使用受保护属性),也包括间接歧视(使用代理变量,即那些表面中立、却复现了群体差异的变量)。</p>
+<p><strong>2. 透明度与可解释性</strong> 决策必须是可解释的,不仅要让开发者理解,也要让客户、监管者和受影响方能够理解。透明度体现在两个层面:系统是如何运作的,以及某一具体决策为何会被做出。</p>
+<p><strong>3. 问责制</strong> 当人工智能系统造成损害时,必须明确由谁负责:是开发者、部署机构、监管者,还是为模型签字认证的专业人员。问责制要求相应的文档记录与治理机制。</p>
+<p><strong>4. 隐私与数据伦理</strong> 人工智能系统消耗海量的个人数据。个人对其数据如何被收集、使用、共享和留存拥有相应权利。第三方数据来源、车载远程信息技术和行为数据,在预测效用与隐私保护之间制造了新的张力。</p>
+<p><strong>5. 可申诉性</strong> 受自动化决策影响的个人,必须拥有实质性的渠道去理解、质疑和申诉这些决策。这一原则正日益被纳入监管框架之中(例如欧盟 GDPR 第22条,即《通用数据保护条例》;以及澳大利亚《隐私法》的相关改革)。</p>
+<p><strong>6. 稳定性与稳健性</strong> 人工智能模型必须在真实世界条件下持续可靠地运作,包括应对数据漂移、对抗性输入和分布偏移。一个在部署时公平且准确的模型,两年后未必依然如此。</p>
+<p>公平性、可解释性与隐私,是这六项原则中的三项,也是本课程以量化方式重点展开的三项。Reid Blackman 在其著作《Ethical Machines》<span class="citation" data-cites="blackman2022ethical">(<a href="#ref-blackman2022ethical" role="doc-biblioref">Blackman 2022年</a>)</span> 中,将同样这三项称为人工智能的“三大”伦理风险(“Big Three”)。本课程选择同样这三项作为聚焦范围,出于实际考量:公平性、可解释性与隐私各自都已拥有一套日臻成熟、定义精确的量化方法工具(即本课程所涵盖的公平性准则、可解释性技术与隐私方法),即便在这些工具中做出选择本身仍是一项因具体领域而异的判断。问责制、可申诉性与稳定性目前尚未拥有同等完善的工具体系。这三项原则依然重要,只是本课程将它们作为治理与监测实践来处理,而非作为独立的量化模块。</p>
+</section>
+<section id="三大支柱多方利益相关者" class="level3">
+<h3 class="anchored" data-anchor-id="三大支柱多方利益相关者">三大支柱,多方利益相关者</h3>
+<p>每一支柱都对应一个不同的核心问题,但三大支柱所涉及的利益相关者大体相似:受决策影响的个人、负责监管该领域的监管者,以及部署该系统的机构。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>支柱</th>
+<th>核心问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>公平性</strong></td>
+<td>模型是否公平地对待每一个人?</td>
+</tr>
+<tr class="even">
+<td><strong>可解释性</strong></td>
+<td>模型的决策能否被理解和证成?</td>
+</tr>
+<tr class="odd">
+<td><strong>隐私</strong></td>
+<td>个人数据是否得到适当使用与保护?</td>
+</tr>
+</tbody>
+</table>
+<p>每一支柱都同时具有原则维度(我们应当做什么?)和量化维度(我们如何衡量、落实并加以验证?)。本课程对这两个维度都会加以论述。</p>
+</section>
+<section id="从原则到实践" class="level3">
+<h3 class="anchored" data-anchor-id="从原则到实践">从原则到实践</h3>
+<p>原则是必要的,但并不充分。精算、数据科学以及其他分析类专业,都面临着同一个转化难题:</p>
+<blockquote class="blockquote">
+<p>我们该如何将“公平性”“可解释性”与“隐私”这些原则,转化为可衡量、可审计、可辩护的具体实践?</p>
+</blockquote>
+<p>本课程聚焦于连接伦理原则与专业实践之间这一鸿沟的量化方法。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>原则</th>
+<th>本课程相应章节</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>公平性与非歧视</td>
+<td>第二至三章:公平性准则、模型设计、审计规程</td>
+</tr>
+<tr class="even">
+<td>透明度与可解释性</td>
+<td>第四至五章:PFI、PDP、SHAP、ALE、交互效应</td>
+</tr>
+<tr class="odd">
+<td>隐私与数据伦理</td>
+<td>第六至七章:k-匿名性、差分隐私、合成数据</td>
+</tr>
+<tr class="even">
+<td>问责制</td>
+<td>第二、四、八章:治理、文档记录、权衡取舍</td>
+</tr>
+<tr class="odd">
+<td>可申诉性</td>
+<td>第二章:公平性测试与审计规程(可用于支持申诉的统计证据);第四章:解释权(要求对方就一项自动化决策给出理由的权利);第五章:反事实解释</td>
+</tr>
+<tr class="even">
+<td>稳定性与稳健性</td>
+<td>第八章:整合与系统性风险</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="伦理人工智能生命周期" class="level2">
+<h2 class="anchored" data-anchor-id="伦理人工智能生命周期">伦理人工智能生命周期</h2>
+<section id="人工智能的失败并非始于部署阶段" class="level3">
+<h3 class="anchored" data-anchor-id="人工智能的失败并非始于部署阶段">人工智能的失败并非始于部署阶段</h3>
+<p>人工智能失败的一个常见根源在于问题建构本身,而非模型本身,例如问错了问题、使用了错误的结果变量,或未能考虑到受影响的对象是谁。</p>
+<blockquote class="blockquote">
+<p>“数据分析中最常见的失误,是把问题的类型搞错了。”</p>
+<p>— <span class="citation" data-cites="leek2015question">Leek 和 Peng (<a href="#ref-leek2015question" role="doc-biblioref">2015年</a>)</span></p>
+</blockquote>
+<p>伦理风险存在于人工智能生命周期的每一个阶段,而不仅仅是模型部署的那一刻。</p>
+</section>
+<section id="六阶段生命周期视角" class="level3">
+<h3 class="anchored" data-anchor-id="六阶段生命周期视角">六阶段生命周期视角</h3>
+<p><span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025年</a>)</span> 提出了一个框架,将伦理检查点嵌入到人工智能开发与部署流程的各个环节之中。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ethical_lc.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>伦理人工智能生命周期。来源:<span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025年</a>)</span>。</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>关键伦理问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. 问题定义</strong></td>
+<td>目标是否与公平性、透明度和监管标准相一致?优化过程是否在公司盈利与客户福祉之间取得平衡?谁拥有对人工智能使用、监督和风险的所有权?</td>
+</tr>
+<tr class="even">
+<td><strong>2. 数据收集</strong></td>
+<td>数据是否侵犯隐私?代理变量(如邮编或职业)是否间接编码了敏感属性?同意是否具有实质意义?数据是否反映了历史性偏见?</td>
+</tr>
+<tr class="odd">
+<td><strong>3. 探索性数据分析</strong></td>
+<td>输入特征是否可能直接或通过与受保护群体的相关性而产生歧视性影响?每一个特征能否向监管者和客户(而不仅仅是内部团队)作出合理解释?</td>
+</tr>
+<tr class="even">
+<td><strong>4. 建模</strong></td>
+<td>模型是否在准确性与公平性、可解释性、透明度之间取得平衡?能否评估输出结果在不同社会群体间是否存在差异?其可解释程度是否足以支持审计?</td>
+</tr>
+<tr class="odd">
+<td><strong>5. 评估</strong></td>
+<td>模型表现是否在相关子群体中同样成立,而不仅仅是在总体层面成立?结果能否在不同情境下泛化?权衡取舍是否已向决策者充分说明?</td>
+</tr>
+<tr class="even">
+<td><strong>6. 部署</strong></td>
+<td>模型上线后是否定期接受审计?客户能否申诉或质疑某一结果?是否存在反馈回路,将结果用于改进未来的迭代?</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="从业者的角色">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>从业者的角色
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>领域内的专业人员(保险领域的精算师、信贷领域中在批准贷款或保单前评估和为风险定价的核保人员、招聘领域的人力资源分析师)正日益参与到这一生命周期的每一个环节,不仅限于模型开发与验证,也包括治理、风险评估和利益相关方沟通。负责任人工智能是一项专业责任,而不仅仅是一项技术责任。</p>
+</div>
+</div>
+</section>
+<section id="为什么问题建构最为重要" class="level3">
+<h3 class="anchored" data-anchor-id="为什么问题建构最为重要">为什么问题建构最为重要</h3>
+<p>前文引用的 <span class="citation" data-cites="leek2015question">Leek 和 Peng (<a href="#ref-leek2015question" role="doc-biblioref">2015年</a>)</span> 区分了数据分析可能提出的六种问题类型,并指出大多数分析失败,源于回答了错误类型的问题,而非把正确类型的问题回答得不好。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>提出的问题</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>描述性</td>
+<td>发生了什么?</td>
+<td>按保单类型划分,平均理赔金额是多少?</td>
+</tr>
+<tr class="even">
+<td>探索性</td>
+<td>数据中存在哪些模式?</td>
+<td>面试评分是否会按面试官的不同而呈现聚集性?</td>
+</tr>
+<tr class="odd">
+<td>推断性</td>
+<td>我们能从样本对总体做出怎样的推断?</td>
+<td>该样本的平均贷款违约率能否代表全体借款人?</td>
+</tr>
+<tr class="even">
+<td>预测性</td>
+<td>未来可能发生什么?</td>
+<td>这名患者预期的住院天数是多少?</td>
+</tr>
+<tr class="odd">
+<td>因果性</td>
+<td>X 是否导致了 Y?</td>
+<td>提高免赔额(保单持有人在保险开始赔付前须自行承担的部分)是否会降低理赔频率?</td>
+</tr>
+<tr class="even">
+<td>机制性</td>
+<td>系统究竟是如何运作的?</td>
+<td>一种药物在生理上是如何降低血压的?</td>
+</tr>
+</tbody>
+</table>
+<p>把一种问题类型误认为另一种,是伦理失败的一个常见根源,而不仅仅是技术失败;但即便正确地识别出问题类型,本身也还不够。同一类型的问题,置于不同的业务情境之下,在其后每一个环节上都可能需要不同的选择。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="练习:相同的问题类型,不同的利害关系">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>练习:相同的问题类型,不同的利害关系
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>一家咨询公司有两个团队,分别为两个不同的客户提供服务,各自被要求回答一个<strong>预测性</strong>问题。</p>
+<p><strong>团队A</strong> 为一家大型超市服务,预测产品需求,以便仓库据此安排各地的备货数量。预测过高会造成库存浪费,预测过低会造成销售损失。这一模型的输出结果不会导致任何具体客户被定价、被筛查或被拒绝任何东西。</p>
+<p><strong>团队B</strong> 为一家车险公司服务,为潜在的个人投保人预测理赔的数量和成本,以便据此设定其保费。</p>
+<p>对这两个团队而言,应当由什么来决定模型类别、特征选择和评估标准的选择?为什么同一种预测性问题,会导向不同的选择?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="讨论">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>讨论
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>对团队A而言,模型的输出结果不会导致任何具体个人被定价、被筛查或被拒绝任何东西,因此预测准确性是压倒性的考量因素。一个基于数百个工程化特征构建的复杂、高准确率模型,是恰当的选择。</p>
+<p>对团队B而言,预测性问题的形式相同,但作用的对象是具体个人而非总体库存水平,而这一点会改变下游的一切。可解释性此时与准确性同等重要,因为模型必须能够向监管者以及被定价的客户作出解释。特征选择此时需要对代理变量加以审慎甄别,因为一个与理赔相关的特征,也可能与某个受保护属性相关。公平性指标也因此成为评估的一部分,而不仅仅是预测误差。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="监管背景" class="level2">
+<h2 class="anchored" data-anchor-id="监管背景">监管背景</h2>
+<section id="快速演变的格局" class="level3">
+<h3 class="anchored" data-anchor-id="快速演变的格局">快速演变的格局</h3>
+<p>在包括保险、信贷、就业等在内的各类高风险领域中,针对人工智能重大决策的监管,正在各大主要市场迅速演变。目前出现了三类监管干预:</p>
+<ol type="1">
+<li><strong>禁止变量规则</strong>:特定属性(性别、种族、族裔)不得作为定价因子使用</li>
+<li><strong>代理性歧视规则</strong>:模型不得使用表面中立、实为禁止属性代理变量的变量</li>
+<li><strong>算法影响与透明度义务</strong>:部署机构必须记录、解释并证明其符合公平性标准</li>
+</ol>
+</section>
+<section id="美国分行业监管" class="level3">
+<h3 class="anchored" data-anchor-id="美国分行业监管">美国:分行业监管</h3>
+<p>在联邦层面尚无人工智能立法的情况下,美国各州及各行业监管机构已在监管创新方面走在前列,同样的三类监管干预在保险、招聘与信贷领域反复出现:</p>
+<p><strong>Colorado SB21-169(2021)</strong> <span class="citation" data-cites="colorado_sb21169_2021">(<a href="#ref-colorado_sb21169_2021" role="doc-biblioref">Colorado General Assembly 2021年</a>)</span> 美国第一部明确针对保险领域算法歧视的法律。禁止保险公司以对种族、肤色、民族或族裔出身、宗教、性别、性取向、残疾、性别认同或性别表达构成不公平歧视的方式使用外部消费者数据。</p>
+<p><strong>NYC Local Law 144(2021)</strong> <span class="citation" data-cites="nyc_local_law_144_2021">(<a href="#ref-nyc_local_law_144_2021" role="doc-biblioref">New York City Council 2021年</a>)</span> 要求使用自动化就业决策工具(用于筛选或排序求职者的人工智能系统)的雇主,每年委托独立机构开展偏见审计并公布结果,同时告知求职者正在使用此类工具。</p>
+<p><strong>New York DFS Circular Letter No.&nbsp;7(2024)</strong> <span class="citation" data-cites="nydfs_circular7_2024">(<a href="#ref-nydfs_circular7_2024" role="doc-biblioref">New York State Department of Financial Services 2024年</a>)</span> 由纽约金融服务部(DFS,该州的保险与金融监管机构)发布。要求在承保与定价中使用人工智能系统及外部消费者数据的保险公司,持续开展偏见测试,建立治理框架,并能够向消费者和监管者解释模型输出结果。</p>
+<p><strong>CFPB 与 ECOA(2023)</strong> <span class="citation" data-cites="cfpb_circular_2023_03">(<a href="#ref-cfpb_circular_2023_03" role="doc-biblioref">Consumer Financial Protection Bureau 2023年</a>)</span> 美国消费者金融保护局(CFPB)已确认,《平等信贷机会法》(ECOA)中关于不利行动通知的要求(即向被拒绝的申请人告知拒绝理由的法定义务)同样适用于人工智能驱动的信贷决策,无论模型复杂程度如何。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="更多行业规则">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>更多行业规则
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>NAIC Model Bulletin(2023)<span class="citation" data-cites="naic2023modelbulletin">(<a href="#ref-naic2023modelbulletin" role="doc-biblioref">National Association of Insurance Commissioners 2023年</a>)</span> 由全国保险监理官协会发布,为美国各州保险监管机构提供人工智能治理、风险管理与第三方模型监督方面的指引。伊利诺伊州的《人工智能视频面试法》<span class="citation" data-cites="illinois_ai_video_interview_act">(<a href="#ref-illinois_ai_video_interview_act" role="doc-biblioref">Illinois General Assembly 2019年</a>)</span> 则专门规制基于人工智能的招聘评估。保险与招聘领域的监管步伐目前最快,但分行业监管正逐步扩展至信贷、医疗等更多领域。</p>
+</div>
+</div>
+</section>
+<section id="欧盟横向人工智能监管" class="level3">
+<h3 class="anchored" data-anchor-id="欧盟横向人工智能监管">欧盟:横向人工智能监管</h3>
+<p><strong>EU AI Act(2024)</strong> <span class="citation" data-cites="euaiact2024">(<a href="#ref-euaiact2024" role="doc-biblioref">European Parliament and Council of the European Union 2024年</a>)</span> 采取跨行业适用的风险分级方法。其附件三(Annex III)将若干类别列为<strong>高风险人工智能系统</strong>,包括保险承保与定价、就业与员工管理、信用评估、教育、执法以及基本公共服务的获取。所有此类系统均须遵守以下要求:</p>
+<ul>
+<li>部署前进行合格评定(对系统是否符合法定要求的正式审查)</li>
+<li>强制性风险管理体系</li>
+<li>数据治理要求</li>
+<li>透明度与文档记录义务</li>
+<li>人工监督要求</li>
+<li>上市后持续监测</li>
+</ul>
+<p>保险只是附件三所列若干类别中的一种。该法案将其与就业和信贷决策同等对待,视为结构上相似的类别,而非特殊情形。EU AI Act 的适用与 GDPR 关于自动化决策的既有要求(第22条)并行不悖、相互补充。</p>
+</section>
+<section id="澳大利亚原则导向多监管机构并行" class="level3">
+<h3 class="anchored" data-anchor-id="澳大利亚原则导向多监管机构并行">澳大利亚:原则导向、多监管机构并行</h3>
+<p>澳大利亚没有一部独立的人工智能法。相反,现有的行业法律被用于规制人工智能,由多个监管机构并行执法。没有出台新的人工智能立法,并不意味着没有问责。这与欧盟单一监管机构、独立立法的路径形成对比。澳大利亚证券与投资委员会(ASIC)作为其中一个监管机构,其相关案例展示了治理失灵会带来怎样的后果。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:一次治理失灵(ASIC REP 798)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:一次治理失灵(ASIC REP 798)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>某持牌机构部署了一个用于预测消费信贷违约风险的人工智能模型,却没有任何人工智能战略、政策,也未对其人工智能应用场景进行风险评级。一项在部署十个月后开展的内部审查发现,该模型建立在对所依赖第三方平台“理解有限”的基础之上,“模型文档不完整、缺失关键要素”,并且存在“治理薄弱、缺乏监测流程”的问题。报告将其描述为一个“黑箱,既无法解释评分卡中的变量,也无法解释这些变量对申请人评分所产生的影响”。该机构在此之后又继续使用该模型达数月之久,并且还报告了扩大人工智能使用范围的计划。</p>
+<p>来源:ASIC Report 798,<em>Beware the Gap</em>(2024年10月),第7页 <span class="citation" data-cites="asic2024rep798">(<a href="#ref-asic2024rep798" role="doc-biblioref">Australian Securities and Investments Commission 2024年</a>)</span>。</p>
+</div>
+</div>
+<p><strong>ASIC</strong> <span class="citation" data-cites="asic2024rep798">(<a href="#ref-asic2024rep798" role="doc-biblioref">Australian Securities and Investments Commission 2024年</a>)</span> 发布了11个问题,要求持牌机构就其使用的任何人工智能系统作出回答。REP 798 发现,在接受审查的23家机构中,只有12家制定了公平性政策,且半数机构尚未针对人工智能更新其风险框架。</p>
+<p><strong>APRA</strong>(澳大利亚审慎监管局)的 <strong>CPS 230</strong> <a href="自2025年7月起生效"><span class="citation" data-cites="apra_cps230">Australian Prudential Regulation Authority (<span>2023年</span>)</span></a>要求建立经董事会批准的操作风险框架。APRA 2025—26 年度监管计划明确表示,预期人工智能风险须在该框架中得到明确处理。</p>
+<p><strong>OAIC</strong>(澳大利亚信息专员办公室)<strong>与《隐私法》自动化决策改革</strong>:自2026年12月起,隐私政策必须披露对个人权利或利益构成重大影响的自动化决策是如何作出的。</p>
+<p><strong>FAR</strong> <a href="《金融问责制度》"><span class="citation" data-cites="far2023">Australian Prudential Regulation Authority and Australian Securities and Investments Commission (<span>2023年</span>)</span></a>施加了一项“合理步骤”义务。责任人须对其所监督的领域负责,包括在该领域内运行的人工智能系统,若明知存在违规行为而参与其中,个人可面临最高156万澳元的民事罚款。</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+重要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>相关义务不会因外包给供应商而转移。如果第三方模型产生不公平的结果或违反了牌照条件,监管机构追究的对象是部署机构本身。问题的关键在于该机构是否对供应商进行了充分治理,而不在于模型是由谁开发的 <span class="citation" data-cites="cbit2026airesponsibility">(<a href="#ref-cbit2026airesponsibility" role="doc-biblioref">中国银行保险报 2026年</a>)</span>。</p>
+</div>
+</div>
+</section>
+<section id="澳大利亚未来动向" class="level3">
+<h3 class="anchored" data-anchor-id="澳大利亚未来动向">澳大利亚:未来动向</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>进展</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2025年10月</td>
+<td>发布 AI6 指引 <span class="citation" data-cites="naic_au_2025_ai6">(<a href="#ref-naic_au_2025_ai6" role="doc-biblioref">National AI Centre 2025年</a>)</span>,国家人工智能中心自愿性框架(参见第八章)</td>
+</tr>
+<tr class="even">
+<td>2025年12月</td>
+<td>国家人工智能计划 <span class="citation" data-cites="australia_national_ai_plan_2025">(<a href="#ref-australia_national_ai_plan_2025" role="doc-biblioref">Department of Industry, Science and Resources (Australia) 2025年</a>)</span>:强制性护栏措施被搁置,现有法律暂时承担相应职能</td>
+</tr>
+<tr class="odd">
+<td>2026年初</td>
+<td>人工智能安全研究院成立,这是一个耗资2,990万澳元的监督机构,负责评估风险并为监管机构提供建议</td>
+</tr>
+<tr class="even">
+<td>2026年12月</td>
+<td>《隐私法》自动化决策披露义务正式强制生效</td>
+</tr>
+</tbody>
+</table>
+<p><strong>AHRC:《人权与技术》(2021)<span class="citation" data-cites="ahrc2021humanrightstech">(<a href="#ref-ahrc2021humanrightstech" role="doc-biblioref">Australian Human Rights Commission 2021年</a>)</span> 与《人工智能与保险歧视》(2022)<span class="citation" data-cites="ahrc2022insurance">(<a href="#ref-ahrc2022insurance" role="doc-biblioref">Australian Human Rights Commission and Actuaries Institute 2022年</a>)</span></strong> 澳大利亚人权委员会2021年具有里程碑意义的报告,提出了跨行业适用的人工智能与人权原则。其2022年与精算师协会联合制定的保险行业专项指引,将这些原则应用于承保与定价场景,并援引了《年龄歧视法》《残疾歧视法》《种族歧视法》与《性别歧视法》。</p>
+</section>
+<section id="中国约束性分行业规则" class="level3">
+<h3 class="anchored" data-anchor-id="中国约束性分行业规则">中国:约束性、分行业规则</h3>
+<p>中国目前尚无一部生效的综合性人工智能法,尽管国务院2026年立法工作计划提出要“加快推进综合立法”,且一份草案已自2025年末起流传,但其正式颁布的时间表仍不明朗。与此同时,针对具体行业和主题的规则已覆盖了大部分重大人工智能应用场景,其中一项专门文件现已直接针对保险行业。</p>
+<p><strong>《银行业保险业人工智能应用监管指引》(2026)</strong> <span class="citation" data-cites="nfra2026aiguidance">(<a href="#ref-nfra2026aiguidance" role="doc-biblioref">国家金融监督管理总局 2026年</a>)</span> 中国国家金融监督管理总局针对银行与保险机构发布了分行业人工智能指引(金发〔2026〕8号,2026年6月18日)。该指引涉及风险分类与高风险应用审批、对高风险应用的人工监督、透明度与可解释性、避免算法歧视等公平性问题、数据与网络安全保护,以及对外部引入的生成式人工智能模型的程序性要求。与下文所列一般性规则不同,该指引直接适用于保险机构。</p>
+<p><strong>《互联网信息服务算法推荐管理规定》(2022)</strong> <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">国家互联网信息办公室 2022年</a>)</span> 由国家互联网信息办公室(网信办,CAC)发布。备案与安全评估义务专门适用于具有舆论属性或社会动员能力的算法服务,而非适用于所有算法应用。在其适用范围内,该规定还禁止“大数据杀熟”,即利用消费者自身的数据,对其收取比其他消费者购买同一产品更高的价格。</p>
+<p><strong>《个人信息保护法》第24条(2021)</strong> <span class="citation" data-cites="china_pipl_2021">(<a href="#ref-china_pipl_2021" role="doc-biblioref">全国人民代表大会 2021年</a>)</span> 中国相当于 GDPR 的自动化决策条款,要求自动化决策保持透明、结果公平,并禁止因自动化决策而在“交易价格等交易条件上”对个人实行“不合理的差别待遇”。这是一项针对性规则,专门规制在不具正当理由的情况下,对本无实质差异的客户实施算法差别定价,而并非对所有价格差异化行为的全面禁止。该条款还赋予个人解释权,以及在自动化决策对其权益有重大影响时拒绝仅通过自动化方式作出决策的权利。</p>
+<p><strong>《生成式人工智能服务管理暂行办法》(2023)</strong> <span class="citation" data-cites="china_genai_interim_2023">(<a href="#ref-china_genai_interim_2023" role="doc-biblioref">国家互联网信息办公室 2023年</a>)</span> <strong>及内容标识规则(2025)</strong> <span class="citation" data-cites="china_ai_content_labeling_2025">(<a href="#ref-china_ai_content_labeling_2025" role="doc-biblioref">国家互联网信息办公室、工业和信息化部、公安部、国家广播电视总局 2025年</a>)</span> 要求在提供生成式人工智能服务前完成安全评估与登记,并规定须对人工智能生成内容进行显式与隐式标识。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>《银行保险机构消费者权益保护管理办法》第27条 <span class="citation" data-cites="china_consumer_protection_measures_2022">(<a href="#ref-china_consumer_protection_measures_2022" role="doc-biblioref">中国银行保险监督管理委员会 2022年</a>)</span> 相较于 PIPL 第24条,提供了一个与保险行业联系更为直接的对照。该条要求对交易条件或风险状况相当的消费者,在相同产品和服务上实行合理定价,禁止不公平定价。</p>
+</div>
+</div>
+</section>
+<section id="新加坡自愿性原则导向框架" class="level3">
+<h3 class="anchored" data-anchor-id="新加坡自愿性原则导向框架">新加坡:自愿性、原则导向框架</h3>
+<p>新加坡尚无具有约束力的人工智能专项立法,而是有意选择了一条支持创新、“沙盒式”(即在放松管制的条件下测试新方法的受控环境)的路径,以自愿性框架与测试工具为依托,而非强制性义务:</p>
+<p><strong>Model AI Governance Framework(IMDA/PDPC,2019年发布,2020年更新)</strong> <span class="citation" data-cites="singapore_mgf_2020">(<a href="#ref-singapore_mgf_2020" role="doc-biblioref">Personal Data Protection Commission Singapore and Infocomm Media Development Authority 2020年</a>)</span> 由新加坡资讯通信媒体发展局(IMDA)与个人数据保护委员会(PDPC)发布,面向私营部门的一般性自愿指引。随着新的人工智能范式不断涌现,该框架后续又扩展出<strong>生成式人工智能治理框架(2024)</strong> <span class="citation" data-cites="singapore_mgf_genai_2024">(<a href="#ref-singapore_mgf_genai_2024" role="doc-biblioref">AI Verify Foundation and Infocomm Media Development Authority 2024年</a>)</span> 与<strong>代理型人工智能治理框架(2026)</strong>。</p>
+<p><strong>AI Verify</strong> <span class="citation" data-cites="aiverify_foundation">(<a href="#ref-aiverify_foundation" role="doc-biblioref">AI Verify Foundation 2023年</a>)</span> 一款开源人工智能治理测试工具包,现由 AI Verify 基金会负责运营,该基金会协调着一个致力于构建全球共享人工智能测试标准的社区。</p>
+<p><strong>MAS FEAT Principles(2018)</strong> <span class="citation" data-cites="mas_feat_2018">(<a href="#ref-mas_feat_2018" role="doc-biblioref">Monetary Authority of Singapore 2018年</a>)</span> <strong>与 Veritas Initiative</strong> <span class="citation" data-cites="mas_veritas">(<a href="#ref-mas_veritas" role="doc-biblioref">Monetary Authority of Singapore 2019年</a>)</span> 新加坡金融管理局(MAS)与金融业共同制定的 FEAT 原则,专门适用于金融服务业(包括保险业)中的人工智能与数据分析。FEAT 代表负责任人工智能使用的四个维度:<strong>公平性</strong>(Fairness,人工智能系统不应产生歧视性结果,公平性考量应贯穿模型全生命周期,而非仅在结束时做一次核查)、<strong>伦理性</strong>(Ethics,人工智能的使用应符合机构自身的伦理价值观与更广泛的社会期待,对于具有重大影响的决策应保留人工监督)、<strong>问责性</strong>(Accountability,人工智能产生的结果必须有明确的责任归属,包括董事会与高级管理层层面)以及<strong>透明度</strong>(Transparency,机构须对其人工智能系统进行内部文档记录,并在适当情形下,向受影响的客户就人工智能驱动的决策给出有意义的解释)。</p>
+<p>Veritas Initiative 由 MAS 与金融业共同开发,历经2020年至2023年间的多个阶段,将上述四项原则转化为金融机构可直接应用于自身模型的具体评估方法。其应用场景包括银行业的信贷风险评分与客户营销,以及保险业的预测性核保与欺诈检测,并配有一套可自动执行公平性指标评估的开源工具包。MAS 已于2025年11月就面向金融机构的具有约束力的《人工智能风险管理指引》发布咨询文件 <span class="citation" data-cites="mas_ai_risk_2025">(<a href="#ref-mas_ai_risk_2025" role="doc-biblioref">Monetary Authority of Singapore 2025年</a>)</span>。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>FEAT 与 Veritas 是第二章所述公平性准则在金融行业的对应产物,二者由一个监管机构针对同一底层问题独立开发而成。Veritas 的评估方法并不设定单一的公平性检验标准,而是要求金融机构自行说明,应当如何在其人工智能驱动的定价或承保系统中界定、衡量、论证并监测公平性。</p>
+</div>
+</div>
+</section>
+<section id="跨司法辖区的共同主题" class="level3">
+<h3 class="anchored" data-anchor-id="跨司法辖区的共同主题">跨司法辖区的共同主题</h3>
+<p>尽管各司法辖区的路径存在差异(欧盟采取单一的独立立法,美国和中国采取具有约束力的分行业规则,澳大利亚和新加坡则在现有法律之上叠加自愿性框架),但三大主题始终一致地反复出现:</p>
+<ol type="1">
+<li><strong>治理与问责</strong>:人工智能系统必须有明确的所有权归属、文档记录与监督机制。</li>
+<li><strong>公平性测试与偏见评估</strong>:部署机构必须能够证明其人工智能输出结果不存在不公平歧视。</li>
+<li><strong>可解释性与透明度</strong>:受影响的个人和监管者必须能够理解人工智能驱动型决策是如何作出的。</li>
+<li><strong>隐私与数据保护</strong>:此类系统所使用的个人数据,必须依法收集、使用和留存。</li>
+</ol>
+<p>后三项主题,直接对应本课程的三大支柱:公平性、可解释性与隐私。治理与问责则是一个贯穿性主题,本课程将其融入每一支柱各自的量化方法之中(如第二章的审计规程、贯穿全程的文档记录实践)加以处理,而非作为独立的第四支柱单列。至于某一司法辖区是通过单一立法、多个行业监管机构,还是自愿性行业框架来落实这些主题,属于监管策略层面的问题。但其背后的实质性义务是趋同的。</p>
+</section>
+</section>
+<section id="课程路线图" class="level2">
+<h2 class="anchored" data-anchor-id="课程路线图">课程路线图</h2>
+<section id="结构原则与实践" class="level3">
+<h3 class="anchored" data-anchor-id="结构原则与实践">结构:原则与实践</h3>
+<p>每一主题都由两章构成,一章聚焦于适用于各领域的原则与概念框架,另一章则聚焦于在真实案例研究中展开的量化方法。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 24%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>章节</th>
+<th>标题</th>
+<th>关键方法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>公平性原则</td>
+<td>公平性准则与模型设计(核心内容);福利分析与审计框架(简要概览)</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>公平性实践</td>
+<td>公平性准则的度量与落实,案例研究:法国车险数据(R)</td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td>可解释性原则</td>
+<td>PFI、PDP、ALE、SHAP、LIME、监管期望</td>
+</tr>
+<tr class="even">
+<td><strong>5</strong></td>
+<td>可解释性实践</td>
+<td>全局与局部模型解释,案例研究:XGBoost 保险定价模型(Python)</td>
+</tr>
+<tr class="odd">
+<td><strong>6</strong></td>
+<td>隐私原则</td>
+<td>k-匿名性、差分隐私、合成数据、监管框架</td>
+</tr>
+<tr class="even">
+<td><strong>7</strong></td>
+<td>隐私实践</td>
+<td>重新识别风险、k-匿名性、差分隐私、合成数据,案例研究:保险微观数据(R)</td>
+</tr>
+<tr class="odd">
+<td><strong>8</strong></td>
+<td>权衡取舍、整合与治理</td>
+<td>公平性—准确性—隐私权衡取舍、系统性风险、治理</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="三个值得牢记的案例" class="level3">
+<h3 class="anchored" data-anchor-id="三个值得牢记的案例">三个值得牢记的案例</h3>
+<p>以下三个被广泛记载的失败案例,预示了本课程接下来的三大支柱。每一个案例都对应着后续某一章节对的预告。请将它们牢记在心,作为本课程所讲授工具存在意义的一种提醒。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:COMPAS 再犯风险评分">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:COMPAS 再犯风险评分
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>2016年,ProPublica 的调查报道 <em>Machine Bias</em> 对美国法院所使用的再犯风险评估工具 COMPAS 进行了审视 <span class="citation" data-cites="angwin2016machine">(<a href="#ref-angwin2016machine" role="doc-biblioref">Angwin 等 2016年</a>)</span>。在两年内<strong>未</strong>再犯的被告人中,黑人被告被标记为“高风险”的比例,几乎是白人被告的两倍。该工具的供应商则反驳称,COMPAS 具有良好的<strong>校准性</strong>:在获得相同风险评分的被告人中,不同种族之间的再犯率相近。</p>
+<p>双方各执一词,而这恰恰正是问题所在。一个工具完全可能满足校准性(充分性),却仍在错误率上表现出显著差异(违反分离性)。<strong>第二至三章</strong>将为你提供精确描述这一权衡取舍的词汇工具,以及据此判断你所处情境应当采用哪一种准则的模型设计方法。</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:英国 A-level 评分算法">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:英国 A-level 评分算法
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>当2020年新冠疫情导致英国学校考试取消时,监管机构 Ofqual 使用了一种标准化算法,将教师预测的成绩转换为最终成绩,以期防止成绩虚高 <span class="citation" data-cites="ofqual2020algorithm">(<a href="#ref-ofqual2020algorithm" role="doc-biblioref">Centre for Multilevel Modelling, University of Bristol 2020年</a>)</span>。该算法下调了约40%的教师预测成绩,并在很大程度上依赖各学校的历史成绩记录,导致历史表现较差(其中公立学校占比过高)学校的学生,比历史表现优异、规模较小(其中私立学校占比过高)学校的学生受到更大幅度的下调。</p>
+<p>在成绩公布之前,无论是学生、学校,还是政府,都无法就“这名学生为什么得到了这个成绩?”这一问题得到令人满意的答复。公众的强烈反弹——包括首相将其称为一个“变异算法”——迫使当局在数日之内改回采用教师预测成绩。<strong>第四至五章</strong>所涵盖的可解释性工具(PDP、SHAP)本可以在部署之前,精确量化学校历史记录究竟在多大程度上改变了每名学生的计算成绩,尽管这些工具本身无法解决一个更根本的问题,即学校历史记录究竟是否应当决定某个学生个人的成绩。而这个问题,属于第二至三章所讨论的公平性视角。</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:剑桥分析(Cambridge Analytica)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:剑桥分析(Cambridge Analytica)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>2018年,有消息披露,政治咨询公司剑桥分析(Cambridge Analytica)在打着学术研究幌子的第三方性格测试应用的掩护下,获取了约8,700万 Facebook 用户的数据,随后在未经这些用户知情或同意的情况下,将这些数据挪作政治广告的精准投放之用。美国联邦贸易委员会(FTC)以 Facebook 违反此前作出的、在与第三方共享用户数据时须明确告知用户的承诺为由,对其处以50亿美元罚款 <span class="citation" data-cites="ftc2019facebook">(<a href="#ref-ftc2019facebook" role="doc-biblioref">Federal Trade Commission 2019年</a>)</span>。</p>
+<p>其核心问题,并非技术意义上的数据泄露,而是数据被以某一目的收集之后,又被挪作另一项不相关目的之用。<strong>第六至七章</strong>正是围绕这一边界(场景一致性、目的限制)展开,并介绍能够使这种“悄悄挪用”变得更难以实施的隐私增强技术。</p>
+</div>
+</div>
+</section>
+<section id="一门量化课程" class="level3">
+<h3 class="anchored" data-anchor-id="一门量化课程">一门量化课程</h3>
+<p>本课程并非一门将人工智能伦理作为哲学学科来讲授的课程,而是一门关于量化工具的课程,这些工具能够使伦理承诺变得可衡量、可落实。</p>
+<p>学完本课程后,你应当能够:</p>
+<ul>
+<li>拟合并比较具有公平性意识的模型,并量化公平性与准确性之间的权衡取舍</li>
+<li>运用最前沿的解释工具,解读复杂的机器学习模型</li>
+<li>评估并降低表格型数据集中的重新识别风险</li>
+<li>生成并评估用于隐私保护分析的合成数据</li>
+<li>向包括监管者在内的非技术利益相关方,清晰传达技术性结果</li>
+</ul>
+<p>原则性章节所举的例子,同样取材于保险、信贷、招聘、医疗和刑事司法等多个应用领域。而实践性章节则将由此得出的方法应用于真实的保险数据集,作为一以贯之的案例研究,并使用行业相关的工具(R、Python、XGBoost、SHAP、<code>sdcMicro</code>、<code>synthpop</code>)。同样的方法也可以调整适配招聘、信贷或医疗数据集,尽管其相应的结果变量、公平性考量因素与法律背景会有所不同。</p>
+</section>
+<section id="三大支柱的相互关联" class="level3">
+<h3 class="anchored" data-anchor-id="三大支柱的相互关联">三大支柱的相互关联</h3>
+<p>本课程的三大支柱并非彼此独立。它们以重要的方式相互作用,这一点将贯穿全课程加以探讨。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="示例:车载远程信息保险公司">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>示例:车载远程信息保险公司
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>一家保险公司引入了基于车载远程信息技术的定价方案,利用智能手机应用采集的GPS与加速度传感器数据。由车载远程信息数据得出的定价因子,可能包括行驶距离、行驶时段、超速、急加速与急刹车。</p>
+<ul>
+<li><strong>公平性</strong>:这些由车载远程信息数据得出的因子,是否成为年龄、性别或社会经济地位等受保护属性的代理变量?</li>
+<li><strong>可解释性</strong>:保险公司能否向保单持有人解释,是哪些由车载远程信息数据得出的因子,导致了其保费或续保保费的上涨?</li>
+<li><strong>隐私</strong>:保险公司是否拥有收集持续位置数据的合法依据?是否与第三方共享数据?保单持有人能否要求删除数据?</li>
+</ul>
+<p>每一支柱都各自产生独特的义务,但一套完整的负责任人工智能框架必须同时兼顾这三者。同样的三方张力,也出现在职场生产力监控软件之中(绩效评分中的公平性、自动标记的可解释性、持续记录活动的隐私性),以及被用于保险或雇主健康促进计划的可穿戴健康设备之中。</p>
+</div>
+</div>
+</section>
+<section id="推荐阅读" class="level3">
+<h3 class="anchored" data-anchor-id="推荐阅读">推荐阅读</h3>
+<ul>
+<li><span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025年</a>)</span>: 本章通篇所使用的伦理人工智能生命周期框架</li>
+<li><span class="citation" data-cites="leek2015question">Leek 和 Peng (<a href="#ref-leek2015question" role="doc-biblioref">2015年</a>)</span>; <span class="citation" data-cites="peng2015art">Peng 和 Matsui (<a href="#ref-peng2015art" role="doc-biblioref">2015年</a>)</span>: 问题类型框架,以及一个界定良好的数据科学问题应具备的特征</li>
+<li><span class="citation" data-cites="barocas2016disparate">Barocas 和 Selbst (<a href="#ref-barocas2016disparate" role="doc-biblioref">2016年</a>)</span>: 关于算法性差异性影响的基础性法律与技术论述,适用于任何自动化决策</li>
+</ul>
+<p>第二至七章各自都提供了针对公平性、可解释性与隐私的专项推荐阅读。</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-aiverify_foundation" class="csl-entry" role="listitem">
+AI Verify Foundation. 2023年. <span>《AI Verify Foundation》</span>. <a href="https://aiverifyfoundation.sg/">https://aiverifyfoundation.sg/</a>.
+</div>
+<div id="ref-singapore_mgf_genai_2024" class="csl-entry" role="listitem">
+AI Verify Foundation and Infocomm Media Development Authority. 2024年. <span>《Model AI Governance Framework for Generative AI》</span>. <a href="https://aiverifyfoundation.sg/resources/mgf-gen-ai/">https://aiverifyfoundation.sg/resources/mgf-gen-ai/</a>.
+</div>
+<div id="ref-angwin2016machine" class="csl-entry" role="listitem">
+Angwin, Julia, Jeff Larson, Surya Mattu, 和 Lauren Kirchner. 2016年. <span>《Machine Bias》</span>. <em>ProPublica</em>. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing</a>.
+</div>
+<div id="ref-ahrc2021humanrightstech" class="csl-entry" role="listitem">
+Australian Human Rights Commission. 2021年. <em>Human Rights and Technology: Final Report</em>. <a href="https://humanrights.gov.au/our-work/technology-and-human-rights/projects/final-report-human-rights-and-technology">https://humanrights.gov.au/our-work/technology-and-human-rights/projects/final-report-human-rights-and-technology</a>.
+</div>
+<div id="ref-ahrc2022insurance" class="csl-entry" role="listitem">
+Australian Human Rights Commission and Actuaries Institute. 2022年. <em>Guidance Resource: Artificial Intelligence and Discrimination in Insurance Pricing and Underwriting</em>. <a href="https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance">https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance</a>.
+</div>
+<div id="ref-apra_cps230" class="csl-entry" role="listitem">
+Australian Prudential Regulation Authority. 2023年. <em>Prudential Standard CPS 230: Operational Risk Management</em>. <a href="https://www.apra.gov.au/operational-risk-management">https://www.apra.gov.au/operational-risk-management</a>.
+</div>
+<div id="ref-far2023" class="csl-entry" role="listitem">
+Australian Prudential Regulation Authority and Australian Securities and Investments Commission. 2023年. <em>Financial Accountability Regime</em>. <a href="https://www.apra.gov.au/financial-accountability-regime">https://www.apra.gov.au/financial-accountability-regime</a>.
+</div>
+<div id="ref-asic2024rep798" class="csl-entry" role="listitem">
+Australian Securities and Investments Commission. 2024年. <em>Report 798: Beware the Gap — Governance Arrangements in the Face of AI Innovation</em>. <a href="https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/">https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/</a>.
+</div>
+<div id="ref-barocas2016disparate" class="csl-entry" role="listitem">
+Barocas, Solon, 和 Andrew D Selbst. 2016年. <span>《Big Data’s Disparate Impact》</span>. <em>California Law Review</em> 104: 671～732.
+</div>
+<div id="ref-blackman2022ethical" class="csl-entry" role="listitem">
+Blackman, Reid. 2022年. <em>Ethical Machines: Your Concise Guide to Totally Unbiased, Transparent, and Respectful AI</em>. Harvard Business Review Press.
+</div>
+<div id="ref-ofqual2020algorithm" class="csl-entry" role="listitem">
+Centre for Multilevel Modelling, University of Bristol. 2020年. <em>The 2020 GCSE and A-level ’Exam Grades Fiasco’: A Secondary Data Analysis of Students’ Grades and Ofqual’s Algorithm</em>. <a href="https://www.bristol.ac.uk/cmm/research/grade/">https://www.bristol.ac.uk/cmm/research/grade/</a>.
+</div>
+<div id="ref-colorado_sb21169_2021" class="csl-entry" role="listitem">
+Colorado General Assembly. 2021年. <em>Senate Bill 21-169: Protecting Consumers from Unfair Discrimination in Insurance Practices</em>. Colorado Division of Insurance. <a href="https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices">https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices</a>.
+</div>
+<div id="ref-cfpb_circular_2023_03" class="csl-entry" role="listitem">
+Consumer Financial Protection Bureau. 2023年. <span>《Consumer Financial Protection Circular 2023-03: Adverse Action Notification Requirements and Proper Use of the CFPB’s Sample Forms》</span>. <a href="https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper">https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper</a>.
+</div>
+<div id="ref-australia_national_ai_plan_2025" class="csl-entry" role="listitem">
+Department of Industry, Science and Resources (Australia). 2025年. <span>《National AI Plan》</span>. <a href="https://www.industry.gov.au/publications/national-ai-plan/introduction">https://www.industry.gov.au/publications/national-ai-plan/introduction</a>.
+</div>
+<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
+European Court of Justice. 2011年. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge des Consommateurs Test-Achats ASBL and Others v Conseil des ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
+</div>
+<div id="ref-euaiact2024" class="csl-entry" role="listitem">
+European Parliament and Council of the European Union. 2024年. <em>Regulation (EU) 2024/1689 Laying Down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng</a>.
+</div>
+<div id="ref-ftc2019facebook" class="csl-entry" role="listitem">
+Federal Trade Commission. 2019年. <span>《FTC Imposes $5 Billion Penalty and Sweeping New Privacy Restrictions on Facebook》</span>. <a href="https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook">https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook</a>.
+</div>
+<div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
+Huang, Fei. 2025年. <span>《Check your <span>AI</span>: a framework for its use in actuarial practice》</span>. <em>The Actuary</em>. <a href="https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice">https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice</a>.
+</div>
+<div id="ref-illinois_ai_video_interview_act" class="csl-entry" role="listitem">
+Illinois General Assembly. 2019年. <em>Artificial Intelligence Video Interview Act (820 ILCS 42)</em>. <a href="https://www.ilga.gov/Legislation/ILCS/Articles?ActID=4015&amp;ChapterID=68&amp;Print=True">https://www.ilga.gov/Legislation/ILCS/Articles?ActID=4015&amp;ChapterID=68&amp;Print=True</a>.
+</div>
+<div id="ref-leek2015question" class="csl-entry" role="listitem">
+Leek, Jeffrey T, 和 Roger D Peng. 2015年. <span>《What is the question?》</span> <em>Science</em> 347 (6228): 1314～15.
+</div>
+<div id="ref-mas_feat_2018" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2018年. <span>《Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector》</span>. <a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat">https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat</a>.
+</div>
+<div id="ref-mas_veritas" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2019年. <span>《Veritas Initiative》</span>. <a href="https://www.mas.gov.sg/schemes-and-initiatives/veritas">https://www.mas.gov.sg/schemes-and-initiatives/veritas</a>.
+</div>
+<div id="ref-mas_ai_risk_2025" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2025年. <span>《Consultation Paper on Guidelines on Artificial Intelligence Risk Management for Financial Institutions》</span>. <a href="https://www.mas.gov.sg/publications/consultations/2025/consultation-paper-on-guidelines-on-artificial-intelligence-risk-management">https://www.mas.gov.sg/publications/consultations/2025/consultation-paper-on-guidelines-on-artificial-intelligence-risk-management</a>.
+</div>
+<div id="ref-naic_au_2025_ai6" class="csl-entry" role="listitem">
+National AI Centre. 2025年. <span>《Guidance for AI Adoption: Foundations》</span>. <a href="https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf">https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf</a>.
+</div>
+<div id="ref-naic2023modelbulletin" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2023年. <span>《Model Bulletin: Use of Artificial Intelligence Systems by Insurers》</span>. <a href="https://content.naic.org/article/naic-members-approve-model-bulletin-use-ai-insurers">https://content.naic.org/article/naic-members-approve-model-bulletin-use-ai-insurers</a>.
+</div>
+<div id="ref-nyc_local_law_144_2021" class="csl-entry" role="listitem">
+New York City Council. 2021年. <em>Local Law 144 of 2021: Automated Employment Decision Tools</em>. <a href="https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/">https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/</a>.
+</div>
+<div id="ref-nydfs_circular7_2024" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024年. <span>《Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing》</span>. <a href="https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07">https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07</a>.
+</div>
+<div id="ref-peng2015art" class="csl-entry" role="listitem">
+Peng, Roger D, 和 Elizabeth Matsui. 2015年. <em>The Art of Data Science: A guide for anyone who works with Data</em>. Skybrude Consulting, LLC.
+</div>
+<div id="ref-singapore_mgf_2020" class="csl-entry" role="listitem">
+Personal Data Protection Commission Singapore and Infocomm Media Development Authority. 2020年. <span>《Model Artificial Intelligence Governance Framework (Second Edition)》</span>. <a href="https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework">https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework</a>.
+</div>
+<div id="ref-cbit2026airesponsibility" class="csl-entry" role="listitem">
+中国银行保险报. 2026年. <em>压实金融机构人工智能开发应用主体责任(Pressing Financial Institutions’ Principal Responsibility in AI Development and Application)</em>. 新浪财经转载,2026年6月23日. <a href="https://finance.sina.com.cn/roll/2026-06-23/doc-iniemmyf9488529.shtml">https://finance.sina.com.cn/roll/2026-06-23/doc-iniemmyf9488529.shtml</a>.
+</div>
+<div id="ref-china_consumer_protection_measures_2022" class="csl-entry" role="listitem">
+中国银行保险监督管理委员会. 2022年. <em>银行保险机构消费者权益保护管理办法,第二十七条(Measures for the Administration of Consumer Rights Protection by Banking and Insurance Institutions, Article 27)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1087524&amp;generaltype=0&amp;itemId=4098">https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1087524&amp;generaltype=0&amp;itemId=4098</a>.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+全国人民代表大会. 2021年. <em>中华人民共和国个人信息保护法(Personal Information Protection Law of the People’s Republic of China)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+<div id="ref-china_algo_recommendation_2022" class="csl-entry" role="listitem">
+国家互联网信息办公室. 2022年. <em>互联网信息服务算法推荐管理规定(Provisions on the Administration of Algorithmic Recommendation in Internet Information Services)</em>. <a href="https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm">https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm</a>.
+</div>
+<div id="ref-china_genai_interim_2023" class="csl-entry" role="listitem">
+国家互联网信息办公室. 2023年. <em>生成式人工智能服务管理暂行办法(Interim Measures for the Administration of Generative Artificial Intelligence Services)</em>. <a href="https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm">https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm</a>.
+</div>
+<div id="ref-china_ai_content_labeling_2025" class="csl-entry" role="listitem">
+国家互联网信息办公室、工业和信息化部、公安部、国家广播电视总局. 2025年. <em>人工智能生成合成内容标识办法(Measures for the Labelling of AI-Generated and Synthesised Content)</em>. <a href="https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm">https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm</a>.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+国家金融监督管理总局. 2026年. <em>关于银行业保险业人工智能安全开发应用的指导意见(金发[2026]8号)(Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors, Jin Fa [2026] No. 8)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1">https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+  if (isZh) return; /* Chinese pages don't show a toggle back to English */
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../index-ZH.html" class="pagination-link" aria-label="首页">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">首页</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
