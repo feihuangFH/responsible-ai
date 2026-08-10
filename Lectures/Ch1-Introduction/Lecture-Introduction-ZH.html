@@ -336,7 +336,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p>但 <code>vehicle engine size</code>(车辆发动机排量)和 <code>annual mileage</code>(年行驶里程)仍然保留在模型中,而这两者在训练数据中都与性别存在相关性。因此,这些变量可能成为性别的代理变量,这意味着仅仅移除性别变量本身,并不足以消除模型输出结果中与性别相关的差异。</p>
 </div>
 </div>
-<p>同样的结构在其他场景中反复出现。一个招聘模型移除了求职者性别、却保留了连续工作年限,便是一例。一个信贷模型移除了种族、却保留了邮编,则是另一例。</p>
+<p>同样的结构在不同行业中反复出现。美国一款被广泛使用的医疗算法,以预测医疗支出而非预测病情严重程度来分配额外的护理管理资源;由于黑人患者在同等病情需求下,历史上产生的医疗支出更低,该算法系统性地未能将他们转介至额外护理 <span class="citation" data-cites="obermeyer2019dissecting">(<a href="#ref-obermeyer2019dissecting" role="doc-biblioref">Obermeyer 等 2019年</a>)</span>。亚马逊在发现其内部招聘工具会惩罚简历中出现“women’s”(女性)一词的求职者后,弃用了该工具,这一模式是从过去十年中以男性为主的简历数据中学习而来 <span class="citation" data-cites="dastin2018amazon">(<a href="#ref-dastin2018amazon" role="doc-biblioref">Dastin 2018年</a>)</span>。Apple Card 的信用额度算法引发了纽约州的监管调查,起因是有客户反映女性获得的额度远低于财务状况相近甚至更优的丈夫,不过调查最终认定该算法并未违反公平信贷相关法律 <span class="citation" data-cites="nydfs2021applecard">(<a href="#ref-nydfs2021applecard" role="doc-biblioref">New York State Department of Financial Services 2021年</a>)</span>。在中国,电商与出行平台对老客户或回头客收取比新客户更高的价格(即“大数据杀熟”)的做法一度相当普遍,以至于2022年的《互联网信息服务算法推荐管理规定》明确将其列为禁止行为 <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">国家互联网信息办公室 2022年</a>)</span>。</p>
 <p><strong>由此产生的问题:</strong></p>
 <ul>
 <li>这个模型是否公平?依据哪一种公平性定义?</li>
@@ -949,6 +949,9 @@ Colorado General Assembly. 2021年. <em>Senate Bill 21-169: Protecting Consumers
 <div id="ref-cfpb_circular_2023_03" class="csl-entry" role="listitem">
 Consumer Financial Protection Bureau. 2023年. <span>《Consumer Financial Protection Circular 2023-03: Adverse Action Notification Requirements and Proper Use of the CFPB’s Sample Forms》</span>. <a href="https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper">https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper</a>.
 </div>
+<div id="ref-dastin2018amazon" class="csl-entry" role="listitem">
+Dastin, Jeffrey. 2018年. <em>Amazon scraps secret AI recruiting tool that showed bias against women</em>. Reuters. <a href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G">https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G</a>.
+</div>
 <div id="ref-australia_national_ai_plan_2025" class="csl-entry" role="listitem">
 Department of Industry, Science and Resources (Australia). 2025年. <span>《National AI Plan》</span>. <a href="https://www.industry.gov.au/publications/national-ai-plan/introduction">https://www.industry.gov.au/publications/national-ai-plan/introduction</a>.
 </div>
@@ -988,8 +991,14 @@ National Association of Insurance Commissioners. 2023年. <span>《Model Bulleti
 <div id="ref-nyc_local_law_144_2021" class="csl-entry" role="listitem">
 New York City Council. 2021年. <em>Local Law 144 of 2021: Automated Employment Decision Tools</em>. <a href="https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/">https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/</a>.
 </div>
+<div id="ref-nydfs2021applecard" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2021年. <em>Report on Apple Card Investigation</em>. <a href="https://www.dfs.ny.gov/system/files/documents/2021/03/rpt_202103_apple_card_investigation.pdf">https://www.dfs.ny.gov/system/files/documents/2021/03/rpt_202103_apple_card_investigation.pdf</a>.
+</div>
 <div id="ref-nydfs_circular7_2024" class="csl-entry" role="listitem">
 New York State Department of Financial Services. 2024年. <span>《Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing》</span>. <a href="https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07">https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07</a>.
+</div>
+<div id="ref-obermeyer2019dissecting" class="csl-entry" role="listitem">
+Obermeyer, Ziad, Brian Powers, Christine Vogeli, 和 Sendhil Mullainathan. 2019年. <span>《Dissecting racial bias in an algorithm used to manage the health of populations》</span>. <em>Science</em> 366 (6464): 447～53.
 </div>
 <div id="ref-peng2015art" class="csl-entry" role="listitem">
 Peng, Roger D, 和 Elizabeth Matsui. 2015年. <em>The Art of Data Science: A guide for anyone who works with Data</em>. Skybrude Consulting, LLC.
