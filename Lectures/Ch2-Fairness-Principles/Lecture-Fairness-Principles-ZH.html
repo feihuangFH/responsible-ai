@@ -491,7 +491,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p>在有意识公平这一条件中,<span class="math inline">x</span> 和 <span class="math inline">y</span> 是两个具体个体(特定的特征向量),而非本表其他位置所使用的总体层面随机变量 <span class="math inline">X_P</span> 和 <span class="math inline">X_{NP}</span>。<span class="math inline">\hat{Y}(x)</span> 和 <span class="math inline">\hat{Y}(y)</span> 是他们各自的预测结果分布,<span class="math inline">d(x, y)</span> 是一个针对具体任务而定的、衡量两个个体相似程度的指标,而 <span class="math inline">D</span> 则衡量二者预测结果之间的差距。该条件是说,依据 <span class="math inline">d</span> 判定为相似的两个个体,其预测结果之间的差距,不能超出这种相似性所允许的范围。</p>
-<p>无意识公平与有意识公平是算法公平性文献中的通用概念,适用于任何领域。CPV 则是同一思路的一种更具体的形式化表述,最初由 <span class="citation" data-cites="popesydnor2011">Pope 和 Sydnor (<a href="#ref-popesydnor2011" role="doc-biblioref">2011年</a>)</span> 针对统计画像这一更一般的问题提出,后由 <span class="citation" data-cites="lindholm2022discrimination">Lindholm 等 (<a href="#ref-lindholm2022discrimination" role="doc-biblioref">2022年</a>)</span> 改造并应用于保险定价,称为“无歧视定价”。</p>
+<p>无意识公平与有意识公平是算法公平性文献中的通用概念,适用于任何领域。CPV 针对的则是一个不同的问题:代理性歧视,即受保护属性本身虽未被纳入模型,但其他变量仍携带着该属性的影响。通过在评分时将模型预测结果对 <span class="math inline">X_P</span> 取平均,可以直接消除这一残余影响,而不是仅仅依赖 <span class="math inline">X_P</span> 未作为输入这一事实。该方法最初由 <span class="citation" data-cites="popesydnor2011">Pope 和 Sydnor (<a href="#ref-popesydnor2011" role="doc-biblioref">2011年</a>)</span> 针对统计画像这一更一般的问题提出,后由 <span class="citation" data-cites="lindholm2022discrimination">Lindholm 等 (<a href="#ref-lindholm2022discrimination" role="doc-biblioref">2022年</a>)</span> 改造并应用于保险定价,称为“无歧视定价”。</p>
 <p><strong>群体公平性</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -574,7 +574,7 @@ window.Quarto = {
 <p>记 <span class="math inline">p_g = \Pr(Y=1 \mid X_P=g)</span> 为群体 <span class="math inline">g</span> 的基准率,并考虑一个二元决策 <span class="math inline">\hat{Y} \in \{0,1\}</span>,其假阳性率为 <span class="math inline">\text{FPR}_g = \Pr(\hat{Y}=1 \mid Y=0, X_P=g)</span>,假阴性率为 <span class="math inline">\text{FNR}_g = \Pr(\hat{Y}=0 \mid Y=1, X_P=g)</span>。根据贝叶斯定理,阳性预测值,即被标记为高风险的人实际再犯的概率,也就是充分性所要求在各群体间保持相等的量,为</p>
 <p><span class="math display">\text{PPV}_g = \frac{p_g(1 - \text{FNR}_g)}{p_g(1-\text{FNR}_g) + (1-p_g)\,\text{FPR}_g}</span></p>
 <p>如果分离性成立,即各群体间 <span class="math inline">\text{FPR}_0 = \text{FPR}_1</span> 且 <span class="math inline">\text{FNR}_0 = \text{FNR}_1</span>,那么在 <span class="math inline">\text{FPR}</span> 与 <span class="math inline">\text{FNR}</span> 保持不变的情况下,<span class="math inline">\text{PPV}_g</span> 就仅是 <span class="math inline">p_g</span> 的函数。对于一个非完美的分类器而言,<span class="math inline">\text{PPV}_g</span> 会随 <span class="math inline">p_g</span> 的变化而变化,因此 <span class="math inline">\text{PPV}_0 = \text{PPV}_1</span>(充分性)只有在 <span class="math inline">p_0 = p_1</span> 时才可能成立。在 COMPAS 案例所依据的布劳沃德县数据中,两年内的再犯率黑人被告为51%,白人被告为39% <span class="citation" data-cites="chouldechova2017fair">(<a href="#ref-chouldechova2017fair" role="doc-biblioref">Chouldechova 2017年</a>)</span>,即 <span class="math inline">p_0 \neq p_1</span>,因此分离性与充分性无法同时成立,除非处于两种极端情形:分类器完全准确(<span class="math inline">\text{FPR}=\text{FNR}=0</span>),或分类器完全不利用数据。</p>
-<p><strong>数值示例。</strong> 取两个各有100人的群体,基准率取整数以便计算,其差距与COMPAS案例中的真实差距相近。两个群体的假阴性率均设为相同的10%,假阳性率均设为相同的20%,因此分离性严格成立。(这里刻意将两个比率设为不同的数值。它们在一般情况下并非互补关系,因此不应从它们相加的结果中读出任何特殊含义。)</p>
+<p><strong>数值示例。</strong> 取两个各有100人的群体,基准率取整数以便计算,其差距与COMPAS案例中的真实差距相近。两个群体的假阴性率均设为相同的10%,假阳性率均设为相同的20%,因此分离性严格成立。</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
