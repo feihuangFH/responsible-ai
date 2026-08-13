@@ -441,6 +441,7 @@ window.Quarto = {
 <li><em>可识别代理变量</em> 是表面中立、实为受保护属性替代物的变量(例如与种族相关的邮编,以及与照护者身份相关的简历空白期)</li>
 <li><em>不可识别代理变量</em> 是指那些不透明的模型,它们在没有任何单一明显替代变量的情况下,复现了受保护群体间的差异</li>
 </ul>
+<p><strong>代理性歧视</strong>特指上述可识别代理变量渠道背后的具体机制:一个表面中立的变量,既与某一受保护群体相关,又恰恰<em>因为</em>这种相关性而对结果具有预测力,而非出于某种独立、合法的理由 <span class="citation" data-cites="princeschwarcz2020proxy">(<a href="#ref-princeschwarcz2020proxy" role="doc-biblioref">Prince 和 Schwarcz 2020年</a>)</span>。间接歧视是更宽泛的法律概念,并不局限于这一种机制。它还涵盖上述不可识别代理变量渠道(不存在单一变量承载该效应的情形),以及系统仅仅因为其训练标签本身就带有历史歧视印记、从而复现过往歧视性决策的情形,如下文的医疗领域实例所示。</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -575,6 +576,51 @@ window.Quarto = {
 <p><span class="math display">\text{PPV}_g = \frac{p_g(1 - \text{FNR}_g)}{p_g(1-\text{FNR}_g) + (1-p_g)\,\text{FPR}_g}</span></p>
 <p>如果分离性成立,即各群体间 <span class="math inline">\text{FPR}_0 = \text{FPR}_1</span> 且 <span class="math inline">\text{FNR}_0 = \text{FNR}_1</span>,那么在 <span class="math inline">\text{FPR}</span> 与 <span class="math inline">\text{FNR}</span> 保持不变的情况下,<span class="math inline">\text{PPV}_g</span> 就仅是 <span class="math inline">p_g</span> 的函数。对于一个非完美的分类器而言,<span class="math inline">\text{PPV}_g</span> 会随 <span class="math inline">p_g</span> 的变化而变化,因此 <span class="math inline">\text{PPV}_0 = \text{PPV}_1</span>(充分性)只有在 <span class="math inline">p_0 = p_1</span> 时才可能成立。在 COMPAS 案例所依据的布劳沃德县数据中,两年内的再犯率黑人被告为51%,白人被告为39% <span class="citation" data-cites="chouldechova2017fair">(<a href="#ref-chouldechova2017fair" role="doc-biblioref">Chouldechova 2017年</a>)</span>,即 <span class="math inline">p_0 \neq p_1</span>,因此分离性与充分性无法同时成立,除非处于两种极端情形:分类器完全准确(<span class="math inline">\text{FPR}=\text{FNR}=0</span>),或分类器完全不利用数据。</p>
 <p><strong>数值示例。</strong> 取两个各有100人的群体,基准率取整数以便计算,其差距与COMPAS案例中的真实差距相近。两个群体的假阴性率均设为相同的10%,假阳性率均设为相同的20%,因此分离性严格成立。</p>
+<p><strong>群体A的混淆矩阵</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>预测为高风险(<span class="math inline">\hat{Y}=1</span>)</th>
+<th>预测为低风险(<span class="math inline">\hat{Y}=0</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实际再犯(<span class="math inline">Y=1</span>)</td>
+<td>TP = 27</td>
+<td>FN = 3</td>
+</tr>
+<tr class="even">
+<td>实际未再犯(<span class="math inline">Y=0</span>)</td>
+<td>FP = 14</td>
+<td>TN = 56</td>
+</tr>
+</tbody>
+</table>
+<p><strong>群体B的混淆矩阵</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>预测为高风险(<span class="math inline">\hat{Y}=1</span>)</th>
+<th>预测为低风险(<span class="math inline">\hat{Y}=0</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实际再犯(<span class="math inline">Y=1</span>)</td>
+<td>TP = 54</td>
+<td>FN = 6</td>
+</tr>
+<tr class="even">
+<td>实际未再犯(<span class="math inline">Y=0</span>)</td>
+<td>FP = 8</td>
+<td>TN = 32</td>
+</tr>
+</tbody>
+</table>
+<p>下表基于这四个数字,推导出各群体的标记比例、TPR/FPR以及PPV。</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -615,19 +661,24 @@ window.Quarto = {
 <td>62</td>
 </tr>
 <tr class="even">
+<td>标记比例<span class="math inline">_g</span>(人口统计学均等检验)</td>
+<td><span class="math inline">41\%</span></td>
+<td><span class="math inline">62\%</span></td>
+</tr>
+<tr class="odd">
 <td><span class="math inline">\text{TPR}_g,\ \text{FPR}_g</span>(分离性检验)</td>
 <td><span class="math inline">90\%,\ 20\%</span></td>
 <td><span class="math inline">90\%,\ 20\%</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><span class="math inline">\text{PPV}_g</span>(充分性检验)</td>
 <td><span class="math inline">27/41 \approx 66\%</span></td>
 <td><span class="math inline">54/62 \approx 87\%</span></td>
 </tr>
 </tbody>
 </table>
-<p>按构造,<span class="math inline">\text{TPR}_g</span> 与 <span class="math inline">\text{FPR}_g</span> 在两个群体间完全相同(这正是分离性),而 <span class="math inline">\text{PPV}_g</span> 却并不相等(这正是对充分性的违反)。</p>
-<p>即使两个群体的假阳性率与假阴性率完全相同,“高风险”标记中实际正确的比例仍从66%跃升至87%,原因仅仅在于群体B的基准率更高。若要强行让两个群体的PPV相等,则必须为它们设定不同的假阳性率与假阴性率,而这恰恰违反了分离性。</p>
+<p>标记比例本身在两个群体间相差悬殊(41% vs 62%,即人口统计学均等被违反),尽管按构造,<span class="math inline">\text{TPR}_g</span> 与 <span class="math inline">\text{FPR}_g</span> 在两个群体间完全相同(这正是分离性)。<span class="math inline">\text{PPV}_g</span> 也并不相等(这正是对充分性的违反)。</p>
+<p>即使两个群体的假阳性率与假阴性率完全相同,“高风险”标记中实际正确的比例仍从66%跃升至87%,原因仅仅在于群体B的基准率更高。若要让两个群体的标记比例相等(人口统计学均等)或让PPV相等(充分性),都必须为它们设定不同的假阳性率与假阴性率,而这恰恰违反了分离性。</p>
 <p>直观而言:如果一个工具在两个群体中给出“高风险”判断时同样可靠,但其中一个群体的再犯确实更为常见,那么该工具就必然会在该群体中标记出相对更多的高风险个体,其中也包括更多最终不会再犯的人。这体现为该群体更高的假阳性率,这是基准率差距所带来的数学结果,而非该工具预测不可靠的证据。</p>
 </div>
 </div>
@@ -777,6 +828,21 @@ window.Quarto = {
 </tbody>
 </table>
 <p>这些设计是在保险定价数据上被形式化并验证的 <span class="citation" data-cites="xin2024antidiscrimination lindholm2022discrimination">(<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin 和 Huang 2024年</a>; <a href="#ref-lindholm2022discrimination" role="doc-biblioref">Lindholm 等 2022年</a>)</span>,但每一种都对应着公平机器学习应用中普遍使用的一种通用模式:无意识、无条件去偏、条件去偏,以及事后平均。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="形式化定义(依据Xin与Huang, 2024)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>形式化定义(依据Xin与Huang, 2024)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>沿用 <span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024年</a>)</span> 中的记号:<span class="math inline">X_{NP}</span> 被划分为合法预测变量 <span class="math inline">X_{NP_{legit}}</span> 与非合法预测变量 <span class="math inline">X_{NP_{not}}</span>(用于MCDP),<span class="math inline">Y</span> 为响应变量(理赔频率、理赔金额或纯保费),<span class="math inline">\hat{Y}</span> 为预测值。</p>
+<p><span class="math display">\hat{Y}_{M0} = f_{M0}(X_{NP}, X_P)</span> <span class="math display">\hat{Y}_{MU} = f_{MU}(X_{NP})</span> <span class="math display">\hat{Y}_{MDP} = f_{MDP}(X_{NP}^*)</span> <span class="math display">\hat{Y}_{MCDP} = f_{MCDP}(X_{NP_{not}}^*,\, X_{NP_{legit}})</span> <span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP},\, X_P = x_{P_j})</span></p>
+<p><span class="math inline">X_{NP}^*</span> 是 <span class="math inline">X_{NP}</span> 去除与 <span class="math inline">X_P</span> 相关性后的去偏版本(而 <span class="math inline">X_{NP_{not}}^*</span> 仅对非合法子集应用相同的去偏处理),这正是本节其他地方所用记号 <span class="math inline">\tilde{X}_{NP}</span> 与 <span class="math inline">\tilde{X}_{NL}</span> 所指的量。一种构造方法是正交预测变量法:将 <span class="math inline">X_{NP}</span> 对 <span class="math inline">X_P</span> 回归,取其残差,<span class="math inline">X_{NP}^* = X_{NP} - \hat{X}_{NP}</span>,该方法由 <span class="citation" data-cites="frees2023discriminating">Frees 和 Huang (<a href="#ref-frees2023discriminating" role="doc-biblioref">2023年</a>)</span> 首先提出并应用于保险定价。<span class="math inline">M0</span>、<span class="math inline">MDP</span> 与 <span class="math inline">MCDP</span> 在训练与预测阶段都需要用到 <span class="math inline">X_P</span>;而 <span class="math inline">MC</span> 仅在训练阶段需要 <span class="math inline">X_P</span>,因为在预测阶段,<span class="math inline">x_{P_j}</span> 取遍的是总体中受保护属性的各个取值,而非投保人本人的实际取值。</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled" title="满足公平性准则的三种方式">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1059,6 +1125,9 @@ Obermeyer, Ziad, Brian Powers, Christine Vogeli, 和 Sendhil Mullainathan. 2019�
 </div>
 <div id="ref-popesydnor2011" class="csl-entry" role="listitem">
 Pope, Devin G, 和 Justin R Sydnor. 2011年. <span>《Implementing anti-discrimination policies in statistical profiling models》</span>. <em>American Economic Journal: Economic Policy</em> 3 (3): 206～31.
+</div>
+<div id="ref-princeschwarcz2020proxy" class="csl-entry" role="listitem">
+Prince, Anya E. R., 和 Daniel Schwarcz. 2020年. <span>《Proxy discrimination in the age of artificial intelligence and big data》</span>. <em>Iowa Law Review</em> 105 (3): 1257～318.
 </div>
 <div id="ref-rodolfa2021negligible" class="csl-entry" role="listitem">
 Rodolfa, Kit T, Hemank Lamba, 和 Rayid Ghani. 2021年. <span>《Empirical observation of negligible fairness-accuracy trade-offs in machine learning for public policy》</span>. <em>Nature Machine Intelligence</em> 3: 896～904.
