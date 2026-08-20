@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="黄斐,新南威尔士大学">
+
+<title>可解释性原则 – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html" rel="next">
+<link href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles-ZH.html">第四章:可解释性原则</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">负责任人工智能</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">首页</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第一章:导论</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第二章:公平性原则</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第三章:公平性实践</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles-ZH.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第四章:可解释性原则</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第五章:可解释性实践</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第六章:隐私原则</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第七章:隐私实践</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第八章:权衡取舍、整合与治理</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标">学习目标</a></li>
+  <li><a href="#什么是可解释性" id="toc-什么是可解释性" class="nav-link" data-scroll-target="#什么是可解释性">什么是可解释性?</a>
+  <ul class="collapse">
+  <li><a href="#核心定义" id="toc-核心定义" class="nav-link" data-scroll-target="#核心定义">核心定义</a></li>
+  <li><a href="#为什么可解释性很重要" id="toc-为什么可解释性很重要" class="nav-link" data-scroll-target="#为什么可解释性很重要">为什么可解释性很重要?</a></li>
+  <li><a href="#何时不需要可解释性" id="toc-何时不需要可解释性" class="nav-link" data-scroll-target="#何时不需要可解释性">何时<strong>不需要</strong>可解释性?</a></li>
+  <li><a href="#各领域中对解释的诉求" id="toc-各领域中对解释的诉求" class="nav-link" data-scroll-target="#各领域中对解释的诉求">各领域中对解释的诉求</a></li>
+  </ul></li>
+  <li><a href="#可解释性的目标" id="toc-可解释性的目标" class="nav-link" data-scroll-target="#可解释性的目标">可解释性的目标</a>
+  <ul class="collapse">
+  <li><a href="#可解释性的三大目标" id="toc-可解释性的三大目标" class="nav-link" data-scroll-target="#可解释性的三大目标">可解释性的三大目标</a></li>
+  <li><a href="#优质解释的特征" id="toc-优质解释的特征" class="nav-link" data-scroll-target="#优质解释的特征">优质解释的特征</a></li>
+  </ul></li>
+  <li><a href="#利益相关方" id="toc-利益相关方" class="nav-link" data-scroll-target="#利益相关方">利益相关方</a>
+  <ul class="collapse">
+  <li><a href="#谁需要解释" id="toc-谁需要解释" class="nav-link" data-scroll-target="#谁需要解释">谁需要解释?</a></li>
+  <li><a href="#将利益相关方与解释类型对应起来" id="toc-将利益相关方与解释类型对应起来" class="nav-link" data-scroll-target="#将利益相关方与解释类型对应起来">将利益相关方与解释类型对应起来</a></li>
+  </ul></li>
+  <li><a href="#方法分类体系" id="toc-方法分类体系" class="nav-link" data-scroll-target="#方法分类体系">方法分类体系</a>
+  <ul class="collapse">
+  <li><a href="#两大主要类别" id="toc-两大主要类别" class="nav-link" data-scroll-target="#两大主要类别">两大主要类别</a></li>
+  <li><a href="#维度一内生式-vs-事后式" id="toc-维度一内生式-vs-事后式" class="nav-link" data-scroll-target="#维度一内生式-vs-事后式">维度一:内生式 vs 事后式</a></li>
+  <li><a href="#维度二模型无关-vs-模型特定" id="toc-维度二模型无关-vs-模型特定" class="nav-link" data-scroll-target="#维度二模型无关-vs-模型特定">维度二:模型无关 vs 模型特定</a></li>
+  <li><a href="#维度三全局-vs-局部" id="toc-维度三全局-vs-局部" class="nav-link" data-scroll-target="#维度三全局-vs-局部">维度三:全局 vs 局部</a></li>
+  <li><a href="#分类体系小结" id="toc-分类体系小结" class="nav-link" data-scroll-target="#分类体系小结">分类体系小结</a></li>
+  </ul></li>
+  <li><a href="#可解释模型" id="toc-可解释模型" class="nav-link" data-scroll-target="#可解释模型">可解释模型</a>
+  <ul class="collapse">
+  <li><a href="#广义线性模型" id="toc-广义线性模型" class="nav-link" data-scroll-target="#广义线性模型">广义线性模型</a></li>
+  <li><a href="#决策树" id="toc-决策树" class="nav-link" data-scroll-target="#决策树">决策树</a></li>
+  <li><a href="#gam对-glm-的扩展" id="toc-gam对-glm-的扩展" class="nav-link" data-scroll-target="#gam对-glm-的扩展">GAM:对 GLM 的扩展</a></li>
+  </ul></li>
+  <li><a href="#可解释性的局限" id="toc-可解释性的局限" class="nav-link" data-scroll-target="#可解释性的局限">可解释性的局限</a>
+  <ul class="collapse">
+  <li><a href="#准确性可解释性权衡取舍" id="toc-准确性可解释性权衡取舍" class="nav-link" data-scroll-target="#准确性可解释性权衡取舍">准确性—可解释性权衡取舍</a></li>
+  <li><a href="#解释中的人为因素" id="toc-解释中的人为因素" class="nav-link" data-scroll-target="#解释中的人为因素">解释中的人为因素</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结">小结</a></li>
+  </ul></li>
+  <li><a href="#事后可解释性方法" id="toc-事后可解释性方法" class="nav-link" data-scroll-target="#事后可解释性方法">事后可解释性方法</a>
+  <ul class="collapse">
+  <li><a href="#概览" id="toc-概览" class="nav-link" data-scroll-target="#概览">概览</a></li>
+  </ul></li>
+  <li><a href="#置换特征重要性" id="toc-置换特征重要性" class="nav-link" data-scroll-target="#置换特征重要性">置换特征重要性</a>
+  <ul class="collapse">
+  <li><a href="#破坏一个特征观察损害程度" id="toc-破坏一个特征观察损害程度" class="nav-link" data-scroll-target="#破坏一个特征观察损害程度">破坏一个特征,观察损害程度</a></li>
+  <li><a href="#具体计算方式" id="toc-具体计算方式" class="nav-link" data-scroll-target="#具体计算方式">具体计算方式</a></li>
+  <li><a href="#它能告诉你什么又在哪里会失灵" id="toc-它能告诉你什么又在哪里会失灵" class="nav-link" data-scroll-target="#它能告诉你什么又在哪里会失灵">它能告诉你什么,又在哪里会失灵</a></li>
+  <li><a href="#解读-pfi-排序" id="toc-解读-pfi-排序" class="nav-link" data-scroll-target="#解读-pfi-排序">解读 PFI 排序</a></li>
+  </ul></li>
+  <li><a href="#部分依赖图" id="toc-部分依赖图" class="nav-link" data-scroll-target="#部分依赖图">部分依赖图</a>
+  <ul class="collapse">
+  <li><a href="#对除一个特征之外的一切取平均" id="toc-对除一个特征之外的一切取平均" class="nav-link" data-scroll-target="#对除一个特征之外的一切取平均">对除一个特征之外的一切取平均</a></li>
+  <li><a href="#公式" id="toc-公式" class="nav-link" data-scroll-target="#公式">公式</a></li>
+  <li><a href="#这条曲线告诉你什么" id="toc-这条曲线告诉你什么" class="nav-link" data-scroll-target="#这条曲线告诉你什么">这条曲线告诉你什么</a></li>
+  <li><a href="#取平均在哪里会误导你" id="toc-取平均在哪里会误导你" class="nav-link" data-scroll-target="#取平均在哪里会误导你">取平均在哪里会误导你</a></li>
+  <li><a href="#在实践中解读-pdp" id="toc-在实践中解读-pdp" class="nav-link" data-scroll-target="#在实践中解读-pdp">在实践中解读 PDP</a></li>
+  </ul></li>
+  <li><a href="#shap" id="toc-shap" class="nav-link" data-scroll-target="#shap">SHAP</a>
+  <ul class="collapse">
+  <li><a href="#为一次预测分摊功劳" id="toc-为一次预测分摊功劳" class="nav-link" data-scroll-target="#为一次预测分摊功劳">为一次预测分摊功劳</a></li>
+  <li><a href="#为何偏偏是-shapley-值" id="toc-为何偏偏是-shapley-值" class="nav-link" data-scroll-target="#为何偏偏是-shapley-值">为何偏偏是 Shapley 值</a></li>
+  <li><a href="#两种计算方式" id="toc-两种计算方式" class="nav-link" data-scroll-target="#两种计算方式">两种计算方式</a></li>
+  <li><a href="#解读-shap-的输出" id="toc-解读-shap-的输出" class="nav-link" data-scroll-target="#解读-shap-的输出">解读 SHAP 的输出</a></li>
+  <li><a href="#shap-带来了什么又带不来什么" id="toc-shap-带来了什么又带不来什么" class="nav-link" data-scroll-target="#shap-带来了什么又带不来什么">SHAP 带来了什么,又带不来什么</a></li>
+  </ul></li>
+  <li><a href="#lime" id="toc-lime" class="nav-link" data-scroll-target="#lime">LIME</a>
+  <ul class="collapse">
+  <li><a href="#放大局部直到模型看起来简单" id="toc-放大局部直到模型看起来简单" class="nav-link" data-scroll-target="#放大局部直到模型看起来简单">放大局部,直到模型看起来简单</a></li>
+  <li><a href="#构建局部模型" id="toc-构建局部模型" class="nav-link" data-scroll-target="#构建局部模型">构建局部模型</a></li>
+  <li><a href="#一种快速却基础脆弱的解释" id="toc-一种快速却基础脆弱的解释" class="nav-link" data-scroll-target="#一种快速却基础脆弱的解释">一种快速却基础脆弱的解释</a></li>
+  <li><a href="#如何在-shap-与-lime-之间取舍" id="toc-如何在-shap-与-lime-之间取舍" class="nav-link" data-scroll-target="#如何在-shap-与-lime-之间取舍">如何在 SHAP 与 LIME 之间取舍</a></li>
+  </ul></li>
+  <li><a href="#验证与沟通" id="toc-验证与沟通" class="nav-link" data-scroll-target="#验证与沟通">验证与沟通</a>
+  <ul class="collapse">
+  <li><a href="#解释是否忠实" id="toc-解释是否忠实" class="nav-link" data-scroll-target="#解释是否忠实">解释是否忠实?</a></li>
+  <li><a href="#依受众沟通解释" id="toc-依受众沟通解释" class="nav-link" data-scroll-target="#依受众沟通解释">依受众沟通解释</a></li>
+  <li><a href="#实践中常见的陷阱" id="toc-实践中常见的陷阱" class="nav-link" data-scroll-target="#实践中常见的陷阱">实践中常见的陷阱</a></li>
+  <li><a href="#监管期望" id="toc-监管期望" class="nav-link" data-scroll-target="#监管期望">监管期望</a></li>
+  <li><a href="#大语言模型的可解释性" id="toc-大语言模型的可解释性" class="nav-link" data-scroll-target="#大语言模型的可解释性">大语言模型的可解释性</a></li>
+  <li><a href="#小结-1" id="toc-小结-1" class="nav-link" data-scroll-target="#小结-1">小结</a></li>
+  <li><a href="#推荐阅读" id="toc-推荐阅读" class="nav-link" data-scroll-target="#推荐阅读">推荐阅读</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">可解释性原则</h1>
+<p class="subtitle lead">负责任人工智能:原则、治理与量化方法</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>黄斐,新南威尔士大学 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="学习目标" class="level3">
+<h3 class="anchored" data-anchor-id="学习目标">学习目标</h3>
+<ul>
+<li>界定可解释性,并认识到可理解性与透明度是与之密切相关、在实践中常常可以互换使用的术语。</li>
+<li>说明为什么可解释性在信贷、招聘、医疗和保险等高风险领域中至关重要。</li>
+<li>将利益相关方的需求与不同类型的解释对应起来。</li>
+<li>依据关键的分类维度,对各种可解释性方法加以归类。</li>
+</ul>
+</section>
+<section id="什么是可解释性" class="level2">
+<h2 class="anchored" data-anchor-id="什么是可解释性">什么是可解释性?</h2>
+<p>2013年至2019年间,荷兰税务机关使用一套自学习算法,对托儿补贴申请进行欺诈高风险标记。该系统将双重国籍作为风险因子之一,而双重国籍正是族裔的一种代理变量,由此错误标记了约26,000个家庭,其中具有移民背景的家庭占比尤高,这些家庭随后被要求偿还数万欧元本不欠付的款项。受影响的家庭无法获得关于自己为何被标记的有意义说明,负责复核个案的监督机构同样无法真正审视该算法的推理过程,由此造成的经济破产更导致一千多名儿童被迫离开家庭。这一丑闻在荷兰被称为”托育补贴丑闻”(<em>toeslagenaffaire</em>),并于2021年1月导致荷兰政府倒台 <span class="citation" data-cites="amnesty2021xenophobic">(<a href="#ref-amnesty2021xenophobic" role="doc-biblioref">Amnesty International 2021年</a>)</span>。</p>
+<p>没有任何一名官员单独决定要这样做。在”算法标记了这个家庭”与”孩子被带走”之间的某个环节,没有一个家庭、个案工作者或法院能够获得关于<em>原因</em>的清晰、可核查的说明。模型产生输出、与人类能够理解并对其提出异议之间的这一鸿沟,正是本章要讨论的主题。</p>
+<section id="核心定义" class="level3">
+<h3 class="anchored" data-anchor-id="核心定义">核心定义</h3>
+<p><strong>可解释性</strong> 将模型的内部逻辑转化为特定受众、出于特定目的能够理解的形式。一个模型的可解释程度,取决于一个人能够在多大程度上理解其决策的成因 <span class="citation" data-cites="biran2017explanation">(<a href="#ref-biran2017explanation" role="doc-biblioref">Biran 和 Cotton 2017年</a>)</span>,或者更具操作性地说,取决于用户能够在多大程度上正确而高效地预测该模型将会做出什么 <span class="citation" data-cites="kim2016examples">(<a href="#ref-kim2016examples" role="doc-biblioref">Kim 等 2016年</a>)</span>。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>文献中经常出现两个与之密切相关的术语,本课程也不会严格区分它们之间的边界。<strong>可理解性</strong> 常常被用来指代同一个基本概念。<strong>透明度</strong> 有时更具体地指直接理解模型的内部结构,而非在不揭示模型内部实际计算过程的情况下、对已训练完成的模型所作的<em>事后</em>解释 <span class="citation" data-cites="lipton2018mythos">(<a href="#ref-lipton2018mythos" role="doc-biblioref">Lipton 2018年</a>)</span>。<span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019年</a>)</span> 指出,围绕这些术语的争论本身,已经偏离了解决实际问题的需要。每种情况下真正重要的问题是:<strong>为了谁</strong>、<strong>关于什么</strong>,以及<strong>出于什么目的</strong>?</p>
+</div>
+</div>
+</section>
+<section id="为什么可解释性很重要" class="level3">
+<h3 class="anchored" data-anchor-id="为什么可解释性很重要">为什么可解释性很重要?</h3>
+<p>一个模型即使高度准确,如果没有人能解释它在做什么,它仍然可能成为一种负担。推动可解释性的理由有好几个不同的方面,而且这些理由并不总是指向同一个方向 <span class="citation" data-cites="doshi2017towards molnar2025iml">(<a href="#ref-doshi2017towards" role="doc-biblioref">Doshi-Velez 和 Kim 2017年</a>; <a href="#ref-molnar2025iml" role="doc-biblioref">Molnar 2025年</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>原因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>人类学习</strong></td>
+<td>当结果出乎意料时,人们需要解释来更新自己的心智模型</td>
+</tr>
+<tr class="even">
+<td><strong>安全性与测试</strong></td>
+<td>高风险应用需要确信模型行为正确</td>
+</tr>
+<tr class="odd">
+<td><strong>偏见检测</strong></td>
+<td>可解释性是发现歧视性模式的一种调试工具</td>
+</tr>
+<tr class="even">
+<td><strong>社会接受度</strong></td>
+<td>透明的系统能获得用户更大的信任与正当性认可</td>
+</tr>
+<tr class="odd">
+<td><strong>审计</strong></td>
+<td>只有当决策过程可见时,模型才能被恰当地评估</td>
+</tr>
+<tr class="even">
+<td><strong>解释权</strong></td>
+<td>监管要求(GDPR、ASIC、EU AI Act)规定,自动化决策必须附带解释</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="何时不需要可解释性" class="level3">
+<h3 class="anchored" data-anchor-id="何时不需要可解释性">何时<strong>不需要</strong>可解释性?</h3>
+<p>可解释性并非没有代价,它可能耗费准确性、工程时间,有时还涉及安全性。在以下情形下,追求可解释性的理由会相应减弱 <span class="citation" data-cites="doshi2017towards molnar2025iml">(<a href="#ref-doshi2017towards" role="doc-biblioref">Doshi-Velez 和 Kim 2017年</a>; <a href="#ref-molnar2025iml" role="doc-biblioref">Molnar 2025年</a>)</span>:</p>
+<ul>
+<li>该应用<strong>风险很低</strong>,出错也不会造成重大后果</li>
+<li>该方法<strong>已确立且经过充分测试</strong>(例如标准精算表、经过验证的临床评分规则)</li>
+<li>透明度反而会带来<strong>博弈或操纵空间</strong>(例如欺诈评分系统)</li>
+</ul>
+<p>但本课程所涉及的大多数重大决策领域(信贷、招聘、医疗、刑事司法、保险)默认就涉及高风险决策和监管审查。可解释性通常是被期待具备的。</p>
+</section>
+<section id="各领域中对解释的诉求" class="level3">
+<h3 class="anchored" data-anchor-id="各领域中对解释的诉求">各领域中对解释的诉求</h3>
+<p>监管机构、决策对象和内部审查人员,各自都提出了对可解释性的具体诉求:</p>
+<ul>
+<li><strong>监管机构</strong> 期望模型有据可查、有理可循、可供审计</li>
+<li><strong>决策对象</strong> 有权了解自己为什么被拒绝、被筛除,或被收取某一特定价格</li>
+<li><strong>签字批准模型使用的从业人员</strong> 需要核实输出结果是否符合预期</li>
+<li><strong>董事会与高级管理层</strong> 需要理解模型风险</li>
+</ul>
+<p>一个黑箱式的 XGBoost 模型(一种通过组合大量决策树、即“梯度提升”技术构建而成的高准确率模型),在预测准确性上可能优于一个更简单的模型,但却更难以记录、更难以向受影响的个人解释,也更难以就公平性进行审计。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险——监管要求">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险——监管要求
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>精算与保险监管场景生动地体现了这一点。审慎监管机构和市场行为监管机构(如 APRA、ASIC、美国各州保险管理部门)期望定价与承保模型经过备案并有理可循。保单持有人(持有保险合同的客户)有权了解自己为什么被收取某一特定保费(为获得保障所支付的价格),或为什么理赔(在遭受损失后要求保险公司赔付的请求)被拒绝。为模型签字批准的精算师,必须核实其输出结果是否符合预期。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="可解释性的目标" class="level2">
+<h2 class="anchored" data-anchor-id="可解释性的目标">可解释性的目标</h2>
+<section id="可解释性的三大目标" class="level3">
+<h3 class="anchored" data-anchor-id="可解释性的三大目标">可解释性的三大目标</h3>
+<p>可解释性服务于几个截然不同的目的,而不仅仅是一个 <span class="citation" data-cites="rudin2022interpretable">(<a href="#ref-rudin2022interpretable" role="doc-biblioref">Rudin 等 2022年</a>)</span>:</p>
+<p><strong>1. 改进模型</strong></p>
+<p>可解释性有助于识别模型何时学到了非预期的模式。一个模型可能在测试集上具有很高的准确率,却依赖于非因果性的特征,例如利用照片背景中的雪景来区分狼和狗。在保险中,这可能意味着模型在未被察觉的情况下,使用了某个受保护属性(模型不应依赖的、受法律保护的个人特征,如种族或性别)的代理变量(一个间接代表另一变量的特征)。</p>
+<p><strong>2. 证成预测结果</strong></p>
+<p>不同的利益相关方需要不同的解释。决策者需要依据领域知识核实预测结果。客户需要理解并有能力质疑决策。监管机构需要核实合规性。</p>
+<p><strong>3. 发现洞见</strong></p>
+<p>除了预测本身之外,可解释性还揭示了输入与输出之间的关系,这对产品设计、定价策略和科学理解都很有价值。</p>
+</section>
+<section id="优质解释的特征" class="level3">
+<h3 class="anchored" data-anchor-id="优质解释的特征">优质解释的特征</h3>
+<p>关于人们究竟如何理解解释的研究,而不仅仅是什么在技术上是正确的,揭示了使解释真正有效的因素 <span class="citation" data-cites="miller2019explanation">(<a href="#ref-miller2019explanation" role="doc-biblioref">Miller 2019年</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>原则</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>对照性</strong></td>
+<td>“为什么是这个预测结果,而非另一个?”比完整的因果链更有用</td>
+</tr>
+<tr class="even">
+<td><strong>选择性</strong></td>
+<td>即便存在众多影响因素,人们也只会接受1至2条关键理由</td>
+</tr>
+<tr class="odd">
+<td><strong>社会性</strong></td>
+<td>解释因受众而异——客户所需的解释不同于精算师所需的解释</td>
+</tr>
+<tr class="even">
+<td><strong>聚焦异常</strong></td>
+<td>罕见或出乎意料的特征,比常见特征提供更有力的解释</td>
+</tr>
+<tr class="odd">
+<td><strong>与既有信念一致</strong></td>
+<td>与先验知识相符的解释更具说服力(但需警惕确认偏误)</td>
+</tr>
+<tr class="even">
+<td><strong>忠实性</strong></td>
+<td>解释应当真实反映模型的实际行为,而不仅仅是听起来合理</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="利益相关方" class="level2">
+<h2 class="anchored" data-anchor-id="利益相关方">利益相关方</h2>
+<section id="谁需要解释" class="level3">
+<h3 class="anchored" data-anchor-id="谁需要解释">谁需要解释?</h3>
+<p>整理利益相关方需求的一种有效方式,是按照其在模型中所扮演的<em>角色</em>来划分,因为同一个人在面对不同系统时,可能扮演不同的角色 <span class="citation" data-cites="tomsett2018interpretable">(<a href="#ref-tomsett2018interpretable" role="doc-biblioref">Tomsett 等 2018年</a>)</span>。以下六种角色在各个领域中反复出现:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 68%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>利益相关方</th>
+<th>需求</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>模型创建者</strong>(数据科学家)</td>
+<td>调试、特征工程、模型选择</td>
+</tr>
+<tr class="even">
+<td><strong>运营方</strong>(如保险公司、银行、医院、雇主)</td>
+<td>合规、治理、签字审批</td>
+</tr>
+<tr class="odd">
+<td><strong>执行者</strong>(如核保人员、信贷员、临床医生、招聘经理)</td>
+<td>在据以采取行动前核实模型输出</td>
+</tr>
+<tr class="even">
+<td><strong>决策对象</strong>(如保单持有人、申请人、患者)</td>
+<td>理解结果或决策为何有所不同</td>
+</tr>
+<tr class="odd">
+<td><strong>审计人员</strong>(监管机构、内部审计)</td>
+<td>验证公平性、准确性、合规性</td>
+</tr>
+<tr class="even">
+<td><strong>数据主体</strong></td>
+<td>质疑自动化决策(GDPR 解释权)</td>
+</tr>
+</tbody>
+</table>
+<p>不同的利益相关方需要不同类型的解释,例如局部解释与全局解释之分,或技术性语言与通俗语言之分。</p>
+</section>
+<section id="将利益相关方与解释类型对应起来" class="level3">
+<h3 class="anchored" data-anchor-id="将利益相关方与解释类型对应起来">将利益相关方与解释类型对应起来</h3>
+<p>具体而言,利益相关方与解释类型之间的对应关系在每个领域中的具体表现各不相同,但其结构是相同的。先确定所提出的问题,再匹配解释的范围(全局还是局部)和受众(技术性还是通俗语言)。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险——利益相关方对应关系">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险——利益相关方对应关系
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 31%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>利益相关方</th>
+<th>典型问题</th>
+<th>所需解释类型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>签字审批的精算师</td>
+<td>模型在各定价因子(用于设定价格的输入变量,如年龄或所在地)上的表现是否合理?</td>
+<td>全局,特征效应</td>
+</tr>
+<tr class="even">
+<td>核保人员</td>
+<td>为什么这位申请人的保费高于预期?</td>
+<td>局部,个体预测</td>
+</tr>
+<tr class="odd">
+<td>客户</td>
+<td>为什么我今年的保费上涨了?</td>
+<td>局部,对照性,通俗语言</td>
+</tr>
+<tr class="even">
+<td>监管机构/审计人员</td>
+<td>该模型对受保护群体的对待是否公平?</td>
+<td>全局,群体层面,附带统计检验</td>
+</tr>
+<tr class="odd">
+<td>董事会/管理层</td>
+<td>今年理赔成本的主要驱动因素是什么?</td>
+<td>全局,特征重要性</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>同样的对应关系在其他场景中也反复出现。一位信贷员若要询问某申请人为何被拒,需要的是局部解释;而一位监管者若要审计某招聘筛选工具是否存在差异性影响(一项看似中立的政策,最终对某一群体造成的损害大于另一群体),则需要的是全局的、群体层面的解释。</p>
+</section>
+</section>
+<section id="方法分类体系" class="level2">
+<h2 class="anchored" data-anchor-id="方法分类体系">方法分类体系</h2>
+<section id="两大主要类别" class="level3">
+<h3 class="anchored" data-anchor-id="两大主要类别">两大主要类别</h3>
+<p><strong>设计内生的可解释性</strong>:训练本身即具有内在可解释性的模型。</p>
+<ul>
+<li>线性回归与逻辑回归</li>
+<li>广义线性模型(GLM,一种将预测结果表示为输入特征加权和的模型)与广义可加模型(GAM,一种更灵活的版本,允许曲线而非直线形式的效应)</li>
+<li>决策树(通过一系列分支式是/否问题对数据进行划分的模型)与决策规则</li>
+<li>RuleFit(一种将决策规则与线性模型相结合的模型)<span class="citation" data-cites="friedman2008predictive">(<a href="#ref-friedman2008predictive" role="doc-biblioref">Friedman 和 Popescu 2008年</a>)</span></li>
+</ul>
+<p><strong>事后可解释性</strong>:在模型训练完成后应用某种方法,对一个既有的(可能是黑箱式的)模型加以解释。</p>
+<p>在这两者之间的选择,是一项在建模<em>之前</em>就做出的根本性设计决策,而非事后的补救措施。</p>
+</section>
+<section id="维度一内生式-vs-事后式" class="level3">
+<h3 class="anchored" data-anchor-id="维度一内生式-vs-事后式">维度一:内生式 vs 事后式</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>内生式(设计内生)</th>
+<th>事后式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>方式</strong></td>
+<td>模型结构本身即可解释</td>
+<td>训练完成后再应用解释方法</td>
+</tr>
+<tr class="even">
+<td><strong>例子</strong></td>
+<td>GLM、决策树、GAM</td>
+<td>SHAP、PDP、LIME</td>
+</tr>
+<tr class="odd">
+<td><strong>优势</strong></td>
+<td>解释是精确的</td>
+<td>适用于任何模型</td>
+</tr>
+<tr class="even">
+<td><strong>局限</strong></td>
+<td>可能牺牲预测能力</td>
+<td>属于近似,可能不够忠实</td>
+</tr>
+</tbody>
+</table>
+<p>在受监管的评分场景中(保险定价、信用评分),GLM 是标准做法,因为它们本身就具有内在可解释性,且易于记录存档。机器学习模型则需要事后解释。</p>
+</section>
+<section id="维度二模型无关-vs-模型特定" class="level3">
+<h3 class="anchored" data-anchor-id="维度二模型无关-vs-模型特定">维度二:模型无关 vs 模型特定</h3>
+<p><strong>模型无关</strong>:适用于任何模型。将模型视为黑箱,只通过查询获取预测结果。</p>
+<ul>
+<li>采用 <strong>SIPA</strong> 原则:抽样数据(Sample) → 施加干预(Perform an intervention) → 获取预测(get Predictions) → 汇总(Aggregate) <span class="citation" data-cites="molnar2025iml">(<a href="#ref-molnar2025iml" role="doc-biblioref">Molnar 2025年</a>)</span></li>
+<li>例子:SHAP(KernelSHAP)、LIME、PDP、置换特征重要性</li>
+</ul>
+<p><strong>模型特定</strong>:专为某一特定模型类别设计。</p>
+<ul>
+<li>例子:GLM 系数、决策树路径、TreeSHAP(用于树模型)、显著性图(用于神经网络)</li>
+<li>速度更快、通常也更准确,但与特定模型架构绑定</li>
+</ul>
+</section>
+<section id="维度三全局-vs-局部" class="level3">
+<h3 class="anchored" data-anchor-id="维度三全局-vs-局部">维度三:全局 vs 局部</h3>
+<p><strong>全局</strong>:描述模型在整个数据集上的平均行为。</p>
+<ul>
+<li>“这个模型总体上依赖哪些特征?”</li>
+<li>例子:置换特征重要性、PDP、ALE、代理模型(训练出的简单模型,用以近似一个复杂模型)</li>
+</ul>
+<p><strong>局部</strong>:解释针对某一个体的单次预测。</p>
+<ul>
+<li>“为什么这位申请人得到了这个特定的保费?”</li>
+<li>例子:某一观测值的 SHAP 值、LIME、反事实解释(诸如“如果这项输入不同,结果本会有所不同”这样的陈述)</li>
+</ul>
+<p>实践中二者都需要。全局方法支持审计与治理。局部方法支持面向客户的解释和可申诉性。</p>
+</section>
+<section id="分类体系小结" class="level3">
+<h3 class="anchored" data-anchor-id="分类体系小结">分类体系小结</h3>
+<p>这三个维度是<strong>相互独立的坐标轴</strong>,而非层层嵌套的层级结构。一种方法在某一维度上的位置,并不决定它在其他维度上的位置。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 27%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>取值</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>来源</strong></td>
+<td>内生式 vs 事后式</td>
+<td>GLM 系数、决策树路径 = 内生式;KernelSHAP、TreeSHAP、PDP、LIME = 事后式</td>
+</tr>
+<tr class="even">
+<td><strong>适用范围</strong></td>
+<td>模型无关 vs 模型特定</td>
+<td>KernelSHAP、PDP、PFI、LIME = 模型无关;GLM 系数、决策树路径、TreeSHAP = 模型特定</td>
+</tr>
+<tr class="odd">
+<td><strong>范围</strong></td>
+<td>全局 vs 局部</td>
+<td>平均绝对 SHAP 值(汇总后)、PFI、PDP = 全局;单一观测值的 SHAP 值、LIME = 局部</td>
+</tr>
+</tbody>
+</table>
+<p>任意组合都是可能的,例如:</p>
+<ul>
+<li>GLM 系数与决策树路径:<strong>内生式 + 模型特定</strong></li>
+<li>KernelSHAP:<strong>事后式 + 模型无关</strong></li>
+<li>TreeSHAP:<strong>事后式 + 模型特定</strong></li>
+<li>单一 SHAP 值:<strong>局部</strong></li>
+<li>某特征在所有观测值上的平均绝对 SHAP 值:<strong>全局</strong></li>
+</ul>
+</section>
+</section>
+<section id="可解释模型" class="level2">
+<h2 class="anchored" data-anchor-id="可解释模型">可解释模型</h2>
+<section id="广义线性模型" class="level3">
+<h3 class="anchored" data-anchor-id="广义线性模型">广义线性模型</h3>
+<p>广义线性模型是受监管评分场景(信用评分、临床风险、保险定价)中的标准工具,正是因为它们本身具有内在可解释性。</p>
+<p>以泊松 GLM 为例,适用于诸如理赔频率(保单持有人提出理赔的频繁程度)或住院次数等计数型结果:</p>
+<p><span class="math display">\log \mathbb{E}[Y_i] = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \log(\text{暴露量}_i)</span></p>
+<p>每一个系数 <span class="math inline">\beta_j</span> 都有直接的解释含义。在其他条件不变的情况下,<span class="math inline">x_j</span> 每增加一个单位,预期频率就乘以 <span class="math inline">e^{\beta_j}</span>。</p>
+<p><strong>局限:</strong> 假定了特定的函数形式,无法自动捕捉复杂的非线性交互效应。</p>
+</section>
+<section id="决策树" class="level3">
+<h3 class="anchored" data-anchor-id="决策树">决策树</h3>
+<p>决策树将特征空间划分为若干矩形区域,并为每个区域赋予一个恒定的预测值。</p>
+<p><strong>优势:</strong> 高度可解释,可以可视化为一张流程图。</p>
+<p><strong>局限:</strong> 不稳定(数据的微小变化会导致树结构大幅变化)、容易过拟合,且难以刻画平滑的非线性关系。</p>
+<p>在受监管的场景中,决策树很少被直接用于定价或评分,但对于向非技术利益相关方传达细分逻辑很有帮助,例如在保险、信贷和临床分诊中。</p>
+</section>
+<section id="gam对-glm-的扩展" class="level3">
+<h3 class="anchored" data-anchor-id="gam对-glm-的扩展">GAM:对 GLM 的扩展</h3>
+<p>广义可加模型(GAM)<span class="citation" data-cites="hastie1990generalized">(<a href="#ref-hastie1990generalized" role="doc-biblioref">Hastie 和 Tibshirani 1990年</a>)</span> 用平滑函数取代了线性项:</p>
+<p><span class="math display">g(\mathbb{E}[Y]) = \beta_0 + f_1(x_1) + f_2(x_2) + \cdots + f_p(x_p)</span></p>
+<p>每一个 <span class="math inline">f_j</span> 都是一个平滑的、可视化的函数,通常是一条样条曲线(由平滑片段构成的一种灵活曲线)。GAM 比 GLM 更灵活,同时依然能够通过绘制每个 <span class="math inline">f_j</span> 的图像来保持可解释性。</p>
+<p>神经可加模型(NAM)<span class="citation" data-cites="agarwal2021neural">(<a href="#ref-agarwal2021neural" role="doc-biblioref">Agarwal 等 2021年</a>)</span> 将这一思路扩展到深度学习中,保留了可解释的可加结构。</p>
+</section>
+</section>
+<section id="可解释性的局限" class="level2">
+<h2 class="anchored" data-anchor-id="可解释性的局限">可解释性的局限</h2>
+<section id="准确性可解释性权衡取舍" class="level3">
+<h3 class="anchored" data-anchor-id="准确性可解释性权衡取舍">准确性—可解释性权衡取舍</h3>
+<p>更灵活的模型(梯度提升、神经网络)通常更准确,但可解释性更差。可解释模型(GLM、决策树)是透明的,但可能无法充分拟合复杂的模式。</p>
+<p>这一权衡取舍被广泛假定存在,但 <span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019年</a>)</span> 认为,它往往只是一种迷思,尤其是在具有有意义、经过精心构建的特征的结构化数据上:一旦具备这样的特征,复杂的黑箱模型相对于构建良好的可解释模型,往往几乎没有准确性优势。在没有现成有效特征可用的领域,例如原始图像或音频数据,这一权衡取舍更有可能真实存在,但对于具体问题,应通过实际检验来确认,而非想当然地假定。在确实存在真实权衡取舍的场景下,GAM 和受约束的梯度提升等方法可以缩小这一差距。而对黑箱模型的事后解释,始终只是一种近似,这种解释可能无法完全忠实地反映模型的实际推理过程。</p>
+</section>
+<section id="解释中的人为因素" class="level3">
+<h3 class="anchored" data-anchor-id="解释中的人为因素">解释中的人为因素</h3>
+<p>技术上准确并不足够。一份解释只有真正能被人使用,才算完成了它的使命 <span class="citation" data-cites="miller2019explanation">(<a href="#ref-miller2019explanation" role="doc-biblioref">Miller 2019年</a>)</span>:</p>
+<ul>
+<li><strong>认知负荷</strong>:即便不完整,更简单的解释也更受青睐</li>
+<li><strong>选择性</strong>:1至2条理由比20项特征贡献更容易据以行动</li>
+<li><strong>信任校准</strong>:过于自信的解释,可能导致人们对一个有缺陷的模型产生过度依赖</li>
+</ul>
+<p>在专业场景中,一个<em>看似合理却具有误导性</em>的解释,其风险至少不亚于完全没有解释。</p>
+</section>
+<section id="小结" class="level3">
+<h3 class="anchored" data-anchor-id="小结">小结</h3>
+<ul>
+<li>可解释性本身不是目的,而是实现问责、信任与治理的手段。</li>
+<li>方法的选择取决于<strong>谁</strong>需要这项解释、他们需要理解<strong>什么</strong>,以及随之而来的是<strong>什么</strong>决策。</li>
+<li>基本的分类体系:内生式 vs 事后式、模型无关 vs 模型特定、全局 vs 局部。</li>
+<li>在受监管的评分领域(保险、信贷、临床风险)中,GLM 提供了设计内生的可解释性。机器学习模型则需要审慎的事后解释。</li>
+</ul>
+</section>
+</section>
+<section id="事后可解释性方法" class="level2">
+<h2 class="anchored" data-anchor-id="事后可解释性方法">事后可解释性方法</h2>
+<section id="概览" class="level3">
+<h3 class="anchored" data-anchor-id="概览">概览</h3>
+<p>本节涵盖实践中最常用的四种事后、模型无关方法:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>范围</th>
+<th>回答的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>置换特征重要性(PFI)</td>
+<td>全局</td>
+<td>哪些特征对该模型最重要?</td>
+</tr>
+<tr class="even">
+<td>部分依赖图(PDP)</td>
+<td>全局</td>
+<td>某特征平均而言如何影响预测结果?</td>
+</tr>
+<tr class="odd">
+<td>SHAP</td>
+<td>局部 + 全局</td>
+<td>每个特征对<em>这一次</em>预测贡献了多少?</td>
+</tr>
+<tr class="even">
+<td>LIME</td>
+<td>局部</td>
+<td>什么样的简单规则能够近似模型在<em>这一次</em>预测附近的行为?</td>
+</tr>
+</tbody>
+</table>
+<p>所有方法都将模型视为黑箱,适用于任何模型类型(GLM、XGBoost、神经网络)。</p>
+</section>
+</section>
+<section id="置换特征重要性" class="level2">
+<h2 class="anchored" data-anchor-id="置换特征重要性">置换特征重要性</h2>
+<section id="破坏一个特征观察损害程度" class="level3">
+<h3 class="anchored" data-anchor-id="破坏一个特征观察损害程度">破坏一个特征,观察损害程度</h3>
+<p><span class="citation" data-cites="breiman2001random">Breiman (<a href="#ref-breiman2001random" role="doc-biblioref">2001年</a>)</span> 最初将这一思路作为随机森林的变量重要性度量方法提出,但其底层逻辑适用于任何已拟合的模型,而不仅限于随机森林:如果模型确实依赖某个特征,打乱该特征的取值就应当损害其预测表现。如果打乱某一列几乎不改变表现,说明模型并未真正使用它。</p>
+<p>这一方法的吸引力在于,它无需触碰模型本身:不需要重新训练,不需要访问模型内部结构,只需对刻意破坏过的数据重复评分即可。</p>
+</section>
+<section id="具体计算方式" class="level3">
+<h3 class="anchored" data-anchor-id="具体计算方式">具体计算方式</h3>
+<ol type="1">
+<li>拟合模型,并在测试数据上计算基准误差 <span class="math inline">e_0</span>。</li>
+<li>对每个特征 <span class="math inline">j = 1, \ldots, p</span>:
+<ul>
+<li>打乱测试集中第 <span class="math inline">j</span> 列的顺序。</li>
+<li>在打乱后的数据上重新对模型评分,<strong>不重新训练</strong>。</li>
+<li>计算打乱数据上的误差 <span class="math inline">e_j</span>。</li>
+<li>重要性:<span class="math inline">I_j = e_j / e_0</span>(比值)或 <span class="math inline">e_j - e_0</span>(差值)。</li>
+</ul></li>
+<li>按 <span class="math inline">I_j</span> 对特征排序。</li>
+</ol>
+</section>
+<section id="它能告诉你什么又在哪里会失灵" class="level3">
+<h3 class="anchored" data-anchor-id="它能告诉你什么又在哪里会失灵">它能告诉你什么,又在哪里会失灵</h3>
+<p>PFI 是模型无关的,能够捕捉交互效应(打乱一个特征会破坏所有涉及该特征的交互关系),并将整个模型压缩为一份单一的排序列表,而这一切都无需重新训练。但它是一种较为粗糙的工具。当被打乱的特征与其他特征相关时,打乱操作会产生现实数据中从未出现过的组合,因此得到的重要性分数可能只是打乱操作本身的产物,而非模型的真实行为。它也只能显示某特征<em>是否</em>重要,而无法显示它<em>如何</em>、朝哪个方向、在什么范围内影响预测,且单次运行的结果噪声较大,应对多次打乱运行取平均。如果模型本身泛化能力不佳,PFI 忠实反映的将是模型对训练噪声的依赖,而非真实信号。</p>
+</section>
+<section id="解读-pfi-排序" class="level3">
+<h3 class="anchored" data-anchor-id="解读-pfi-排序">解读 PFI 排序</h3>
+<p>一份 PFI 排序会同时呈现两类信号。它既显示模型实际依赖哪些合法因子,也显示哪些非合法或代理特征的贡献程度超出了领域知识所能解释的范围。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险——PFI 排序">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险——PFI 排序
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>在一个车险定价模型中,PFI 可能揭示出:</p>
+<ul>
+<li>年龄和无赔款折扣等级(驾驶员的无赔款折扣水平)是最重要的合法定价因子</li>
+<li>InsuranceScore(一个非合法代理变量)贡献显著,提示需要进行公平性审查</li>
+<li>密度和价值的贡献低于领域知识所预期的水平,这提示需要检查数据质量</li>
+</ul>
+</div>
+</div>
+<p>在任何领域中,这通常是拟合一个新模型之后所运行的<strong>第一项诊断</strong>。如果一个招聘模型的最重要特征恰好是年龄或性别的代理变量,同样值得引起警惕。</p>
+</section>
+</section>
+<section id="部分依赖图" class="level2">
+<h2 class="anchored" data-anchor-id="部分依赖图">部分依赖图</h2>
+<section id="对除一个特征之外的一切取平均" class="level3">
+<h3 class="anchored" data-anchor-id="对除一个特征之外的一切取平均">对除一个特征之外的一切取平均</h3>
+<p><span class="citation" data-cites="friedman2001greedy">Friedman (<a href="#ref-friedman2001greedy" role="doc-biblioref">2001年</a>)</span> 在提出梯度提升的同时提出了 PDP,作为回答一个系数无法回答的问题的方式:如果数据中的每一个观测值都取相同的某个特征值,平均预测结果会是什么样子?其构造方式很直接:将所关注的特征固定为某一取值,强制每一个观测值都取该值,对模型评分,再取平均。在该特征的取值范围内重复这一过程,得到的曲线就是部分依赖函数。</p>
+</section>
+<section id="公式" class="level3">
+<h3 class="anchored" data-anchor-id="公式">公式</h3>
+<p>对于特征 <span class="math inline">x_j</span>,部分依赖函数为:</p>
+<p><span class="math display">\hat{f}_j(x_j) = \mathbb{E}_{X_{-j}}\left[\hat{f}(x_j, X_{-j})\right] \approx \frac{1}{n}\sum_{i=1}^n \hat{f}(x_j, x_{-j}^{(i)})</span></p>
+<p>我们将 <span class="math inline">x_j</span> 代入所有观测值并取平均,即在其余特征的联合分布上取边际。</p>
+</section>
+<section id="这条曲线告诉你什么" class="level3">
+<h3 class="anchored" data-anchor-id="这条曲线告诉你什么">这条曲线告诉你什么</h3>
+<p>一张 PDP 一目了然:方向(随着该特征增大,预测结果是增大还是减小?)、形状(线性、单调,还是非线性,例如随年龄呈 U 形?)以及幅度(在观测到的取值范围内,预测结果变化了多少?),对任何模型类型都无需假定函数形式即可清晰呈现。但对这一形状作因果性解读并非自动成立,需要在图本身之外附加额外的因果性假设 <span class="citation" data-cites="zhao2021causal">(<a href="#ref-zhao2021causal" role="doc-biblioref">Zhao 和 Hastie 2021年</a>)</span>。</p>
+<p>对于<strong>两个特征</strong>,二维 PDP 曲面可以揭示可能存在的交互效应,但该联合曲面同时也包含了两个特征各自的主效应,因此要确认真正的交互效应,需要将其与两个单特征 PDP 之和进行比较,或使用专门的交互效应度量方法(H统计量、SHAP 交互值,见第五章)。超过两个变量后,可视化也会变得困难。</p>
+</section>
+<section id="取平均在哪里会误导你" class="level3">
+<h3 class="anchored" data-anchor-id="取平均在哪里会误导你">取平均在哪里会误导你</h3>
+<p>主要有两项假设会造成问题。PDP 假定<strong>特征相互独立</strong>:当特征相关时,它可能外推到数据中很少或从未出现过的组合,而这一外推区域恰恰是该图最不可信的部分。而由于 PDP 本质上是一种平均,它也可能<strong>掩盖异质性效应</strong>:如果效应在不同子群体间存在差异,甚至对不同个体而言方向相反,平均值可能看起来很平坦或具有误导性,即便实际上没有任何一个个体真正经历过这一”平均效应”。除此之外,PDP 一次只能处理一到两个特征,且不显示特征的分布情况,这容易导致对图中稀疏区域的效应过度解读。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>个体条件期望(ICE)</strong> 曲线 <span class="citation" data-cites="goldstein2015peeking">(<a href="#ref-goldstein2015peeking" role="doc-biblioref">Goldstein 等 2015年</a>)</span> 用于解决”掩盖异质性效应”这一局限。PDP 本质上是许多条 ICE 曲线的平均值,每条 ICE 曲线对应一个观测样本,展示的是在保持该样本其他所有特征不变的情况下,预测结果如何随所关注特征的取值变化而变化。将 ICE 曲线叠加在 PDP 之上,可以揭示这一平均效应是否具有代表性,还是掩盖了方向相反、在平均后相互抵消的子群体效应。ICE 曲线同样假定特征相互独立,因此当特征相关时,它与 PDP 一样容易出现同样的外推问题。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注记
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>累积局部效应(ALE)</strong> 图 <span class="citation" data-cites="apley2020visualizing">(<a href="#ref-apley2020visualizing" role="doc-biblioref">Apley 和 Zhu 2020年</a>)</span> 通过基于局部邻域取条件、而非全局边际化,来解决独立性假设的问题。当特征相关时,应优先使用 ALE。</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:操纵 PD 图以隐藏歧视">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:操纵 PD 图以隐藏歧视
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>上述两项弱点并非仅仅是教科书式的警示。<span class="citation" data-cites="xin2025pdppitfalls">Xin 等 (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025年</a>)</span> 的研究表明,这两项弱点可以被蓄意利用。他们提出的对抗性框架,在数据中真实、密集出现的区域保持黑箱模型的预测结果不变,但只要输入落入 PDP 取平均步骤实际依赖的、稀疏的”外推”区域,就替换为另行选定的、看似不具歧视性的输出。由于该区域在实践中很少甚至从未真正出现过,模型在现实世界中的预测结果几乎不受影响,但据此生成的、针对被操纵特征的 PD 图,却可以被设计得看起来几乎完全平坦。</p>
+<p>在真实的车险理赔数据和 COMPAS 再犯风险数据上应用该方法后,针对受保护属性或代理变量(年龄、种族)生成的 PD 图未显示出明显差异,而底层模型的预测结果及其歧视性行为却几乎被完整保留下来,相对于原始模型的输出,保真准确率超过95%。这直接削弱了本课程其他部分所依赖的”受保护属性的 PD 图看起来平坦,说明模型没有问题”这一检验方式。ICE 曲线、特征间的相关性检查,以及上文的 ALE 图,能让这种操纵更难以令人信服地构造出来,但都不能使其变得不可能。应当把一张平坦的 PD 图视为公平性审查中的一项输入,而非其证明。</p>
+</div>
+</div>
+</section>
+<section id="在实践中解读-pdp" class="level3">
+<h3 class="anchored" data-anchor-id="在实践中解读-pdp">在实践中解读 PDP</h3>
+<p>对于年龄这样的数值型特征,PDP 常常显示出一种非线性、非单调的效应,这是 GLM 系数无法直接表示的,但 PDP 能够将其对任何模型类型都清晰地呈现出来。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险——解读 PDP">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险——解读 PDP
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>在一个车险频率模型中,年龄的 PDP 可能显示,年轻驾驶员(18–25岁)的预测频率较高,随后陡峭下降至约30岁,此后随年龄增长逐渐回升,在65岁之后再度上升。</p>
+</div>
+</div>
+<p>同样的非单调形状在其他领域也会出现。在招聘模型中,工作经验年限很少以一条直线的方式推动预测结果;在临床风险模型中,肿瘤大小对预测结果的影响也很少是线性的。PDP 无需事先猜测函数形式,就能将这种曲率清晰地呈现出来。</p>
+</section>
+</section>
+<section id="shap" class="level2">
+<h2 class="anchored" data-anchor-id="shap">SHAP</h2>
+<section id="为一次预测分摊功劳" class="level3">
+<h3 class="anchored" data-anchor-id="为一次预测分摊功劳">为一次预测分摊功劳</h3>
+<p>SHAP(Shapley 加性解释)<span class="citation" data-cites="lundberg2017unified">(<a href="#ref-lundberg2017unified" role="doc-biblioref">Lundberg 和 Lee 2017年</a>)</span> 的思路借自合作博弈论:如果几名参与者共同创造了一份收益,应当如何依据每个人的实际贡献,公平地进行分配?把模型的各个特征看作”参与者”,把预测结果看作共同创造的”收益”,公平的分配方式就是 <strong>Shapley 值</strong>,即特征 <span class="math inline">j</span> 在它可能与之组合的每一种其他特征子集下,平均而言所作出的边际贡献。</p>
+<p><strong>解释模型:</strong></p>
+<p><span class="math display">g(z') = \phi_0 + \sum_{j=1}^p \phi_j z_j'</span></p>
+<p>其中 <span class="math inline">\phi_j</span> 是特征 <span class="math inline">j</span> 的 Shapley 值,<span class="math inline">\phi_0</span> 是基准值(平均预测结果)。</p>
+</section>
+<section id="为何偏偏是-shapley-值" class="level3">
+<h3 class="anchored" data-anchor-id="为何偏偏是-shapley-值">为何偏偏是 Shapley 值</h3>
+<p>博弈论保证了这一特定的分配方式,能够同时满足三条任何其他特征归因方法都无法同时达到的性质 <span class="citation" data-cites="lundberg2017unified">(<a href="#ref-lundberg2017unified" role="doc-biblioref">Lundberg 和 Lee 2017年</a>)</span>:<strong>局部准确性</strong>(各贡献值之和恰好等于本次预测与基准值之间的差距,<span class="math inline">\sum_j \phi_j = \hat{f}(x) - \mathbb{E}[\hat{f}]</span>)、<strong>缺失一致性</strong>(模型中不存在的特征获得零归因)以及<strong>一致性</strong>(如果某特征的真实边际贡献在模型变化后增大,其 Shapley 值不会随之减小)。</p>
+</section>
+<section id="两种计算方式" class="level3">
+<h3 class="anchored" data-anchor-id="两种计算方式">两种计算方式</h3>
+<p><strong>KernelSHAP</strong> 是模型无关的:它对特征联盟进行抽样、评分,并使用 SHAP 核函数拟合一个加权线性回归以还原出 <span class="math inline">\phi_j</span>。它适用于任何模型,但速度较慢。</p>
+<p><strong>TreeSHAP</strong> <span class="citation" data-cites="lundberg2020local">(<a href="#ref-lundberg2020local" role="doc-biblioref">Lundberg 等 2020年</a>)</span> 利用树结构,以相对于特征数量为多项式级(而非指数级)的时间复杂度精确计算,适用于 XGBoost、LightGBM 与随机森林。在保险定价、信用评分、临床风险等各个领域中,它都是梯度提升模型的默认选择。</p>
+</section>
+<section id="解读-shap-的输出" class="level3">
+<h3 class="anchored" data-anchor-id="解读-shap-的输出">解读 SHAP 的输出</h3>
+<p><strong>瀑布图</strong>将单次预测分解为基准值加上每个特征的推力或拉力:从基准值 <span class="math inline">E[\hat{f}]</span>(总体的平均预测结果)出发,每个特征将预测结果推<strong>高</strong>(正 SHAP 值)或拉<strong>低</strong>(负 SHAP 值),所有推拉力之和恰好落在该个体的预测结果上。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险——SHAP 瀑布图">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险——SHAP 瀑布图
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>对于某一位保单持有人的车险保费预测,年龄(较年轻)将预测结果推高,而无赔款折扣等级(较低,即良好的无理赔记录)将其拉低。这正是<strong>面向客户的解释</strong>的天然格式:“您的保费高于平均水平,主要是因为您的年龄和驾驶记录。”</p>
+</div>
+</div>
+<p>同样的瀑布图格式,也适用于一份被拒的贷款申请或一项临床风险评分,将其表示为收入、信用记录或化验值相对于基准值的贡献之和。除了瀑布图之外,<strong>摘要图</strong>一次性展示全部特征 × 全部观测值的重要性、方向以及以颜色表示的特征取值;<strong>依赖图</strong>展示某一特征的 SHAP 值与其取值的关系,是 PDP 的局部对应版本;<strong>平均绝对 SHAP 值</strong>将局部数值汇总为一份全局重要性排序;<strong>交互值</strong>则展示成对特征如何共同影响预测结果。</p>
+</section>
+<section id="shap-带来了什么又带不来什么" class="level3">
+<h3 class="anchored" data-anchor-id="shap-带来了什么又带不来什么">SHAP 带来了什么,又带不来什么</h3>
+<p>其博弈论保证是实实在在的优势:局部准确性、缺失一致性与一致性都严格成立,局部数值能够干净地汇总为全局摘要,而 TreeSHAP 又让这一切在树模型上运算迅速。但这些保证也有边界。没有树模型专用的加速方法时,KernelSHAP 速度较慢,且它假定特征相互独立,而 TreeSHAP 的条件变体放宽了这一假定,代价是有时会为一个相关但模型实际未使用的特征赋予非零归因。Shapley 值是归因,而非因果,把较大的 <span class="math inline">\phi_j</span> 当作某特征<em>导致</em>了结果的证据,是一种范畴错误。并且,和任何事后解释一样,SHAP 解释也可能被<strong>对抗性操纵</strong>,用以掩盖底层模型的偏见 <span class="citation" data-cites="slack2020fooling">(<a href="#ref-slack2020fooling" role="doc-biblioref">Slack 等 2020年</a>)</span>。</p>
+</section>
+</section>
+<section id="lime" class="level2">
+<h2 class="anchored" data-anchor-id="lime">LIME</h2>
+<section id="放大局部直到模型看起来简单" class="level3">
+<h3 class="anchored" data-anchor-id="放大局部直到模型看起来简单">放大局部,直到模型看起来简单</h3>
+<p>LIME(局部可解释的模型无关解释方法)<span class="citation" data-cites="ribeiro2016should">(<a href="#ref-ribeiro2016should" role="doc-biblioref">Ribeiro 等 2016年</a>)</span> 与 SHAP 的博弈论分配思路出发点不同:它赌的是,一个在全局层面极其复杂的模型,只要放大到足够小的局部邻域,就可能<em>几乎</em>呈线性行为。在该邻域内拟合一个简单、可解释的模型,其系数就成为复杂模型在该处预测结果的解释。</p>
+</section>
+<section id="构建局部模型" class="level3">
+<h3 class="anchored" data-anchor-id="构建局部模型">构建局部模型</h3>
+<ol type="1">
+<li>选定需要解释的实例 <span class="math inline">x^*</span>。</li>
+<li><strong>扰动</strong>数据:通过从正态分布中抽样(表格数据)、删除词语(文本数据)或切换超像素(图像数据),生成 <span class="math inline">x^*</span> 附近的样本。</li>
+<li>用黑箱模型对扰动样本评分。</li>
+<li>按与 <span class="math inline">x^*</span> 的接近程度对样本<strong>加权</strong>。</li>
+<li>在加权后的扰动数据上拟合一个可解释模型(例如稀疏线性回归)。</li>
+<li>使用该局部模型的系数作为解释。</li>
+</ol>
+<p>拟合步骤旨在最小化</p>
+<p><span class="math display">\mathcal{L}(f, g, \pi_{x^*}) + \Omega(g)</span></p>
+<p>其中 <span class="math inline">\mathcal{L}</span> 是解释模型 <span class="math inline">g</span> 与黑箱模型 <span class="math inline">f</span> 之间的近似误差,<span class="math inline">\pi_{x^*}</span> 是邻近度核函数,<span class="math inline">\Omega(g)</span> 对复杂度加以惩罚。</p>
+</section>
+<section id="一种快速却基础脆弱的解释" class="level3">
+<h3 class="anchored" data-anchor-id="一种快速却基础脆弱的解释">一种快速却基础脆弱的解释</h3>
+<p>LIME 适用于表格、文本和图像数据,保持模型无关,使得底层黑箱模型可以自由更换,并生成简短、有选择性、易于交给非技术受众的解释,同时附带一个保真度分数,说明局部模型在该处对黑箱模型的近似程度。其脆弱性体现在构造方式本身:邻域由核宽度定义,而核宽度并无一个有原则依据的默认值,这一选择会对结果产生显著影响。扰动样本的生成不考虑特征间的相关性,因此可能落在现实数据中从未出现过的组合上。相邻的两个点可能得到明显不同的解释,并且与 SHAP 一样,模型也可能被刻意设计成产生看似合理、实则掩盖偏见行为的 LIME 解释。解释质量还取决于所选用的可解释表示方式,例如图像中的超像素或文本中的词语存在与否。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:医疗——用 LIME 解释再入院风险评分">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:医疗——用 LIME 解释再入院风险评分
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>一家医院的30天再入院风险模型,将某位患者标记为高风险。LIME 围绕该实例,对患者记录(年龄、既往住院次数、化验值、住院时长)进行扰动,拟合一个局部线性模型,得到一份简短清单:近期一次既往住院和一项偏高的化验值将风险推高,距上次就诊的时间将风险拉低。出院护士可以直接依据这份简短清单采取行动,而不必面对40项模型输入的完整摘要,但这一解释只是局部近似,并非对模型推理过程的完整说明,因此在它真正驱动人员调配或出院决策之前,值得再用一种更稳定的方法(SHAP)加以核对。</p>
+</div>
+</div>
+</section>
+<section id="如何在-shap-与-lime-之间取舍" class="level3">
+<h3 class="anchored" data-anchor-id="如何在-shap-与-lime-之间取舍">如何在 SHAP 与 LIME 之间取舍</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>SHAP</th>
+<th>LIME</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>理论基础</strong></td>
+<td>博弈论(Shapley 值)</td>
+<td>局部代理模型</td>
+</tr>
+<tr class="even">
+<td><strong>一致性</strong></td>
+<td>有保证(公理化)</td>
+<td>无保证</td>
+</tr>
+<tr class="odd">
+<td><strong>稳定性</strong></td>
+<td>高(TreeSHAP 为精确解)</td>
+<td>低(对核宽度敏感)</td>
+</tr>
+<tr class="even">
+<td><strong>速度</strong></td>
+<td>快(TreeSHAP)</td>
+<td>较慢</td>
+</tr>
+<tr class="odd">
+<td><strong>输出</strong></td>
+<td>特征贡献(可加性)</td>
+<td>局部模型系数</td>
+</tr>
+<tr class="even">
+<td><strong>最适用于</strong></td>
+<td>生产环境中基于树的模型</td>
+<td>快速探索、非树模型</td>
+</tr>
+</tbody>
+</table>
+<p>在使用梯度提升(XGBoost、LightGBM)的领域中,例如保险、信贷和医疗,正因为如此,<strong>SHAP(TreeSHAP)优于</strong> LIME。</p>
+</section>
+</section>
+<section id="验证与沟通" class="level2">
+<h2 class="anchored" data-anchor-id="验证与沟通">验证与沟通</h2>
+<section id="解释是否忠实" class="level3">
+<h3 class="anchored" data-anchor-id="解释是否忠实">解释是否忠实?</h3>
+<p>一个关键风险在于,一项解释可能听起来合理,却并未准确反映模型的实际推理过程。<span class="citation" data-cites="doshi2017towards">Doshi-Velez 和 Kim (<a href="#ref-doshi2017towards" role="doc-biblioref">2017年</a>)</span> 区分了三种检验方式:针对真实的最终任务(应用场景导向)、针对由人类评审的简化任务(人类判断导向),以及针对不涉及人类的形式化代理准则(功能导向)。下文的检验方法综合运用了这三种思路。</p>
+<p>可采用以下检验:</p>
+<ul>
+<li><strong>合理性检验</strong>:最重要的特征是否与领域知识相符?</li>
+<li><strong>一致性检验</strong>:相似的个体是否得到相似的解释?</li>
+<li><strong>模拟检验</strong>:扰动某一特征,检验该特征的 SHAP 值是否按预期方向变化</li>
+<li><strong>对抗性检验</strong>:这些解释是否可能出自一个被刻意设计得看似公平、实则存在偏见的模型?<span class="citation" data-cites="slack2020fooling">(<a href="#ref-slack2020fooling" role="doc-biblioref">Slack 等 2020年</a>)</span></li>
+</ul>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:一个不忠实的 COMPAS 解释">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:一个不忠实的 COMPAS 解释
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019年</a>)</span> 描述了这一风险的一个具体实例。ProPublica 对 COMPAS 再犯风险工具的调查中,拟合了一个依赖种族变量的线性解释模型,并据此指控其背后专有的黑箱模型存在种族偏见。COMPAS 的开发方对此提出异议,认为实际模型除了通过年龄与犯罪记录与种族相关联外,可能并不真正依赖种族,因为 COMPAS 很可能是非线性的,且从未将种族作为显式预测变量。如果确实如此,那么真正依赖种族的是 ProPublica 的<em>解释</em>模型,而非原始黑箱模型,这是一个被误当作黑箱本身的、并不忠实的代理模型。无论这场具体争论孰是孰非,其中的一般性教训是明确的:一个解释模型可能看起来令人信服(无论是指控性的还是辩护性的),却并未忠实地反映它所声称要解释的那个黑箱模型。</p>
+</div>
+</div>
+</section>
+<section id="依受众沟通解释" class="level3">
+<h3 class="anchored" data-anchor-id="依受众沟通解释">依受众沟通解释</h3>
+<p>解释应当<strong>针对受众加以调整</strong>。同样的 SHAP 输出,对决策对象和对审计人员需要不同的呈现方式。角色因领域而异(验证人员、一线决策者、决策对象、监管机构、董事会),但方法与呈现格式之间的对应关系是相同的。</p>
+<p>这些方法本身是示例性的,而非受众专属的。同一种方法(如 SHAP)可以服务于多个受众,取决于应用于它的范围和框架。真正因受众而异的,是核心问题、所需的范围、技术细节的程度,以及沟通的形式。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险——依受众沟通">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险——依受众沟通
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 22%">
+<col style="width: 10%">
+<col style="width: 28%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>受众</th>
+<th>核心问题</th>
+<th>范围</th>
+<th>可用方法</th>
+<th>沟通方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>精算师/验证人员</td>
+<td>模型的表现是否合理?</td>
+<td>全局 + 局部</td>
+<td>PFI、PDP/ALE、SHAP 摘要与局部案例</td>
+<td>技术报告</td>
+</tr>
+<tr class="even">
+<td>核保人员</td>
+<td>为什么这一个体预测结果异常?</td>
+<td>局部</td>
+<td>SHAP 瀑布图、相似案例比较</td>
+<td>内部仪表盘</td>
+</tr>
+<tr class="odd">
+<td>客户</td>
+<td>我为什么得到了这个结果,而不是另一个?</td>
+<td>局部,通俗语言</td>
+<td>精炼后的局部归因或反事实解释</td>
+<td>信函或客户端消息</td>
+</tr>
+<tr class="even">
+<td>监管机构/审计人员</td>
+<td>模型是否有理有据、公平且可审计?</td>
+<td>全局 + 子群体 + 精选局部案例</td>
+<td>PFI、PDP/ALE、SHAP 摘要、公平性分析与个案审查</td>
+<td>监管文档</td>
+</tr>
+<tr class="odd">
+<td>董事会</td>
+<td>主要风险和业务影响是什么?</td>
+<td>汇总后的全局视角</td>
+<td>综合多项诊断得出的关键发现</td>
+<td>高管仪表盘</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>同样的结构在保险之外也会出现。招聘平台欠一位被拒申请人一份简短、通俗易懂的理由;银行的模型风险委员会需要汇总后的技术全貌;审计分诊算法的卫生监管机构则需要子群体层面的公平性视角。</p>
+</section>
+<section id="实践中常见的陷阱" class="level3">
+<h3 class="anchored" data-anchor-id="实践中常见的陷阱">实践中常见的陷阱</h3>
+<ol type="1">
+<li><p><strong>解释 <span class="math inline">\neq</span> 因果</strong>:年龄的 SHAP 值较高,并不意味着年龄<em>导致</em>了更高的理赔。它只意味着模型大量依赖了年龄这一特征。</p></li>
+<li><p><strong>全局 <span class="math inline">\neq</span> 局部</strong>:一个在全局排名中不重要的特征,可能是某个个体预测结果的主导因素。</p></li>
+<li><p><strong>对相关性视而不见</strong>:PDP 和 KernelSHAP 在数据分布上取边际,当特征相关时,可能外推到不现实的区域。ALE 正是专门为解决这一问题而设计的。它计算的是条件分布(而非边际分布)上预测结果差异的平均值 <span class="citation" data-cites="apley2020visualizing">(<a href="#ref-apley2020visualizing" role="doc-biblioref">Apley 和 Zhu 2020年</a>)</span>。TreeSHAP 并不能解决同样的问题。它是一种针对树模型的算法,其价值在于计算效率和精确性。它是否会外推到不现实的组合,仍取决于所选用的 SHAP 约定(干预式还是依赖树路径式)。</p></li>
+<li><p><strong>LIME 的不稳定性</strong>:不要把单次 LIME 解释当作定论。应多次运行并检查一致性。</p></li>
+<li><p><strong>确认偏误</strong>:与先验信念相符的解释更具说服力,但也可能是错的。应始终针对留出数据进行验证。</p></li>
+<li><p><strong>一张平坦的 PD 图并不能证明模型公平</strong>:PD 图常被用作对受保护属性或代理变量的全局合理性检验,但其自身在外推与取平均上的弱点可以被蓄意利用,生成一张看起来平坦的图,而底层模型依然具有歧视性 <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin 等 2025年</a>)</span>。</p></li>
+</ol>
+</section>
+<section id="监管期望" class="level3">
+<h3 class="anchored" data-anchor-id="监管期望">监管期望</h3>
+<p>可解释性正日益成为一项监管要求,而不仅仅是良好实践:</p>
+<ul>
+<li><strong>EU AI Act</strong>(2024年起):高风险人工智能系统,包括信用评分、就业筛选以及人寿与健康保险的风险评估与定价,必须向受影响个人提供解释</li>
+<li><strong>GDPR 第22条</strong>:自动化决策必须是可解释且可申诉的</li>
+<li><strong>中国《个人信息保护法》第24条</strong>:赋予个人对自动化决策的解释权,以及在自动化决策对其权益有重大影响时拒绝仅通过自动化方式作出决策的权利 <span class="citation" data-cites="china_pipl_2021">(<a href="#ref-china_pipl_2021" role="doc-biblioref">全国人民代表大会 2021年</a>)</span>;中国2026年的 NFRA 指引也将可解释性列为人工智能系统治理的必备要素之一 <span class="citation" data-cites="nfra2026aiguidance">(<a href="#ref-nfra2026aiguidance" role="doc-biblioref">国家金融监督管理总局 2026年</a>)</span></li>
+<li><strong>新加坡 MAS FEAT 原则中的透明度维度</strong>:要求机构对其人工智能系统进行内部文档记录,并向受影响的客户就人工智能驱动的决策给出有意义的解释 <span class="citation" data-cites="mas_feat_2018">(<a href="#ref-mas_feat_2018" role="doc-biblioref">Monetary Authority of Singapore 2018年</a>)</span></li>
+</ul>
+<p>行业专项规则进一步细化了这些要求:信贷决策的不利行动通知(如美国 ECOA/FCRA)、自动化就业筛选工具的偏见审计与告知要求(如 NYC Local Law 144),以及保险费率备案的模型文档要求(如美国各州监管机构、澳大利亚的 APRA CPG 234)。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="监管实证:NAIC 模型审查手册">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>监管实证:NAIC 模型审查手册
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25_0.pdf">NAIC 预测模型监管审查</a>白皮书,是美国各州保险监管机构审查费率模型时使用的工具,最初聚焦于广义线性模型。其树模型附录将同一审查框架扩展至随机森林与梯度提升模型,并明确要求保险公司提交变量重要性图与可解释性图(包括 PDP、ALE 图与 Shapley 图),每个模型变量至少提供一张图,并”就相关变量所展示的关系为何合理提供说明”。这是本章所介绍方法被用作实际监管证据、而非仅供课堂练习的一个具体例子,这也意味着上文所述的 PD 图漏洞,对这一行业而言并非纸上谈兵,它所针对的正是监管机构要求保险公司提交的这类审查证据本身 <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin 等 2025年</a>)</span>。</p>
+</div>
+</div>
+<p>可解释性不仅仅是良好实践,它正在成为各领域中一项合规义务。</p>
+</section>
+<section id="大语言模型的可解释性" class="level3">
+<h3 class="anchored" data-anchor-id="大语言模型的可解释性">大语言模型的可解释性</h3>
+<p>对于大语言模型(LLM)而言,上文的忠实性问题变得更加尖锐,而非性质不同。目前所涵盖的一切内容(PDP、ALE、SHAP、LIME)都假定存在一组固定的、可解释的输入特征。大语言模型两者都不具备。它的“特征”是变长提示词中的子词词元,其参数数量高达数十亿,因此上述方法都无法直接套用。</p>
+<p><strong>思维链并非忠实的解释。</strong> 一种自然的变通做法是要求模型“逐步思考”,并将由此产生的文本视为其解释。<span class="citation" data-cites="turpin2023language">Turpin 等 (<a href="#ref-turpin2023language" role="doc-biblioref">2023年</a>)</span> 的研究表明,这种做法并不可靠。当一个有偏见的特征被悄悄加入提示词中(例如,始终将正确的多选答案放在选项A的位置)时,模型会系统性地将答案偏向该选项,却从未在其陈述的推理过程中提及这一偏见,反而为这个(此刻已受偏见影响的)答案给出一个听起来合理的理由。这正是上文合理性/对抗性检验在大语言模型语境下的版本。一段陈述出的解释可能看起来合理,却并未描述真正驱动输出结果的原因。</p>
+<p><strong>机制可解释性是一种新兴的替代路径。</strong> 与其信赖模型的自我陈述,这一研究方向直接打开模型的内部结构加以审视。<span class="citation" data-cites="templeton2024scaling"><span class="nocase">Templeton 等</span> (<a href="#ref-templeton2024scaling" role="doc-biblioref">2024年</a>)</span> 使用稀疏自编码器(一种将模型内部活动分解为独立的、可命名组件的神经网络技术),从一个生产规模的大语言模型(Claude 3 Sonnet)中提取出数百万个人类可理解的特征,表明模型内部的各个方向对应着可识别的概念。这在精神上更接近于一种全局的、结构性的解释,而非一个 SHAP 值,但它仍处于研究前沿,尚未像 PDP 或 SHAP 之于表格模型那样,成为一种常规的审计工具。</p>
+<p><strong>实践意义。</strong> 不要把大语言模型陈述的推理过程等同于一个 SHAP 值或一条 PDP 曲线。它没有经过同样方式的验证,而 <span class="citation" data-cites="turpin2023language">Turpin 等 (<a href="#ref-turpin2023language" role="doc-biblioref">2023年</a>)</span> 的证据表明,它往往并不忠实。如果一个大语言模型的输出被用于某项重大决策,前文的受众沟通原则依然适用。应当明确说明你实际给出的是哪一种解释(是一份自我陈述,而非经过验证的归因),因为过度宣称其忠实性,本身就是一种沟通上的失误。</p>
+</section>
+<section id="小结-1" class="level3">
+<h3 class="anchored" data-anchor-id="小结-1">小结</h3>
+<ul>
+<li><strong>置换特征重要性</strong> 给出哪些特征最重要的全局排序。</li>
+<li><strong>PDP</strong> 展示某特征的平均边际效应(全局、可视化、直观)。当特征相关时,应使用 ALE。</li>
+<li><strong>SHAP</strong> 将每次预测分解为各特征的贡献。它是最具原则性、最通用的方法,对树模型而言 TreeSHAP 速度很快。</li>
+<li><strong>LIME</strong> 拟合一个局部代理模型,适合用于探索,但稳定性不及 SHAP。</li>
+<li>所有解释都需要验证。看似合理,不等于真正忠实。</li>
+<li>沟通方式应当针对受众加以调整:技术性、管理层导向和面向客户的格式各不相同。</li>
+</ul>
+</section>
+<section id="推荐阅读" class="level3">
+<h3 class="anchored" data-anchor-id="推荐阅读">推荐阅读</h3>
+<ul>
+<li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#ref-molnar2025iml" role="doc-biblioref">2025年</a>)</span> — <a href="https://christophm.github.io/interpretable-ml-book/">christophm.github.io/interpretable-ml-book</a>,免费网络教材,涵盖 PDP、PFI、SHAP、LIME 的相关章节</li>
+<li><span class="citation" data-cites="rudin2022interpretable">Rudin 等 (<a href="#ref-rudin2022interpretable" role="doc-biblioref">2022年</a>)</span> — 一篇全面的同行评审综述,阐述基本原理与尚待解决的挑战</li>
+<li><span class="citation" data-cites="miller2019explanation">Miller (<a href="#ref-miller2019explanation" role="doc-biblioref">2019年</a>)</span> — 关于何种解释真正有效的社会科学基础</li>
+<li><span class="citation" data-cites="tomsett2018interpretable">Tomsett 等 (<a href="#ref-tomsett2018interpretable" role="doc-biblioref">2018年</a>)</span> — 上文所用的基于角色的利益相关方分类</li>
+<li><span class="citation" data-cites="lipton2018mythos">Lipton (<a href="#ref-lipton2018mythos" role="doc-biblioref">2018年</a>)</span> — 将”可理解性”拆解为透明度与事后解释两个维度</li>
+<li><span class="citation" data-cites="lundberg2017unified">Lundberg 和 Lee (<a href="#ref-lundberg2017unified" role="doc-biblioref">2017年</a>)</span> — SHAP 的原始论文</li>
+<li><span class="citation" data-cites="ribeiro2016should">Ribeiro 等 (<a href="#ref-ribeiro2016should" role="doc-biblioref">2016年</a>)</span> — LIME 的原始论文</li>
+<li><span class="citation" data-cites="slack2020fooling">Slack 等 (<a href="#ref-slack2020fooling" role="doc-biblioref">2020年</a>)</span> — 对 SHAP 与 LIME 解释的对抗性操纵</li>
+<li><span class="citation" data-cites="xin2025pdppitfalls">Xin 等 (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025年</a>)</span> — 操纵 PD 图以隐藏歧视的对抗性方法,基于真实保险与 COMPAS 数据验证</li>
+<li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019年</a>)</span> — 主张在高风险决策中使用可解释模型的论述,亦包含上文讨论的 COMPAS 解释忠实性案例</li>
+<li><span class="citation" data-cites="doshi2017towards">Doshi-Velez 和 Kim (<a href="#ref-doshi2017towards" role="doc-biblioref">2017年</a>)</span> — “迈向可解释机器学习的严谨科学”</li>
+<li><span class="citation" data-cites="turpin2023language">Turpin 等 (<a href="#ref-turpin2023language" role="doc-biblioref">2023年</a>)</span>; <span class="citation" data-cites="templeton2024scaling"><span class="nocase">Templeton 等</span> (<a href="#ref-templeton2024scaling" role="doc-biblioref">2024年</a>)</span> — 专门针对大语言模型的可解释性研究:思维链的忠实性与机制可解释性</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-agarwal2021neural" class="csl-entry" role="listitem">
+Agarwal, Rishabh, Levi Melnick, Nicholas Frosst, 等. 2021年. <span>《Neural additive models: Interpretable machine learning with neural nets》</span>. <em>Advances in Neural Information Processing Systems</em> 34.
+</div>
+<div id="ref-amnesty2021xenophobic" class="csl-entry" role="listitem">
+Amnesty International. 2021年. <em>Xenophobic Machines: Discrimination Through Unregulated Use of Algorithms in the Dutch Childcare Benefits Scandal</em>. Amnesty International. <a href="https://www.amnesty.org/en/documents/eur35/4686/2021/en/">https://www.amnesty.org/en/documents/eur35/4686/2021/en/</a>.
+</div>
+<div id="ref-apley2020visualizing" class="csl-entry" role="listitem">
+Apley, Daniel W, 和 Jingyu Zhu. 2020年. <span>《Visualizing the effects of predictor variables in black box supervised learning models》</span>. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 82 (4): 1059～86.
+</div>
+<div id="ref-biran2017explanation" class="csl-entry" role="listitem">
+Biran, Or, 和 Courtenay Cotton. 2017年. <span>《Explanation and justification in machine learning: A survey》</span>. <em>IJCAI-17 Workshop on Explainable AI (XAI)</em>.
+</div>
+<div id="ref-breiman2001random" class="csl-entry" role="listitem">
+Breiman, Leo. 2001年. <span>《Random forests》</span>. <em>Machine Learning</em> 45 (1): 5～32.
+</div>
+<div id="ref-doshi2017towards" class="csl-entry" role="listitem">
+Doshi-Velez, Finale, 和 Been Kim. 2017年. <span>《Towards a rigorous science of interpretable machine learning》</span>. <em>arXiv preprint arXiv:1702.08608</em>.
+</div>
+<div id="ref-friedman2001greedy" class="csl-entry" role="listitem">
+Friedman, Jerome H. 2001年. <span>《Greedy Function Approximation: A Gradient Boosting Machine》</span>. <em>The Annals of Statistics</em> 29 (5): 1189～232.
+</div>
+<div id="ref-friedman2008predictive" class="csl-entry" role="listitem">
+Friedman, Jerome H., 和 Bogdan E. Popescu. 2008年. <span>《Predictive Learning via Rule Ensembles》</span>. <em>The Annals of Applied Statistics</em> 2 (3): 916～54.
+</div>
+<div id="ref-goldstein2015peeking" class="csl-entry" role="listitem">
+Goldstein, Alex, Adam Kapelner, Justin Bleich, 和 Emil Pitkin. 2015年. <span>《Peeking inside the black box: Visualizing statistical learning with plots of individual conditional expectation》</span>. <em>Journal of Computational and Graphical Statistics</em> 24 (1): 44～65.
+</div>
+<div id="ref-hastie1990generalized" class="csl-entry" role="listitem">
+Hastie, Trevor J, 和 Robert J Tibshirani. 1990年. <em>Generalized Additive Models</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-kim2016examples" class="csl-entry" role="listitem">
+Kim, Been, Rajiv Khanna, 和 Oluwasanmi Koyejo. 2016年. <span>《Examples are not enough, learn to criticize! criticism for interpretability》</span>. <em>Advances in Neural Information Processing Systems</em>.
+</div>
+<div id="ref-lipton2018mythos" class="csl-entry" role="listitem">
+Lipton, Zachary C. 2018年. <span>《The mythos of model interpretability》</span>. <em>Communications of the ACM</em> 61 (10): 36～43.
+</div>
+<div id="ref-lundberg2020local" class="csl-entry" role="listitem">
+Lundberg, Scott M, Gabriel Erion, Hugh Chen, 等. 2020年. <span>《From local explanations to global understanding with explainable AI for trees》</span>. <em>Nature Machine Intelligence</em> 2 (1): 56～67.
+</div>
+<div id="ref-lundberg2017unified" class="csl-entry" role="listitem">
+Lundberg, Scott M, 和 Su-In Lee. 2017年. <span>《A unified approach to interpreting model predictions》</span>. <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+<div id="ref-miller2019explanation" class="csl-entry" role="listitem">
+Miller, Tim. 2019年. <span>《Explanation in artificial intelligence: Insights from the social sciences》</span>. <em>Artificial Intelligence</em> 267: 1～38.
+</div>
+<div id="ref-molnar2025iml" class="csl-entry" role="listitem">
+Molnar, Christoph. 2025年. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3 版. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
+</div>
+<div id="ref-mas_feat_2018" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2018年. <span>《Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector》</span>. <a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat">https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat</a>.
+</div>
+<div id="ref-ribeiro2016should" class="csl-entry" role="listitem">
+Ribeiro, Marco Tulio, Sameer Singh, 和 Carlos Guestrin. 2016年. <span>《Why should I trust you?: Explaining the predictions of any classifier》</span>. <em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>, 1135～44.
+</div>
+<div id="ref-rudin2019stop" class="csl-entry" role="listitem">
+Rudin, Cynthia. 2019年. <span>《Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead》</span>. <em>Nature Machine Intelligence</em> 1 (5): 206～15.
+</div>
+<div id="ref-rudin2022interpretable" class="csl-entry" role="listitem">
+Rudin, Cynthia, Chaofan Chen, Zhi Chen, Haiyang Huang, Lesia Semenova, 和 Chudi Zhong. 2022年. <span>《Interpretable machine learning: Fundamental principles and 10 grand challenges》</span>. <em>Statistics Surveys</em> 16: 1～85.
+</div>
+<div id="ref-slack2020fooling" class="csl-entry" role="listitem">
+Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 2020年. <span>《Fooling LIME and SHAP: Adversarial attacks on post hoc explanation methods》</span>. <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180～86.
+</div>
+<div id="ref-templeton2024scaling" class="csl-entry" role="listitem">
+<span class="nocase">Templeton, Adly, Tom Conerly, Jonathan Marcus, 等</span>. 2024年. <span>《Scaling monosemanticity: Extracting interpretable features from Claude 3 Sonnet》</span>. <em>Transformer Circuits Thread</em>. <a href="https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html">https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html</a>.
+</div>
+<div id="ref-tomsett2018interpretable" class="csl-entry" role="listitem">
+Tomsett, Richard, Dave Braines, Dan Harborne, Alun Preece, 和 Supriyo Chakraborty. 2018年. <span>《Interpretable to Whom? A Role-based Model for Analyzing Interpretable Machine Learning Systems》</span>. <em>arXiv preprint arXiv:1806.07552</em>.
+</div>
+<div id="ref-turpin2023language" class="csl-entry" role="listitem">
+Turpin, Miles, Julian Michael, Ethan Perez, 和 Samuel R Bowman. 2023年. <span>《Language models don’t always say what they think: Unfaithful explanations in chain-of-thought prompting》</span>. <em>Advances in Neural Information Processing Systems</em> 36.
+</div>
+<div id="ref-xin2025pdppitfalls" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, 和 Fei Huang. 2025年. <span>《Pitfalls in machine learning interpretability: Manipulating partial dependence plots to hide discrimination》</span>. <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-zhao2021causal" class="csl-entry" role="listitem">
+Zhao, Qingyuan, 和 Trevor Hastie. 2021年. <span>《Causal interpretations of black-box models》</span>. <em>Journal of Business &amp; Economic Statistics</em> 39 (1): 272～81.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+全国人民代表大会. 2021年. <em>中华人民共和国个人信息保护法(Personal Information Protection Law of the People’s Republic of China)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+国家金融监督管理总局. 2026年. <em>关于银行业保险业人工智能安全开发应用的指导意见(金发[2026]8号)(Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors, Jin Fa [2026] No. 8)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1">https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+  if (isZh) return; /* Chinese pages don't show a toggle back to English */
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html" class="pagination-link" aria-label="第三章:公平性实践">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第三章:公平性实践</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html" class="pagination-link" aria-label="第五章:可解释性实践">
+        <span class="nav-page-text">第五章:可解释性实践</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
