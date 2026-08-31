@@ -1872,22 +1872,23 @@ r_k = \frac{1}{f_k}.
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-note callout-titled" title="案例研究揭晓:三位接收方,三个不同的答案">
+<div class="callout callout-style-default callout-note callout-titled" title="案例研究揭晓:回答开篇提出的三个问题">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>案例研究揭晓:三位接收方,三个不同的答案
+<span class="screen-reader-only">注记</span>案例研究揭晓:回答开篇提出的三个问题
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>回到本章开头的再保险公司、内部定价团队与基准测试供应商,上述技术为每一位接收方指向了不同的答案,而非用同一种技术一概而论:</p>
-<ul>
-<li><strong>再保险公司</strong>需要保单级、真实感的数据来构建自己独立的定价模型,并且已经掌握了关于该业务组合的部分背景信息,这削弱了 k-匿名性的核心论证(对于一个已经能够进一步缩小范围的接收方而言,规模为50的匿名集并不那么令人安心)。差分隐私也不适用,因为它发布的是特定的统计量,而不是可复用的记录级文件。<strong>合成数据</strong>是最贴合的选择:本章自己的 TSTR 结果表明,在合成数据上训练的模型,表现几乎与在真实数据上训练的模型相同(AUC 0.728 对 0.729),这正是再保险公司所需要的保证,同时并未复制真实的具体保单持有人(仍需受限于前文提到的成员推断这一附加检验)。</li>
-<li><strong>内部定价团队</strong>其实并不严格需要任何隐私增强技术。他们身处组织内部,受现有保密义务的约束,而且无论使用什么数据训练,其模型最终都会针对生产环境中的真实数据进行验证。这里恰当的管控措施,是下文生命周期管控表中“分析/建模”一行所列的用途限制与基于角色的访问控制,而不是用 k-匿名性或合成数据去降低数据的保真度——对一个本已受信任的内部接收方而言,这样做只会损失准确性,却换不来真正的隐私收益。</li>
-<li><strong>供应商</strong>只需要用于监管基准报告的汇总统计量,从不需要记录级文件。这使得 k-匿名性和合成数据从根本上就用错了工具类别——二者都是为保护<em>文件</em>而生,而非为保护<em>统计量</em>。<strong>差分隐私</strong>才是直接对应的选择,本章的结果也表明,在这一业务组合的规模下,强隐私性(较小的 <span class="math inline">\varepsilon</span>)对于一个业务组合层面的统计量而言,几乎不会带来任何准确性代价,不过如果监管机构要求按更小的子群体进行更精细的分解,结论就不再成立。</li>
-</ul>
+<p><strong>问题一:哪一位接收方可以被正当地提供 k-匿名化数据?再保险公司所掌握的部分背景信息,是否会改变你的答案?</strong></p>
+<p>可以说,三者都不适合——但这并非因为 k-匿名性本身有缺陷,而是因为对这三份具体的申请而言,它都不是恰当的工具。再保险公司需要真实感的记录级数据来构建独立模型,而 k-匿名性只会降低这类数据的质量,而非提供它;内部团队根本不需要一份被降质处理过的文件;供应商则完全不需要任何文件。而在 k-匿名性原本可能适用的情形下,背景知识确实会改变答案:本章自己在 <span class="math inline">k=50</span> 下的结果表明,<code>Gender</code>(性别)、<code>AgeGroup</code>(年龄组)、<code>DensityGroup</code>(密度组)——恰恰是一家在往年分保合约中接触过部分保单持有人的再保险公司,最有可能已经掌握的变量——完全未受抑制的影响,因此“隐藏在 <span class="math inline">k</span> 个他人之中”这一论证,对这一特定接收方而言,要比对一个毫无背景知识的外部者弱得多。</p>
+<p><strong>问题二:定价团队需要真实感(而非真实)的数据,这是否意味着必须使用合成数据,还是存在更简单的答案?</strong></p>
+<p>更简单的答案是:根本不需要任何隐私增强技术,只需要治理措施。定价团队身处内部,已经受保密义务约束,且无论用什么数据训练,其模型最终都会针对生产环境中的真实数据进行验证。将合成的精力花在一个并不需要它、且从组织内部已有数据中也得不到任何额外隐私收益的接收方身上,是一种用错了地方的努力。下文生命周期管控表中“分析/建模”一行所列的用途限制与基于角色的访问控制,才是相称的管控措施。</p>
+<p><strong>问题三:供应商只需要汇总统计量,这是否排除了本章三种技术中的两种?</strong></p>
+<p>是的。k-匿名性和合成数据都是为保护<em>文件</em>而生,而供应商从未收到过文件。这样一来,<strong>差分隐私</strong>就成了三种技术中唯一相关的选择,本章自己的结果也表明,在这一业务组合的规模下,强隐私性(较小的 <span class="math inline">\varepsilon</span>)对于一个业务组合层面的统计量而言,几乎不会带来任何准确性代价,只要监管机构日后不要求按更小的子群体进行更精细的分解。</p>
+<p><strong>简而言之:</strong> 再保险公司适用合成数据(TSTR:AUC 0.728 对 0.729,仍需受限于前文提到的成员推断这一附加检验),内部团队仅需治理措施,供应商适用差分隐私。三位接收方,三种不同的工具,而非用同一种技术一概而论。</p>
 </div>
 </div>
 </section>
@@ -3313,35 +3314,43 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
 <span id="cb32-872"><a href="#cb32-872" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"8em"</span>)</span>
 <span id="cb32-873"><a href="#cb32-873" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-874"><a href="#cb32-874" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-875"><a href="#cb32-875" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="案例研究揭晓:三位接收方,三个不同的答案"}</span>
-<span id="cb32-876"><a href="#cb32-876" aria-hidden="true" tabindex="-1"></a>回到本章开头的再保险公司、内部定价团队与基准测试供应商,上述技术为每一位接收方指向了不同的答案,而非用同一种技术一概而论:</span>
+<span id="cb32-875"><a href="#cb32-875" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="案例研究揭晓:回答开篇提出的三个问题"}</span>
+<span id="cb32-876"><a href="#cb32-876" aria-hidden="true" tabindex="-1"></a>**问题一:哪一位接收方可以被正当地提供 k-匿名化数据?再保险公司所掌握的部分背景信息,是否会改变你的答案?**</span>
 <span id="cb32-877"><a href="#cb32-877" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-878"><a href="#cb32-878" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**再保险公司**需要保单级、真实感的数据来构建自己独立的定价模型,并且已经掌握了关于该业务组合的部分背景信息,这削弱了 k-匿名性的核心论证(对于一个已经能够进一步缩小范围的接收方而言,规模为50的匿名集并不那么令人安心)。差分隐私也不适用,因为它发布的是特定的统计量,而不是可复用的记录级文件。**合成数据**是最贴合的选择:本章自己的 TSTR 结果表明,在合成数据上训练的模型,表现几乎与在真实数据上训练的模型相同(AUC 0.728 对 0.729),这正是再保险公司所需要的保证,同时并未复制真实的具体保单持有人(仍需受限于前文提到的成员推断这一附加检验)。</span>
-<span id="cb32-879"><a href="#cb32-879" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**内部定价团队**其实并不严格需要任何隐私增强技术。他们身处组织内部,受现有保密义务的约束,而且无论使用什么数据训练,其模型最终都会针对生产环境中的真实数据进行验证。这里恰当的管控措施,是下文生命周期管控表中“分析/建模”一行所列的用途限制与基于角色的访问控制,而不是用 k-匿名性或合成数据去降低数据的保真度——对一个本已受信任的内部接收方而言,这样做只会损失准确性,却换不来真正的隐私收益。</span>
-<span id="cb32-880"><a href="#cb32-880" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**供应商**只需要用于监管基准报告的汇总统计量,从不需要记录级文件。这使得 k-匿名性和合成数据从根本上就用错了工具类别——二者都是为保护*文件*而生,而非为保护*统计量*。**差分隐私**才是直接对应的选择,本章的结果也表明,在这一业务组合的规模下,强隐私性(较小的 $\varepsilon$)对于一个业务组合层面的统计量而言,几乎不会带来任何准确性代价,不过如果监管机构要求按更小的子群体进行更精细的分解,结论就不再成立。</span>
-<span id="cb32-881"><a href="#cb32-881" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb32-882"><a href="#cb32-882" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-883"><a href="#cb32-883" aria-hidden="true" tabindex="-1"></a><span class="fu"># 小结</span></span>
-<span id="cb32-884"><a href="#cb32-884" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-885"><a href="#cb32-885" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**重新识别风险** 即便在大型的“匿名化”数据集中依然真实存在。准标识符的组合能够唯一识别出罕见群体,而同样的风险评估工作流程(识别准标识符 → 选择匹配的隐私增强技术 → 应用 → 衡量权衡取舍 → 决策)也可迁移至其他领域。</span>
-<span id="cb32-886"><a href="#cb32-886" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>通过局部抑制实现的**k-匿名性**降低了可识别性,但并不保护敏感取值,而且一旦 $k$ 大到足以迫使真正的抑制发生(而不只是教科书式的最小值 $k = 5$),效用代价就会迅速上升。</span>
-<span id="cb32-887"><a href="#cb32-887" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**差分隐私** 提供数学上的保证,并能很好地适应大型数据集:同样的 $\varepsilon$,对100,000条记录的汇总统计量几乎没有影响,但对一个小型子群体却可能造成明显失真,因为敏感度按 $1/n$ 缩放。拉普拉斯机制对汇总统计量而言实现起来很直接。</span>
-<span id="cb32-888"><a href="#cb32-888" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>来自 <span class="in">`synthpop`</span>(CART)的**合成数据**在边际分布和模型系数上取得了良好的保真度,一个在其上训练的模型在留出的真实记录上(TSTR)的表现也几乎与在真实数据上训练的模型一样好,NNDR 证据也表明真实记录并未被复制。</span>
-<span id="cb32-889"><a href="#cb32-889" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>没有任何单一技术本身是充分的——需要在整个数据生命周期中采取**分层管控措施**。</span>
+<span id="cb32-878"><a href="#cb32-878" aria-hidden="true" tabindex="-1"></a>可以说,三者都不适合——但这并非因为 k-匿名性本身有缺陷,而是因为对这三份具体的申请而言,它都不是恰当的工具。再保险公司需要真实感的记录级数据来构建独立模型,而 k-匿名性只会降低这类数据的质量,而非提供它;内部团队根本不需要一份被降质处理过的文件;供应商则完全不需要任何文件。而在 k-匿名性原本可能适用的情形下,背景知识确实会改变答案:本章自己在 $k=50$ 下的结果表明,<span class="in">`Gender`</span>(性别)、<span class="in">`AgeGroup`</span>(年龄组)、<span class="in">`DensityGroup`</span>(密度组)——恰恰是一家在往年分保合约中接触过部分保单持有人的再保险公司,最有可能已经掌握的变量——完全未受抑制的影响,因此“隐藏在 $k$ 个他人之中”这一论证,对这一特定接收方而言,要比对一个毫无背景知识的外部者弱得多。</span>
+<span id="cb32-879"><a href="#cb32-879" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-880"><a href="#cb32-880" aria-hidden="true" tabindex="-1"></a>**问题二:定价团队需要真实感(而非真实)的数据,这是否意味着必须使用合成数据,还是存在更简单的答案?**</span>
+<span id="cb32-881"><a href="#cb32-881" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-882"><a href="#cb32-882" aria-hidden="true" tabindex="-1"></a>更简单的答案是:根本不需要任何隐私增强技术,只需要治理措施。定价团队身处内部,已经受保密义务约束,且无论用什么数据训练,其模型最终都会针对生产环境中的真实数据进行验证。将合成的精力花在一个并不需要它、且从组织内部已有数据中也得不到任何额外隐私收益的接收方身上,是一种用错了地方的努力。下文生命周期管控表中“分析/建模”一行所列的用途限制与基于角色的访问控制,才是相称的管控措施。</span>
+<span id="cb32-883"><a href="#cb32-883" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-884"><a href="#cb32-884" aria-hidden="true" tabindex="-1"></a>**问题三:供应商只需要汇总统计量,这是否排除了本章三种技术中的两种?**</span>
+<span id="cb32-885"><a href="#cb32-885" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-886"><a href="#cb32-886" aria-hidden="true" tabindex="-1"></a>是的。k-匿名性和合成数据都是为保护*文件*而生,而供应商从未收到过文件。这样一来,**差分隐私**就成了三种技术中唯一相关的选择,本章自己的结果也表明,在这一业务组合的规模下,强隐私性(较小的 $\varepsilon$)对于一个业务组合层面的统计量而言,几乎不会带来任何准确性代价,只要监管机构日后不要求按更小的子群体进行更精细的分解。</span>
+<span id="cb32-887"><a href="#cb32-887" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-888"><a href="#cb32-888" aria-hidden="true" tabindex="-1"></a>**简而言之:** 再保险公司适用合成数据(TSTR:AUC 0.728 对 0.729,仍需受限于前文提到的成员推断这一附加检验),内部团队仅需治理措施,供应商适用差分隐私。三位接收方,三种不同的工具,而非用同一种技术一概而论。</span>
+<span id="cb32-889"><a href="#cb32-889" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb32-890"><a href="#cb32-890" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-891"><a href="#cb32-891" aria-hidden="true" tabindex="-1"></a><span class="fu"># 推荐阅读</span></span>
+<span id="cb32-891"><a href="#cb32-891" aria-hidden="true" tabindex="-1"></a><span class="fu"># 小结</span></span>
 <span id="cb32-892"><a href="#cb32-892" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-893"><a href="#cb32-893" aria-hidden="true" tabindex="-1"></a>**重新识别风险与 k-匿名性**</span>
-<span id="cb32-894"><a href="#cb32-894" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-895"><a href="#cb32-895" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@templ2017statistical — <span class="in">`sdcMicro`</span> 与统计披露控制</span>
-<span id="cb32-896"><a href="#cb32-896" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sweeney2002kanonymity — k-匿名性</span>
-<span id="cb32-897"><a href="#cb32-897" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@machanavajjhala2007diversity — ℓ-多样性(k-匿名性的扩展)</span>
+<span id="cb32-893"><a href="#cb32-893" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**重新识别风险** 即便在大型的“匿名化”数据集中依然真实存在。准标识符的组合能够唯一识别出罕见群体,而同样的风险评估工作流程(识别准标识符 → 选择匹配的隐私增强技术 → 应用 → 衡量权衡取舍 → 决策)也可迁移至其他领域。</span>
+<span id="cb32-894"><a href="#cb32-894" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>通过局部抑制实现的**k-匿名性**降低了可识别性,但并不保护敏感取值,而且一旦 $k$ 大到足以迫使真正的抑制发生(而不只是教科书式的最小值 $k = 5$),效用代价就会迅速上升。</span>
+<span id="cb32-895"><a href="#cb32-895" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**差分隐私** 提供数学上的保证,并能很好地适应大型数据集:同样的 $\varepsilon$,对100,000条记录的汇总统计量几乎没有影响,但对一个小型子群体却可能造成明显失真,因为敏感度按 $1/n$ 缩放。拉普拉斯机制对汇总统计量而言实现起来很直接。</span>
+<span id="cb32-896"><a href="#cb32-896" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>来自 <span class="in">`synthpop`</span>(CART)的**合成数据**在边际分布和模型系数上取得了良好的保真度,一个在其上训练的模型在留出的真实记录上(TSTR)的表现也几乎与在真实数据上训练的模型一样好,NNDR 证据也表明真实记录并未被复制。</span>
+<span id="cb32-897"><a href="#cb32-897" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>没有任何单一技术本身是充分的——需要在整个数据生命周期中采取**分层管控措施**。</span>
 <span id="cb32-898"><a href="#cb32-898" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-899"><a href="#cb32-899" aria-hidden="true" tabindex="-1"></a>**差分隐私与合成数据**</span>
+<span id="cb32-899"><a href="#cb32-899" aria-hidden="true" tabindex="-1"></a><span class="fu"># 推荐阅读</span></span>
 <span id="cb32-900"><a href="#cb32-900" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-901"><a href="#cb32-901" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@dwork2006calibrating — $\varepsilon$-差分隐私的原始论文</span>
-<span id="cb32-902"><a href="#cb32-902" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@nowok2016synthpop — <span class="in">`synthpop`</span> R 包与 CART 合成</span>
-<span id="cb32-903"><a href="#cb32-903" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@jordon2022synthetic — 合成数据:是什么、为什么以及如何(评估框架)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb32-901"><a href="#cb32-901" aria-hidden="true" tabindex="-1"></a>**重新识别风险与 k-匿名性**</span>
+<span id="cb32-902"><a href="#cb32-902" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-903"><a href="#cb32-903" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@templ2017statistical — <span class="in">`sdcMicro`</span> 与统计披露控制</span>
+<span id="cb32-904"><a href="#cb32-904" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sweeney2002kanonymity — k-匿名性</span>
+<span id="cb32-905"><a href="#cb32-905" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@machanavajjhala2007diversity — ℓ-多样性(k-匿名性的扩展)</span>
+<span id="cb32-906"><a href="#cb32-906" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-907"><a href="#cb32-907" aria-hidden="true" tabindex="-1"></a>**差分隐私与合成数据**</span>
+<span id="cb32-908"><a href="#cb32-908" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-909"><a href="#cb32-909" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@dwork2006calibrating — $\varepsilon$-差分隐私的原始论文</span>
+<span id="cb32-910"><a href="#cb32-910" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@nowok2016synthpop — <span class="in">`synthpop`</span> R 包与 CART 合成</span>
+<span id="cb32-911"><a href="#cb32-911" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@jordon2022synthetic — 合成数据:是什么、为什么以及如何(评估框架)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
