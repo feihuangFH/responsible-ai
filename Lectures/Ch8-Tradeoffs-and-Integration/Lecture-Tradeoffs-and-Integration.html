@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang, UNSW Sydney">
+
+<title>Trade-offs, Integration, and Governance – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html">Chapter 8: Trade-offs, Integration, and Governance</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Responsible AI: Principles, Governance, and Quantitative Methods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Fairness Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 3: Fairness Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 4: Explainability Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Explainability Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Privacy Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 7: Privacy Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 8: Trade-offs, Integration, and Governance</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#review-what-we-have-covered" id="toc-review-what-we-have-covered" class="nav-link" data-scroll-target="#review-what-we-have-covered">Review: What We Have Covered</a>
+  <ul class="collapse">
+  <li><a href="#three-pillars-six-chapters" id="toc-three-pillars-six-chapters" class="nav-link" data-scroll-target="#three-pillars-six-chapters">Three pillars, six chapters</a></li>
+  <li><a href="#connecting-back-to-the-six-ai-ethics-principles" id="toc-connecting-back-to-the-six-ai-ethics-principles" class="nav-link" data-scroll-target="#connecting-back-to-the-six-ai-ethics-principles">Connecting back to the six AI ethics principles</a></li>
+  <li><a href="#revisiting-the-motivating-problem" id="toc-revisiting-the-motivating-problem" class="nav-link" data-scroll-target="#revisiting-the-motivating-problem">Revisiting the motivating problem</a></li>
+  </ul></li>
+  <li><a href="#the-key-trade-offs" id="toc-the-key-trade-offs" class="nav-link" data-scroll-target="#the-key-trade-offs">The Key Trade-offs</a>
+  <ul class="collapse">
+  <li><a href="#three-fundamental-tensions" id="toc-three-fundamental-tensions" class="nav-link" data-scroll-target="#three-fundamental-tensions">Three fundamental tensions</a></li>
+  <li><a href="#the-fairnessaccuracy-trade-off" id="toc-the-fairnessaccuracy-trade-off" class="nav-link" data-scroll-target="#the-fairnessaccuracy-trade-off">The fairness–accuracy trade-off</a></li>
+  <li><a href="#the-privacyutility-trade-off" id="toc-the-privacyutility-trade-off" class="nav-link" data-scroll-target="#the-privacyutility-trade-off">The privacy–utility trade-off</a></li>
+  <li><a href="#the-explainabilityfairness-interaction" id="toc-the-explainabilityfairness-interaction" class="nav-link" data-scroll-target="#the-explainabilityfairness-interaction">The explainability–fairness interaction</a></li>
+  </ul></li>
+  <li><a href="#an-integrated-framework" id="toc-an-integrated-framework" class="nav-link" data-scroll-target="#an-integrated-framework">An Integrated Framework</a>
+  <ul class="collapse">
+  <li><a href="#returning-to-the-ethical-ai-lifecycle" id="toc-returning-to-the-ethical-ai-lifecycle" class="nav-link" data-scroll-target="#returning-to-the-ethical-ai-lifecycle">Returning to the ethical AI lifecycle</a></li>
+  <li><a href="#stage-1-problem-definition" id="toc-stage-1-problem-definition" class="nav-link" data-scroll-target="#stage-1-problem-definition">Stage 1: Problem definition</a></li>
+  <li><a href="#stage-2-data-collection" id="toc-stage-2-data-collection" class="nav-link" data-scroll-target="#stage-2-data-collection">Stage 2: Data collection</a></li>
+  <li><a href="#stage-3-model-development" id="toc-stage-3-model-development" class="nav-link" data-scroll-target="#stage-3-model-development">Stage 3: Model development</a></li>
+  <li><a href="#stage-4-model-validation" id="toc-stage-4-model-validation" class="nav-link" data-scroll-target="#stage-4-model-validation">Stage 4: Model validation</a></li>
+  <li><a href="#stage-5-deployment" id="toc-stage-5-deployment" class="nav-link" data-scroll-target="#stage-5-deployment">Stage 5: Deployment</a></li>
+  <li><a href="#stage-6-monitoring" id="toc-stage-6-monitoring" class="nav-link" data-scroll-target="#stage-6-monitoring">Stage 6: Monitoring</a></li>
+  <li><a href="#capstone-case-study-applying-the-full-lifecycle" id="toc-capstone-case-study-applying-the-full-lifecycle" class="nav-link" data-scroll-target="#capstone-case-study-applying-the-full-lifecycle">Capstone case study: applying the full lifecycle</a></li>
+  <li><a href="#regulations-criteria-and-models-a-unified-view" id="toc-regulations-criteria-and-models-a-unified-view" class="nav-link" data-scroll-target="#regulations-criteria-and-models-a-unified-view">Regulations, criteria, and models: a unified view</a></li>
+  </ul></li>
+  <li><a href="#practical-governance" id="toc-practical-governance" class="nav-link" data-scroll-target="#practical-governance">Practical Governance</a>
+  <ul class="collapse">
+  <li><a href="#what-governance-artefacts-are-needed" id="toc-what-governance-artefacts-are-needed" class="nav-link" data-scroll-target="#what-governance-artefacts-are-needed">What governance artefacts are needed?</a></li>
+  <li><a href="#six-organisational-governance-practices" id="toc-six-organisational-governance-practices" class="nav-link" data-scroll-target="#six-organisational-governance-practices">Six organisational governance practices</a></li>
+  <li><a href="#governance-is-a-culture-not-a-checklist" id="toc-governance-is-a-culture-not-a-checklist" class="nav-link" data-scroll-target="#governance-is-a-culture-not-a-checklist">Governance is a culture, not a checklist</a></li>
+  <li><a href="#choosing-the-right-technique-for-the-task" id="toc-choosing-the-right-technique-for-the-task" class="nav-link" data-scroll-target="#choosing-the-right-technique-for-the-task">Choosing the right technique for the task</a></li>
+  <li><a href="#the-practitioners-responsibility" id="toc-the-practitioners-responsibility" class="nav-link" data-scroll-target="#the-practitioners-responsibility">The practitioner’s responsibility</a></li>
+  </ul></li>
+  <li><a href="#course-summary" id="toc-course-summary" class="nav-link" data-scroll-target="#course-summary">Course Summary</a>
+  <ul class="collapse">
+  <li><a href="#what-we-set-out-to-do" id="toc-what-we-set-out-to-do" class="nav-link" data-scroll-target="#what-we-set-out-to-do">What we set out to do</a></li>
+  <li><a href="#what-the-course-delivered" id="toc-what-the-course-delivered" class="nav-link" data-scroll-target="#what-the-course-delivered">What the course delivered</a></li>
+  <li><a href="#what-this-course-cannot-do" id="toc-what-this-course-cannot-do" class="nav-link" data-scroll-target="#what-this-course-cannot-do">What this course cannot do</a></li>
+  <li><a href="#the-integrated-view" id="toc-the-integrated-view" class="nav-link" data-scroll-target="#the-integrated-view">The integrated view</a></li>
+  <li><a href="#recommended-reading" id="toc-recommended-reading" class="nav-link" data-scroll-target="#recommended-reading">Recommended reading</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="Slides-Tradeoffs-and-Integration.slides.html"><i class="bi bi-easel2"></i>In-class slides</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trade-offs, Integration, and Governance</h1>
+<p class="subtitle lead">Responsible AI: Principles and Quantitative Methods</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang, UNSW Sydney </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h3>
+<p>By the end of this chapter, you are expected to be able to:</p>
+<ul>
+<li>Summarise and connect the quantitative methods covered across Chapters 2–7.</li>
+<li>Identify and analyse the key trade-offs among fairness, explainability, and privacy.</li>
+<li>Apply the ethical AI lifecycle as an integrating framework for responsible AI projects.</li>
+<li>Design a governance and documentation workflow appropriate for any consequential AI system.</li>
+<li>Critically evaluate an AI-based decision system, in insurance or another high-stakes domain, against the six principles of AI ethics.</li>
+</ul>
+</section>
+<section id="review-what-we-have-covered" class="level2">
+<h2 class="anchored" data-anchor-id="review-what-we-have-covered">Review: What We Have Covered</h2>
+<section id="three-pillars-six-chapters" class="level3">
+<h3 class="anchored" data-anchor-id="three-pillars-six-chapters">Three pillars, six chapters</h3>
+<p>This course introduced responsible AI through three interlocking pillars, each examined first at the level of general principles and then through quantitative methods worked through on real insurance data as a consistent case study.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Chapter</th>
+<th>Pillar</th>
+<th>Key methods and concepts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>Fairness (Principles)</td>
+<td>Fairness criteria (FTU, CPV, DP, CDP, Separation, Sufficiency); five model designs (M0, MU, MDP, MCDP, MC); welfare analysis and audit framework (brief overview)</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>Fairness (Practice)</td>
+<td>Fitting M0/MU/MDP/MCDP/MC in R, fairness–accuracy trade-off, premium redistribution, and binary classification case study (COMPAS, a US recidivism-risk tool) with <code>fairness</code> and <code>fairmodels</code></td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td>Explainability (Principles)</td>
+<td>Taxonomy of interpretability; PFI, PDP, ALE, SHAP, LIME; regulatory expectations; communication</td>
+</tr>
+<tr class="even">
+<td><strong>5</strong></td>
+<td>Explainability (Practice)</td>
+<td>XGBoost pricing model, feature importance, PDP and ALE for Age and Bonus, global and local SHAP, H-statistic, and SHAP interaction values</td>
+</tr>
+<tr class="odd">
+<td><strong>6</strong></td>
+<td>Privacy (Principles)</td>
+<td>Re-identification risk; k-anonymity, l-diversity, t-closeness; differential privacy; synthetic data; regulatory landscape</td>
+</tr>
+<tr class="even">
+<td><strong>7</strong></td>
+<td>Privacy (Practice)</td>
+<td>Re-identification risk assessment, applying k-anonymity with <code>sdcMicro</code>, Laplace mechanism, synthetic data with <code>synthpop</code>, and fidelity and privacy evaluation</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="Quick acronym refresher, Chapters 2–7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Quick acronym refresher, Chapters 2–7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Fairness (Ch 2–3).</strong> FTU is fairness through unawareness, dropping the protected attribute from the model. CPV is controlling for the protected variable, averaging predictions over it at scoring time. DP here means demographic parity, equal outcomes across groups. This is a different DP from differential privacy, which shows up later in this chapter’s privacy section, so watch for which one is meant each time. CDP is conditional demographic parity, equal outcomes within legitimate segments. M0, MU, MDP, MCDP, and MC are the five model designs that enforce these criteria, running from the unconstrained baseline (M0) to full parity (MDP).</p>
+<p><strong>Explainability (Ch 4–5).</strong> PFI is permutation feature importance. PDP is a partial dependence plot, showing a feature’s average effect on predictions. ALE is accumulated local effects, a version of PDP that copes better with correlated features. SHAP assigns each feature a contribution to one prediction. LIME is a similar local, model-agnostic method. The H-statistic measures how strongly two features interact.</p>
+<p><strong>Privacy (Ch 6–7).</strong> k-Anonymity, l-diversity, and t-closeness are dataset-level privacy guarantees, each patching a weakness in the one before it. Differential privacy adds calibrated noise so no single record can be identified from the output, with the parameter epsilon (<span class="math inline">\varepsilon</span>) controlling how much noise is added.</p>
+</div>
+</div>
+</section>
+<section id="connecting-back-to-the-six-ai-ethics-principles" class="level3">
+<h3 class="anchored" data-anchor-id="connecting-back-to-the-six-ai-ethics-principles">Connecting back to the six AI ethics principles</h3>
+<p>Each pillar addresses a distinct cluster of the six AI ethics principles introduced in Chapter 1.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Principle</th>
+<th>Where addressed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness and non-discrimination</td>
+<td>Chapters 2–3: criteria, model design, audit</td>
+</tr>
+<tr class="even">
+<td>Transparency and explainability</td>
+<td>Chapters 4–5: PDP, SHAP, local explanations</td>
+</tr>
+<tr class="odd">
+<td>Accountability</td>
+<td>Chapters 2, 4, 8: governance, documentation, pre-commitment</td>
+</tr>
+<tr class="even">
+<td>Privacy and data ethics</td>
+<td>Chapters 6–7: k-anonymity, differential privacy, synthetic data</td>
+</tr>
+<tr class="odd">
+<td>Contestability</td>
+<td>Chapter 4: right to explanation, Chapter 5: counterfactual explanations</td>
+</tr>
+<tr class="even">
+<td>Stability and robustness</td>
+<td>Chapter 8: monitoring, drift, systemic risk</td>
+</tr>
+</tbody>
+</table>
+<p>No single chapter is self-contained. A real AI system, in insurance or any other high-stakes domain, must address all six principles simultaneously, and managing the interactions among them is the subject of this chapter.</p>
+</section>
+<section id="revisiting-the-motivating-problem" class="level3">
+<h3 class="anchored" data-anchor-id="revisiting-the-motivating-problem">Revisiting the motivating problem</h3>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance, the motivating problem revisited">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance, the motivating problem revisited
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Chapter 1, we introduced a motor insurer that removed gender from its pricing model but retained engine size and annual mileage. Both correlate with gender in the data.</p>
+</div>
+</div>
+<p>The same structure, a protected attribute removed with its influence persisting through correlated features, recurs in hiring, lending, and healthcare models alike. We asked one question. <em>Has the insurer achieved fairness?</em></p>
+<p>By now, you have the tools to answer this rigorously:</p>
+<ul>
+<li><strong>Chapter 2</strong>: Is the model FTU-fair? Possibly. Is it DP- or CDP-fair? Likely not. Removing <span class="math inline">X_P</span> as an input does not guarantee <span class="math inline">\hat{Y} \perp X_P</span>.</li>
+<li><strong>Chapter 3</strong>: Fit MCDP or MC to debias the output. Quantify the remaining disparity with a pre-committed TOST audit (equivalence testing, which shows compliance rather than just failing to detect a violation).</li>
+<li><strong>Chapter 4</strong>: Use PDP and SHAP to explore which variables may be contributing to the observed gender disparity.</li>
+<li><strong>Chapter 5</strong>: Examine SHAP interaction values. Does Bonus (the driver’s bonus-malus, or no-claims discount, level) interact with the proxies in ways that amplify the gender effect?</li>
+<li><strong>Chapter 6</strong>: If the model uses telematics (driving data collected from an in-car device or app) or third-party data, what re-identification risks arise? Is the data minimisation principle satisfied?</li>
+<li><strong>Chapter 7</strong>: Could differential privacy or synthetic data be used in the model development pipeline to reduce individual-level exposure?</li>
+</ul>
+<p>This is what an integrated responsible AI analysis looks like in practice.</p>
+</section>
+</section>
+<section id="the-key-trade-offs" class="level2">
+<h2 class="anchored" data-anchor-id="the-key-trade-offs">The Key Trade-offs</h2>
+<section id="three-fundamental-tensions" class="level3">
+<h3 class="anchored" data-anchor-id="three-fundamental-tensions">Three fundamental tensions</h3>
+<p>The three pillars of this course are not independent. Each creates obligations that can conflict with the others. Navigating these tensions is a core professional skill.</p>
+<p><strong>1. Fairness vs accuracy</strong> Imposing a fairness constraint (e.g.&nbsp;demographic parity) reduces the model’s ability to use all available predictive information. The constrained model will typically have a higher loss, and a higher risk of adverse selection (higher-risk customers being more likely to buy or stay, since they know their own risk better than the insurer does).</p>
+<p><strong>2. Explainability vs performance</strong> Simpler, more interpretable models (GLMs, decision trees) are easier to explain but generally less accurate than complex ensemble methods. Conversely, SHAP and other post-hoc explanation tools make complex models more interpretable, but at the cost of additional computation and potential approximation error.</p>
+<p><strong>3. Privacy vs utility</strong> Privacy-enhancing techniques reduce the information content of data. k-Anonymity generalises or suppresses records, differential privacy adds noise, and synthetic data introduces distributional distortion. All three reduce the statistical utility available for modelling.</p>
+</section>
+<section id="the-fairnessaccuracy-trade-off" class="level3">
+<h3 class="anchored" data-anchor-id="the-fairnessaccuracy-trade-off">The fairness–accuracy trade-off</h3>
+<p>The empirical evidence from <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> on French motor insurance data provides a useful reference point. The same qualitative pattern (modest accuracy loss for substantial fairness gain) recurs in fair-ML studies in other domains.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Gini (frequency)</th>
+<th>Mean gender premium ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0 (unconstrained)</td>
+<td>Highest</td>
+<td>Highest disparity</td>
+</tr>
+<tr class="even">
+<td>MU (unawareness)</td>
+<td>Moderate reduction</td>
+<td>Moderate reduction</td>
+</tr>
+<tr class="odd">
+<td>MCDP</td>
+<td>Small reduction</td>
+<td>Large reduction</td>
+</tr>
+<tr class="even">
+<td>MC</td>
+<td>Small reduction</td>
+<td>Large reduction</td>
+</tr>
+<tr class="odd">
+<td>MDP (full parity)</td>
+<td>Largest reduction</td>
+<td>Near zero disparity</td>
+</tr>
+</tbody>
+</table>
+<p>Gini (frequency) measures how well the model ranks policyholders by claim risk, higher is better. Mean gender premium ratio compares the average premium charged to women against men, closer to one means less disparity.</p>
+<p>Key finding. <strong>The cost of fairness is smaller than often assumed, but it is not zero.</strong> MCDP and MC achieve large reductions in gender disparity with only modest losses in predictive accuracy. MDP achieves demographic parity but at a meaningful accuracy cost.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="The trade-off is a policy decision, not a modelling decision">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The trade-off is a policy decision, not a modelling decision
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is no statistically correct level of fairness constraint. The appropriate trade-off depends on:</p>
+<ul>
+<li>The regulatory regime (what is required vs what is permitted)</li>
+<li>The product type (social good vs economic commodity)</li>
+<li>Stakeholder values (how much adverse selection risk is acceptable)</li>
+<li>Market structure (what competitors are doing)</li>
+</ul>
+<p>Practitioners (actuaries, credit risk analysts, HR analytics leads, or their equivalents) should quantify the trade-off and present it to decision-makers, not choose it themselves.</p>
+</div>
+</div>
+</section>
+<section id="the-privacyutility-trade-off" class="level3">
+<h3 class="anchored" data-anchor-id="the-privacyutility-trade-off">The privacy–utility trade-off</h3>
+<p>The case study in Chapter 7 illustrated how privacy protection reduces statistical utility.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 41%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technique</th>
+<th>Privacy guarantee</th>
+<th>Utility cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k-Anonymity (<span class="math inline">k=50</span>)</td>
+<td>No formal guarantee</td>
+<td>Generalisation reduces variable precision, and some records are suppressed</td>
+</tr>
+<tr class="even">
+<td>Differential privacy (<span class="math inline">\varepsilon = 1</span>)</td>
+<td>Strong (<span class="math inline">\varepsilon</span>-DP)</td>
+<td>High noise, statistics may be unreliable</td>
+</tr>
+<tr class="odd">
+<td>Differential privacy (<span class="math inline">\varepsilon = 10</span>)</td>
+<td>Weak</td>
+<td>Low noise, statistics close to true values</td>
+</tr>
+<tr class="even">
+<td>Synthetic data (no DP)</td>
+<td>No formal guarantee</td>
+<td>High fidelity possible, memorisation risk for rare records</td>
+</tr>
+<tr class="odd">
+<td>Synthetic data (DP-trained)</td>
+<td>Formal guarantee</td>
+<td>Lower fidelity than non-DP synthesis</td>
+</tr>
+</tbody>
+</table>
+<p>The right choice depends on the purpose of the data release, the sensitivity of the individuals involved, and the regulatory context.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Matching the technique to the recipient, not stacking every technique at once">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Matching the technique to the recipient, not stacking every technique at once
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It might seem like more protection is always better, so why not apply several techniques together, k-anonymising, then synthesising, then adding differential privacy on top? Chapter 7’s case study argues against this by example, not by assertion. Three recipients requesting the same insurance dataset needed three different, single techniques. A reinsurer building its own pricing model got synthetic data (CART-based, via <code>synthpop</code>), validated by a train-synthetic-test-real check showing negligible loss of predictive accuracy. An internal team already inside the organisation got governance and access control alone. A vendor who only ever needed aggregate statistics, never a record-level file, got differential privacy. Stacking all three onto the vendor’s request would mean degrading a file they never asked for in the first place.</p>
+<p>The right question is not “which combination of techniques is strongest” but “what does this specific recipient actually need, and what is the cheapest technique that supplies it without compromising anyone’s privacy.” Defence-in-depth still applies, but across the stages of the data lifecycle discussed below, collection, storage, analytics, sharing, retention, not by piling multiple privacy-enhancing techniques onto a single release.</p>
+</div>
+</div>
+</section>
+<section id="the-explainabilityfairness-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="the-explainabilityfairness-interaction">The explainability–fairness interaction</h3>
+<p>Explainability tools are not neutral. They can reveal fairness problems or mask them.</p>
+<p><strong>Revealing</strong>: A SHAP beeswarm plot that shows <code>Postcode</code> as a dominant driver of premium variation (premium being the price a customer pays for their policy) does not by itself establish that Postcode is acting as a proxy for a protected attribute or contributing to a fairness problem. But it can prompt exactly the kind of further investigation, into whether Postcode is standing in for a protected attribute, that a fairness audit alone might not have flagged.</p>
+<p><strong>Masking</strong>: <span class="citation" data-cites="slack2020fooling">Slack et al. (<a href="#ref-slack2020fooling" role="doc-biblioref">2020</a>)</span> demonstrated that SHAP and LIME can be manipulated. A model can be designed to produce innocuous-looking SHAP values for a fairness auditor while still discriminating in production. This is why explanation methods must be used alongside, not instead of, formal fairness testing.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: manipulating partial dependence plots to hide discrimination">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: manipulating partial dependence plots to hide discrimination
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="xin2025pdppitfalls">Xin et al. (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025</a>)</span> show the same vulnerability extends to PDP, the default sanity check for a protected or proxy variable in the regulatory checklist below. Their adversarial construction leaves a black-box model’s real-world predictions almost untouched, changing behaviour only in the sparse, rarely-observed region of the input space that PDP’s averaging step depends on, while the resulting plot for the manipulated variable is engineered to look flat and non-discriminatory. Validated on real insurance and COMPAS data, the finding targets exactly the regulatory evidence practice referenced below. A flat PD plot is not, by itself, proof of fairness.</p>
+</div>
+</div>
+<p><strong>The right workflow</strong> uses explainability tools to:</p>
+<ol type="1">
+<li>Generate hypotheses about which variables may be driving unfair disparities</li>
+<li>Help diagnose and communicate fairness-audit findings once a criterion and model design have been chosen through the regulatory context, decision purpose, and normative judgement discussed in Chapter 2, not to select the criterion itself</li>
+<li>Communicate audit results to non-technical stakeholders</li>
+<li>Provide individual-level explanations to policyholders who request them</li>
+</ol>
+</section>
+</section>
+<section id="an-integrated-framework" class="level2">
+<h2 class="anchored" data-anchor-id="an-integrated-framework">An Integrated Framework</h2>
+<section id="returning-to-the-ethical-ai-lifecycle" class="level3">
+<h3 class="anchored" data-anchor-id="returning-to-the-ethical-ai-lifecycle">Returning to the ethical AI lifecycle</h3>
+<p>Chapter 1 introduced the ethical AI lifecycle as a six-stage framework. Having covered the quantitative tools for each pillar, we can now populate each stage with specific responsible AI obligations.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ethical_lc.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>The ethical AI lifecycle. Source: <span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025</a>)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="stage-1-problem-definition" class="level3">
+<h3 class="anchored" data-anchor-id="stage-1-problem-definition">Stage 1: Problem definition</h3>
+<p><em>Key question: whose problem is being solved, and could the solution harm anyone?</em></p>
+<p>Responsible AI: Principles and Quantitative Methods checklist for this stage:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Is AI the appropriate tool? Is the decision reversible if the model is wrong?</label></li>
+<li><label><input type="checkbox">Which fairness criterion applies given the product type and regulatory regime?</label></li>
+<li><label><input type="checkbox">Are there individuals or groups who may be disproportionately affected by errors?</label></li>
+<li><label><input type="checkbox">Does the decision context (a regulatory right to explanation, or a high-stakes/legally significant outcome) require an inherently interpretable model, rather than a black-box model with post-hoc explanations added later?</label></li>
+<li><label><input type="checkbox">What data will be required, and is there a legal basis for collecting it?</label></li>
+<li><label><input type="checkbox">Who is accountable if the system produces a harmful outcome?</label></li>
+</ul>
+<p><strong>This stage sets the frame for every subsequent decision.</strong> A wrong choice here (using the wrong outcome variable, optimising for the wrong objective, failing to identify affected groups) cannot be corrected by better modelling later. Chapter 1’s UK exam-grading algorithm is a canonical failure at exactly this stage. Letting each school’s historical grade distribution determine individual students’ results was a problem-definition choice, not a modelling one, and no amount of careful downstream work could fix it once made.</p>
+</section>
+<section id="stage-2-data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="stage-2-data-collection">Stage 2: Data collection</h3>
+<p><em>Key question: is the data appropriate, consented, and free of historical bias?</em></p>
+<p>Responsible AI: Principles and Quantitative Methods checklist for this stage:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Is there a legal basis for collecting each data source? (GDPR Art 6, APP 3)</label></li>
+<li><label><input type="checkbox">Have individuals been informed how their data will be used? (Transparency principle)</label></li>
+<li><label><input type="checkbox">Does the data reflect historical discrimination that the model will perpetuate?</label></li>
+<li><label><input type="checkbox">Are there quasi-identifiers that could enable re-identification of individuals?</label></li>
+<li><label><input type="checkbox">Is data minimisation applied, collecting only what is needed for the stated purpose?</label></li>
+<li><label><input type="checkbox">If using third-party data (e.g.&nbsp;telematics, credit bureau data, social media, employment history), has the data supply chain been audited?</label></li>
+</ul>
+<p>Chapter 6’s GM OnStar case is a Stage 2 failure at exactly this point. Customers consented to trip-level driving data for a driving-feedback programme, not for it to be sold to a data broker who resold it to insurers for pricing. Purpose limitation failed at scale, not because the data itself was mishandled, but because the stated purpose at collection time did not match its eventual use.</p>
+</section>
+<section id="stage-3-model-development" class="level3">
+<h3 class="anchored" data-anchor-id="stage-3-model-development">Stage 3: Model development</h3>
+<p><em>Key question: does the model enforce the chosen fairness criterion and remain explainable?</em></p>
+<p>Responsible AI: Principles and Quantitative Methods checklist for this stage:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Is the model design (e.g.&nbsp;one of M0, MU, MDP, MCDP, MC from Chapter 3, or an equivalent) aligned with the regulatory regime?</label></li>
+<li><label><input type="checkbox">Have proxies for protected attributes been identified and addressed?</label></li>
+<li><label><input type="checkbox">Is the model explainable at the level required by regulators and affected individuals?</label></li>
+<li><label><input type="checkbox">Have explainability analyses (e.g.&nbsp;PDP, SHAP) been conducted to identify unexpected variable effects?</label></li>
+<li><label><input type="checkbox">Has the fairness–accuracy trade-off been quantified and presented to decision-makers?</label></li>
+<li><label><input type="checkbox">Is differential privacy or data anonymisation required for the development dataset?</label></li>
+</ul>
+</section>
+<section id="stage-4-model-validation" class="level3">
+<h3 class="anchored" data-anchor-id="stage-4-model-validation">Stage 4: Model validation</h3>
+<p><em>Key question: can we demonstrate that the model meets its fairness, explainability, and privacy obligations?</em></p>
+<p>Responsible AI: Principles and Quantitative Methods checklist for this stage:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Has a pre-committed audit protocol been established before examining the results? (<span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span>)</label></li>
+<li><label><input type="checkbox">Has an equivalence-testing approach (e.g.&nbsp;TOST) been used to provide positive evidence of compliance, rather than absence of significance?</label></li>
+<li><label><input type="checkbox">Have appropriately robust standard errors (e.g.&nbsp;an HC3 heteroskedasticity-robust correction) been used for inference on deterministic algorithmic outputs (e.g.&nbsp;prices, scores, or decisions)?</label></li>
+<li><label><input type="checkbox">Has the model been tested on out-of-time and out-of-sample data for stability?</label></li>
+<li><label><input type="checkbox">Have explanation outputs (e.g.&nbsp;SHAP) been cross-checked against known variable effects (e.g.&nbsp;Age, Bonus curves)?</label></li>
+<li><label><input type="checkbox">Has re-identification risk been assessed for any data shared outside the organisation?</label></li>
+</ul>
+</section>
+<section id="stage-5-deployment" class="level3">
+<h3 class="anchored" data-anchor-id="stage-5-deployment">Stage 5: Deployment</h3>
+<p><em>Key question: are governance, oversight, and contestability mechanisms in place?</em></p>
+<p>Responsible AI: Principles and Quantitative Methods checklist for this stage:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Is there a human review process for edge cases and high-stakes decisions?</label></li>
+<li><label><input type="checkbox">Can affected individuals request an explanation of their outcome (e.g.&nbsp;a policyholder’s premium, a loan decision, a hiring score)? (Right to explanation)</label></li>
+<li><label><input type="checkbox">Is there a formal appeals process for automated decisions? (Contestability)</label></li>
+<li><label><input type="checkbox">Has a Data Protection Impact Assessment (DPIA/PIA) been completed?</label></li>
+<li><label><input type="checkbox">Are third-party model vendors subject to the same governance standards?</label></li>
+<li><label><input type="checkbox">Has the deployment been logged to enable post-hoc audit if a complaint is received?</label></li>
+</ul>
+</section>
+<section id="stage-6-monitoring" class="level3">
+<h3 class="anchored" data-anchor-id="stage-6-monitoring">Stage 6: Monitoring</h3>
+<p><em>Key question: does the model remain fair, explainable, and privacy-preserving as data and populations change?</em></p>
+<p>Responsible AI: Principles and Quantitative Methods checklist for this stage:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Is model performance monitored on an ongoing basis for accuracy and calibration?</label></li>
+<li><label><input type="checkbox">Are fairness metrics recalculated periodically to detect emerging disparities?</label></li>
+<li><label><input type="checkbox">Is data drift monitored? Do input distributions remain consistent with the training data?</label></li>
+<li><label><input type="checkbox">Is there a trigger for re-validation when performance or fairness metrics fall outside tolerance?</label></li>
+<li><label><input type="checkbox">Are explanation outputs (e.g.&nbsp;PDP, SHAP) periodically refreshed as the model evolves?</label></li>
+<li><label><input type="checkbox">Are data retention and deletion schedules enforced? (Storage limitation principle)</label></li>
+</ul>
+</section>
+<section id="capstone-case-study-applying-the-full-lifecycle" class="level3">
+<h3 class="anchored" data-anchor-id="capstone-case-study-applying-the-full-lifecycle">Capstone case study: applying the full lifecycle</h3>
+<p>The six stages above are easier to internalise against one running example than as six separate checklists. Consider a motor insurer building an AI-driven claims-triage system. Every incoming claim receives a fraud-risk and complexity score, low-scoring claims are fast-tracked for payout within 48 hours, and high-scoring claims are routed to a specialist investigation team for manual review before any payment is made.</p>
+<p>This single system creates a genuine tension in each of the three pillars, not a hypothetical one:</p>
+<ul>
+<li><strong>Fairness.</strong> If the fraud-risk score correlates with postcode, vehicle type, or claim history in ways that route certain groups to slower manual review more often, the claimants least able to absorb a cash-flow delay after an accident are also the ones most likely to face one.</li>
+<li><strong>Explainability.</strong> A claimant whose payment is delayed, or whose claim is denied, generally has a right to know why, particularly when the flag comes from an opaque ensemble model, and the investigation team needs to trust a flag before acting on it.</li>
+<li><strong>Privacy.</strong> The model may draw on claim narrative text, injury or medical detail, prior claim history, and third-party records (police reports, repair-shop invoices), data that a fraud model needs to be accurate, and that a data-sharing agreement with an external investigator or reinsurer needs to protect.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise: work through the lifecycle for this system">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise: work through the lifecycle for this system
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For each stage below, answer the applied question using the specific tools and criteria from the chapter indicated, not general reasoning alone.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 50%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Applied question</th>
+<th>Chapter(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Problem definition</td>
+<td>What is the cost of a false positive (a genuine claim delayed) versus a false negative (a fraudulent claim paid), and who bears each cost? Is this decision reversible?</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2. Data collection</td>
+<td>Does the claim-history data reflect any past pattern of over-investigating particular groups? Is the claim narrative text, which may contain health or demographic detail, minimised to what the fraud model actually needs?</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>3. Model development</td>
+<td>Which fairness criterion applies (equalised investigation rates? equalised false-positive rates?), and which model design enforces it without destroying the fraud-detection signal?</td>
+<td>2, 3</td>
+</tr>
+<tr class="even">
+<td>4. Model validation</td>
+<td>What pre-committed audit protocol would demonstrate, rather than merely fail to contradict, that investigation rates do not disproportionately fall on any group?</td>
+<td>2, 3</td>
+</tr>
+<tr class="odd">
+<td>5. Deployment</td>
+<td>What does a claimant see when their payment is delayed? A specific, actionable explanation and a real appeals channel, or only a generic notice?</td>
+<td>4, 5</td>
+</tr>
+<tr class="even">
+<td>6. Monitoring</td>
+<td>Fraud patterns shift after major events (e.g.&nbsp;a hailstorm generating a spike in genuine claims that could look like a fraud cluster to a static model). What triggers re-validation?</td>
+<td>3, 6</td>
+</tr>
+</tbody>
+</table>
+<p>Then step back from the stage-by-stage view and address the trade-offs directly:</p>
+<ul>
+<li>Does a stricter fraud model that catches more real fraud, protecting honest policyholders from the higher premiums fraud eventually causes, justify a higher false-positive rate that delays more genuine claimants? Who should make that call, and using what evidence?</li>
+<li>Does minimising the claim data collected for privacy reasons remove exactly the free-text and behavioural detail that makes the fraud model accurate? Is there a technique from Chapter 6 or 7 that reduces this cost rather than simply accepting it?</li>
+<li>Is a more accurate but less explainable model, or a less accurate but more transparent one, the right choice here, given that the explanation is owed directly to an individual claimant, not only to a regulator?</li>
+</ul>
+</div>
+</div>
+<p>There is no single answer key for this exercise. What you should have by the end is a defensible, evidenced position on each question, and an honest account of which trade-offs you resolved versus which you only acknowledged.</p>
+<section id="sample-answers" class="level4">
+<h4 class="anchored" data-anchor-id="sample-answers">Sample answers</h4>
+<p>Attempt the exercise yourself before reading these. They illustrate one defensible line of reasoning per question, grounded in tools from the chapter indicated, not the only correct one.</p>
+<details>
+<summary>
+<strong>Click to reveal sample answers</strong>
+</summary>
+<p><strong>1. Problem definition.</strong> A false positive (a genuine claim delayed) falls directly on an already-distressed policyholder, who may face real hardship while under investigation. A false negative (a fraudulent claim paid) falls diffusely on the wider pool of honest policyholders, through higher future premiums. The costs differ in size, timing, and who bears them, so this is a distributional question, not a symmetric accuracy one. The flagging decision is reversible in the sense that a wrongly-flagged claim can eventually be paid, but the delay and any resulting hardship are not undone by a later correction.</p>
+<p><strong>2. Data collection.</strong> If past investigation decisions were themselves shaped by human bias (for example, investigators disproportionately scrutinising certain postcodes), a model trained on that history will encode and automate the same pattern, exactly Stage 2’s question about historical discrimination. On minimisation, claim narrative text usually contains far more than the fraud signal requires. A defensible design extracts only the specific structured features the model needs (timeline inconsistencies, damage-severity mismatches) rather than feeding the full free text into the model, the data minimisation principle from Chapter 6.</p>
+<p><strong>3. Model development.</strong> Equalised investigation rates (demographic parity on who gets flagged) is the wrong criterion, since it would force flagging genuinely fraud-prone patterns evenly regardless of actual risk. Equalised false-positive rates, a form of separation (Chapter 2), fits better: it does not require flagging genuine claimants at the same rate across groups, only that innocent claimants are not more likely to be wrongly flagged in one group than another. An MCDP-style design (Chapters 2-3), debiasing only the specific proxy variables driving the disparity, enforces this at a smaller accuracy cost than full demographic parity.</p>
+<p><strong>4. Model validation.</strong> A pre-registered TOST equivalence test (Chapters 2-3), comparing false-positive investigation rates across groups against a pre-specified tolerance band, provides positive evidence of compliance, rather than the weaker claim that a plain significance test simply failed to detect a difference.</p>
+<p><strong>5. Deployment.</strong> A claimant should receive a reason specific to their own claim (for example, “the reported repair cost is significantly higher than typical for this type of damage”), generated with a local explanation method such as SHAP (Chapters 4-5), plus a genuine appeals channel with a human reviewer empowered to override the flag, not only a generic “under review” notice and a rubber-stamp process.</p>
+<p><strong>6. Monitoring.</strong> A monitored spike in the flag rate for a specific geography or claim type, relative to the model’s training-period baseline, should trigger a review of whether the shift reflects genuine new fraud patterns or a legitimate surge in real claims (for example, after a hailstorm) that the model is misreading as suspicious.</p>
+<p><strong>Trade-off 1.</strong> This is a policy decision, not a modelling one, the point made earlier in this chapter. The model owner should quantify the trade-off, the measured cost in delayed genuine claims against the measured benefit in caught fraud, and present it to a decision-maker accountable for the choice, rather than resolve it unilaterally.</p>
+<p><strong>Trade-off 2.</strong> Potentially yes, if minimisation means dropping the free-text narrative outright. But Chapter 7’s techniques offer a middle path: generalising the more identifying fields while retaining a derived, less-identifying feature (for example, a timeline-inconsistency score computed once, with the raw narrative then discarded) can preserve the specific signal without retaining the full sensitive record.</p>
+<p><strong>Trade-off 3.</strong> Because the explanation obligation runs to an individual claimant, not only to a regulator, Chapter 4’s SHAP-versus-LIME discussion is directly relevant: a gradient-boosted model paired with TreeSHAP local explanations can deliver both strong fraud detection and a genuine per-claimant explanation. A simpler scorecard model trades away detection accuracy for an explanation-simplicity gain that SHAP already mostly closes, so the stronger case here is for the more accurate model with rigorous local explanations, not the simpler model by default.</p>
+</details>
+</section>
+</section>
+<section id="regulations-criteria-and-models-a-unified-view" class="level3">
+<h3 class="anchored" data-anchor-id="regulations-criteria-and-models-a-unified-view">Regulations, criteria, and models: a unified view</h3>
+<p>The mapping between regulatory regimes, fairness criteria, and model designs, introduced in Chapter 2, provides a useful anchor for the integrated framework.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regulations_fairness_models.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>Mapping between regulations, fairness criteria, and model designs. Source: <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span>.</figcaption>
+</figure>
+</div>
+<p>Reading this diagram from left to right describes the full decision chain:</p>
+<ol type="1">
+<li><strong>Regulatory regime</strong> determines which fairness obligations apply</li>
+<li><strong>Fairness criterion</strong> translates obligations into a measurable condition</li>
+<li><strong>Model design</strong> enforces the criterion in the pricing model</li>
+<li><strong>Explainability tools</strong> help diagnose and communicate whether the model behaves as the criterion intends, alongside, not instead of, the formal fairness testing that actually verifies it</li>
+<li><strong>Privacy techniques</strong> protect individuals whose data was used in development</li>
+</ol>
+</section>
+</section>
+<section id="practical-governance" class="level2">
+<h2 class="anchored" data-anchor-id="practical-governance">Practical Governance</h2>
+<section id="what-governance-artefacts-are-needed" class="level3">
+<h3 class="anchored" data-anchor-id="what-governance-artefacts-are-needed">What governance artefacts are needed?</h3>
+<p>Responsible AI: Principles and Quantitative Methods is not only a technical discipline. It requires documentation that supports oversight, accountability, and continuous improvement.</p>
+<p><strong>Model documentation (Model Card)</strong></p>
+<p>A model card is a short, standard document summarising a model for anyone auditing, inheriting, or approving it.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Purpose</td>
+<td>What the model is used for, and its scope and intended users</td>
+</tr>
+<tr class="even">
+<td>Data</td>
+<td>Training data sources, period, preprocessing steps</td>
+</tr>
+<tr class="odd">
+<td>Fairness criterion</td>
+<td>Which criterion was chosen and why, and its regulatory basis</td>
+</tr>
+<tr class="even">
+<td>Performance</td>
+<td>Accuracy metrics on training, validation, and test sets</td>
+</tr>
+<tr class="odd">
+<td>Fairness audit</td>
+<td>Audit protocol, results, confidence intervals, TOST outcome</td>
+</tr>
+<tr class="even">
+<td>Explainability</td>
+<td>Key SHAP summaries, PDP for main input features (e.g.&nbsp;rating factors in insurance)</td>
+</tr>
+<tr class="odd">
+<td>Privacy</td>
+<td>Re-identification risk assessment, techniques applied</td>
+</tr>
+<tr class="even">
+<td>Limitations</td>
+<td>Known failure modes, out-of-scope use cases</td>
+</tr>
+<tr class="odd">
+<td>Owner and reviewer</td>
+<td>Named responsible parties, review schedule</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="six-organisational-governance-practices" class="level3">
+<h3 class="anchored" data-anchor-id="six-organisational-governance-practices">Six organisational governance practices</h3>
+<p>Model documentation operationalises governance for a single model. A complete governance programme also needs organisation-wide practices spanning every system a team deploys. Australia’s National AI Centre AI6 guidance is a useful worked example. The six practices generalise well beyond any one jurisdiction.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 39%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Practice</th>
+<th>What it means</th>
+<th>Connects to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Accountability</td>
+<td>A named owner for every AI system across its lifecycle, including third-party/vendor systems</td>
+<td>Stage 1, Model Card owner field</td>
+</tr>
+<tr class="even">
+<td>2. Impact assessment</td>
+<td>Assess who could be harmed, with particular attention to vulnerable groups, and build contestability channels</td>
+<td>Chapters 2–3 welfare analysis, contestability principle</td>
+</tr>
+<tr class="odd">
+<td>3. Risk management</td>
+<td>Context-specific controls, since the same model can be low- or high-risk depending on where it is deployed</td>
+<td>Stages 1–3 checklists</td>
+</tr>
+<tr class="even">
+<td>4. Transparency</td>
+<td>Maintain a register of all AI systems in use, disclose AI use, and know what vendors built and on what data</td>
+<td>Chapters 4–5 explainability</td>
+</tr>
+<tr class="odd">
+<td>5. Test &amp; monitor</td>
+<td>Test before deployment, monitor continuously after, and independent audit for high-risk systems</td>
+<td>Chapter 2’s audit protocol, Stage 6 monitoring</td>
+</tr>
+<tr class="even">
+<td>6. Human control</td>
+<td>Meaningful oversight with real intervention points (pause, override, roll back), not rubber-stamping</td>
+<td>Contestability principle, Stage 5 deployment</td>
+</tr>
+</tbody>
+</table>
+<p>Source: National AI Centre, <em>Guidance for AI Adoption</em> (Oct 2025) <span class="citation" data-cites="naic_au_2025_ai6">(<a href="#ref-naic_au_2025_ai6" role="doc-biblioref">National AI Centre 2025</a>)</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Vendor accountability does not transfer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Vendor accountability does not transfer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Outsourcing an AI system to a third party does not outsource the regulatory obligations that come with using it. If a vendor model produces unfair outcomes or breaches a licence condition, the regulator looks to the deploying organisation. The question is whether it governed the vendor adequately (see Chapter 1’s ASIC REP 798 example).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="What good privacy governance looks like: WeBank's FATE">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What good privacy governance looks like: WeBank’s FATE
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Chapter 6’s WeBank case study is a useful counterpart to the ASIC example above. WeBank built federated learning into its credit-rating model from the start, via its open-source FATE framework, letting the model train across institutions without any of them centralising the others’ raw data. Privacy by design, in the GDPR Article 25 sense (Chapter 6), is a governance choice made at Stage 3 (model development), not a control retrofitted at Stage 5 (deployment). The direct insurance analogue, several insurers jointly training a shared fraud-detection model without pooling claims data, remains at the research and pilot stage, which is itself a governance lesson. The technique exists, but institutional coordination has not caught up with it.</p>
+</div>
+</div>
+</section>
+<section id="governance-is-a-culture-not-a-checklist" class="level3">
+<h3 class="anchored" data-anchor-id="governance-is-a-culture-not-a-checklist">Governance is a culture, not a checklist</h3>
+<p>A checklist gets signed off once. A culture is lived continuously, and it is the foundation every practice above rests on. Responsibility spans the whole organisation, not just a compliance function:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Risk and compliance</td>
+<td>Own the governance framework, set risk appetite (how much risk the organisation is willing to accept), and escalate when governance lags adoption</td>
+</tr>
+<tr class="even">
+<td>Technology and data</td>
+<td>Build ethical principles into the pipeline, maintain the AI register, test and monitor throughout the lifecycle, and design fallback processes</td>
+</tr>
+<tr class="odd">
+<td>Business lines and frontline users</td>
+<td>Understand the tools they use daily, exercise genuine oversight, know when and how to override, and raise concerns rather than accept outputs</td>
+</tr>
+</tbody>
+</table>
+<p>Fairness criteria, explanation tools, and privacy techniques are necessary, but they only produce a trustworthy system inside an organisation that has assigned ownership, resourced monitoring, and given people real authority to intervene.</p>
+</section>
+<section id="choosing-the-right-technique-for-the-task" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-the-right-technique-for-the-task">Choosing the right technique for the task</h3>
+<p>A practical summary of when to reach for each tool introduced in this course.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 53%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Recommended tool</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identify which variables drive predictions</td>
+<td>Permutation feature importance, grouped SHAP</td>
+<td>4, 5</td>
+</tr>
+<tr class="even">
+<td>Understand the shape of a variable’s effect</td>
+<td>PDP, ALE</td>
+<td>4, 5</td>
+</tr>
+<tr class="odd">
+<td>Explain an individual prediction</td>
+<td>SHAP waterfall, LIME, local what-if analysis</td>
+<td>4, 5</td>
+</tr>
+<tr class="even">
+<td>Detect and quantify interaction effects</td>
+<td>H-statistic, SHAP interaction values</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Enforce demographic parity</td>
+<td>MDP, MCDP</td>
+<td>2, 3</td>
+</tr>
+<tr class="even">
+<td>Audit for compliance</td>
+<td>TOST with HC3 standard errors</td>
+<td>2, 3</td>
+</tr>
+<tr class="odd">
+<td>Assess re-identification risk</td>
+<td><code>sdcMicro</code>, quasi-identifier analysis</td>
+<td>6, 7</td>
+</tr>
+<tr class="even">
+<td>Anonymise tabular data</td>
+<td>k-Anonymity via <code>sdcMicro</code></td>
+<td>6, 7</td>
+</tr>
+<tr class="odd">
+<td>Release privacy-protected statistics</td>
+<td>Laplace mechanism (differential privacy)</td>
+<td>6, 7</td>
+</tr>
+<tr class="even">
+<td>Share data for external use</td>
+<td>Synthetic data via <code>synthpop</code> + NNDR evaluation</td>
+<td>6, 7</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-practitioners-responsibility" class="level3">
+<h3 class="anchored" data-anchor-id="the-practitioners-responsibility">The practitioner’s responsibility</h3>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: the actuarial profession">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: the actuarial profession
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>“The actuarial profession should lead, not follow, in building public trust in AI systems.”</p>
+<p>— <span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025</a>)</span></p>
+</blockquote>
+<p>Actuaries occupy a distinctive position in the responsible AI landscape:</p>
+<ul>
+<li>They are trained in the quantitative methods needed to implement fairness criteria, explanation tools, and privacy techniques</li>
+<li>They hold professional accountability for the models they certify</li>
+<li>They communicate with both technical teams (developers, data scientists) and non-technical stakeholders (boards, regulators, customers)</li>
+<li>They are subject to professional standards that require them to consider the public interest, not only the interests of their employer</li>
+</ul>
+</div>
+</div>
+<p>The same position (quantitative fluency, accountability for a certified model, and a bridging role between technical and non-technical stakeholders) is held by credit risk analysts in lending, HR analytics leads in hiring, and clinical decision-support leads in healthcare. Responsible AI is therefore not an external obligation imposed on any one profession. It is an extension of the core professional values that quantitative, decision-facing professions have always held.</p>
+</section>
+</section>
+<section id="course-summary" class="level2">
+<h2 class="anchored" data-anchor-id="course-summary">Course Summary</h2>
+<section id="what-we-set-out-to-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-set-out-to-do">What we set out to do</h3>
+<p>In Chapter 1, we defined responsible AI as the discipline of making AI innovation <strong>defensible</strong>, to regulators, stakeholders, and the people whose lives are affected by automated decisions.</p>
+<p>We identified three core questions:</p>
+<ol type="1">
+<li><em>Does the model treat people equitably?</em> (Fairness)</li>
+<li><em>Can model decisions be understood and justified?</em> (Explainability)</li>
+<li><em>Are personal data used appropriately and protected?</em> (Privacy)</li>
+</ol>
+<p>And we argued that answering these questions requires both principled frameworks and quantitative methods.</p>
+</section>
+<section id="what-the-course-delivered" class="level3">
+<h3 class="anchored" data-anchor-id="what-the-course-delivered">What the course delivered</h3>
+<p><strong>Fairness (Chapters 2–3)</strong></p>
+<p>You can now define and distinguish six fairness criteria, implement five model designs that enforce those criteria, quantify the fairness–accuracy trade-off, and conduct a pre-committed compliance audit using equivalence testing.</p>
+<p><strong>Explainability (Chapters 4–5)</strong></p>
+<p>You can now apply permutation feature importance, PDP, ALE, and SHAP to a complex machine learning model, interpret global and local explanations, detect interaction effects, and communicate findings to technical and non-technical audiences.</p>
+<p><strong>Privacy (Chapters 6–7)</strong></p>
+<p>You can now assess re-identification risk in a tabular dataset, apply k-anonymity and differential privacy, generate and evaluate synthetic data, and select privacy-enhancing techniques appropriate to the data sharing context.</p>
+</section>
+<section id="what-this-course-cannot-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-course-cannot-do">What this course cannot do</h3>
+<p>No course can fully prepare you for the complexity of responsible AI in practice. Several important limitations deserve acknowledgement.</p>
+<p><strong>Criteria are contested.</strong> Which fairness criterion is appropriate is ultimately a social and political decision, not a statistical one. Different stakeholders will reasonably disagree.</p>
+<p><strong>Methods have assumptions.</strong> SHAP values are exact for tree models but approximate for others. ALE assumes sufficient data density. Differential privacy assumes bounded sensitivity. Know the assumptions of the tools you use.</p>
+<p><strong>Regulation is evolving.</strong> The EU AI Act, Colorado SB21-169, the NY DFS Circular Letter, and NYC Local Law 144 (automated employment decision tools) were all introduced or substantially revised in the last three years. The regulatory landscape will continue to change, in insurance and elsewhere.</p>
+<p><strong>Interaction effects are hard to anticipate.</strong> A model that is fair, explainable, and privacy-preserving in isolation may still produce harmful outcomes when combined with other systems, data sources, or business processes.</p>
+<p><strong>This course focuses on structured-data predictive models.</strong> The fairness, explainability, and privacy methods covered apply to the models scoring, pricing, and screening decisions today. Generative AI systems (large language and image models) share the same underlying principles but add distinct failure modes (unauditable reasoning, hallucinated outputs, and silent behaviour changes from vendor updates) that warrant separate, related treatment.</p>
+<p>The appropriate response to these limitations is not paralysis. It is professional humility, rigorous documentation, and a commitment to ongoing monitoring and review.</p>
+</section>
+<section id="the-integrated-view" class="level3">
+<h3 class="anchored" data-anchor-id="the-integrated-view">The integrated view</h3>
+<p>Responsible AI: Principles and Quantitative Methods is not a checklist to be completed once before deployment. It is a continuous process embedded in the full lifecycle of an AI system, from the moment a problem is formulated to the moment a model is retired.</p>
+<p>The tools in this course give you the quantitative vocabulary to participate meaningfully in that process. How you use that vocabulary (with professional judgement, ethical awareness, and a genuine commitment to the public interest) is up to you.</p>
+</section>
+<section id="recommended-reading" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-reading">Recommended reading</h3>
+<ul>
+<li><span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025</a>)</span> — ethical AI lifecycle and professional obligations for actuaries</li>
+<li><span class="citation" data-cites="barocas2016disparate">Barocas and Selbst (<a href="#ref-barocas2016disparate" role="doc-biblioref">2016</a>)</span> — foundational legal and technical treatment of disparate impact, general to any automated decision</li>
+<li><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024</a>)</span> — fairness criteria, model designs, and trade-offs, illustrated on insurance pricing</li>
+<li><span class="citation" data-cites="huang2026fairtesting">Huang and Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026</a>)</span> — pre-committed audit protocol, illustrated on insurance pricing models</li>
+<li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#ref-molnar2025iml" role="doc-biblioref">2025</a>)</span> — interpretable machine learning: comprehensive technical reference</li>
+<li><span class="citation" data-cites="dwork2006calibrating">Dwork et al. (<a href="#ref-dwork2006calibrating" role="doc-biblioref">2006</a>)</span> — original differential privacy framework</li>
+<li><span class="citation" data-cites="slack2020fooling">Slack et al. (<a href="#ref-slack2020fooling" role="doc-biblioref">2020</a>)</span> — adversarial attacks on SHAP and LIME, and the limits of explanation methods</li>
+<li><span class="citation" data-cites="xin2025pdppitfalls">Xin et al. (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025</a>)</span> — adversarial manipulation of PD plots to conceal discrimination, validated on real insurance and COMPAS data</li>
+<li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019</a>)</span> — the case for inherently interpretable models in high-stakes decisions</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-barocas2016disparate" class="csl-entry" role="listitem">
+Barocas, Solon, and Andrew D Selbst. 2016. <span>“Big Data’s Disparate Impact.”</span> <em>California Law Review</em> 104: 671–732.
+</div>
+<div id="ref-dwork2006calibrating" class="csl-entry" role="listitem">
+Dwork, Cynthia, Frank McSherry, Kobbi Nissim, and Adam Smith. 2006. <span>“Calibrating Noise to Sensitivity in Private Data Analysis.”</span> <em>Proceedings of the Third Theory of Cryptography Conference</em>, 265–84.
+</div>
+<div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
+Huang, Fei. 2025. <span>“Check Your <span>AI</span>: A Framework for Its Use in Actuarial Practice.”</span> <em>The Actuary</em>.
+</div>
+<div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
+Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <em>Working Paper</em>.
+</div>
+<div id="ref-molnar2025iml" class="csl-entry" role="listitem">
+Molnar, Christoph. 2025. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3rd ed. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
+</div>
+<div id="ref-naic_au_2025_ai6" class="csl-entry" role="listitem">
+National AI Centre. 2025. <span>“Guidance for AI Adoption: Foundations.”</span> <a href="https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf">https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf</a>.
+</div>
+<div id="ref-rudin2019stop" class="csl-entry" role="listitem">
+Rudin, Cynthia. 2019. <span>“Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead.”</span> <em>Nature Machine Intelligence</em> 1 (5): 206–15.
+</div>
+<div id="ref-slack2020fooling" class="csl-entry" role="listitem">
+Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, and Himabindu Lakkaraju. 2020. <span>“Fooling LIME and SHAP: Adversarial Attacks on Post Hoc Explanation Methods.”</span> <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180–86.
+</div>
+<div id="ref-xin2025pdppitfalls" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="pagination-link" aria-label="Chapter 7: Privacy Practice">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 7: Privacy Practice</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

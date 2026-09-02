@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang, UNSW Sydney">
+
+<title>Privacy Principles – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" rel="next">
+<link href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html">Chapter 6: Privacy Principles</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Responsible AI: Principles, Governance, and Quantitative Methods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Fairness Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 3: Fairness Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 4: Explainability Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Explainability Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 6: Privacy Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 7: Privacy Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 8: Trade-offs, Integration, and Governance</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#what-is-privacy" id="toc-what-is-privacy" class="nav-link" data-scroll-target="#what-is-privacy">What is privacy?</a>
+  <ul class="collapse">
+  <li><a href="#three-related-but-distinct-concepts" id="toc-three-related-but-distinct-concepts" class="nav-link" data-scroll-target="#three-related-but-distinct-concepts">Three related but distinct concepts</a></li>
+  <li><a href="#why-privacy-matters-beyond-compliance" id="toc-why-privacy-matters-beyond-compliance" class="nav-link" data-scroll-target="#why-privacy-matters-beyond-compliance">Why privacy matters beyond compliance</a></li>
+  <li><a href="#defining-privacy" id="toc-defining-privacy" class="nav-link" data-scroll-target="#defining-privacy">Defining privacy</a></li>
+  <li><a href="#sensitive-vs-personal-data" id="toc-sensitive-vs-personal-data" class="nav-link" data-scroll-target="#sensitive-vs-personal-data">Sensitive vs personal data</a></li>
+  </ul></li>
+  <li><a href="#regulatory-frameworks" id="toc-regulatory-frameworks" class="nav-link" data-scroll-target="#regulatory-frameworks">Regulatory frameworks</a>
+  <ul class="collapse">
+  <li><a href="#gdprs-six-core-principles-article-5" id="toc-gdprs-six-core-principles-article-5" class="nav-link" data-scroll-target="#gdprs-six-core-principles-article-5">GDPR’s six core principles (Article 5)</a></li>
+  <li><a href="#additional-gdpr-rights" id="toc-additional-gdpr-rights" class="nav-link" data-scroll-target="#additional-gdpr-rights">Additional GDPR rights</a></li>
+  <li><a href="#australian-privacy-principles-apps" id="toc-australian-privacy-principles-apps" class="nav-link" data-scroll-target="#australian-privacy-principles-apps">Australian Privacy Principles (APPs)</a></li>
+  <li><a href="#china-the-personal-information-protection-law-pipl" id="toc-china-the-personal-information-protection-law-pipl" class="nav-link" data-scroll-target="#china-the-personal-information-protection-law-pipl">China: the Personal Information Protection Law (PIPL)</a></li>
+  <li><a href="#singapore-the-personal-data-protection-act-pdpa" id="toc-singapore-the-personal-data-protection-act-pdpa" class="nav-link" data-scroll-target="#singapore-the-personal-data-protection-act-pdpa">Singapore: the Personal Data Protection Act (PDPA)</a></li>
+  <li><a href="#united-states-sector-specific-and-state-by-state" id="toc-united-states-sector-specific-and-state-by-state" class="nav-link" data-scroll-target="#united-states-sector-specific-and-state-by-state">United States: sector-specific and state-by-state</a></li>
+  <li><a href="#privacy-by-design-art-25-gdpr" id="toc-privacy-by-design-art-25-gdpr" class="nav-link" data-scroll-target="#privacy-by-design-art-25-gdpr">Privacy by design (Art 25 GDPR)</a></li>
+  </ul></li>
+  <li><a href="#theoretical-frameworks" id="toc-theoretical-frameworks" class="nav-link" data-scroll-target="#theoretical-frameworks">Theoretical frameworks</a>
+  <ul class="collapse">
+  <li><a href="#soloves-taxonomy-of-privacy-violations" id="toc-soloves-taxonomy-of-privacy-violations" class="nav-link" data-scroll-target="#soloves-taxonomy-of-privacy-violations">Solove’s taxonomy of privacy violations</a></li>
+  <li><a href="#soloves-taxonomy-continued" id="toc-soloves-taxonomy-continued" class="nav-link" data-scroll-target="#soloves-taxonomy-continued">Solove’s taxonomy (continued)</a></li>
+  <li><a href="#soloves-taxonomy-in-practice" id="toc-soloves-taxonomy-in-practice" class="nav-link" data-scroll-target="#soloves-taxonomy-in-practice">Solove’s taxonomy in practice</a></li>
+  <li><a href="#contextual-integrity" id="toc-contextual-integrity" class="nav-link" data-scroll-target="#contextual-integrity">Contextual integrity</a></li>
+  <li><a href="#contextual-integrity-across-domains" id="toc-contextual-integrity-across-domains" class="nav-link" data-scroll-target="#contextual-integrity-across-domains">Contextual integrity across domains</a></li>
+  </ul></li>
+  <li><a href="#privacy-in-practice-data-ecosystems-and-consequential-decisions" id="toc-privacy-in-practice-data-ecosystems-and-consequential-decisions" class="nav-link" data-scroll-target="#privacy-in-practice-data-ecosystems-and-consequential-decisions">Privacy in practice: data ecosystems and consequential decisions</a>
+  <ul class="collapse">
+  <li><a href="#the-connected-data-ecosystem" id="toc-the-connected-data-ecosystem" class="nav-link" data-scroll-target="#the-connected-data-ecosystem">The connected-data ecosystem</a></li>
+  <li><a href="#case-study-insurance-telematics-from-ubi-to-connected-vehicles" id="toc-case-study-insurance-telematics-from-ubi-to-connected-vehicles" class="nav-link" data-scroll-target="#case-study-insurance-telematics-from-ubi-to-connected-vehicles">Case study: insurance telematics, from UBI to connected vehicles</a></li>
+  <li><a href="#how-much-data-does-a-modern-vehicle-generate" id="toc-how-much-data-does-a-modern-vehicle-generate" class="nav-link" data-scroll-target="#how-much-data-does-a-modern-vehicle-generate">How much data does a modern vehicle generate?</a></li>
+  <li><a href="#case-study-gm-onstar-and-the-insurance-data-pipeline" id="toc-case-study-gm-onstar-and-the-insurance-data-pipeline" class="nav-link" data-scroll-target="#case-study-gm-onstar-and-the-insurance-data-pipeline">Case study: GM OnStar and the insurance data pipeline</a></li>
+  <li><a href="#the-onstar-case-contextual-integrity-analysis" id="toc-the-onstar-case-contextual-integrity-analysis" class="nav-link" data-scroll-target="#the-onstar-case-contextual-integrity-analysis">The OnStar case: contextual integrity analysis</a></li>
+  <li><a href="#the-onstar-case-solove-taxonomy" id="toc-the-onstar-case-solove-taxonomy" class="nav-link" data-scroll-target="#the-onstar-case-solove-taxonomy">The OnStar case: Solove taxonomy</a></li>
+  <li><a href="#ev-specific-privacy-dimensions" id="toc-ev-specific-privacy-dimensions" class="nav-link" data-scroll-target="#ev-specific-privacy-dimensions">EV-specific privacy dimensions</a></li>
+  <li><a href="#the-oem-data-monopoly-problem" id="toc-the-oem-data-monopoly-problem" class="nav-link" data-scroll-target="#the-oem-data-monopoly-problem">The OEM data monopoly problem</a></li>
+  <li><a href="#regulatory-responses" id="toc-regulatory-responses" class="nav-link" data-scroll-target="#regulatory-responses">Regulatory responses</a></li>
+  <li><a href="#summary-telematics-connected-vehicles-evs" id="toc-summary-telematics-connected-vehicles-evs" class="nav-link" data-scroll-target="#summary-telematics-connected-vehicles-evs">Summary: telematics → connected vehicles → EVs</a></li>
+  <li><a href="#re-identification-risk" id="toc-re-identification-risk" class="nav-link" data-scroll-target="#re-identification-risk">Re-identification risk</a></li>
+  <li><a href="#affinity-profiling-risk-without-re-identification" id="toc-affinity-profiling-risk-without-re-identification" class="nav-link" data-scroll-target="#affinity-profiling-risk-without-re-identification">Affinity profiling: risk without re-identification</a></li>
+  <li><a href="#right-to-explanation-of-automated-decision-making" id="toc-right-to-explanation-of-automated-decision-making" class="nav-link" data-scroll-target="#right-to-explanation-of-automated-decision-making">Right to explanation of automated decision-making</a></li>
+  </ul></li>
+  <li><a href="#privacy-enhancing-techniques" id="toc-privacy-enhancing-techniques" class="nav-link" data-scroll-target="#privacy-enhancing-techniques">Privacy-Enhancing Techniques</a>
+  <ul class="collapse">
+  <li><a href="#k-anonymity" id="toc-k-anonymity" class="nav-link" data-scroll-target="#k-anonymity">k-Anonymity</a></li>
+  <li><a href="#differential-privacy" id="toc-differential-privacy" class="nav-link" data-scroll-target="#differential-privacy">Differential Privacy</a></li>
+  <li><a href="#synthetic-data" id="toc-synthetic-data" class="nav-link" data-scroll-target="#synthetic-data">Synthetic Data</a></li>
+  <li><a href="#federated-learning-a-different-approach" id="toc-federated-learning-a-different-approach" class="nav-link" data-scroll-target="#federated-learning-a-different-approach">Federated Learning: a different approach</a></li>
+  <li><a href="#choosing-a-technique" id="toc-choosing-a-technique" class="nav-link" data-scroll-target="#choosing-a-technique">Choosing a Technique</a></li>
+  </ul></li>
+  <li><a href="#privacy-principles-in-practice" id="toc-privacy-principles-in-practice" class="nav-link" data-scroll-target="#privacy-principles-in-practice">Privacy principles in practice</a>
+  <ul class="collapse">
+  <li><a href="#data-protection-impact-assessment-dpia-pia" id="toc-data-protection-impact-assessment-dpia-pia" class="nav-link" data-scroll-target="#data-protection-impact-assessment-dpia-pia">Data Protection Impact Assessment (DPIA / PIA)</a></li>
+  <li><a href="#privacy-considerations-for-large-language-models" id="toc-privacy-considerations-for-large-language-models" class="nav-link" data-scroll-target="#privacy-considerations-for-large-language-models">Privacy considerations for large language models</a></li>
+  <li><a href="#summary-the-core-privacy-principles" id="toc-summary-the-core-privacy-principles" class="nav-link" data-scroll-target="#summary-the-core-privacy-principles">Summary: the core privacy principles</a></li>
+  <li><a href="#recommended-reading" id="toc-recommended-reading" class="nav-link" data-scroll-target="#recommended-reading">Recommended reading</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="Slides-Privacy-Principles.slides.html"><i class="bi bi-easel2"></i>In-class slides</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Privacy Principles</h1>
+<p class="subtitle lead">Responsible AI: Principles, Governance, and Quantitative Methods</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang, UNSW Sydney </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h3>
+<ul>
+<li>Define privacy and distinguish it from related concepts (confidentiality, security, anonymity).</li>
+<li>Explain the core data protection principles found in major regulatory frameworks.</li>
+<li>Apply Solove’s taxonomy of privacy violations and Nissenbaum’s contextual integrity to real-world scenarios across domains.</li>
+<li>Identify the privacy tensions arising from connected devices, big data, and AI, using insurance telematics (data collected from devices or apps that track how, when, and where a vehicle is driven) as a detailed case study.</li>
+</ul>
+</section>
+<section id="what-is-privacy" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-privacy">What is privacy?</h2>
+<section id="three-related-but-distinct-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="three-related-but-distinct-concepts">Three related but distinct concepts</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Privacy</strong></td>
+<td>The individual’s right to control information about themselves</td>
+<td>A job applicant’s right to decide what personal data a hiring platform can use to screen them</td>
+</tr>
+<tr class="even">
+<td><strong>Confidentiality</strong></td>
+<td>The obligation of a data holder not to disclose information without authorisation</td>
+<td>A doctor’s duty not to share patient records without authorisation</td>
+</tr>
+<tr class="odd">
+<td><strong>Security</strong></td>
+<td>Technical and organisational measures protecting data from unauthorised access</td>
+<td>Encryption and access controls protecting insurance claims records</td>
+</tr>
+</tbody>
+</table>
+<p>Privacy is the <strong>right</strong>. Confidentiality is the <strong>obligation</strong> it creates. Security is the <strong>mechanism</strong> that enforces it.</p>
+</section>
+<section id="why-privacy-matters-beyond-compliance" class="level3">
+<h3 class="anchored" data-anchor-id="why-privacy-matters-beyond-compliance">Why privacy matters beyond compliance</h3>
+<p>Privacy enables autonomy, the capacity of individuals to make meaningful choices about their lives without those choices being shaped by surveillance, profiling, or unwanted disclosure.</p>
+<p>Across consequential domains, privacy violations can cause:</p>
+<ul>
+<li><strong>Discrimination</strong>: health or genetic data used to price or deny insurance cover, behavioural or social data used to screen job applicants, and postcode-derived data used to price credit</li>
+<li><strong>Chilling effects</strong>: patients avoiding care, job seekers concealing history, or policyholders (people who hold an insurance policy) withholding honest disclosures because they fear downstream consequences</li>
+<li><strong>Power asymmetry</strong>: insurers, employers, and platforms hold vast data about individuals who have little visibility into how it is used</li>
+<li><strong>Reputational harm</strong>: disclosure of sensitive records, including mental health, addiction, criminal history, HIV status, and claims history (a record of the insurance claims someone has made in the past)</li>
+</ul>
+</section>
+<section id="defining-privacy" class="level3">
+<h3 class="anchored" data-anchor-id="defining-privacy">Defining privacy</h3>
+<p><strong>Westin (1967)</strong> <span class="citation" data-cites="westin1967privacy">(<a href="#ref-westin1967privacy" role="doc-biblioref">Westin 1967</a>)</span>: privacy is “the claim of individuals, groups, or institutions to determine for themselves when, how, and to what extent information about them is communicated to others.”</p>
+<p>This definition emphasises <strong>control</strong>. It treats privacy as a right over one’s information, not merely as secrecy.</p>
+<p><strong>Key implication</strong>: information disclosed <em>for one purpose</em> is not thereby consented to for <em>another</em>. A patient who shares health information with a GP has not consented to it being reused for insurance underwriting (the process an insurer uses to assess an applicant’s risk and set a price). A customer who discloses data <em>for underwriting</em> has not consented to it being used for <em>marketing</em> or <em>resale</em>. Context matters.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: one disclosure, repurposed">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: one disclosure, repurposed
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An applicant discloses a chronic condition on a life insurance application, understanding it will be used to assess eligibility and premium (unlike health insurance in Australia, life insurance is medically underwritten, so this disclosure directly affects the outcome). The insurer’s marketing division later uses the same record to exclude the applicant from a wellness-discount campaign, and a related entity uses it to inform a separate income-protection insurance quote. No new disclosure occurred. The same fact was simply reused across purposes the applicant never agreed to.</p>
+</div>
+</div>
+</section>
+<section id="sensitive-vs-personal-data" class="level3">
+<h3 class="anchored" data-anchor-id="sensitive-vs-personal-data">Sensitive vs personal data</h3>
+<p>Most privacy frameworks distinguish ordinary personal data from <strong>sensitive</strong> (or special category) data requiring stronger protection.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Examples</th>
+<th>Illustrative uses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Personal data</strong></td>
+<td>Name, address, date of birth, vehicle registration</td>
+<td>Standard rating variables, identity verification, HR records</td>
+</tr>
+<tr class="even">
+<td><strong>Sensitive / special category</strong></td>
+<td>Health, genetic, biometric, race, religion, sexual orientation</td>
+<td>Life, health, and income-protection underwriting; clinical care; employment screening</td>
+</tr>
+<tr class="odd">
+<td><strong>Derived / inferred data</strong></td>
+<td>Risk scores, behavioural profiles, propensity scores</td>
+<td>Telematics and credit-based insurance scores, algorithmic hiring assessments, recidivism-risk tools (predicting reoffending)</td>
+</tr>
+</tbody>
+</table>
+<p>Derived data is increasingly contentious. It was not directly disclosed, yet can reveal sensitive attributes indirectly.</p>
+</section>
+</section>
+<section id="regulatory-frameworks" class="level2">
+<h2 class="anchored" data-anchor-id="regulatory-frameworks">Regulatory frameworks</h2>
+<section id="gdprs-six-core-principles-article-5" class="level3">
+<h3 class="anchored" data-anchor-id="gdprs-six-core-principles-article-5">GDPR’s six core principles (Article 5)</h3>
+<p>The EU General Data Protection Regulation sets out six principles for all personal data processing:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 55%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Principle</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lawfulness, fairness, transparency</strong></td>
+<td>Processing must have a legal basis, and individuals must be informed</td>
+</tr>
+<tr class="even">
+<td><strong>Purpose limitation</strong></td>
+<td>Data collected for one purpose cannot be freely reused for another</td>
+</tr>
+<tr class="odd">
+<td><strong>Data minimisation</strong></td>
+<td>Collect only what is necessary for the stated purpose</td>
+</tr>
+<tr class="even">
+<td><strong>Accuracy</strong></td>
+<td>Keep data accurate and up to date</td>
+</tr>
+<tr class="odd">
+<td><strong>Storage limitation</strong></td>
+<td>Do not retain data longer than necessary</td>
+</tr>
+<tr class="even">
+<td><strong>Integrity and confidentiality</strong></td>
+<td>Protect against unauthorised access, loss, or destruction</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Article 22 (GDPR)</strong>: individuals have a qualified right not to be subject to a decision based solely on automated processing that significantly affects them, unless they consented, it is necessary for a contract, or authorised by law, and even then are entitled to safeguards including human intervention and the ability to contest the decision. This is distinct from the transparency and access obligations in Articles 13-15 below, which apply more broadly to any automated processing, not only decisions falling within Article 22. Organisations using fully automated underwriting, credit scoring, hiring screens, or claims decisions must address both.</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: purpose limitation in practice, GM OnStar">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: purpose limitation in practice, GM OnStar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>General Motors enrolled millions of drivers in its OnStar Smart Driver programme, describing it to customers as a tool for “personalised feedback” on their own driving. GM then sold the same trip-level driving data, including hard-braking and acceleration events, to the data broker LexisNexis Risk Solutions, which packaged it into driving-behaviour scores and sold those scores on to insurers, who used them to raise some customers’ premiums. Customers had consented to data collection for driving feedback, not for insurance pricing. This is purpose limitation failing at scale: the same data, collected for one stated purpose, was repurposed for a materially different one without separate consent <span class="citation" data-cites="themarkup2024gm">(<a href="#ref-themarkup2024gm" role="doc-biblioref">Merrill and Gillis 2024</a>)</span>. The full case, including its contextual-integrity and Solove-taxonomy analysis, is examined later in this chapter.</p>
+</div>
+</div>
+</section>
+<section id="additional-gdpr-rights" class="level3">
+<h3 class="anchored" data-anchor-id="additional-gdpr-rights">Additional GDPR rights</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Right</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Right of access</strong> (Art 15)</td>
+<td>Individuals can request all data held about them</td>
+<td>Customer requests their risk score and input variables</td>
+</tr>
+<tr class="even">
+<td><strong>Right to rectification</strong> (Art 16)</td>
+<td>Correct inaccurate data</td>
+<td>Patient corrects an inaccurate entry in a health record</td>
+</tr>
+<tr class="odd">
+<td><strong>Right to erasure</strong> (Art 17)</td>
+<td>“Right to be forgotten” (with exceptions)</td>
+<td>Former customer requests deletion</td>
+</tr>
+<tr class="even">
+<td><strong>Right to data portability</strong> (Art 20)</td>
+<td>Receive data in machine-readable format</td>
+<td>Telematics driving data exported to a new insurer</td>
+</tr>
+<tr class="odd">
+<td><strong>Right to explanation of automated decision-making</strong> (Arts 13-15 and 22)</td>
+<td>Understand the logic of automated decisions</td>
+<td>Why was my loan or insurance application declined?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="australian-privacy-principles-apps" class="level3">
+<h3 class="anchored" data-anchor-id="australian-privacy-principles-apps">Australian Privacy Principles (APPs)</h3>
+<p>Australia’s Privacy Act 1988 (as amended) sets out 13 APPs applying to organisations with turnover &gt; $3M, and to specified categories regardless of size, including all private-sector health service providers, credit reporting bodies, and businesses that trade in personal information <span class="citation" data-cites="oaic2023apps">(<a href="#ref-oaic2023apps" role="doc-biblioref">Office of the Australian Information Commissioner 2023</a>)</span>. Most insurers are covered because they exceed the turnover threshold, not because conducting insurance business is itself an exempt category.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 25%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>APP</th>
+<th>Title</th>
+<th>Key obligation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>APP 1</td>
+<td>Open and transparent management</td>
+<td>Maintain and publish a privacy policy</td>
+</tr>
+<tr class="even">
+<td>APP 2</td>
+<td>Anonymity and pseudonymity</td>
+<td>Allow individuals to deal anonymously where practicable</td>
+</tr>
+<tr class="odd">
+<td>APP 3</td>
+<td>Collection of solicited personal information</td>
+<td>Collect only what is reasonably necessary</td>
+</tr>
+<tr class="even">
+<td>APP 4</td>
+<td>Unsolicited personal information</td>
+<td>Destroy or de-identify if not needed</td>
+</tr>
+<tr class="odd">
+<td>APP 5</td>
+<td>Notification of collection</td>
+<td>Tell individuals what is collected and why</td>
+</tr>
+<tr class="even">
+<td>APP 6</td>
+<td>Use or disclosure</td>
+<td>Use only for the primary purpose or a directly related secondary purpose</td>
+</tr>
+<tr class="odd">
+<td>APP 7</td>
+<td>Direct marketing</td>
+<td>Opt-out rights, no sensitive data for marketing without consent</td>
+</tr>
+<tr class="even">
+<td>APP 8</td>
+<td>Cross-border disclosure</td>
+<td>Ensure overseas recipients protect the data equivalently</td>
+</tr>
+<tr class="odd">
+<td>APP 9</td>
+<td>Government related identifiers</td>
+<td>Do not adopt a government identifier (e.g.&nbsp;Medicare number) as your own, or use/disclose one, except for identity verification or as required by law</td>
+</tr>
+<tr class="even">
+<td>APP 10</td>
+<td>Quality</td>
+<td>Keep data accurate and up to date</td>
+</tr>
+<tr class="odd">
+<td>APP 11</td>
+<td>Security</td>
+<td>Protect against misuse, interference, loss, and unauthorised access</td>
+</tr>
+<tr class="even">
+<td>APP 12</td>
+<td>Access</td>
+<td>Provide access on request</td>
+</tr>
+<tr class="odd">
+<td>APP 13</td>
+<td>Correction</td>
+<td>Correct data on request</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="china-the-personal-information-protection-law-pipl" class="level3">
+<h3 class="anchored" data-anchor-id="china-the-personal-information-protection-law-pipl">China: the Personal Information Protection Law (PIPL)</h3>
+<p>China’s Personal Information Protection Law, effective since November 2021, is often described as China’s GDPR-equivalent <span class="citation" data-cites="china_pipl_2021">(<a href="#ref-china_pipl_2021" role="doc-biblioref">National People’s Congress (China) 2021</a>)</span>. Like the GDPR, it applies extraterritorially to processing outside China where the purpose is to provide products or services to individuals in China or to analyse their behaviour, and it sets out core principles resembling GDPR Article 5: lawfulness, purpose limitation, data minimisation, accuracy, and security.</p>
+<p>Two features are especially relevant to consequential automated decisions:</p>
+<ul>
+<li><strong>Article 24</strong> requires that automated decision-making be transparent and produce fair results, and prohibits “unreasonable differential treatment” in transaction conditions, such as price, based on automated profiling. It also grants individuals a right to an explanation of an automated decision, and a right to refuse a decision made solely by automated means where it significantly affects them.</li>
+<li>Sector-specific rules add further detail for financial institutions. China’s 2026 NFRA guidance for banking and insurance requires ongoing risk management and human oversight of AI systems used in high-risk applications <span class="citation" data-cites="nfra2026aiguidance">(<a href="#ref-nfra2026aiguidance" role="doc-biblioref">National Financial Regulatory Administration (China) 2026</a>)</span>.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Article 27 of the Measures for the Administration of Consumer Rights Protection by Banking and Insurance Institutions <span class="citation" data-cites="china_consumer_protection_measures_2022">(<a href="#ref-china_consumer_protection_measures_2022" role="doc-biblioref">China Banking and Insurance Regulatory Commission 2022</a>)</span> gives a more directly insurance-specific comparison: it requires reasonable pricing and prohibits unfair pricing, for the same products and services, among consumers with equivalent transaction conditions or risk profiles.</p>
+</div>
+</div>
+</section>
+<section id="singapore-the-personal-data-protection-act-pdpa" class="level3">
+<h3 class="anchored" data-anchor-id="singapore-the-personal-data-protection-act-pdpa">Singapore: the Personal Data Protection Act (PDPA)</h3>
+<p>Singapore’s Personal Data Protection Act 2012, most recently amended in 2020, sets out ten data protection obligations, including consent, purpose limitation, notification, access and correction, accuracy, protection, retention limitation, transfer limitation, accountability, and (since 2020) data breach notification <span class="citation" data-cites="singapore_pdpa_2012">(<a href="#ref-singapore_pdpa_2012" role="doc-biblioref">Personal Data Protection Commission Singapore 2012</a>)</span>. Organisations must notify Singapore’s Personal Data Protection Commission (PDPC) within three calendar days of assessing that a breach is notifiable, and notify affected individuals where the breach is likely to cause significant harm.</p>
+<p>Unlike the GDPR or PIPL, the PDPA does not include a standalone right to an explanation of automated decisions. Singapore instead addresses this through the voluntary AI-governance frameworks covered in Chapter 1 (the Model AI Governance Framework, and MAS’s FEAT principles for financial services), rather than as an enforceable data-protection right.</p>
+</section>
+<section id="united-states-sector-specific-and-state-by-state" class="level3">
+<h3 class="anchored" data-anchor-id="united-states-sector-specific-and-state-by-state">United States: sector-specific and state-by-state</h3>
+<p>The US has no federal privacy law comparable to the GDPR, PIPL, or the PDPA. Instead, individual states have enacted their own comprehensive privacy laws, led by California.</p>
+<p>California’s Consumer Privacy Act (CCPA, 2018) and its expansion, the California Privacy Rights Act (CPRA, most provisions effective January 2023), give consumers rights to know what data is collected, to delete it, to correct inaccuracies, to opt out of the sale or sharing of personal information, and to limit the use of sensitive personal information <span class="citation" data-cites="california_cpra_2023">(<a href="#ref-california_cpra_2023" role="doc-biblioref">California Privacy Protection Agency 2023</a>)</span>. A dedicated regulator, the California Privacy Protection Agency (CPPA), enforces the law.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Insurance is not automatically exempt. Where an insurer’s existing obligations under sector-specific US privacy law (the Insurance Information and Privacy Protection Act, and the Gramm-Leach-Bliley Act’s privacy rules) do not already cover a given practice, CPRA obligations apply on top.</p>
+</div>
+</div>
+</section>
+<section id="privacy-by-design-art-25-gdpr" class="level3">
+<h3 class="anchored" data-anchor-id="privacy-by-design-art-25-gdpr">Privacy by design (Art 25 GDPR)</h3>
+<p>Privacy should be embedded in system design from the start, not added as an afterthought. GDPR Article 25 <span class="citation" data-cites="gdpr2016regulation">(<a href="#ref-gdpr2016regulation" role="doc-biblioref">Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) 2016</a>)</span> gives this idea legal force as a requirement of “data protection by design and by default,” a related but distinct obligation from the seven principles below, which are Ann Cavoukian’s earlier framework rather than the text of Article 25 itself.</p>
+<p><strong>Seven principles of privacy by design</strong> (Ann Cavoukian) <span class="citation" data-cites="cavoukian2009privacybydesign">(<a href="#ref-cavoukian2009privacybydesign" role="doc-biblioref">Cavoukian 2009</a>)</span>:</p>
+<ol type="1">
+<li>Proactive, not reactive</li>
+<li>Privacy as the default setting</li>
+<li>Privacy embedded into design</li>
+<li>Full functionality, positive-sum, not zero-sum</li>
+<li>End-to-end security, full lifecycle protection</li>
+<li>Visibility and transparency</li>
+<li>Respect for user privacy, keep it user-centric</li>
+</ol>
+<p>In practice, privacy considerations should be built into model development pipelines from the start, across insurance underwriting models, hiring algorithms, and health-risk scoring alike, not just reviewed at the deployment stage.</p>
+</section>
+</section>
+<section id="theoretical-frameworks" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical-frameworks">Theoretical frameworks</h2>
+<section id="soloves-taxonomy-of-privacy-violations" class="level3">
+<h3 class="anchored" data-anchor-id="soloves-taxonomy-of-privacy-violations">Solove’s taxonomy of privacy violations</h3>
+<p><span class="citation" data-cites="solove2006taxonomy">Solove (<a href="#ref-solove2006taxonomy" role="doc-biblioref">2006</a>)</span> organises privacy violations into four groups based on how they arise:</p>
+<p><strong>1. Information collection</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Violation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Surveillance</td>
+<td>Watching, listening, or recording individuals</td>
+</tr>
+<tr class="even">
+<td>Interrogation</td>
+<td>Pressuring individuals to reveal information</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. Information processing</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Violation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aggregation</td>
+<td>Combining individually innocuous data items into a revealing profile</td>
+</tr>
+<tr class="even">
+<td>Identification</td>
+<td>Linking information to a specific individual</td>
+</tr>
+<tr class="odd">
+<td>Insecurity</td>
+<td>Failing to protect data adequately</td>
+</tr>
+<tr class="even">
+<td>Secondary use</td>
+<td>Using data for a purpose different from the one for which it was collected</td>
+</tr>
+<tr class="odd">
+<td>Exclusion</td>
+<td>Failing to give individuals access to data about themselves</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="soloves-taxonomy-continued" class="level3">
+<h3 class="anchored" data-anchor-id="soloves-taxonomy-continued">Solove’s taxonomy (continued)</h3>
+<p><strong>3. Information dissemination</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Violation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Breach of confidentiality</td>
+<td>Breaking a promise of non-disclosure</td>
+</tr>
+<tr class="even">
+<td>Disclosure</td>
+<td>Revealing true but private information</td>
+</tr>
+<tr class="odd">
+<td>Exposure</td>
+<td>Revealing embarrassing or sensitive information</td>
+</tr>
+<tr class="even">
+<td>Increased accessibility</td>
+<td>Making previously obscure information widely searchable</td>
+</tr>
+<tr class="odd">
+<td>Blackmail</td>
+<td>Threatening to reveal information</td>
+</tr>
+<tr class="even">
+<td>Appropriation</td>
+<td>Using someone’s identity for another’s benefit</td>
+</tr>
+<tr class="odd">
+<td>Distortion</td>
+<td>Spreading false information</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4. Invasion</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Violation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intrusion</td>
+<td>Disturbing one’s solitude or seclusion</td>
+</tr>
+<tr class="even">
+<td>Decisional interference</td>
+<td>Interfering with decisions about one’s personal life</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="soloves-taxonomy-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="soloves-taxonomy-in-practice">Solove’s taxonomy in practice</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Aggregation</strong> is often the most consequential category for AI-driven decisions. Individually innocuous data points, such as browsing history, location pings, or a single rating variable, combine into a profile that reveals sensitive attributes no single item would disclose on its own. A health insurer combining pharmacy purchase data with fitness-app data to infer an undisclosed condition is one instance of a broader pattern that recurs in employment screening (combining social media activity to infer pregnancy or union sympathies) and retail credit (combining purchase categories to infer financial distress).</p>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>Domain</th>
+<th>Solove violation type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Continuous location and activity tracking via a fitness or vehicle app</td>
+<td>Health / insurance</td>
+<td>Surveillance</td>
+</tr>
+<tr class="even">
+<td>Combining browsing and purchase history to infer pregnancy or illness</td>
+<td>Retail / marketing</td>
+<td>Aggregation</td>
+</tr>
+<tr class="odd">
+<td>Using résumé gaps and social media activity to screen candidates</td>
+<td>Hiring</td>
+<td>Aggregation + secondary use</td>
+</tr>
+<tr class="even">
+<td>Sharing patient or claims data with brokers for ad targeting</td>
+<td>Health / insurance</td>
+<td>Secondary use + breach of confidentiality</td>
+</tr>
+<tr class="odd">
+<td>Credit-based insurance or employment scores</td>
+<td>Insurance / hiring</td>
+<td>Aggregation + identification</td>
+</tr>
+<tr class="even">
+<td>Denying an individual access to their own risk or credit score</td>
+<td>Insurance / lending</td>
+<td>Exclusion</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="contextual-integrity" class="level3">
+<h3 class="anchored" data-anchor-id="contextual-integrity">Contextual integrity</h3>
+<p><span class="citation" data-cites="nissenbaum2004privacy">Nissenbaum (<a href="#ref-nissenbaum2004privacy" role="doc-biblioref">2004</a>)</span> argues that privacy is not about secrecy. It is about <strong>appropriate information flows</strong>.</p>
+<p>An information flow is <strong>appropriate</strong> when it matches the norms of the context in which the data was originally shared.</p>
+<p>Five parameters define a context’s norms:</p>
+<ol type="1">
+<li><strong>Data subject</strong>, who the information is about</li>
+<li><strong>Sender</strong>, who provides it</li>
+<li><strong>Recipient</strong>, who receives it</li>
+<li><strong>Information type</strong>, what kind of data</li>
+<li><strong>Transmission principle</strong>, under what conditions (e.g.&nbsp;in confidence, with consent)</li>
+</ol>
+<p>Violating expectations on any of these parameters breaches contextual integrity, even if the data is technically available or disclosure is legal.</p>
+</section>
+<section id="contextual-integrity-across-domains" class="level3">
+<h3 class="anchored" data-anchor-id="contextual-integrity-across-domains">Contextual integrity across domains</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 28%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data shared in context</th>
+<th>Appropriate flow</th>
+<th>Inappropriate flow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Health information to a GP</td>
+<td>GP to treating specialist</td>
+<td>GP data to an insurer or employer for a decision, without consent</td>
+</tr>
+<tr class="even">
+<td>Driving behaviour to a telematics insurer for pricing</td>
+<td>Insurer uses for own pricing</td>
+<td>Insurer sells to third-party data broker</td>
+</tr>
+<tr class="odd">
+<td>Financial information for credit assessment</td>
+<td>Credit bureau to lender</td>
+<td>Credit bureau data used to price motor insurance</td>
+</tr>
+<tr class="even">
+<td>Employment history submitted to a job platform</td>
+<td>Platform matches candidates to roles</td>
+<td>Platform sells the profile to unrelated marketers</td>
+</tr>
+</tbody>
+</table>
+<p>The contextual integrity test is simple. <strong>Would the person who shared this data expect it to flow this way?</strong></p>
+</section>
+</section>
+<section id="privacy-in-practice-data-ecosystems-and-consequential-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="privacy-in-practice-data-ecosystems-and-consequential-decisions">Privacy in practice: data ecosystems and consequential decisions</h2>
+<section id="the-connected-data-ecosystem" class="level3">
+<h3 class="anchored" data-anchor-id="the-connected-data-ecosystem">The connected-data ecosystem</h3>
+<p>Consequential decisions increasingly draw on data from many sources, each with different privacy expectations:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 12%">
+<col style="width: 34%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data source</th>
+<th>Type</th>
+<th>Example domains</th>
+<th>Privacy risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Application / intake forms</td>
+<td>Self-disclosed</td>
+<td>Insurance, lending, hiring</td>
+<td>Secondary use, accuracy</td>
+</tr>
+<tr class="even">
+<td>Operational records</td>
+<td>Transactional</td>
+<td>Claims history, medical records, employment records</td>
+<td>Re-identification (unmasking a supposedly anonymous person), secondary use</td>
+</tr>
+<tr class="odd">
+<td>IoT (Internet of Things) / connected devices</td>
+<td>Continuous behavioural</td>
+<td>Vehicle telematics, wearables, smart-home devices</td>
+<td>Surveillance, aggregation, third-party access</td>
+</tr>
+<tr class="even">
+<td>Third-party derived data</td>
+<td>Aggregated / inferred</td>
+<td>Credit bureau scores, background-check services</td>
+<td>Aggregation, lack of transparency</td>
+</tr>
+<tr class="odd">
+<td>Social media / web</td>
+<td>Scraped or purchased</td>
+<td>Hiring screening, marketing, underwriting</td>
+<td>No disclosure, consent issues</td>
+</tr>
+<tr class="even">
+<td>Sensitive category records</td>
+<td>Sensitive</td>
+<td>Genetic/health records, criminal records</td>
+<td>Strict regulation, discrimination risk</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="case-study-insurance-telematics-from-ubi-to-connected-vehicles" class="level3">
+<h3 class="anchored" data-anchor-id="case-study-insurance-telematics-from-ubi-to-connected-vehicles">Case study: insurance telematics, from UBI to connected vehicles</h3>
+<p>The rest of this section works through one detailed case study, tracing how connected-vehicle data flows into insurance pricing. The underlying pattern is general. A connected device generates continuous behavioural data. A manufacturer or platform monetises it through third parties. The data feeds a consequential decision the data subject cannot see or contest. The same pattern recurs in fitness wearables feeding health insurers, smart speakers feeding advertising profiles, and gig-work apps feeding employment scoring.</p>
+<p>Usage-based insurance (UBI) telematics was the first wave in this domain. Connected and electric vehicles represent a qualitative escalation <span class="citation" data-cites="boucher2020telematics">(<a href="#ref-boucher2020telematics" role="doc-biblioref">Boucher and Turcotte 2020</a>)</span>.</p>
+<p><strong>Traditional UBI telematics</strong> (dongle, a small plug-in device, or app):</p>
+<ul>
+<li>Customer opts in, and the device plugs into the OBD-II port (a standard diagnostic socket built into most cars) or runs on their phone</li>
+<li>Data collected: speed, braking, cornering, time-of-day, trip distance</li>
+<li>Data flows: customer → insurer (or their telematics provider)</li>
+<li>Privacy tension: continuous location tracking reveals far more than driving behaviour</li>
+</ul>
+<p><strong>Connected vehicles</strong> shift the architecture entirely:</p>
+<ul>
+<li>The vehicle itself is a networked sensor platform, and no opt-in is required to generate data</li>
+<li>Data collected natively: GPS location every few seconds, cabin microphone activity, seat occupancy, infotainment (the dashboard entertainment and navigation system) choices, charging patterns (EVs), battery state, over-the-air (wireless software) update logs</li>
+<li>Data flows: vehicle → OEM (original equipment manufacturer, i.e.&nbsp;the vehicle maker) cloud → potentially brokers, insurers, governments, advertisers</li>
+<li>The driver is no longer the data <em>sender</em>, the manufacturer is</li>
+</ul>
+</section>
+<section id="how-much-data-does-a-modern-vehicle-generate" class="level3">
+<h3 class="anchored" data-anchor-id="how-much-data-does-a-modern-vehicle-generate">How much data does a modern vehicle generate?</h3>
+<p>Mozilla Foundation’s <em>Privacy Not Included</em> study (2023) reviewed 25 major car brands and found <span class="citation" data-cites="mozilla2023cars">(<a href="#ref-mozilla2023cars" role="doc-biblioref">Mozilla Foundation 2023</a>)</span>:</p>
+<ul>
+<li><strong>All 25</strong> earned a privacy warning, the worst category Mozilla has ever reviewed</li>
+<li><strong>84%</strong> share personal data with third parties including data brokers</li>
+<li><strong>76%</strong> state explicitly they can <strong>sell</strong> driver data</li>
+<li><strong>56%</strong> will share data with law enforcement without a court order</li>
+<li>Only <strong>2 brands</strong> (Renault and Dacia, subject to GDPR) allow complete data deletion</li>
+</ul>
+<p>EV-specific data adds further dimensions: battery charge level, charging location and frequency, range anxiety patterns, all revealing lifestyle, daily routine, and potentially financial circumstances.</p>
+</section>
+<section id="case-study-gm-onstar-and-the-insurance-data-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="case-study-gm-onstar-and-the-insurance-data-pipeline">Case study: GM OnStar and the insurance data pipeline</h3>
+<p>The clearest documented case of OEM-to-insurer data flows involved General Motors <span class="citation" data-cites="themarkup2024gm">(<a href="#ref-themarkup2024gm" role="doc-biblioref">Merrill and Gillis 2024</a>)</span>:</p>
+<p><strong>What happened (2022–2026):</strong></p>
+<ol type="1">
+<li>GM enrolled millions of drivers in its <strong>OnStar Smart Driver</strong> programme, described to customers as a tool providing “personalised feedback” on driving habits</li>
+<li>GM sold detailed trip-level data, including hard braking events, acceleration, and speeding, to <strong>LexisNexis Risk Solutions</strong>, a data broker</li>
+<li>LexisNexis packaged the data into <strong>driving behaviour scores</strong> and sold these to insurers including Allstate, Liberty Mutual, and State Farm</li>
+<li>Customers received <strong>insurance premium increases</strong> based on driving scores they did not know existed and had not consented to share with insurers</li>
+<li>Following a <em>New York Times</em> / The Markup investigation, GM <strong>shut the programme down</strong> in March 2024</li>
+<li>The FTC announced a proposed settlement in January 2025 and finalised the order in January 2026 <span class="citation" data-cites="ftc2026gmonstar">(<a href="#ref-ftc2026gmonstar" role="doc-biblioref">Federal Trade Commission 2026</a>)</span>. The 20-year order requires affirmative express consent before collecting, using, or sharing connected-vehicle data, bans sharing geolocation and driving-behaviour data with consumer reporting agencies for five years, and requires access, deletion, and opt-out rights for consumers</li>
+</ol>
+<p><strong>Scale</strong>: millions of vehicles. Customers enrolled by checking a box in the vehicle’s infotainment screen, with data-sharing terms buried in the fine print.</p>
+</section>
+<section id="the-onstar-case-contextual-integrity-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="the-onstar-case-contextual-integrity-analysis">The OnStar case: contextual integrity analysis</h3>
+<p>Apply Nissenbaum’s five parameters:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 44%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>What customers understood</th>
+<th>What actually happened</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Data subject</strong></td>
+<td>Me, the driver</td>
+<td>Correct</td>
+</tr>
+<tr class="even">
+<td><strong>Sender</strong></td>
+<td>Me (via the app/vehicle)</td>
+<td>GM, not the customer directly</td>
+</tr>
+<tr class="odd">
+<td><strong>Recipient</strong></td>
+<td>GM / OnStar for driver coaching</td>
+<td>LexisNexis → multiple insurers</td>
+</tr>
+<tr class="even">
+<td><strong>Information type</strong></td>
+<td>Driving feedback scores</td>
+<td>Individual trip-level behavioural records</td>
+</tr>
+<tr class="odd">
+<td><strong>Transmission principle</strong></td>
+<td>Coaching programme, not for resale</td>
+<td>Sold commercially without meaningful consent</td>
+</tr>
+</tbody>
+</table>
+<p>Every parameter except the data subject itself was violated. The contextual norm customers operated under, sharing data for a benefit programme, was incompatible with the actual flow.</p>
+</section>
+<section id="the-onstar-case-solove-taxonomy" class="level3">
+<h3 class="anchored" data-anchor-id="the-onstar-case-solove-taxonomy">The OnStar case: Solove taxonomy</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Event</th>
+<th>Solove violation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Continuous recording of every trip</td>
+<td><strong>Surveillance</strong></td>
+</tr>
+<tr class="even">
+<td>Combining trips + braking + location into an insurance score</td>
+<td><strong>Aggregation</strong></td>
+</tr>
+<tr class="odd">
+<td>Selling that score to insurers the customer never chose</td>
+<td><strong>Secondary use</strong> + <strong>Breach of confidentiality</strong></td>
+</tr>
+<tr class="even">
+<td>Customers unable to find out their score or who had it</td>
+<td><strong>Exclusion</strong></td>
+</tr>
+<tr class="odd">
+<td>Premium increases with no explanation offered</td>
+<td><strong>Decisional interference</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ev-specific-privacy-dimensions" class="level3">
+<h3 class="anchored" data-anchor-id="ev-specific-privacy-dimensions">EV-specific privacy dimensions</h3>
+<p>Electric vehicles introduce data categories that go beyond conventional telematics:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 32%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data type</th>
+<th>What it reveals</th>
+<th>Insurance implication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Charging location and time</strong></td>
+<td>Home address, workplace, overnight location, travel patterns</td>
+<td>Re-identification, lifestyle profiling</td>
+</tr>
+<tr class="even">
+<td><strong>Charging frequency</strong></td>
+<td>Anxiety about range, trip length distribution</td>
+<td>Potential proxy for age, disability, financial stress</td>
+</tr>
+<tr class="odd">
+<td><strong>Battery health and degradation</strong></td>
+<td>Age and condition of vehicle, driving style over time</td>
+<td>Underwriting and claims valuation</td>
+</tr>
+<tr class="even">
+<td><strong>Over-the-air update logs</strong></td>
+<td>Software version, feature unlocks, vehicle modifications</td>
+<td>Material change notifications</td>
+</tr>
+<tr class="odd">
+<td><strong>Cabin sensors</strong> (some models)</td>
+<td>Number of occupants, weight estimates, temperature preferences</td>
+<td>Inference of household size, health conditions</td>
+</tr>
+</tbody>
+</table>
+<p>Battery data is particularly sensitive: a rapidly degrading battery in a region with poor charging infrastructure may indicate financial hardship (inability to upgrade), disability, or geographic isolation.</p>
+</section>
+<section id="the-oem-data-monopoly-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-oem-data-monopoly-problem">The OEM data monopoly problem</h3>
+<p>Traditional telematics placed data collection under the insurer’s control (via a dongle). Connected and EVs invert this:</p>
+<pre><code>Traditional UBI:        Driver → [dongle/app] → Insurer
+Connected vehicle:      Driver → Vehicle → OEM cloud → [broker] → Insurer</code></pre>
+<p><strong>Consequences:</strong></p>
+<ul>
+<li>Insurers who do not buy OEM data risk <strong>adverse selection</strong>, where drivers with poor behaviour scores, flagged by OEMs, avoid those insurers</li>
+<li>Independent actuarial assessment of risk is displaced by OEM-defined scores of unknown methodology</li>
+<li>Customers cannot port their driving history to a new insurer (data portability gap)</li>
+<li>Small and regional insurers may be priced out of OEM data, concentrating the market</li>
+</ul>
+</section>
+<section id="regulatory-responses" class="level3">
+<h3 class="anchored" data-anchor-id="regulatory-responses">Regulatory responses</h3>
+<p><strong>EU Data Act (Regulation 2023/2854, in force 2024)</strong> <span class="citation" data-cites="euDataAct2023">(<a href="#ref-euDataAct2023" role="doc-biblioref">Regulation (EU) 2023/2854 of the European Parliament and of the Council on Harmonised Rules on Fair Access to and Use of Data (Data Act) 2023</a>)</span>:</p>
+<ul>
+<li>Users have the right to access data generated by connected products (including vehicles) in real time</li>
+<li>Third parties chosen by the user (e.g.&nbsp;an insurer or repair shop) can receive that data directly</li>
+<li>Breaks OEM data monopoly by granting portability rights to the data subject</li>
+<li>Applies to all connected products sold in the EU, relevant for international vehicle fleets</li>
+</ul>
+<p><strong>Australia</strong>: no equivalent vehicle data right yet. The Privacy Act review (2022–2024) did not specifically address connected vehicle data. The ACCC (Australia’s competition regulator) has flagged OEM data access as a competition concern in the right-to-repair context.</p>
+<p><strong>United States</strong>: the FTC (Federal Trade Commission, the US consumer-protection regulator) opened an inquiry into GM/OnStar in 2024, proposed a settlement in January 2025, and finalised a 20-year consent order in January 2026 <span class="citation" data-cites="ftc2026gmonstar">(<a href="#ref-ftc2026gmonstar" role="doc-biblioref">Federal Trade Commission 2026</a>)</span>, including a five-year ban on sharing geolocation and driving-behaviour data with consumer reporting agencies. Several state attorneys-general also investigated. There is still no general federal connected-vehicle privacy law.</p>
+</section>
+<section id="summary-telematics-connected-vehicles-evs" class="level3">
+<h3 class="anchored" data-anchor-id="summary-telematics-connected-vehicles-evs">Summary: telematics → connected vehicles → EVs</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 24%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Generation</th>
+<th>Data model</th>
+<th>Privacy risk</th>
+<th>Consent mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>UBI telematics</strong> (dongle/app)</td>
+<td>Customer installs device, insurer collects</td>
+<td>High but visible</td>
+<td>Explicit opt-in to programme</td>
+</tr>
+<tr class="even">
+<td><strong>Connected vehicle</strong></td>
+<td>OEM collects natively, sells to third parties</td>
+<td>Very high, invisible to customer</td>
+<td>Buried in vehicle purchase T&amp;Cs</td>
+</tr>
+<tr class="odd">
+<td><strong>EV</strong></td>
+<td>As above + battery, charging, cabin sensors</td>
+<td>Very high, richer inference</td>
+<td>As above, plus charging network T&amp;Cs</td>
+</tr>
+</tbody>
+</table>
+<p>The privacy challenge has moved from “how do we protect data a customer chose to share?” to “how do we give customers meaningful control over data generated about them without their active participation?” This progression, from consumer-installed device to manufacturer-native, ambient collection, is not unique to vehicles. It recurs in wearables, smart-home devices, and workplace monitoring tools, wherever a device manufacturer sits between the data subject and the party making a consequential decision.</p>
+</section>
+<section id="re-identification-risk" class="level3">
+<h3 class="anchored" data-anchor-id="re-identification-risk">Re-identification risk</h3>
+<p>A fundamental challenge: data that appears anonymised can often be re-identified.</p>
+<p><strong>Latanya Sweeney (2000)</strong> <span class="citation" data-cites="sweeney2000simple">(<a href="#ref-sweeney2000simple" role="doc-biblioref">Sweeney 2000</a>)</span>: 87% of Americans could be uniquely identified using only three fields, date of birth, gender, and 5-digit ZIP code, from “anonymised” data.</p>
+<p><strong>Narayanan and Shmatikov (2008)</strong> <span class="citation" data-cites="narayanan2008robust">(<a href="#ref-narayanan2008robust" role="doc-biblioref">Narayanan and Shmatikov 2008</a>)</span>: re-identified Netflix “anonymous” ratings data by cross-referencing with public IMDb reviews.</p>
+<p><strong>Implications across domains</strong>: - Age + postcode + diagnosis date is often sufficient to re-identify a patient in aggregated health statistics. Age + postcode + vehicle + claims date does the same for an insurance policyholder - Model development datasets are not truly anonymous. They require the same protections as raw data, whether they support a health study, a hiring model, or an insurance pricing model</p>
+</section>
+<section id="affinity-profiling-risk-without-re-identification" class="level3">
+<h3 class="anchored" data-anchor-id="affinity-profiling-risk-without-re-identification">Affinity profiling: risk without re-identification</h3>
+<p>Re-identification is not the only way de-identified or aggregated data can affect an individual. <strong>Affinity profiling</strong> groups people by shared characteristics, then infers or acts on an individual’s risk based on that group’s behaviour, without ever needing to identify the individual personally <span class="citation" data-cites="wachter2020affinity">(<a href="#ref-wachter2020affinity" role="doc-biblioref">Wachter 2020</a>)</span>.</p>
+<p>Bednarz et al. <span class="citation" data-cites="bednarz2025notpersonal">(<a href="#ref-bednarz2025notpersonal" role="doc-biblioref">2025</a>)</span> illustrate this with an insurance-specific case study of Vitality, a behavioural insurance platform: non-personal, cohort-level data, for example how members of a shared demographic or activity group behave on average, shapes pricing and engagement decisions that affect specific individuals, even though no single record is ever re-identified in the Sweeney or Narayanan-Shmatikov sense above. Because affinity profiling operates on data that was never personally identifying to begin with, privacy protections built around identifiability, consent, and access rights do not straightforwardly apply <span class="citation" data-cites="huang2026insurersdata">(<a href="#ref-huang2026insurersdata" role="doc-biblioref">Huang 2026</a>)</span>.</p>
+</section>
+<section id="right-to-explanation-of-automated-decision-making" class="level3">
+<h3 class="anchored" data-anchor-id="right-to-explanation-of-automated-decision-making">Right to explanation of automated decision-making</h3>
+<p>GDPR Articles 13-15 and 22 work together, rather than Article 22 standing alone as a general explanation right. Article 22 gives individuals a qualified right not to be subject to certain solely automated decisions, with safeguards including human intervention and contestation. Articles 13-15, and in particular the access right in Article 15(1)(h), separately require organisations to give meaningful information about the logic, significance, and consequences of automated processing.</p>
+<p>Two CJEU rulings clarify how far this extends:</p>
+<ul>
+<li><strong><em>SCHUFA</em></strong> (C-634/21, 2023) <span class="citation" data-cites="cjeu2023schufa">(<a href="#ref-cjeu2023schufa" role="doc-biblioref">Court of Justice of the European Union 2023</a>)</span>: an automatically generated score, such as a credit score, can itself be a “decision” under Article 22 where a third party, such as a lender, draws strongly on it to decide whether to establish, implement, or terminate a contract. This does not mean every algorithmic score, recommendation, or price automatically falls within Article 22.</li>
+<li><strong><em>Dun &amp; Bradstreet Austria</em></strong> (C-203/22, 2025) <span class="citation" data-cites="cjeu2025dunbradstreet">(<a href="#ref-cjeu2025dunbradstreet" role="doc-biblioref">Court of Justice of the European Union 2025</a>)</span>: the Article 15(1)(h) access right requires organisations to explain, concisely and intelligibly, the procedure and principles actually applied to the individual’s data, including which data were used and how they shaped the outcome, but does not require disclosing the complete algorithm.</li>
+</ul>
+<p>Applied across domains:</p>
+<ul>
+<li><strong>Automated underwriting or credit decisions</strong>: a fully automated system that declines an application must offer Article 22 safeguards and a meaningful explanation of the logic under Article 15(1)(h)</li>
+<li><strong>Algorithmic pricing or scoring</strong>: whether a non-standard premium, rate, or score triggers Article 22 depends on how heavily a downstream decision draws on it, following <em>SCHUFA</em></li>
+<li><strong>Automated screening or claims decisions</strong>: hiring rejections, benefits determinations, and claims decisions produced without human review raise the same questions</li>
+</ul>
+<p>In Australia, from 10 December 2026, a new obligation requires an APP entity’s privacy policy to disclose the kinds of personal information used and the kinds of decisions made by automated systems that could reasonably be expected to significantly affect an individual’s rights or interests <span class="citation" data-cites="pola2024act">(<a href="#ref-pola2024act" role="doc-biblioref">Privacy and Other Legislation Amendment Act 2024 (Cth) 2024</a>)</span>. This is a privacy-policy transparency obligation, not an enforceable individual right to an explanation, human review, or contestation of a specific decision.</p>
+<p>China’s PIPL Article 24 goes further than Australia’s forthcoming disclosure obligation, closer to the EU’s model: it grants individuals a direct right to an explanation of an automated decision, plus a right to refuse a decision made solely by automated means where it significantly affects them <span class="citation" data-cites="china_pipl_2021">(<a href="#ref-china_pipl_2021" role="doc-biblioref">National People’s Congress (China) 2021</a>)</span>. Unlike the <em>SCHUFA</em> and <em>Dun &amp; Bradstreet</em> rulings’ careful line-drawing around which scores and processes qualify, PIPL’s text does not yet have an equivalent body of case law narrowing its scope, so how strictly “solely automated” and “significant effect” will be interpreted in practice remains less settled than under the GDPR.</p>
+<p>This directly connects privacy (the right not to be profiled) with explainability (the right to understand a decision), two pillars of the same regulatory logic.</p>
+</section>
+</section>
+<section id="privacy-enhancing-techniques" class="level2">
+<h2 class="anchored" data-anchor-id="privacy-enhancing-techniques">Privacy-Enhancing Techniques</h2>
+<p>Re-identification risk shows that removing direct identifiers is not enough. Privacy-enhancing techniques (PETs) provide more principled approaches to releasing or sharing data while limiting the disclosure of sensitive information. This section introduces three families of techniques that are applied in practice and examined quantitatively in Chapter 7.</p>
+<section id="k-anonymity" class="level3">
+<h3 class="anchored" data-anchor-id="k-anonymity">k-Anonymity</h3>
+<p><strong>Why it was proposed.</strong> In 1997, Latanya Sweeney, then an MIT graduate student, set out to test a state agency’s promise that a “de-identified” dataset was safe to release. The Massachusetts Group Insurance Commission had released hospital-visit records for state employees, with names, addresses, and Social Security numbers removed, to support research. Sweeney purchased the full roll of Cambridge voter-registration records for $20 and linked it to the “anonymised” health data using just three fields: ZIP code, birth date, and sex. Only six voters shared the Governor’s birth date, only three of those were male, and only one lived in his ZIP code. She had re-identified the medical records of the sitting Governor of Massachusetts, William Weld, and mailed them to his office to make the point. Sweeney formalised the underlying weakness, that a small combination of seemingly harmless fields can uniquely identify someone, into k-anonymity: a design requirement guaranteeing in advance that no combination of quasi-identifiers can narrow a group below <span class="math inline">k</span> people, rather than trusting that removing obvious identifiers is enough.</p>
+<p><strong>k-Anonymity</strong> <span class="citation" data-cites="sweeney2002kanonymity">(<a href="#ref-sweeney2002kanonymity" role="doc-biblioref">Sweeney 2002</a>)</span> is a property of a released dataset. A dataset satisfies k-anonymity if every record is indistinguishable from at least <span class="math inline">k - 1</span> other records with respect to a set of <strong>quasi-identifiers</strong>, variables that are not direct identifiers but that could be used in combination to re-identify an individual (e.g., age group, postcode, gender).</p>
+<p>Formally, a dataset <span class="math inline">D</span> satisfies <strong>k-anonymity</strong> if for every record <span class="math inline">r \in D</span>,</p>
+<p><span class="math display">
+|\{r' \in D : r'[Q] = r[Q]\}| \geq k,
+</span></p>
+<p>where <span class="math inline">Q</span> denotes the set of quasi-identifiers. Each equivalence class (group of records sharing the same quasi-identifier values) must contain at least <span class="math inline">k</span> records.</p>
+<p><strong>In plain terms</strong>: pick any record in the released dataset, and look at every other record that shares the exact same combination of quasi-identifier values, for example, the same age band, postcode, and gender. k-anonymity requires that group to contain at least <span class="math inline">k</span> people, so that combination of fields alone can never single out one specific record the way ZIP code, birth date, and sex singled out Governor Weld’s.</p>
+<p><strong>Example</strong>: if three policyholders in a released insurance dataset all share the same postcode, the same 10-year age band, and the same gender, they form one equivalence class of size 3, satisfying 3-anonymity. If any one of those three had a distinct combination of postcode, age band, and gender instead, that record alone would already fail the requirement, and generalisation or suppression would need to be applied until it too belonged to a group of at least <span class="math inline">k</span>.</p>
+<p><strong>How it is achieved</strong> (two main operations):</p>
+<ul>
+<li><strong>Generalisation</strong>: replace specific values with broader categories (e.g., exact age → age band 30–35, or postcode → first three digits).</li>
+<li><strong>Suppression</strong>: remove records that cannot be brought into a group of size <span class="math inline">k</span> without excessive distortion.</li>
+</ul>
+<p><strong>Extensions</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 32%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technique</th>
+<th>Addresses</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>l-Diversity</strong> <span class="citation" data-cites="machanavajjhala2007ldiversity">(<a href="#ref-machanavajjhala2007ldiversity" role="doc-biblioref">Machanavajjhala et al. 2007</a>)</span></td>
+<td>Homogeneity attack, where all <span class="math inline">k</span> records share the same sensitive value</td>
+<td>Each equivalence class must contain at least <span class="math inline">l</span> distinct sensitive values</td>
+</tr>
+<tr class="even">
+<td><strong>t-Closeness</strong> <span class="citation" data-cites="li2007tcloseness">(<a href="#ref-li2007tcloseness" role="doc-biblioref">Li et al. 2007</a>)</span></td>
+<td>Skewness attack, where sensitive values cluster at one end</td>
+<td>Distribution of sensitive values in each class must be within distance <span class="math inline">t</span> of the overall distribution</td>
+</tr>
+</tbody>
+</table>
+<p>Formally, let <span class="math inline">E</span> denote an equivalence class (a group of records sharing the same quasi-identifier values) and <span class="math inline">S</span> the sensitive attribute. <span class="math inline">E</span> satisfies <strong>l-diversity</strong> if</p>
+<p><span class="math display">
+|\{s : \exists\, r \in E,\ r[S] = s\}| \geq l,
+</span></p>
+<p>that is, <span class="math inline">E</span> contains at least <span class="math inline">l</span> distinct values of <span class="math inline">S</span>. A dataset satisfies l-diversity if every equivalence class does.</p>
+<p><span class="math inline">E</span> satisfies <strong>t-closeness</strong> if</p>
+<p><span class="math display">
+D(P_E, P_D) \leq t,
+</span></p>
+<p>where <span class="math inline">P_E</span> is the distribution of <span class="math inline">S</span> within <span class="math inline">E</span>, <span class="math inline">P_D</span> is its distribution across the whole dataset, and <span class="math inline">D(\cdot,\cdot)</span> is a distance measure between distributions (the original paper uses Earth Mover’s Distance). A dataset satisfies t-closeness if every equivalence class does.</p>
+<p><strong>Example</strong>: suppose an equivalence class of five policyholders satisfies 5-anonymity, but all five happen to have made a fraud-flagged claim. An attacker who identifies someone as belonging to that group learns their claim history without ever picking out their specific record, a homogeneity attack. l-diversity would require that class to contain at least two distinct claim-outcome values before release. Now suppose the class does contain two values, but 90% of it is fraud-flagged claims against only 5% for the portfolio overall. That imbalance itself leaks information: membership in the group is now strong evidence of a fraud-flagged claim, even though the class is technically diverse. t-closeness would flag this class as too skewed relative to the overall distribution.</p>
+<p><strong>Limitations of k-anonymity</strong>:</p>
+<ul>
+<li>It provides no probabilistic guarantee. An attacker with additional background knowledge may still re-identify records.</li>
+<li>It operates on the released data, not on the query or analysis process.</li>
+<li>Generalisation reduces the granularity available for modelling and may introduce bias.</li>
+</ul>
+</section>
+<section id="differential-privacy" class="level3">
+<h3 class="anchored" data-anchor-id="differential-privacy">Differential Privacy</h3>
+<p><strong>Why it was proposed.</strong> k-Anonymity and its extensions reduce risk, but they only protect against re-identification within the specific released dataset, and provide no guarantee against an attacker who combines it with other information. In 2018, the US Census Bureau’s own researchers demonstrated exactly this failure mode at scale: using only the aggregate statistical tables the Bureau had already published from the 2010 Census, combined with a commercially available marketing database, they reconstructed and re-identified demographic records for roughly one in six Americans, even though the underlying tables had been through the Bureau’s standard disclosure-avoidance process <span class="citation" data-cites="abowd2018census">(<a href="#ref-abowd2018census" role="doc-biblioref">Abowd 2018</a>)</span>. No single published table looked risky on its own. Combining enough of them was enough to break it. This “database reconstruction attack” led the Bureau to adopt differential privacy for the 2020 Census, still the largest real-world deployment of the technique. Dwork <span class="citation" data-cites="dwork2006calibrating">(<a href="#ref-dwork2006calibrating" role="doc-biblioref">Dwork et al. 2006</a>)</span> had proposed differential privacy over a decade earlier for exactly this class of problem: rather than trying to anticipate every way a released dataset might be combined with future outside information, provide a guarantee that holds regardless of what auxiliary information an attacker already has, by bounding what any single individual’s own record can change about the output.</p>
+<p><strong>Differential privacy</strong> (DP) provides a mathematical guarantee about the <em>process</em> of releasing a statistic or model, rather than a property of the released dataset itself. It bounds the amount of information that any single individual’s record can contribute to a published output.</p>
+<p><strong>Definition.</strong> A randomised mechanism <span class="math inline">\mathcal{M}</span> satisfies <strong><span class="math inline">\varepsilon</span>-differential privacy</strong> if, for all pairs of datasets <span class="math inline">D</span> and <span class="math inline">D'</span> that differ in exactly one record, and for all possible outputs <span class="math inline">S</span>,</p>
+<p><span class="math display">
+\Pr[\mathcal{M}(D) \in S] \leq e^{\varepsilon} \cdot \Pr[\mathcal{M}(D') \in S].
+</span></p>
+<p><strong>In plain terms</strong>: compare the mechanism’s output distribution run on <span class="math inline">D</span> against the same mechanism run on <span class="math inline">D'</span>, a dataset identical except that one person’s record has been added, removed, or changed. The inequality says these two distributions can differ by at most a factor of <span class="math inline">e^{\varepsilon}</span>, whichever single record is the one that changed. Someone looking only at the output cannot tell, beyond that factor, whether any particular individual’s data was included at all, which is exactly the guarantee the Census reconstruction attack showed the Bureau’s older methods did not provide: no amount of outside information can improve an attacker’s odds by more than <span class="math inline">e^{\varepsilon}</span>.</p>
+<p>The parameter <span class="math inline">\varepsilon \geq 0</span> is the <strong>privacy budget</strong>. Smaller values provide stronger privacy guarantees, while larger values allow more accurate outputs.</p>
+<p><strong>The Laplace mechanism</strong> (adding a carefully calibrated amount of random noise to a number before releasing it) is the canonical method for privatising a numerical statistic. Given a function <span class="math inline">f</span> with <strong>sensitivity</strong> <span class="math inline">\Delta f = \max_{D, D'} |f(D) - f(D')|</span>, the privatised release is</p>
+<p><span class="math display">
+\mathcal{M}(D) = f(D) + \text{Lap}\!\left(\frac{\Delta f}{\varepsilon}\right),
+</span></p>
+<p>where <span class="math inline">\text{Lap}(\lambda)</span> denotes a draw from a Laplace distribution with scale <span class="math inline">\lambda</span>.</p>
+<p><strong>In plain terms</strong>: <span class="math inline">\Delta f</span> measures the worst-case swing that one person’s record could cause in the true answer <span class="math inline">f(D)</span>. For a sum of insurance claims, for example, that is the size of the single largest claim any one policyholder could contribute. The mechanism releases the true answer plus random noise scaled to that worst case and divided by the privacy budget: a smaller <span class="math inline">\varepsilon</span> (stronger privacy) means more noise is added, and a statistic with higher sensitivity needs more noise to reach the same <span class="math inline">\varepsilon</span>.</p>
+<p><strong>Example</strong>: suppose the true average claim size for a group of policyholders is $8,000, the largest claim any single policyholder could contribute is <span class="math inline">\Delta f = \$2{,}000</span>, and the privacy budget is <span class="math inline">\varepsilon = 1</span>. The released statistic is $8,000 plus a draw from <span class="math inline">\text{Lap}(2{,}000/1)</span>, which might come out as $7,650 or $9,400 depending on the random draw. Anyone using the released number cannot tell whether it equals the true average, or how far the noise pushed it in either direction.</p>
+<p><strong>Interpreting <span class="math inline">\varepsilon</span></strong> (an illustrative rule of thumb, not a formal standard. The appropriate value depends on the sensitivity of the statistic and the acceptable accuracy loss):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\varepsilon</span></th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\leq 1</span></td>
+<td>Strong privacy, outputs may be quite noisy</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">1</span>–<span class="math inline">10</span></td>
+<td>Moderate privacy, commonly used in practice</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">&gt; 10</span></td>
+<td>Weak privacy, output close to the true value</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key properties</strong>:</p>
+<ul>
+<li>DP is composable. Applying <span class="math inline">k</span> mechanisms each with budget <span class="math inline">\varepsilon_i</span> consumes total budget <span class="math inline">\sum_i \varepsilon_i</span>.</li>
+<li>DP is immune to post-processing. Any further computation on a DP output does not reduce privacy.</li>
+<li>DP is adopted by Apple, Google, the US Census Bureau, and is referenced in emerging AI regulation.</li>
+</ul>
+<p><strong>Limitations</strong>:</p>
+<ul>
+<li>Choosing <span class="math inline">\varepsilon</span> requires a policy judgement. There is no universal threshold.</li>
+<li>Noise calibrated to global sensitivity can be large when the statistic has high sensitivity (e.g., a sum over unbounded values).</li>
+<li>DP protects statistical releases. It does not directly protect against membership inference in machine learning models without additional techniques (e.g., DP-SGD).</li>
+</ul>
+</section>
+<section id="synthetic-data" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-data">Synthetic Data</h3>
+<p><strong>Why it was proposed.</strong> Statistical agencies have long faced the same tension covered in this section: researchers need record-level microdata to do useful analysis, but releasing real records, even with obvious identifiers removed, carries growing disclosure risk as more outside data becomes available to link against it (precisely the vulnerability k-anonymity and differential privacy each address in different ways). The US Internal Revenue Service’s Statistics of Income (SOI) division has published a fully synthetic version of its individual income tax return public-use file since the early 2000s <span class="citation" data-cites="irs2018synthetic">(<a href="#ref-irs2018synthetic" role="doc-biblioref">Internal Revenue Service, Statistics of Income Division 2018</a>)</span>, generated by fitting sequential regression models to the real, confidential returns, the same family of methods <code>synthpop</code> implements in Chapter 7. Rather than redacting or coarsening real taxpayer records, SOI generates entirely new, artificial returns whose statistical properties match the real population closely enough for tax-policy research, while containing no actual taxpayer’s data at all.</p>
+<p><strong>Synthetic data</strong> is artificially generated data that mimics the statistical properties of a real dataset without containing any actual records. A generative model is fitted to the real data. New records are then sampled from that model.</p>
+<p><strong>Example</strong>: a synthetic version of the French motor insurance dataset used throughout this course might include a record for a “34-year-old policyholder in a mid-density postcode with a Bonus level of 20 and no claims history,” generated from the fitted model’s learned relationships between age, density, bonus level, and claims. No real policyholder needs to match that combination for the record to be useful, and no real policyholder’s actual data is disclosed by releasing it. Chapter 7 generates exactly this kind of data from the same dataset.</p>
+<p><strong>Two core objectives</strong> must be balanced:</p>
+<ul>
+<li><strong>Fidelity</strong> (utility): the synthetic data should preserve the statistical relationships, such as marginal distributions, correlations, and model performance, needed for the intended downstream use.</li>
+<li><strong>Privacy</strong>: the synthetic data should not allow an attacker to infer sensitive information about individuals in the original dataset.</li>
+</ul>
+<p><strong>Common generation approaches</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 37%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Example tools</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sequential regression models</td>
+<td><code>synthpop</code> (R)</td>
+<td>Tabular survey, health, or actuarial data</td>
+</tr>
+<tr class="even">
+<td>Bayesian networks</td>
+<td><code>DataSynthesizer</code></td>
+<td>Mixed-type datasets with dependencies</td>
+</tr>
+<tr class="odd">
+<td>Generative adversarial networks (GANs)</td>
+<td><code>CTGAN</code>, <code>SDV</code></td>
+<td>High-dimensional tabular or image data</td>
+</tr>
+<tr class="even">
+<td>Variational autoencoders (VAEs)</td>
+<td><code>TVAE</code></td>
+<td>Continuous data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evaluating synthetic data</strong>:</p>
+<ul>
+<li><em>Marginal fidelity</em>: do synthetic distributions match real distributions variable by variable?</li>
+<li><em>Joint fidelity</em>: are pairwise and higher-order relationships preserved?</li>
+<li><em>Model performance</em>: does a model trained on synthetic data perform similarly when applied to real data?</li>
+<li><em>Privacy risk</em>: do synthetic records closely resemble real records? Nearest-neighbour distance ratios (NNDR) are a common diagnostic.</li>
+</ul>
+<p><strong>Key limitation</strong>: synthetic data does not automatically guarantee privacy. Memorisation by the generative model can cause it to reproduce individual real records, particularly for rare or extreme observations. Without explicit privacy accounting (e.g., DP during training), synthetic data provides no formal privacy guarantee.</p>
+</section>
+<section id="federated-learning-a-different-approach" class="level3">
+<h3 class="anchored" data-anchor-id="federated-learning-a-different-approach">Federated Learning: a different approach</h3>
+<p><strong>Why it was proposed.</strong> Google introduced federated learning in 2017 to solve a concrete engineering problem: improving next-word predictions on its Gboard mobile keyboard <span class="citation" data-cites="mcmahan2017communication">(<a href="#ref-mcmahan2017communication" role="doc-biblioref">McMahan et al. 2017</a>)</span>. The text people type, including passwords, search queries, and personal messages, is exactly the data a better prediction model needs to learn from, and exactly the data users do not want uploaded to a central server. Sending every keystroke from hundreds of millions of phones to Google’s servers would also have been enormously bandwidth-intensive. McMahan et al.’s solution kept the raw text on the device entirely: each phone trains the shared model locally on its own typing history, and only the resulting model update, a set of numbers describing how the model changed, not the text itself, is sent back and averaged across devices (the FederatedAveraging algorithm). The same architecture generalises directly to any setting where the data is sensitive and already scattered across separate holders, exactly the insurance and banking case discussed below.</p>
+<p>The three techniques above all start from a different premise: data is collected in one place, then anonymised, perturbed, or synthesised before release or analysis. <strong>Federated learning</strong> takes a different route: the raw data never leaves the device or organisation that holds it.</p>
+<p>A central server sends a shared model to each participant (e.g., a hospital, an insurer, a mobile device). Each participant trains the model locally on its own data, then sends back only the updated model parameters (weights, not records) to be aggregated into an improved shared model. The raw data is never centralised or transmitted.</p>
+<p><strong>Example</strong>: three insurers wanting to jointly flag suspicious claims patterns would each keep their own claims database in-house. Each trains the shared fraud-detection model overnight on its own claims, and sends back only the updated model weights, never an individual claim record, to be averaged into next day’s shared model. None of the three insurers ever sees another’s raw policyholder data, only the model that results from all three having trained on it.</p>
+<p>This addresses a limitation shared by all three techniques above: each assumes the data can be centralised somewhere, even briefly, before protection is applied.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: WeBank's FATE, a real production deployment">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: WeBank’s FATE, a real production deployment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>WeBank, a Chinese digital bank founded by Tencent, developed <strong>FATE</strong> (Federated AI Technology Enabler) <span class="citation" data-cites="liu2021fate">(<a href="#ref-liu2021fate" role="doc-biblioref">Liu et al. 2021</a>)</span>, an open-source federated learning platform it donated to the Linux Foundation in 2019. WeBank used it to build a federated credit-rating model, and has since led China’s national standardisation effort for federated machine learning. Several Chinese financial institutions now use FATE or similar frameworks to collaborate on credit and risk models without pooling raw customer data.</p>
+<p>A directly analogous insurance use case, several insurers jointly training a shared fraud-detection model across their claims histories without any party seeing another’s raw policyholder data, remains largely at the research and pilot stage. Published results in this space are mostly from simulated multi-party experiments rather than documented production deployments the way WeBank’s credit-rating use case is.</p>
+</div>
+</div>
+<p><strong>Limitations</strong>:</p>
+<ul>
+<li>Model updates can still leak information about the training data (e.g., through gradient inversion attacks), so federated learning is often combined with differential privacy (adding noise to the aggregated updates) or secure aggregation (a cryptographic protocol ensuring the server only sees the sum of updates, not any individual participant’s contribution).</li>
+<li>Coordinating training across participants with different data distributions, infrastructure, and availability is operationally harder than centralised training.</li>
+<li>It protects data <em>location</em>, not data <em>content</em>: a sufficiently determined attacker with access to the shared model may still be able to infer information about the training data, the same class of risk covered under re-identification and membership inference above.</li>
+</ul>
+<p>Related distributed-computation techniques include <strong>homomorphic encryption</strong> (computing directly on encrypted data) and <strong>secure multi-party computation</strong> (multiple parties jointly compute a function over their combined data without revealing their individual inputs to each other). Both are more computationally expensive than federated learning and remain largely at the research or pilot stage for the data volumes typical of insurance applications.</p>
+</section>
+<section id="choosing-a-technique" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-a-technique">Choosing a Technique</h3>
+<p>The three families of techniques above serve different purposes and are suited to different data sharing contexts. Federated learning answers a different question, whether data needs to be centralised at all, so it does not compete with the other three on the same terms. It is included below for comparison, not as a fourth interchangeable option.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 17%">
+<col style="width: 27%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technique</th>
+<th>Formal guarantee</th>
+<th>Preserves record structure</th>
+<th>Suitable for modelling</th>
+<th>Regulatory recognition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k-Anonymity</td>
+<td>No</td>
+<td>Yes (generalised)</td>
+<td>Reduced utility</td>
+<td>GDPR recital 26</td>
+</tr>
+<tr class="even">
+<td>Differential privacy</td>
+<td>Yes (<span class="math inline">\varepsilon</span>-DP)</td>
+<td>No (adds noise)</td>
+<td>Statistics and ML</td>
+<td>US Census, emerging EU/AU guidance</td>
+</tr>
+<tr class="odd">
+<td>Synthetic data</td>
+<td>No (unless DP-trained)</td>
+<td>No (new records)</td>
+<td>Yes (if high fidelity)</td>
+<td>Growing acceptance, no formal standard</td>
+</tr>
+<tr class="even">
+<td>Federated learning</td>
+<td>No (unless combined with DP)</td>
+<td>N/A, no data is released</td>
+<td>Yes, by design</td>
+<td>Growing, e.g.&nbsp;China’s national federated-learning standard, no comprehensive framework yet</td>
+</tr>
+</tbody>
+</table>
+<p>In practice these techniques are often <strong>combined</strong>. K-anonymity or suppression may be applied before synthetic data generation to reduce memorisation risk, and differential privacy may be used during model training to bound the influence of individual records. The first three do not change <em>where</em> the data is processed, each still assumes it is centralised, even briefly, before protection is applied. Federated learning addresses that different question directly, at the cost of the operational and residual-leakage limitations noted above.</p>
+<p>Chapter 7 applies each of the three data-release techniques to the French motor insurance dataset and examines the quantitative trade-off between privacy protection and statistical utility.</p>
+</section>
+</section>
+<section id="privacy-principles-in-practice" class="level2">
+<h2 class="anchored" data-anchor-id="privacy-principles-in-practice">Privacy principles in practice</h2>
+<section id="data-protection-impact-assessment-dpia-pia" class="level3">
+<h3 class="anchored" data-anchor-id="data-protection-impact-assessment-dpia-pia">Data Protection Impact Assessment (DPIA / PIA)</h3>
+<p>A <strong>Privacy Impact Assessment</strong> (PIA in Australian terminology, DPIA under GDPR) is a structured process for identifying and managing privacy risks before deploying a new data system or practice.</p>
+<p><strong>When required</strong>: GDPR Art 35 mandates a DPIA for large-scale processing of sensitive data, systematic profiling, and processing that is “likely to result in a high risk”, which describes many AI applications in insurance, healthcare, hiring, and lending.</p>
+<p><strong>A simplified four-stage summary</strong> of the OAIC’s (Australia’s privacy regulator) more detailed 10-step PIA process <span class="citation" data-cites="oaic2020pia">(<a href="#ref-oaic2020pia" role="doc-biblioref">Office of the Australian Information Commissioner 2021</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Identify</strong></td>
+<td>Map data flows: what is collected, from whom, for what purpose, who has access</td>
+</tr>
+<tr class="even">
+<td><strong>2. Assess</strong></td>
+<td>Identify privacy risks against APP obligations and community expectations</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Recommend</strong></td>
+<td>Propose controls to eliminate or reduce risks</td>
+</tr>
+<tr class="even">
+<td><strong>4. Respond</strong></td>
+<td>Implement recommendations and document residual risks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Applied to a new product</strong>: suppose an insurer is about to launch a usage-based insurance (UBI) telematics app.</p>
+<ul>
+<li><strong>Identify</strong>: the data flow map would show GPS pings every few seconds, braking and acceleration events, and speed, flowing from the customer’s phone or a plug-in device, through the vendor’s platform, to the insurer’s pricing engine, and potentially on to any third party the vendor’s contract allows.</li>
+<li><strong>Assess</strong>: continuous location data reveals home and work addresses even though the stated purpose is only pricing, and the same pattern behind the GM OnStar case, data quietly reaching a third party beyond the original purpose, is a live risk wherever a vendor sits between the customer and the insurer.</li>
+<li><strong>Recommend</strong>: collect trip-level summaries (aggregated speed/braking statistics) rather than raw GPS traces where the pricing model doesn’t need them, write a purpose-limitation clause into the vendor contract barring resale, and apply k-anonymity or aggregation before sharing any data externally.</li>
+<li><strong>Respond</strong>: document that driving patterns remain inferable from even summarised data as a residual risk, and get sign-off from whoever is accountable for that risk before launch.</li>
+</ul>
+<p>This is exactly the assessment GM’s own DPIA process should have caught before OnStar Smart Driver launched.</p>
+</section>
+<section id="privacy-considerations-for-large-language-models" class="level3">
+<h3 class="anchored" data-anchor-id="privacy-considerations-for-large-language-models">Privacy considerations for large language models</h3>
+<p>The techniques above (anonymisation, differential privacy, synthetic data) were developed for structured, tabular datasets with a known schema. Large language models (LLMs) introduce a privacy failure mode those techniques weren’t built for. The model itself, trained on billions of documents scraped from the web, can memorise and later regurgitate verbatim fragments of its training data.</p>
+<p><strong>Memorisation and extraction.</strong> <span class="citation" data-cites="carlini2021extracting">Carlini et al. (<a href="#ref-carlini2021extracting" role="doc-biblioref">2021</a>)</span> show that LLMs memorise some training examples exactly, and that an attacker who only has query access to the model, not access to the training data itself, can extract these memorised fragments, including personal information that happened to appear in the training corpus. <span class="citation" data-cites="nasr2023scalable">Nasr et al. (<a href="#ref-nasr2023scalable" role="doc-biblioref">2023</a>)</span> extend this to production, safety-aligned chatbots. A simple prompting attack caused a deployed chatbot to emit memorised training text, including real personal data, at a much higher rate than during normal use. This is a fundamentally different threat model from the re-identification risk discussed above. There is no dataset being released for an attacker to re-identify. The <em>model</em> is the leak.</p>
+<p><strong>A real breach, not just a research finding.</strong> A March 2023 bug in ChatGPT’s Redis library briefly exposed some users’ chat titles to other users, and exposed the names, email addresses, billing addresses, and partial payment-card details (last four digits and expiry date, not the full number) of about 1.2% of ChatGPT Plus subscribers active during a nine-hour window <span class="citation" data-cites="openai2023marchoutage">(<a href="#ref-openai2023marchoutage" role="doc-biblioref">OpenAI 2023</a>)</span>. This was not a memorisation attack of the kind described above. It was a conventional software bug, but it shows the same underlying point: an LLM product is a live system handling personal data, not just a static model, and it can fail the same ways any other system can.</p>
+<p><strong>Regulatory response.</strong> Weeks later, Italy’s data protection authority ordered a temporary halt to ChatGPT’s processing of Italian users’ data, citing this incident alongside an absence of a valid legal basis for processing and a lack of transparency about training-data sources <span class="citation" data-cites="garante2023chatgpt">(<a href="#ref-garante2023chatgpt" role="doc-biblioref">Garante per la protezione dei dati personali 2023</a>)</span>, an early, concrete precedent for applying GDPR-style lawfulness and transparency principles to a foundation model rather than a conventional database.</p>
+<p><strong>Practical implication.</strong> Two distinct privacy questions arise whenever an LLM is used in a consequential workflow: (1) <em>could the model itself leak something it was trained on</em> (a concern for whoever trained or fine-tuned it), and (2) <em>what happens to the data in this prompt</em> (a concern for whoever is calling a third-party LLM API). The second is the more immediate risk for most organisations. Sending a customer’s claim details, medical history, or identifying information into a prompt raises the same purpose-limitation and data-minimisation questions as any third-party data sharing, and depends entirely on that provider’s data-retention and training-use terms. Samsung learned this directly: in three separate incidents within three weeks in 2023, engineers pasted proprietary source code, a transcribed internal meeting, and confidential test data into ChatGPT to get help with their own work, after which the company banned the tool for staff entirely <span class="citation" data-cites="forbes2023samsung">(<a href="#ref-forbes2023samsung" role="doc-biblioref">Ray 2023</a>)</span>. The DPIA process above should treat an LLM API call as a data disclosure, not just a computation.</p>
+</section>
+<section id="summary-the-core-privacy-principles" class="level3">
+<h3 class="anchored" data-anchor-id="summary-the-core-privacy-principles">Summary: the core privacy principles</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Principle</th>
+<th>Legal basis</th>
+<th>Practical meaning for AI systems</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lawfulness</strong></td>
+<td>GDPR Art 5, APP 3</td>
+<td>Identify legal basis before collecting or processing data</td>
+</tr>
+<tr class="even">
+<td><strong>Purpose limitation</strong></td>
+<td>GDPR Art 5, APP 6</td>
+<td>Data collected for one purpose (e.g.&nbsp;underwriting, screening) cannot be freely repurposed for another (e.g.&nbsp;marketing)</td>
+</tr>
+<tr class="odd">
+<td><strong>Data minimisation</strong></td>
+<td>GDPR Art 5, APP 3</td>
+<td>Collect only variables needed, and do not retain “just in case”</td>
+</tr>
+<tr class="even">
+<td><strong>Transparency</strong></td>
+<td>GDPR Art 5, APP 1/5</td>
+<td>Explain what data is used and how, in plain language</td>
+</tr>
+<tr class="odd">
+<td><strong>Accuracy</strong></td>
+<td>GDPR Art 5, APP 10</td>
+<td>Verify data quality, allow correction</td>
+</tr>
+<tr class="even">
+<td><strong>Security</strong></td>
+<td>GDPR Art 5, APP 11</td>
+<td>Technical and organisational controls</td>
+</tr>
+<tr class="odd">
+<td><strong>Accountability</strong></td>
+<td>GDPR Art 5</td>
+<td>Document decisions, and be able to demonstrate compliance</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recommended-reading" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-reading">Recommended reading</h3>
+<ul>
+<li><span class="citation" data-cites="solove2006taxonomy">Solove (<a href="#ref-solove2006taxonomy" role="doc-biblioref">2006</a>)</span>, taxonomy of privacy violations, foundational conceptual framework</li>
+<li><span class="citation" data-cites="nissenbaum2004privacy">Nissenbaum (<a href="#ref-nissenbaum2004privacy" role="doc-biblioref">2004</a>)</span>, contextual integrity, best framework for analysing data reuse</li>
+<li><span class="citation" data-cites="gdpr2016regulation">(<a href="#ref-gdpr2016regulation" role="doc-biblioref">Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) 2016</a>)</span>, GDPR Articles 5, 6, 22, 25, 35</li>
+<li><span class="citation" data-cites="cjeu2023schufa">Court of Justice of the European Union (<a href="#ref-cjeu2023schufa" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="cjeu2025dunbradstreet">Court of Justice of the European Union (<a href="#ref-cjeu2025dunbradstreet" role="doc-biblioref">2025</a>)</span>, CJEU rulings clarifying the scope of Article 22 and the Article 15(1)(h) access right</li>
+<li><span class="citation" data-cites="oaic2023apps">Office of the Australian Information Commissioner (<a href="#ref-oaic2023apps" role="doc-biblioref">2023</a>)</span>, Australian Privacy Principles (free, oaic.gov.au)</li>
+<li><span class="citation" data-cites="boucher2020telematics">Boucher and Turcotte (<a href="#ref-boucher2020telematics" role="doc-biblioref">2020</a>)</span>, privacy tensions in usage-based insurance</li>
+<li><span class="citation" data-cites="carlini2021extracting">Carlini et al. (<a href="#ref-carlini2021extracting" role="doc-biblioref">2021</a>)</span>; <span class="citation" data-cites="nasr2023scalable">Nasr et al. (<a href="#ref-nasr2023scalable" role="doc-biblioref">2023</a>)</span>, memorisation and training-data extraction attacks specific to large language models</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-abowd2018census" class="csl-entry" role="listitem">
+Abowd, John M. 2018. <span>“The u.s. Census Bureau Adopts Differential Privacy.”</span> <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 2867.
+</div>
+<div id="ref-bednarz2025notpersonal" class="csl-entry" role="listitem">
+<span class="nocase">Bednarz, Zofia et al.</span> 2025. <span>“"It’s Not Personal, It’s Strictly Business": Behavioural Insurance and the Impacts of Non-Personal Data on Individuals, Groups and Societies.”</span> <em>Computer Law &amp; Security Review</em> 56: 106096. <a href="https://doi.org/10.1016/j.clsr.2024.106096">https://doi.org/10.1016/j.clsr.2024.106096</a>.
+</div>
+<div id="ref-boucher2020telematics" class="csl-entry" role="listitem">
+Boucher, Jean-Philippe, and Roxane Turcotte. 2020. <span>“Telematics and the Automobile Insurance Industry.”</span> <em>Variance</em> 13 (2): 192–211.
+</div>
+<div id="ref-california_cpra_2023" class="csl-entry" role="listitem">
+California Privacy Protection Agency. 2023. <em>California Privacy Rights Act (Amending the California Consumer Privacy Act)</em>. <a href="https://cppa.ca.gov/regulations/consumer_privacy_act.html">https://cppa.ca.gov/regulations/consumer_privacy_act.html</a>.
+</div>
+<div id="ref-carlini2021extracting" class="csl-entry" role="listitem">
+Carlini, Nicholas, Florian Tramèr, Eric Wallace, et al. 2021. <span>“Extracting Training Data from Large Language Models.”</span> <em>30th USENIX Security Symposium</em>, 2633–50.
+</div>
+<div id="ref-cavoukian2009privacybydesign" class="csl-entry" role="listitem">
+Cavoukian, Ann. 2009. <em>Privacy by Design: The 7 Foundational Principles</em>. Information; Privacy Commissioner of Ontario, Canada. <a href="https://ipc.on.ca/en/media/1183/download?attachment=">https://ipc.on.ca/en/media/1183/download?attachment=</a>.
+</div>
+<div id="ref-china_consumer_protection_measures_2022" class="csl-entry" role="listitem">
+China Banking and Insurance Regulatory Commission. 2022. <em>Measures for the Administration of Consumer Rights Protection by Banking and Insurance Institutions, Article 27 (银行保险机构消费者权益保护管理办法, 第二十七条)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1087524&amp;generaltype=0&amp;itemId=4098">https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1087524&amp;generaltype=0&amp;itemId=4098</a>.
+</div>
+<div id="ref-cjeu2023schufa" class="csl-entry" role="listitem">
+Court of Justice of the European Union. 2023. <em>Judgment of the Court (First Chamber), OQ v Land Hessen, Joined Party SCHUFA Holding AG, Case c-634/21</em>. <a href="https://curia.europa.eu/juris/liste.jsf?num=C-634/21">https://curia.europa.eu/juris/liste.jsf?num=C-634/21</a>.
+</div>
+<div id="ref-cjeu2025dunbradstreet" class="csl-entry" role="listitem">
+Court of Justice of the European Union. 2025. <em>Judgment of the Court (First Chamber), CK v Magistrat Der Stadt Wien, Joined Party Dun &amp; Bradstreet Austria GmbH, Case c-203/22</em>. <a href="https://curia.europa.eu/juris/liste.jsf?num=C-203/22">https://curia.europa.eu/juris/liste.jsf?num=C-203/22</a>.
+</div>
+<div id="ref-dwork2006calibrating" class="csl-entry" role="listitem">
+Dwork, Cynthia, Frank McSherry, Kobbi Nissim, and Adam Smith. 2006. <span>“Calibrating Noise to Sensitivity in Private Data Analysis.”</span> <em>Proceedings of the Third Theory of Cryptography Conference</em>, 265–84.
+</div>
+<div id="ref-ftc2026gmonstar" class="csl-entry" role="listitem">
+Federal Trade Commission. 2026. <span>“FTC Finalizes Order Settling Allegations That GM and OnStar Collected and Sold Geolocation Data Without Consumers’ Informed Consent.”</span> <a href="https://www.ftc.gov/news-events/news/press-releases/2026/01/ftc-finalizes-order-settling-allegations-gm-onstar-collected-sold-geolocation-data-without-consumers">https://www.ftc.gov/news-events/news/press-releases/2026/01/ftc-finalizes-order-settling-allegations-gm-onstar-collected-sold-geolocation-data-without-consumers</a>.
+</div>
+<div id="ref-garante2023chatgpt" class="csl-entry" role="listitem">
+Garante per la protezione dei dati personali. 2023. <em>Provvedimento Del 30 Marzo 2023 [9870832]: Limitazione Provvisoria Del Trattamento Dei Dati Di ChatGPT</em>. <a href="https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9870832">https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9870832</a>.
+</div>
+<div id="ref-huang2026insurersdata" class="csl-entry" role="listitem">
+Huang, Fei. 2026. <span>“Insurers Have a Lot of Data about Us. Where Do They Get It, and How Do They Use It?”</span> The Conversation, August. <a href="https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053">https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053</a>.
+</div>
+<div id="ref-irs2018synthetic" class="csl-entry" role="listitem">
+Internal Revenue Service, Statistics of Income Division. 2018. <em>Creating Homogeneous Synthetic Individual Tax Files for Public Use</em>. Internal Revenue Service. <a href="https://www.irs.gov/pub/irs-soi/18rpsynthindtaxfiles.pdf">https://www.irs.gov/pub/irs-soi/18rpsynthindtaxfiles.pdf</a>.
+</div>
+<div id="ref-li2007tcloseness" class="csl-entry" role="listitem">
+Li, Ninghui, Tiancheng Li, and Suresh Venkatasubramanian. 2007. <span>“T-Closeness: Privacy Beyond k-Anonymity and l-Diversity.”</span> <em>Proceedings of the 23rd IEEE International Conference on Data Engineering</em>, 106–15.
+</div>
+<div id="ref-liu2021fate" class="csl-entry" role="listitem">
+Liu, Yang, Tao Fan, Tianjian Chen, Qian Xu, and Qiang Yang. 2021. <span>“FATE: An Industrial Grade Platform for Collaborative Learning with Data Protection.”</span> <em>Journal of Machine Learning Research</em> 22 (226): 1–6.
+</div>
+<div id="ref-machanavajjhala2007ldiversity" class="csl-entry" role="listitem">
+Machanavajjhala, Ashwin, Daniel Kifer, Johannes Gehrke, and Muthuramakrishnan Venkitasubramaniam. 2007. <span>“<span class="math inline">\ell</span>-Diversity: Privacy Beyond k-Anonymity.”</span> <em>ACM Transactions on Knowledge Discovery from Data</em> 1: 3.
+</div>
+<div id="ref-mcmahan2017communication" class="csl-entry" role="listitem">
+McMahan, Brendan, Eider Moore, Daniel Ramage, Seth Hampson, and Blaise Aguera y Arcas. 2017. <span>“Communication-Efficient Learning of Deep Networks from Decentralized Data.”</span> <em>Artificial Intelligence and Statistics</em>, 1273–82.
+</div>
+<div id="ref-themarkup2024gm" class="csl-entry" role="listitem">
+Merrill, Jeremy B, and Talia Gillis. 2024. <span>“How GM Tracked Millions of Drivers and Sold Their Data Without Clear Consent.”</span> <em>The New York Times / The Markup</em>. <a href="https://themarkup.org/privacy/2024/03/11/gm-connected-vehicle-data-onstar-lexisnexis-insurance">https://themarkup.org/privacy/2024/03/11/gm-connected-vehicle-data-onstar-lexisnexis-insurance</a>.
+</div>
+<div id="ref-mozilla2023cars" class="csl-entry" role="listitem">
+Mozilla Foundation. 2023. <em>It’s Official: Cars Are the Worst Product Category We Have Ever Reviewed for Privacy</em>. Privacy Not Included Research Report. Mozilla Foundation. <a href="https://foundation.mozilla.org/en/privacynotincluded/articles/its-official-cars-are-the-worst-product-category-we-have-ever-reviewed-for-privacy/">https://foundation.mozilla.org/en/privacynotincluded/articles/its-official-cars-are-the-worst-product-category-we-have-ever-reviewed-for-privacy/</a>.
+</div>
+<div id="ref-narayanan2008robust" class="csl-entry" role="listitem">
+Narayanan, Arvind, and Vitaly Shmatikov. 2008. <span>“Robust de-Anonymization of Large Sparse Datasets.”</span> <em>Proceedings of the 2008 IEEE Symposium on Security and Privacy</em>, 111–25. <a href="https://doi.org/10.1109/SP.2008.33">https://doi.org/10.1109/SP.2008.33</a>.
+</div>
+<div id="ref-nasr2023scalable" class="csl-entry" role="listitem">
+Nasr, Milad, Nicholas Carlini, Jonathan Hayase, et al. 2023. <span>“Scalable Extraction of Training Data from (Production) Language Models.”</span> <em>arXiv Preprint arXiv:2311.17035</em>.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+National Financial Regulatory Administration (China). 2026. <em>Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors (关于银行业保险业人工智能安全开发应用的指导意见, Jin Fa [2026] No. 8)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1">https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1</a>.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+National People’s Congress (China). 2021. <em>Personal Information Protection Law of the People’s Republic of China (中华人民共和国个人信息保护法)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+<div id="ref-nissenbaum2004privacy" class="csl-entry" role="listitem">
+Nissenbaum, Helen. 2004. <span>“Privacy as Contextual Integrity.”</span> <em>Washington Law Review</em> 79 (1): 119–57.
+</div>
+<div id="ref-oaic2020pia" class="csl-entry" role="listitem">
+Office of the Australian Information Commissioner. 2021. <span>“10 Steps to Undertaking a Privacy Impact Assessment.”</span> <a href="https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/privacy-impact-assessments/10-steps-to-undertaking-a-privacy-impact-assessment">https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/privacy-impact-assessments/10-steps-to-undertaking-a-privacy-impact-assessment</a>.
+</div>
+<div id="ref-oaic2023apps" class="csl-entry" role="listitem">
+Office of the Australian Information Commissioner. 2023. <span>“Australian Privacy Principles.”</span> <a href="https://www.oaic.gov.au/privacy/australian-privacy-principles">https://www.oaic.gov.au/privacy/australian-privacy-principles</a>.
+</div>
+<div id="ref-openai2023marchoutage" class="csl-entry" role="listitem">
+OpenAI. 2023. <span>“March 20 ChatGPT Outage: Here’s What Happened.”</span> March. <a href="https://openai.com/index/march-20-chatgpt-outage/">https://openai.com/index/march-20-chatgpt-outage/</a>.
+</div>
+<div id="ref-singapore_pdpa_2012" class="csl-entry" role="listitem">
+Personal Data Protection Commission Singapore. 2012. <em>Personal Data Protection Act 2012</em>. <a href="https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act">https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act</a>.
+</div>
+<div id="ref-pola2024act" class="csl-entry" role="listitem">
+Privacy and Other Legislation Amendment Act 2024 (Cth) (2024).
+</div>
+<div id="ref-forbes2023samsung" class="csl-entry" role="listitem">
+Ray, Siladitya. 2023. <span>“Samsung Bans ChatGPT Among Employees After Sensitive Code Leak.”</span> Forbes, May. <a href="https://www.forbes.com/sites/siladityaray/2023/05/02/samsung-bans-chatgpt-and-other-chatbots-for-employees-after-sensitive-code-leak/">https://www.forbes.com/sites/siladityaray/2023/05/02/samsung-bans-chatgpt-and-other-chatbots-for-employees-after-sensitive-code-leak/</a>.
+</div>
+<div id="ref-gdpr2016regulation" class="csl-entry" role="listitem">
+Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) (2016).
+</div>
+<div id="ref-euDataAct2023" class="csl-entry" role="listitem">
+Regulation (EU) 2023/2854 of the European Parliament and of the Council on Harmonised Rules on Fair Access to and Use of Data (Data Act) (2023).
+</div>
+<div id="ref-solove2006taxonomy" class="csl-entry" role="listitem">
+Solove, Daniel J. 2006. <span>“A Taxonomy of Privacy.”</span> <em>University of Pennsylvania Law Review</em> 154 (3): 477–564.
+</div>
+<div id="ref-sweeney2000simple" class="csl-entry" role="listitem">
+Sweeney, Latanya. 2000. <em>Simple Demographics Often Identify People Uniquely</em>. Data Privacy Working Paper 3. Carnegie Mellon University.
+</div>
+<div id="ref-sweeney2002kanonymity" class="csl-entry" role="listitem">
+Sweeney, Latanya. 2002. <span>“K-Anonymity: A Model for Protecting Privacy.”</span> <em>International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems</em> 10 (5): 557–70.
+</div>
+<div id="ref-wachter2020affinity" class="csl-entry" role="listitem">
+Wachter, Sandra. 2020. <span>“Affinity Profiling and Discrimination by Association in Online Behavioural Advertising.”</span> <em>Berkeley Technology Law Journal</em> 35 (2): 369–430.
+</div>
+<div id="ref-westin1967privacy" class="csl-entry" role="listitem">
+Westin, Alan F. 1967. <em>Privacy and Freedom</em>. Atheneum.
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="pagination-link" aria-label="Chapter 5: Explainability Practice">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 5: Explainability Practice</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="pagination-link" aria-label="Chapter 7: Privacy Practice">
+        <span class="nav-page-text">Chapter 7: Privacy Practice</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

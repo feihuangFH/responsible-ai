@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="黄斐,新南威尔士大学">
+
+<title>权衡取舍、整合与治理 – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration-ZH.html">第八章:权衡取舍、整合与治理</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">负责任人工智能</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">首页</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第一章:导论</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第二章:公平性原则</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第三章:公平性实践</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第四章:可解释性原则</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第五章:可解释性实践</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第六章:隐私原则</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第七章:隐私实践</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration-ZH.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第八章:权衡取舍、整合与治理</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标">学习目标</a></li>
+  <li><a href="#回顾我们已经学过什么" id="toc-回顾我们已经学过什么" class="nav-link" data-scroll-target="#回顾我们已经学过什么">回顾:我们已经学过什么</a>
+  <ul class="collapse">
+  <li><a href="#三大支柱六个章节" id="toc-三大支柱六个章节" class="nav-link" data-scroll-target="#三大支柱六个章节">三大支柱,六个章节</a></li>
+  <li><a href="#回到人工智能伦理六项原则" id="toc-回到人工智能伦理六项原则" class="nav-link" data-scroll-target="#回到人工智能伦理六项原则">回到人工智能伦理六项原则</a></li>
+  <li><a href="#重访最初的引导性问题" id="toc-重访最初的引导性问题" class="nav-link" data-scroll-target="#重访最初的引导性问题">重访最初的引导性问题</a></li>
+  </ul></li>
+  <li><a href="#关键的权衡取舍" id="toc-关键的权衡取舍" class="nav-link" data-scroll-target="#关键的权衡取舍">关键的权衡取舍</a>
+  <ul class="collapse">
+  <li><a href="#三种根本性张力" id="toc-三种根本性张力" class="nav-link" data-scroll-target="#三种根本性张力">三种根本性张力</a></li>
+  <li><a href="#公平性准确性权衡取舍" id="toc-公平性准确性权衡取舍" class="nav-link" data-scroll-target="#公平性准确性权衡取舍">公平性—准确性权衡取舍</a></li>
+  <li><a href="#隐私效用权衡取舍" id="toc-隐私效用权衡取舍" class="nav-link" data-scroll-target="#隐私效用权衡取舍">隐私—效用权衡取舍</a></li>
+  <li><a href="#可解释性与公平性的相互作用" id="toc-可解释性与公平性的相互作用" class="nav-link" data-scroll-target="#可解释性与公平性的相互作用">可解释性与公平性的相互作用</a></li>
+  </ul></li>
+  <li><a href="#一个整合性框架" id="toc-一个整合性框架" class="nav-link" data-scroll-target="#一个整合性框架">一个整合性框架</a>
+  <ul class="collapse">
+  <li><a href="#回到伦理人工智能生命周期" id="toc-回到伦理人工智能生命周期" class="nav-link" data-scroll-target="#回到伦理人工智能生命周期">回到伦理人工智能生命周期</a></li>
+  <li><a href="#第一阶段问题定义" id="toc-第一阶段问题定义" class="nav-link" data-scroll-target="#第一阶段问题定义">第一阶段:问题定义</a></li>
+  <li><a href="#第二阶段数据收集" id="toc-第二阶段数据收集" class="nav-link" data-scroll-target="#第二阶段数据收集">第二阶段:数据收集</a></li>
+  <li><a href="#第三阶段模型开发" id="toc-第三阶段模型开发" class="nav-link" data-scroll-target="#第三阶段模型开发">第三阶段:模型开发</a></li>
+  <li><a href="#第四阶段模型验证" id="toc-第四阶段模型验证" class="nav-link" data-scroll-target="#第四阶段模型验证">第四阶段:模型验证</a></li>
+  <li><a href="#第五阶段部署" id="toc-第五阶段部署" class="nav-link" data-scroll-target="#第五阶段部署">第五阶段:部署</a></li>
+  <li><a href="#第六阶段监测" id="toc-第六阶段监测" class="nav-link" data-scroll-target="#第六阶段监测">第六阶段:监测</a></li>
+  <li><a href="#综合案例研究将完整生命周期付诸应用" id="toc-综合案例研究将完整生命周期付诸应用" class="nav-link" data-scroll-target="#综合案例研究将完整生命周期付诸应用">综合案例研究:将完整生命周期付诸应用</a></li>
+  <li><a href="#监管准则与模型一个统一的视角" id="toc-监管准则与模型一个统一的视角" class="nav-link" data-scroll-target="#监管准则与模型一个统一的视角">监管、准则与模型:一个统一的视角</a></li>
+  </ul></li>
+  <li><a href="#实用治理" id="toc-实用治理" class="nav-link" data-scroll-target="#实用治理">实用治理</a>
+  <ul class="collapse">
+  <li><a href="#需要哪些治理文档" id="toc-需要哪些治理文档" class="nav-link" data-scroll-target="#需要哪些治理文档">需要哪些治理文档?</a></li>
+  <li><a href="#六项组织层面的治理实践" id="toc-六项组织层面的治理实践" class="nav-link" data-scroll-target="#六项组织层面的治理实践">六项组织层面的治理实践</a></li>
+  <li><a href="#治理是一种文化而非一份核对清单" id="toc-治理是一种文化而非一份核对清单" class="nav-link" data-scroll-target="#治理是一种文化而非一份核对清单">治理是一种文化,而非一份核对清单</a></li>
+  <li><a href="#为具体任务选择恰当的技术" id="toc-为具体任务选择恰当的技术" class="nav-link" data-scroll-target="#为具体任务选择恰当的技术">为具体任务选择恰当的技术</a></li>
+  <li><a href="#从业者的责任" id="toc-从业者的责任" class="nav-link" data-scroll-target="#从业者的责任">从业者的责任</a></li>
+  </ul></li>
+  <li><a href="#课程总结" id="toc-课程总结" class="nav-link" data-scroll-target="#课程总结">课程总结</a>
+  <ul class="collapse">
+  <li><a href="#我们最初想要做的事" id="toc-我们最初想要做的事" class="nav-link" data-scroll-target="#我们最初想要做的事">我们最初想要做的事</a></li>
+  <li><a href="#本课程交付了什么" id="toc-本课程交付了什么" class="nav-link" data-scroll-target="#本课程交付了什么">本课程交付了什么</a></li>
+  <li><a href="#本课程无法做到的事" id="toc-本课程无法做到的事" class="nav-link" data-scroll-target="#本课程无法做到的事">本课程无法做到的事</a></li>
+  <li><a href="#整合性的视角" id="toc-整合性的视角" class="nav-link" data-scroll-target="#整合性的视角">整合性的视角</a></li>
+  <li><a href="#推荐阅读" id="toc-推荐阅读" class="nav-link" data-scroll-target="#推荐阅读">推荐阅读</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">权衡取舍、整合与治理</h1>
+<p class="subtitle lead">负责任人工智能:原则、治理与量化方法</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>黄斐,新南威尔士大学 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="学习目标" class="level3">
+<h3 class="anchored" data-anchor-id="学习目标">学习目标</h3>
+<p>学完本章后,你应当能够:</p>
+<ul>
+<li>总结并串联第二至七章所涵盖的量化方法。</li>
+<li>识别并分析公平性、可解释性与隐私之间的关键权衡取舍。</li>
+<li>将伦理人工智能生命周期作为负责任人工智能项目的整合性框架加以应用。</li>
+<li>为任何具有重大影响的人工智能系统,设计恰当的治理与文档记录工作流程。</li>
+<li>依据人工智能伦理的六项原则,批判性地评估一个基于人工智能的决策系统(无论是在保险业还是其他高风险领域)。</li>
+</ul>
+</section>
+<section id="回顾我们已经学过什么" class="level2">
+<h2 class="anchored" data-anchor-id="回顾我们已经学过什么">回顾:我们已经学过什么</h2>
+<section id="三大支柱六个章节" class="level3">
+<h3 class="anchored" data-anchor-id="三大支柱六个章节">三大支柱,六个章节</h3>
+<p>本课程通过三个相互交织的支柱来引入负责任人工智能,每个支柱都先从一般性原则层面加以考察,再通过以真实保险数据作为一贯案例研究的量化方法加以展开。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>章节</th>
+<th>支柱</th>
+<th>关键方法与概念</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>公平性(原则)</td>
+<td>公平性准则(FTU、CPV、DP、CDP、分离性、充分性);五种模型设计(M0、MU、MDP、MCDP、MC);福利分析与审计框架(简要概览)</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>公平性(实践)</td>
+<td>在 R 中拟合 M0/MU/MDP/MCDP/MC、公平性—准确性权衡取舍、保费再分配,以及使用 <code>fairness</code> 与 <code>fairmodels</code> 进行的二元分类案例研究(COMPAS,一款美国再犯风险评估工具)</td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td>可解释性(原则)</td>
+<td>可解释性分类体系;PFI、PDP、ALE、SHAP、LIME;监管期望;沟通</td>
+</tr>
+<tr class="even">
+<td><strong>5</strong></td>
+<td>可解释性(实践)</td>
+<td>XGBoost 定价模型、特征重要性、针对年龄与折扣等级的 PDP 和 ALE、全局与局部 SHAP、H统计量,以及 SHAP 交互值</td>
+</tr>
+<tr class="odd">
+<td><strong>6</strong></td>
+<td>隐私(原则)</td>
+<td>重新识别风险;k-匿名性、l-多样性、t-接近性;差分隐私;合成数据;监管格局</td>
+</tr>
+<tr class="even">
+<td><strong>7</strong></td>
+<td>隐私(实践)</td>
+<td>重新识别风险评估、使用 <code>sdcMicro</code> 应用 k-匿名性、拉普拉斯机制、使用 <code>synthpop</code> 生成合成数据,以及保真度与隐私评估</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="缩写速览,第二至七章">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>缩写速览,第二至七章
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>公平性(第2至3章)。</strong> FTU 是“通过无知实现公平”(fairness through unawareness),即从模型中剔除受保护属性。CPV 是“控制受保护变量”(controlling for the protected variable),在评分时对该变量取平均。这里的 DP 指人口统计学均等性(demographic parity),即各群体间结果相同。这与本章后文隐私部分出现的差分隐私(differential privacy)是不同的 DP,每次出现时需留意具体所指。CDP 是条件人口统计学均等性,即在合法细分市场内结果相同。M0、MU、MDP、MCDP、MC 是执行这些准则的五种模型设计,从无约束基准模型(M0)到完全均等(MDP)。</p>
+<p><strong>可解释性(第4至5章)。</strong> PFI 是排列特征重要性(permutation feature importance)。PDP 是部分依赖图(partial dependence plot),展示某一特征对预测结果的平均影响。ALE 是累积局部效应(accumulated local effects),是 PDP 的一种改进版本,能更好地应对相关特征。SHAP 为每个特征分配对某一具体预测的贡献度。LIME 是一种类似的局部、模型无关方法。H统计量衡量两个特征之间交互作用的强弱。</p>
+<p><strong>隐私(第6至7章)。</strong> k-匿名性、l-多样性与 t-接近性都是数据集层面的隐私保证,每一种都弥补了前一种的一项弱点。差分隐私则加入经过校准的噪声,使输出结果无法识别出任何单条记录,由参数 epsilon(<span class="math inline">\varepsilon</span>)控制加入噪声的多少。</p>
+</div>
+</div>
+</section>
+<section id="回到人工智能伦理六项原则" class="level3">
+<h3 class="anchored" data-anchor-id="回到人工智能伦理六项原则">回到人工智能伦理六项原则</h3>
+<p>每一支柱都对应第一章所介绍的六项人工智能伦理原则中的一个特定簇群。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>原则</th>
+<th>对应章节</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>公平性与非歧视</td>
+<td>第二至三章:准则、模型设计、审计</td>
+</tr>
+<tr class="even">
+<td>透明度与可解释性</td>
+<td>第四至五章:PDP、SHAP、局部解释</td>
+</tr>
+<tr class="odd">
+<td>问责制</td>
+<td>第二、四、八章:治理、文档记录、预先承诺</td>
+</tr>
+<tr class="even">
+<td>隐私与数据伦理</td>
+<td>第六至七章:k-匿名性、差分隐私、合成数据</td>
+</tr>
+<tr class="odd">
+<td>可申诉性</td>
+<td>第四章:解释权;第五章:反事实解释</td>
+</tr>
+<tr class="even">
+<td>稳定性与鲁棒性</td>
+<td>第八章:监测、漂移、系统性风险</td>
+</tr>
+</tbody>
+</table>
+<p>没有任何一个章节是自成一体的。一个真实的人工智能系统,无论是在保险业还是其他任何高风险领域,都必须同时兼顾这六项原则,而如何管理它们之间的相互作用,正是本章的主题。</p>
+</section>
+<section id="重访最初的引导性问题" class="level3">
+<h3 class="anchored" data-anchor-id="重访最初的引导性问题">重访最初的引导性问题</h3>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险业,重访最初的引导性问题">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:保险业,重访最初的引导性问题
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>在第一章中,我们介绍了一家车险公司,该公司从定价模型中剔除了性别变量,但保留了发动机排量和年行驶里程。这两个变量在数据中都与性别相关。</p>
+</div>
+</div>
+<p>同样的结构,即受保护属性被剔除、但其影响通过相关特征持续存在,同样出现在招聘、信贷和医疗模型之中。我们提出了一个问题:<em>这家保险公司是否已经实现了公平?</em></p>
+<p>到目前为止,你已经拥有严谨回答这一问题的工具:</p>
+<ul>
+<li><strong>第二章</strong>:该模型是否满足 FTU 公平?可能满足。是否满足 DP 或 CDP 公平?很可能不满足。将 <span class="math inline">X_P</span> 从输入中剔除,并不能保证 <span class="math inline">\hat{Y} \perp X_P</span>。</li>
+<li><strong>第三章</strong>:拟合 MCDP 或 MC 以对输出去偏。使用预先设定的 TOST 审计(等效性检验,证明合规性而非仅仅是未能检测出违规)量化剩余的差异。</li>
+<li><strong>第四章</strong>:使用 PDP 和 SHAP,探究哪些变量可能是造成所观察到的性别差异的原因。</li>
+<li><strong>第五章</strong>:检查 SHAP 交互值。折扣等级(驾驶员的无赔款折扣等级)是否与代理变量以某种方式相互作用,从而放大性别效应?</li>
+<li><strong>第六章</strong>:如果模型使用了远程信息处理数据(通过车载设备或应用程序收集的驾驶数据)或第三方数据,会产生哪些重新识别风险?数据最小化原则是否得到满足?</li>
+<li><strong>第七章</strong>:在模型开发流程中,能否使用差分隐私或合成数据来降低个体层面的暴露风险?</li>
+</ul>
+<p>这就是一次整合性的负责任人工智能分析在实践中的样子。</p>
+</section>
+</section>
+<section id="关键的权衡取舍" class="level2">
+<h2 class="anchored" data-anchor-id="关键的权衡取舍">关键的权衡取舍</h2>
+<section id="三种根本性张力" class="level3">
+<h3 class="anchored" data-anchor-id="三种根本性张力">三种根本性张力</h3>
+<p>本课程的三大支柱并非彼此独立。每一项都会产生可能与其他支柱相冲突的义务。驾驭这些张力是一项核心的专业技能。</p>
+<p><strong>1. 公平性与准确性</strong> 施加一项公平性约束(如人口统计学均等性)会削弱模型利用全部可用预测信息的能力。受约束的模型通常损失更高,逆向选择风险(高风险客户更倾向于购买或续保,因为相较于保险公司,他们更了解自身的风险状况)也更高。</p>
+<p><strong>2. 可解释性与性能</strong> 更简单、更易解释的模型(GLM、决策树)更容易解释,但通常不如复杂的集成方法准确。反之,SHAP 等事后解释工具使复杂模型更易解释,但代价是额外的计算量以及潜在的近似误差。</p>
+<p><strong>3. 隐私与效用</strong> 隐私增强技术会降低数据的信息含量。k-匿名性对记录进行泛化或抑制,差分隐私加入噪声,合成数据则引入分布上的失真。这三种技术都会降低可用于建模的统计效用。</p>
+</section>
+<section id="公平性准确性权衡取舍" class="level3">
+<h3 class="anchored" data-anchor-id="公平性准确性权衡取舍">公平性—准确性权衡取舍</h3>
+<p>来自 <span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024年</a>)</span> 基于法国车险数据的实证证据,提供了一个有用的参照点。同样的定性模式(以适度的准确性损失换取显著的公平性提升)也反复出现在其他领域的公平机器学习研究中。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>模型</th>
+<th>Gini(频率)</th>
+<th>平均性别保费比率</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0(无约束)</td>
+<td>最高</td>
+<td>差异最大</td>
+</tr>
+<tr class="even">
+<td>MU(通过无知实现公平)</td>
+<td>中度降低</td>
+<td>中度降低</td>
+</tr>
+<tr class="odd">
+<td>MCDP</td>
+<td>小幅降低</td>
+<td>大幅降低</td>
+</tr>
+<tr class="even">
+<td>MC</td>
+<td>小幅降低</td>
+<td>大幅降低</td>
+</tr>
+<tr class="odd">
+<td>MDP(完全均等)</td>
+<td>降低幅度最大</td>
+<td>差异接近零</td>
+</tr>
+</tbody>
+</table>
+<p>Gini(频率)衡量模型按理赔风险对保单持有人排序的能力,数值越高越好。平均性别保费比率比较女性与男性被收取的平均保费,数值越接近1表示差异越小。</p>
+<p>关键发现:<strong>公平性的代价比通常设想的要小,但并非为零。</strong> MCDP 与 MC 在预测准确性仅有适度损失的情况下,大幅降低了性别差异。MDP 实现了人口统计学均等性,但付出了较为可观的准确性代价。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="这一权衡取舍是政策决策,而非建模决策">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>这一权衡取舍是政策决策,而非建模决策
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>不存在统计意义上“正确”的公平性约束水平。恰当的权衡取舍取决于:</p>
+<ul>
+<li>监管制度(什么是被要求的,什么是被允许的)</li>
+<li>产品类型(社会公益品还是经济商品)</li>
+<li>利益相关方的价值取向(可接受多大程度的逆向选择风险)</li>
+<li>市场结构(竞争对手在做什么)</li>
+</ul>
+<p>从业者(精算师、信贷风险分析师、人力资源分析主管或其对应角色)应当量化这一权衡取舍并呈报给决策者,而非自行做出选择。</p>
+</div>
+</div>
+</section>
+<section id="隐私效用权衡取舍" class="level3">
+<h3 class="anchored" data-anchor-id="隐私效用权衡取舍">隐私—效用权衡取舍</h3>
+<p>第七章的案例研究展示了隐私保护如何降低统计效用。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 41%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>技术</th>
+<th>隐私保证</th>
+<th>效用代价</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k-匿名性(<span class="math inline">k=50</span>)</td>
+<td>无正式保证</td>
+<td>泛化降低了变量精度,部分记录被抑制</td>
+</tr>
+<tr class="even">
+<td>差分隐私(<span class="math inline">\varepsilon = 1</span>)</td>
+<td>强(<span class="math inline">\varepsilon</span>-差分隐私)</td>
+<td>噪声大,统计量可能不可靠</td>
+</tr>
+<tr class="odd">
+<td>差分隐私(<span class="math inline">\varepsilon = 10</span>)</td>
+<td>弱</td>
+<td>噪声小,统计量接近真实值</td>
+</tr>
+<tr class="even">
+<td>合成数据(不含差分隐私)</td>
+<td>无正式保证</td>
+<td>可实现高保真度,但对罕见记录存在记忆风险</td>
+</tr>
+<tr class="odd">
+<td>合成数据(差分隐私训练)</td>
+<td>正式保证</td>
+<td>保真度低于不含差分隐私的合成方法</td>
+</tr>
+</tbody>
+</table>
+<p>正确的选择取决于数据发布的目的、涉及个人的敏感程度,以及监管背景。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="让技术匹配接收方,而非将所有技术叠加使用">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>让技术匹配接收方,而非将所有技术叠加使用
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>看起来保护措施似乎总是多多益善,那为什么不把几种技术叠加在一起呢,先 k-匿名化,再合成,再在上面加一层差分隐私?第七章的案例研究以实例、而非断言的方式,对此提出了反对。三位接收方申请获取同一份保险数据集,却分别需要三种不同的、单一的技术。要构建自己独立定价模型的再保险公司,得到的是合成数据(通过 <code>synthpop</code> 基于 CART 生成),并通过一次以合成数据训练、以真实数据检验的检验,证实其预测准确性的损失可忽略不计。已经身处组织内部的团队,仅需治理措施与访问控制。只需要汇总统计量、从不需要记录级文件的供应商,得到的则是差分隐私。如果把这三种技术全部叠加到供应商的申请上,就等于降质处理了一份他们根本没有申请过的文件。</p>
+<p>真正该问的问题不是“哪种技术组合最强”,而是“这位具体的接收方到底需要什么,在不损害任何人隐私的前提下,能满足这一需求的最经济的技术是什么”。纵深防御的理念依然成立,但它体现在下文所讨论的数据生命周期各个阶段(收集、存储、分析、共享、保留)之中,而不是将多种隐私增强技术堆叠到同一次发布上。</p>
+</div>
+</div>
+</section>
+<section id="可解释性与公平性的相互作用" class="level3">
+<h3 class="anchored" data-anchor-id="可解释性与公平性的相互作用">可解释性与公平性的相互作用</h3>
+<p>可解释性工具并非中立的。它们既可以揭示公平性问题,也可以掩盖公平性问题。</p>
+<p><strong>揭示</strong>:一张显示“邮编”是保费(客户为其保单支付的价格)变动主要驱动因素的 SHAP 蜂群图,并不能单凭自身就证明邮编正在充当某个受保护属性的代理变量或造成了公平性问题。但它可以促使审计人员展开进一步调查,去核实邮编是否在为某个受保护属性代言,而这正是公平性审计本身可能未能捕捉到的。</p>
+<p><strong>掩盖</strong>:<span class="citation" data-cites="slack2020fooling">Slack 等 (<a href="#ref-slack2020fooling" role="doc-biblioref">2020年</a>)</span> 证明了 SHAP 和 LIME 可能被操纵。一个模型可以被设计成向公平性审计人员呈现看似无害的 SHAP 值,同时在生产环境中依然存在歧视。这正是为什么解释方法必须与正式的公平性测试配合使用,而不能取而代之。</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:操纵部分依赖图以隐藏歧视">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:操纵部分依赖图以隐藏歧视
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="xin2025pdppitfalls">Xin 等 (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025年</a>)</span> 的研究表明,同样的漏洞也存在于 PDP 之中,也就是下文监管核对清单中针对受保护或代理变量的默认合理性检验手段。他们构造的对抗性方法,使黑箱模型在真实世界中的预测结果几乎保持不变,只在 PDP 取平均步骤所依赖的、稀疏且罕见出现的输入空间区域改变行为,而针对被操纵变量所生成的图,却被设计得看起来平坦、不具歧视性。这一发现已在真实保险数据和 COMPAS 数据上得到验证,其针对的正是下文所提及的监管证据实践本身。一张平坦的 PD 图,本身并不能证明模型公平。</p>
+</div>
+</div>
+<p><strong>正确的工作流程</strong> 应将可解释性工具用于:</p>
+<ol type="1">
+<li>生成关于哪些变量可能在驱动不公平差异的假设</li>
+<li>在依据第二章所讨论的监管背景、决策目的与规范判断选定准则与模型设计<em>之后</em>,帮助诊断并沟通公平性审计的结果,而非用来选定准则本身</li>
+<li>向非技术利益相关方沟通审计结果</li>
+<li>向提出请求的保单持有人提供个体层面的解释</li>
+</ol>
+</section>
+</section>
+<section id="一个整合性框架" class="level2">
+<h2 class="anchored" data-anchor-id="一个整合性框架">一个整合性框架</h2>
+<section id="回到伦理人工智能生命周期" class="level3">
+<h3 class="anchored" data-anchor-id="回到伦理人工智能生命周期">回到伦理人工智能生命周期</h3>
+<p>第一章将伦理人工智能生命周期介绍为一个六阶段框架。在学完各支柱的量化工具之后,我们现在可以为每一阶段填充具体的负责任人工智能义务。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ethical_lc.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>伦理人工智能生命周期。来源:<span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025年</a>)</span>。</figcaption>
+</figure>
+</div>
+</section>
+<section id="第一阶段问题定义" class="level3">
+<h3 class="anchored" data-anchor-id="第一阶段问题定义">第一阶段:问题定义</h3>
+<p><em>关键问题:正在解决的是谁的问题?这一方案是否可能对任何人造成伤害?</em></p>
+<p>本阶段的负责任人工智能核对清单:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">人工智能是否是恰当的工具?若模型出错,该决策是否可逆?</label></li>
+<li><label><input type="checkbox">根据产品类型和监管制度,哪一项公平性准则适用?</label></li>
+<li><label><input type="checkbox">是否存在可能因错误而受到不成比例影响的个人或群体?</label></li>
+<li><label><input type="checkbox">该决策情境(存在受解释权等监管要求,或属于高风险/具有法律重要性的结果)是否要求使用内在可解释的模型,而非事后再为黑箱模型附加解释?</label></li>
+<li><label><input type="checkbox">需要哪些数据?收集这些数据是否具有法律依据?</label></li>
+<li><label><input type="checkbox">若系统产生有害后果,由谁承担责任?</label></li>
+</ul>
+<p><strong>这一阶段为后续所有决策奠定了基调。</strong> 在此阶段做出的错误选择(使用错误的结果变量、优化了错误的目标、未能识别受影响群体),无法通过之后更好的建模来纠正。第一章中英国 A-level 考试评分算法,正是这一阶段的典型失败案例。让每所学校的历史成绩分布决定个别学生的最终成绩,这是一个问题定义层面的选择,而非建模层面的选择,一旦做出,后续再谨慎的建模工作也无法弥补。</p>
+</section>
+<section id="第二阶段数据收集" class="level3">
+<h3 class="anchored" data-anchor-id="第二阶段数据收集">第二阶段:数据收集</h3>
+<p><em>关键问题:数据是否恰当、是否经过同意、是否不含历史性偏见?</em></p>
+<p>本阶段的负责任人工智能核对清单:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">收集每一项数据来源是否具有法律依据?(GDPR 第6条,APP 3)</label></li>
+<li><label><input type="checkbox">个人是否已被告知其数据将如何被使用?(透明度原则)</label></li>
+<li><label><input type="checkbox">数据是否反映了模型将会延续的历史性歧视?</label></li>
+<li><label><input type="checkbox">是否存在可能使个人被重新识别的准标识符?</label></li>
+<li><label><input type="checkbox">是否应用了数据最小化原则,仅收集为既定目的所需的数据?</label></li>
+<li><label><input type="checkbox">若使用第三方数据(如远程信息处理数据、征信机构数据、社交媒体、就业记录),数据供应链是否已经过审计?</label></li>
+</ul>
+<p>第六章的通用汽车 OnStar 案例,正是在这一点上出现了第二阶段的失败。客户同意提供逐次行程的驾驶数据,是为了参与一项驾驶反馈项目,而非同意将数据出售给数据经纪商、再转卖给保险公司用于定价。这是目的限制原则在大规模场景下的失效,问题不在于数据本身被不当处理,而在于收集时所声明的目的,与数据最终的实际用途并不相符。</p>
+</section>
+<section id="第三阶段模型开发" class="level3">
+<h3 class="anchored" data-anchor-id="第三阶段模型开发">第三阶段:模型开发</h3>
+<p><em>关键问题:模型是否执行了所选定的公平性准则,并保持可解释性?</em></p>
+<p>本阶段的负责任人工智能核对清单:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">所选模型设计(例如第三章中的 M0、MU、MDP、MCDP、MC 之一,或其他等效设计)是否与监管制度相符?</label></li>
+<li><label><input type="checkbox">受保护属性的代理变量是否已被识别并加以处理?</label></li>
+<li><label><input type="checkbox">模型是否达到监管机构和受影响个人所要求的可解释程度?</label></li>
+<li><label><input type="checkbox">是否已进行可解释性分析(例如 PDP、SHAP)以识别意外的变量效应?</label></li>
+<li><label><input type="checkbox">公平性—准确性权衡取舍是否已被量化并呈报给决策者?</label></li>
+<li><label><input type="checkbox">开发数据集是否需要差分隐私或数据匿名化处理?</label></li>
+</ul>
+</section>
+<section id="第四阶段模型验证" class="level3">
+<h3 class="anchored" data-anchor-id="第四阶段模型验证">第四阶段:模型验证</h3>
+<p><em>关键问题:我们能否证明模型满足其公平性、可解释性与隐私义务?</em></p>
+<p>本阶段的负责任人工智能核对清单:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">是否已在查看结果<em>之前</em>建立预先设定的审计规程?(<span class="citation" data-cites="huang2026fairtesting">Huang 和 Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026年</a>)</span>)</label></li>
+<li><label><input type="checkbox">是否使用了等效性检验方法(例如 TOST)来提供合规的正面证据,而非仅仅证明“未发现显著性”?</label></li>
+<li><label><input type="checkbox">对确定性算法输出(如价格、评分或决策)的推断,是否使用了适当的稳健标准误(例如 HC3 异方差稳健修正)?</label></li>
+<li><label><input type="checkbox">模型是否已在跨期与样本外数据上测试过稳定性?</label></li>
+<li><label><input type="checkbox">解释输出(例如 SHAP)是否已与已知的变量效应(如年龄、折扣等级曲线)进行交叉核实?</label></li>
+<li><label><input type="checkbox">对任何在组织外部共享的数据,是否已评估重新识别风险?</label></li>
+</ul>
+</section>
+<section id="第五阶段部署" class="level3">
+<h3 class="anchored" data-anchor-id="第五阶段部署">第五阶段:部署</h3>
+<p><em>关键问题:治理、监督与可申诉机制是否已经到位?</em></p>
+<p>本阶段的负责任人工智能核对清单:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">是否针对边缘案例和高风险决策设有人工复核流程?</label></li>
+<li><label><input type="checkbox">受影响个人能否就其所获得的结果(如保单持有人的保费、贷款决策、招聘评分)请求解释?(解释权)</label></li>
+<li><label><input type="checkbox">对自动化决策是否设有正式的申诉流程?(可申诉性)</label></li>
+<li><label><input type="checkbox">是否已完成数据保护影响评估(DPIA/PIA)?</label></li>
+<li><label><input type="checkbox">第三方模型供应商是否受到同等的治理标准约束?</label></li>
+<li><label><input type="checkbox">部署过程是否已被记录,以便在收到投诉时可进行事后审计?</label></li>
+</ul>
+</section>
+<section id="第六阶段监测" class="level3">
+<h3 class="anchored" data-anchor-id="第六阶段监测">第六阶段:监测</h3>
+<p><em>关键问题:随着数据和人群的变化,模型是否仍然保持公平、可解释且不侵犯隐私?</em></p>
+<p>本阶段的负责任人工智能核对清单:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">模型性能是否在准确性和校准度方面得到持续监测?</label></li>
+<li><label><input type="checkbox">公平性指标是否被定期重新计算,以发现新出现的差异?</label></li>
+<li><label><input type="checkbox">是否监测数据漂移?输入分布是否仍与训练数据保持一致?</label></li>
+<li><label><input type="checkbox">当性能或公平性指标超出容忍范围时,是否设有重新验证的触发机制?</label></li>
+<li><label><input type="checkbox">解释输出(例如 PDP、SHAP)是否随模型演变而定期更新?</label></li>
+<li><label><input type="checkbox">数据保留与删除时限是否得到执行?(存储限制原则)</label></li>
+</ul>
+</section>
+<section id="综合案例研究将完整生命周期付诸应用" class="level3">
+<h3 class="anchored" data-anchor-id="综合案例研究将完整生命周期付诸应用">综合案例研究:将完整生命周期付诸应用</h3>
+<p>比起把上述六个阶段当作六份彼此独立的核对清单,把它们放到同一个贯穿始终的实例中来理解会更容易。设想一家车险公司正在构建一套人工智能驱动的理赔分流系统。每一笔新提交的理赔,都会获得一个欺诈风险与复杂度评分。评分较低的理赔会被快速处理,在48小时内完成赔付。评分较高的理赔则会被转交给专门的调查团队,在赔付之前进行人工复核。</p>
+<p>这一套系统本身,就会在三大支柱上各自产生一种真实存在、而非假设性的张力:</p>
+<ul>
+<li><strong>公平性。</strong> 如果欺诈风险评分与邮编、车型或理赔历史之间存在某种相关性,导致某些群体更频繁地被转入速度更慢的人工复核流程,那么事故后最经不起现金流延迟的那些理赔人,恰恰也是最有可能面临延迟的人。</li>
+<li><strong>可解释性。</strong> 一位赔付被延迟、或理赔被拒绝的客户,通常有权知道原因,尤其是当这一判定来自一个不透明的集成模型时;而调查团队在依据某个标记采取行动之前,也需要先信任这一标记。</li>
+<li><strong>隐私性。</strong> 该模型可能会用到理赔叙述文本、伤情或医疗细节、既往理赔记录,以及第三方记录(如警方报告、维修厂发票)。这些都是欺诈模型要达到较高准确度所需要的数据,也正是与外部调查方或再保险公司之间的数据共享协议需要加以保护的数据。</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="练习:为这一系统逐一梳理生命周期">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>练习:为这一系统逐一梳理生命周期
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>针对下表中的每一个阶段,请使用对应章节中的具体工具和准则来回答应用问题,而不要只依赖一般性的推理。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 50%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>应用问题</th>
+<th>相关章节</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. 问题定义</td>
+<td>假阳性(一笔真实理赔被延迟)与假阴性(一笔欺诈性理赔获得赔付)各自的代价是什么,又分别由谁承担?这一决策是否可逆?</td>
+<td>第一章</td>
+</tr>
+<tr class="even">
+<td>2. 数据收集</td>
+<td>理赔历史数据中,是否反映了过去对特定群体过度调查的模式?理赔叙述文本(可能包含健康或人口统计学细节的自由文本)是否已被最小化至欺诈模型实际所需的范围?</td>
+<td>第六章</td>
+</tr>
+<tr class="odd">
+<td>3. 模型开发</td>
+<td>哪一项公平性准则适用(均等化的调查比例?均等化的假阳性率?),又该选用哪种模型设计,既能落实这一准则,又不会破坏欺诈检测所依赖的信号?</td>
+<td>第二、三章</td>
+</tr>
+<tr class="even">
+<td>4. 模型验证</td>
+<td>需要建立怎样的预先设定审计规程,才能<em>证明</em>(而不只是未能反驳)调查比例并未对任何群体产生不成比例的影响?</td>
+<td>第二、三章</td>
+</tr>
+<tr class="odd">
+<td>5. 部署</td>
+<td>当客户的赔付被延迟时,他们看到的是什么?是一份具体、可据以行动的解释和真正的申诉渠道,还是仅仅一则通用通知?</td>
+<td>第四、五章</td>
+</tr>
+<tr class="even">
+<td>6. 监测</td>
+<td>重大事件(例如一场冰雹导致真实理赔激增,静态模型可能将其误判为欺诈聚集)发生后,欺诈模式会发生变化。什么条件应触发重新验证?</td>
+<td>第三、六章</td>
+</tr>
+</tbody>
+</table>
+<p>在完成逐阶段的梳理之后,请再退后一步,直接面对权衡取舍本身:</p>
+<ul>
+<li>一个更严格(更敏感)的欺诈模型,能够查出更多真实欺诈,从而保护诚实的保单持有人免受欺诈最终推高的保费之害,这是否足以证明更高的假阳性率、也就是让更多真实理赔人被延误是合理的?这一取舍应由谁来决定,又该依据怎样的证据?</li>
+<li>出于隐私考虑而对理赔数据加以最小化,是否恰恰会移除欺诈模型赖以准确判断的自由文本与行为细节?第六章或第七章中,是否存在某种技术,能够降低这一代价,而不是径直接受它?</li>
+<li>在这里,应该选择一个更准确但可解释性更弱的模型,还是一个准确性稍逊但透明度更高的模型?考虑到这里的解释义务,是直接面向某一位具体的理赔人,而不仅仅是面向监管机构。</li>
+</ul>
+</div>
+</div>
+<p>这一练习没有唯一的标准答案。到最后,你应当对每一个问题都形成一个有理有据、有证据支撑的立场,并能诚实地说明,哪些权衡取舍是你真正解决了的,哪些只是被你承认、但并未真正解决。</p>
+<section id="参考答案" class="level4">
+<h4 class="anchored" data-anchor-id="参考答案">参考答案</h4>
+<p>请先自行完成这一练习,再阅读以下内容。这些答案展示的是每个问题的一种有理有据的思路,并使用了对应章节中的工具,而非唯一正确的答案。</p>
+<details>
+<summary>
+<strong>点击查看参考答案</strong>
+</summary>
+<p><strong>1. 问题定义。</strong> 假阳性(一笔真实理赔被延迟)直接落在一位已经处于困境中的保单持有人身上,他们在接受调查期间可能面临真正的经济困难。假阴性(一笔欺诈性理赔获得赔付)则以分散的方式,通过未来更高的保费,由更广泛的诚实保单持有人群体承担。这两种代价在规模、时间点以及承担者上都不相同,因此这是一个分配层面的问题,而非一个对称的准确性问题。标记决策本身是可逆的,一笔被错误标记的理赔最终仍可获得赔付,但延迟本身以及由此造成的困难,并不会因为之后的纠正而消失。</p>
+<p><strong>2. 数据收集。</strong> 如果过去的调查决策本身就受到人为偏见的影响(例如调查人员对某些邮编的理赔进行不成比例的审查),那么在这段历史数据上训练出的模型,就会将同样的模式编码并自动化,这正是第二阶段核对清单中关于历史性歧视的那个问题。在数据最小化方面,理赔叙述文本往往包含远超欺诈模型实际所需的信息。一个合理的设计,应当只提取模型真正需要的具体结构化特征(例如时间线不一致、损伤程度不匹配),而不是将完整的自由文本直接输入模型,这正是第六章的数据最小化原则。</p>
+<p><strong>3. 模型开发。</strong> 均等化的调查比例(在被标记者中实现人口统计学均等)是错误的准则,因为这会迫使模型在不同群体间均等地标记真实的欺诈模式,而不论实际风险高低。均等化的假阳性率,也就是第二章所讨论的分离性(separation)的一种形式,是更合适的选择:它并不要求在不同群体间以相同比例标记真实理赔人,只要求无辜理赔人在某一群体中被错误标记的可能性,不高于其他群体。一种 MCDP 式的设计(第二、三章),只对驱动这一差异的具体代理变量去偏,能以比完全人口统计学均等更小的准确性代价实现这一点。</p>
+<p><strong>4. 模型验证。</strong> 一次预先注册的 TOST 等效性检验(第二、三章),将不同群体间的假阳性调查比例与一个预先设定的容忍区间进行比较,能够提供合规的正面证据,而不只是“普通显著性检验未能检测出差异”这一较弱的结论。</p>
+<p><strong>5. 部署。</strong> 理赔人应当收到针对其自身理赔的具体理由(例如“所报告的维修费用明显高于此类损伤的典型水平”),该理由由 SHAP 等局部解释方法(第四、五章)生成,并配有一个真正的申诉渠道,由一位有权推翻该标记的人工审核人员负责,而不是仅有一则通用的“审核中”通知和走过场式的流程。</p>
+<p><strong>6. 监测。</strong> 相对于模型训练期的基准水平,若某一地理区域或理赔类型的标记比例出现被监测到的激增,应触发一次审查,以判断这一变化究竟反映的是真实的新型欺诈模式,还是一次(例如冰雹过后)真实理赔的合理激增,而被模型误判为可疑。</p>
+<p><strong>权衡取舍一。</strong> 这是一项政策决策,而非建模决策,正如本章前文所指出的那样。模型负责人应当量化这一权衡取舍(将延迟真实理赔所付出的可衡量代价,与查获欺诈所带来的可衡量收益进行比较),并将其呈报给对该决策负责的决策者,而不是自行单方面做出决定。</p>
+<p><strong>权衡取舍二。</strong> 如果“最小化”意味着完全舍弃自由文本叙述,那么确实可能如此。但第七章的技术提供了一条折中路径:对更具识别性的字段进行泛化,同时保留一个衍生的、识别性较低的特征(例如,先计算出一个时间线不一致性评分,再舍弃原始叙述文本),就能在不保留完整敏感记录的情况下,保留模型所需的具体信号。</p>
+<p><strong>权衡取舍三。</strong> 由于这里的解释义务是面向某一位具体的理赔人,而不仅仅是监管机构,第四章关于 SHAP 与 LIME 的讨论直接相关:一个梯度提升模型配合 TreeSHAP 局部解释,既能实现较强的欺诈检测能力,又能提供真正面向个体理赔人的解释。而一个更简单的评分卡模型,牺牲了检测准确性,却只换来了 SHAP 已经在很大程度上弥补的那一点解释简洁性优势。因此,更有力的选择是采用准确性更高、并配以严谨局部解释的模型,而非默认选择更简单的模型。</p>
+</details>
+</section>
+</section>
+<section id="监管准则与模型一个统一的视角" class="level3">
+<h3 class="anchored" data-anchor-id="监管准则与模型一个统一的视角">监管、准则与模型:一个统一的视角</h3>
+<p>第二章介绍的监管制度、公平性准则与模型设计之间的映射关系,为这一整合性框架提供了一个有用的锚点。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regulations_fairness_models.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>监管制度、公平性准则与模型设计之间的映射关系。来源:<span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024年</a>)</span>。</figcaption>
+</figure>
+</div>
+<p>从左到右阅读这张图,描绘了完整的决策链条:</p>
+<ol type="1">
+<li><strong>监管制度</strong> 决定适用哪些公平性义务</li>
+<li><strong>公平性准则</strong> 将义务转化为一个可衡量的条件</li>
+<li><strong>模型设计</strong> 在定价模型中执行该准则</li>
+<li><strong>可解释性工具</strong> 帮助诊断并沟通模型的行为是否符合该准则的意图,但这应与真正用于验证的正式公平性测试配合使用,而非取而代之</li>
+<li><strong>隐私技术</strong> 保护开发过程中使用其数据的个人</li>
+</ol>
+</section>
+</section>
+<section id="实用治理" class="level2">
+<h2 class="anchored" data-anchor-id="实用治理">实用治理</h2>
+<section id="需要哪些治理文档" class="level3">
+<h3 class="anchored" data-anchor-id="需要哪些治理文档">需要哪些治理文档?</h3>
+<p>负责任人工智能不仅仅是一门技术学科。它需要能够支持监督、问责与持续改进的文档记录。</p>
+<p><strong>模型文档(模型卡)</strong></p>
+<p>模型卡是一份简短、标准化的文档,面向任何审计、接手或批准该模型的人员,对模型加以概述。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>要素</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>用途</td>
+<td>模型的用途、适用范围与目标用户</td>
+</tr>
+<tr class="even">
+<td>数据</td>
+<td>训练数据来源、时间段、预处理步骤</td>
+</tr>
+<tr class="odd">
+<td>公平性准则</td>
+<td>所选定的准则及其原因,以及其监管依据</td>
+</tr>
+<tr class="even">
+<td>性能</td>
+<td>训练集、验证集与测试集上的准确性指标</td>
+</tr>
+<tr class="odd">
+<td>公平性审计</td>
+<td>审计规程、结果、置信区间、TOST 检验结论</td>
+</tr>
+<tr class="even">
+<td>可解释性</td>
+<td>关键 SHAP 摘要、主要输入特征(如保险中的定价因子)的 PDP</td>
+</tr>
+<tr class="odd">
+<td>隐私</td>
+<td>重新识别风险评估、已应用的技术</td>
+</tr>
+<tr class="even">
+<td>局限性</td>
+<td>已知的失效模式、超出适用范围的使用场景</td>
+</tr>
+<tr class="odd">
+<td>责任人与审阅人</td>
+<td>指定的责任方、审阅时间安排</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="六项组织层面的治理实践" class="level3">
+<h3 class="anchored" data-anchor-id="六项组织层面的治理实践">六项组织层面的治理实践</h3>
+<p>模型文档将治理落实到单一模型层面。一套完整的治理项目还需要涵盖团队所部署的每一个系统的组织层面实践。澳大利亚国家人工智能中心的 AI6 指南是一个有用的实例。这六项实践的适用性超越任何单一司法辖区。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 39%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>实践</th>
+<th>含义</th>
+<th>对应关系</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. 问责制</td>
+<td>每一个人工智能系统在其整个生命周期内都有指定的责任人,包括第三方/供应商系统</td>
+<td>第一阶段、模型卡责任人字段</td>
+</tr>
+<tr class="even">
+<td>2. 影响评估</td>
+<td>评估谁可能受到伤害,特别关注弱势群体,并建立可申诉渠道</td>
+<td>第二至三章福利分析、可申诉性原则</td>
+</tr>
+<tr class="odd">
+<td>3. 风险管理</td>
+<td>针对具体情境的管控措施,因为同一模型在不同部署环境下可能是低风险或高风险</td>
+<td>第一至三阶段核对清单</td>
+</tr>
+<tr class="even">
+<td>4. 透明度</td>
+<td>维护所有在用人工智能系统的登记册,披露人工智能的使用情况,了解供应商在何种数据上构建了何种模型</td>
+<td>第四至五章可解释性</td>
+</tr>
+<tr class="odd">
+<td>5. 测试与监测</td>
+<td>部署前测试,部署后持续监测,对高风险系统进行独立审计</td>
+<td>第二章审计规程、第六阶段监测</td>
+</tr>
+<tr class="even">
+<td>6. 人为控制</td>
+<td>具有真正干预点(暂停、否决、回退)的有效监督,而非流于形式的签字确认</td>
+<td>可申诉性原则、第五阶段部署</td>
+</tr>
+</tbody>
+</table>
+<p>来源:National AI Centre, <em>Guidance for AI Adoption</em>(2025年10月)<span class="citation" data-cites="naic_au_2025_ai6">(<a href="#ref-naic_au_2025_ai6" role="doc-biblioref">National AI Centre 2025年</a>)</span>。</p>
+<div class="callout callout-style-default callout-important callout-titled" title="供应商问责不可转移">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">重要</span>供应商问责不可转移
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>将一个人工智能系统外包给第三方,并不会将使用该系统所伴随的监管义务一并外包出去。如果供应商模型产生了不公平的结果,或违反了许可条件,监管机构追责的对象是部署机构。问题在于:该机构是否对供应商实施了充分的治理(参见第一章 ASIC REP 798 的例子)。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="良好的隐私治理是什么样的:WeBank 的 FATE">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>良好的隐私治理是什么样的:WeBank 的 FATE
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>第六章的 WeBank 案例研究,是对上文 ASIC 例子的一个有益补充。WeBank 从一开始就通过其开源的 FATE 框架,将联邦学习内建于其信用评级模型的开发过程之中,使模型能够跨多家机构进行训练,而无需任何一方将其他方的原始数据集中存储。以 GDPR 第25条意义上的隐私设计(第六章)而言,这是一项在第三阶段(模型开发)做出的治理选择,而非在第五阶段(部署)才补加的管控措施。与之直接对应的保险业场景(多家保险公司在不汇集理赔数据的情况下,联合训练一个共享的欺诈检测模型)仍处于研究和试点阶段,这本身就是一个治理层面的启示。相关技术已经存在,但机构间的协调机制尚未跟上。</p>
+</div>
+</div>
+</section>
+<section id="治理是一种文化而非一份核对清单" class="level3">
+<h3 class="anchored" data-anchor-id="治理是一种文化而非一份核对清单">治理是一种文化,而非一份核对清单</h3>
+<p>核对清单只需签署一次。而文化需要持续践行,它是上述每一项实践得以立足的基础。责任贯穿整个组织,而不仅仅属于合规职能部门:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>职能</th>
+<th>责任</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>风险与合规</td>
+<td>拥有治理框架,设定风险偏好(组织愿意承担多大风险),并在治理滞后于应用时及时上报</td>
+</tr>
+<tr class="even">
+<td>技术与数据</td>
+<td>将伦理原则融入流程,维护人工智能登记册,在整个生命周期内进行测试与监测,并设计后备流程</td>
+</tr>
+<tr class="odd">
+<td>业务条线与一线用户</td>
+<td>了解自己日常使用的工具,行使真正的监督权,知道何时以及如何进行否决,并对结果提出质疑而非照单全收</td>
+</tr>
+</tbody>
+</table>
+<p>公平性准则、解释工具与隐私技术都是必要的,但只有在一个明确分配了责任归属、为监测配备了资源、并赋予人员真正干预权力的组织内部,它们才能产生一个真正可信的系统。</p>
+</section>
+<section id="为具体任务选择恰当的技术" class="level3">
+<h3 class="anchored" data-anchor-id="为具体任务选择恰当的技术">为具体任务选择恰当的技术</h3>
+<p>对本课程所介绍的每一种工具,何时该使用它的实用总结。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>任务</th>
+<th>推荐工具</th>
+<th>章节</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>识别哪些变量驱动预测结果</td>
+<td>排列特征重要性、分组 SHAP</td>
+<td>4、5</td>
+</tr>
+<tr class="even">
+<td>理解某一变量效应的形态</td>
+<td>PDP、ALE</td>
+<td>4、5</td>
+</tr>
+<tr class="odd">
+<td>解释单条预测</td>
+<td>SHAP 瀑布图、LIME、局部假设分析</td>
+<td>4、5</td>
+</tr>
+<tr class="even">
+<td>检测并量化交互效应</td>
+<td>H统计量、SHAP 交互值</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>执行人口统计学均等性</td>
+<td>MDP、MCDP</td>
+<td>2、3</td>
+</tr>
+<tr class="even">
+<td>合规性审计</td>
+<td>使用 HC3 标准误的 TOST</td>
+<td>2、3</td>
+</tr>
+<tr class="odd">
+<td>评估重新识别风险</td>
+<td><code>sdcMicro</code>、准标识符分析</td>
+<td>6、7</td>
+</tr>
+<tr class="even">
+<td>匿名化表格数据</td>
+<td>通过 <code>sdcMicro</code> 实现 k-匿名性</td>
+<td>6、7</td>
+</tr>
+<tr class="odd">
+<td>发布经隐私保护处理的统计量</td>
+<td>拉普拉斯机制(差分隐私)</td>
+<td>6、7</td>
+</tr>
+<tr class="even">
+<td>为外部使用共享数据</td>
+<td>通过 <code>synthpop</code> 生成合成数据 + NNDR 评估</td>
+<td>6、7</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="从业者的责任" class="level3">
+<h3 class="anchored" data-anchor-id="从业者的责任">从业者的责任</h3>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:精算职业">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>案例研究:精算职业
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>“精算职业应当在建立公众对人工智能系统的信任方面发挥引领作用,而非被动跟随。”</p>
+<p>—— <span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025年</a>)</span></p>
+</blockquote>
+<p>精算师在负责任人工智能的格局中占据着独特的位置:</p>
+<ul>
+<li>他们接受过实施公平性准则、解释工具与隐私技术所需的量化方法训练</li>
+<li>他们对自己签字认证的模型承担专业问责</li>
+<li>他们既与技术团队(开发人员、数据科学家)沟通,也与非技术利益相关方(董事会、监管机构、客户)沟通</li>
+<li>他们受专业准则约束,须考虑公众利益,而不仅仅是雇主的利益</li>
+</ul>
+</div>
+</div>
+<p>同样的位置(量化方法的娴熟运用、对经认证模型承担责任,以及在技术与非技术利益相关方之间发挥桥梁作用),信贷领域的信贷风险分析师、招聘领域的人力资源分析主管,以及医疗领域的临床决策支持负责人,同样也占据着。因此,负责任人工智能并非强加于某一个职业的外部义务。它是量化型、面向决策的专业群体一贯秉持的核心专业价值观的延伸。</p>
+</section>
+</section>
+<section id="课程总结" class="level2">
+<h2 class="anchored" data-anchor-id="课程总结">课程总结</h2>
+<section id="我们最初想要做的事" class="level3">
+<h3 class="anchored" data-anchor-id="我们最初想要做的事">我们最初想要做的事</h3>
+<p>在第一章中,我们将负责任人工智能定义为一门学科,其目标是使人工智能创新对监管机构、利益相关方以及受自动化决策影响的人们而言都是<strong>可辩护的</strong>。</p>
+<p>我们提出了三个核心问题:</p>
+<ol type="1">
+<li><em>该模型是否公平地对待人?</em>(公平性)</li>
+<li><em>模型的决策能否被理解和证明合理?</em>(可解释性)</li>
+<li><em>个人数据是否得到恰当使用和保护?</em>(隐私)</li>
+</ol>
+<p>我们主张,回答这些问题既需要原则性框架,也需要量化方法。</p>
+</section>
+<section id="本课程交付了什么" class="level3">
+<h3 class="anchored" data-anchor-id="本课程交付了什么">本课程交付了什么</h3>
+<p><strong>公平性(第二至三章)</strong></p>
+<p>你现在能够定义并区分六项公平性准则,实现执行这些准则的五种模型设计,量化公平性—准确性权衡取舍,并使用等效性检验开展预先设定的合规审计。</p>
+<p><strong>可解释性(第四至五章)</strong></p>
+<p>你现在能够将排列特征重要性、PDP、ALE 和 SHAP 应用于一个复杂的机器学习模型,解读全局与局部解释,检测交互效应,并向技术与非技术受众沟通研究发现。</p>
+<p><strong>隐私(第六至七章)</strong></p>
+<p>你现在能够评估表格数据集中的重新识别风险,应用 k-匿名性与差分隐私,生成并评估合成数据,并根据数据共享场景选择恰当的隐私增强技术。</p>
+</section>
+<section id="本课程无法做到的事" class="level3">
+<h3 class="anchored" data-anchor-id="本课程无法做到的事">本课程无法做到的事</h3>
+<p>没有任何课程能够让你完全为负责任人工智能实践中的复杂性做好准备。有几项重要的局限性值得说明。</p>
+<p><strong>准则存在争议。</strong> 哪一项公平性准则是恰当的,归根结底是一个社会性和政治性的决策,而非统计学决策。不同的利益相关方会合理地持有不同意见。</p>
+<p><strong>方法都有其假设前提。</strong> SHAP 值对树模型而言是精确的,但对其他模型而言只是近似值。ALE 假设数据密度充分。差分隐私假设敏感度有界。要了解你所使用工具的假设前提。</p>
+<p><strong>监管在不断演变。</strong> 欧盟人工智能法案、科罗拉多州 SB21-169 法案、纽约州金融服务部通函,以及纽约市144号地方法(自动化就业决策工具),都在过去三年内被引入或做出实质性修订。监管格局,无论在保险业还是其他领域,都将持续变化。</p>
+<p><strong>交互效应难以预见。</strong> 一个单独看待时公平、可解释且保护隐私的模型,在与其他系统、数据来源或业务流程组合运用时,仍可能产生有害后果。</p>
+<p><strong>本课程聚焦于结构化数据的预测模型。</strong> 本课程所涵盖的公平性、可解释性与隐私方法,适用于当前用于评分、定价和筛选决策的模型。生成式人工智能系统(大语言模型和图像模型)共享相同的底层原则,但也带来了独特的失效模式(不可审计的推理过程、幻觉输出,以及供应商更新所导致的悄然行为变化),这些值得单独但相关的探讨。</p>
+<p>面对这些局限性,恰当的应对不是无所作为,而是保持专业上的谦逊、严谨的文档记录,以及对持续监测与审查的承诺。</p>
+</section>
+<section id="整合性的视角" class="level3">
+<h3 class="anchored" data-anchor-id="整合性的视角">整合性的视角</h3>
+<p>负责任人工智能:原则与量化方法,并不是一份在部署前完成一次即可的核对清单。它是嵌入在人工智能系统完整生命周期中的持续过程,从一个问题被提出的那一刻起,直至一个模型被退役的那一刻为止。</p>
+<p>本课程中的工具赋予你参与这一过程所需的量化语汇。而你如何运用这套语汇(凭借专业判断、伦理意识,以及对公众利益的真诚承诺),则取决于你自己。</p>
+</section>
+<section id="推荐阅读" class="level3">
+<h3 class="anchored" data-anchor-id="推荐阅读">推荐阅读</h3>
+<ul>
+<li><span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025年</a>)</span> —— 伦理人工智能生命周期与精算师的专业义务</li>
+<li><span class="citation" data-cites="barocas2016disparate">Barocas 和 Selbst (<a href="#ref-barocas2016disparate" role="doc-biblioref">2016年</a>)</span> —— 差别性影响的基础性法律与技术论述,适用于任何自动化决策</li>
+<li><span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024年</a>)</span> —— 公平性准则、模型设计与权衡取舍,以保险定价为例说明</li>
+<li><span class="citation" data-cites="huang2026fairtesting">Huang 和 Hooker (<a href="#ref-huang2026fairtesting" role="doc-biblioref">2026年</a>)</span> —— 预先设定的审计规程,以保险定价模型为例说明</li>
+<li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#ref-molnar2025iml" role="doc-biblioref">2025年</a>)</span> —— 可解释机器学习:全面的技术参考资料</li>
+<li><span class="citation" data-cites="dwork2006calibrating">Dwork 等 (<a href="#ref-dwork2006calibrating" role="doc-biblioref">2006年</a>)</span> —— 差分隐私的原始框架</li>
+<li><span class="citation" data-cites="slack2020fooling">Slack 等 (<a href="#ref-slack2020fooling" role="doc-biblioref">2020年</a>)</span> —— 针对 SHAP 与 LIME 的对抗性攻击,以及解释方法的局限性</li>
+<li><span class="citation" data-cites="xin2025pdppitfalls">Xin 等 (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025年</a>)</span> —— 操纵 PD 图以隐藏歧视的对抗性方法,基于真实保险与 COMPAS 数据验证</li>
+<li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019年</a>)</span> —— 在高风险决策中使用内在可解释模型的论证</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">参考文献</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-barocas2016disparate" class="csl-entry" role="listitem">
+Barocas, Solon, 和 Andrew D Selbst. 2016年. <span>《Big Data’s Disparate Impact》</span>. <em>California Law Review</em> 104: 671～732.
+</div>
+<div id="ref-dwork2006calibrating" class="csl-entry" role="listitem">
+Dwork, Cynthia, Frank McSherry, Kobbi Nissim, 和 Adam Smith. 2006年. <span>《Calibrating noise to sensitivity in private data analysis》</span>. <em>Proceedings of the Third Theory of Cryptography Conference</em>, 265～84.
+</div>
+<div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
+Huang, Fei. 2025年. <span>《Check your <span>AI</span>: a framework for its use in actuarial practice》</span>. <em>The Actuary</em>.
+</div>
+<div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
+Huang, Fei, 和 Giles Hooker. 2026年. <span>《Fairness Testing for Algorithmic Pricing》</span>. <em>Working paper</em>.
+</div>
+<div id="ref-molnar2025iml" class="csl-entry" role="listitem">
+Molnar, Christoph. 2025年. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3 版. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
+</div>
+<div id="ref-naic_au_2025_ai6" class="csl-entry" role="listitem">
+National AI Centre. 2025年. <span>《Guidance for AI Adoption: Foundations》</span>. <a href="https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf">https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf</a>.
+</div>
+<div id="ref-rudin2019stop" class="csl-entry" role="listitem">
+Rudin, Cynthia. 2019年. <span>《Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead》</span>. <em>Nature Machine Intelligence</em> 1 (5): 206～15.
+</div>
+<div id="ref-slack2020fooling" class="csl-entry" role="listitem">
+Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 2020年. <span>《Fooling LIME and SHAP: Adversarial attacks on post hoc explanation methods》</span>. <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180～86.
+</div>
+<div id="ref-xin2025pdppitfalls" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, 和 Fei Huang. 2025年. <span>《Pitfalls in machine learning interpretability: Manipulating partial dependence plots to hide discrimination》</span>. <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: Regulations, fairness criteria, and models》</span>. <em>North American Actuarial Journal</em> 28 (2): 285～319.
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html" class="pagination-link" aria-label="第七章:隐私实践">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第七章:隐私实践</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -223,7 +223,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index-ZH.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">首页</span></a>
   </div>
 </li>
@@ -1592,7 +1592,6 @@ Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: 
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")

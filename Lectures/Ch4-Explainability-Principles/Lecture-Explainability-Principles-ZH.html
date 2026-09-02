@@ -184,7 +184,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index-ZH.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">首页</span></a>
   </div>
 </li>
@@ -1223,6 +1223,19 @@ window.Quarto = {
 <p><a href="https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25_0.pdf">NAIC 预测模型监管审查</a>白皮书,是美国各州保险监管机构审查费率模型时使用的工具,最初聚焦于广义线性模型。其树模型附录将同一审查框架扩展至随机森林与梯度提升模型,并明确要求保险公司提交变量重要性图与可解释性图(包括 PDP、ALE 图与 Shapley 图),每个模型变量至少提供一张图,并”就相关变量所展示的关系为何合理提供说明”。这是本章所介绍方法被用作实际监管证据、而非仅供课堂练习的一个具体例子,这也意味着上文所述的 PD 图漏洞,对这一行业而言并非纸上谈兵,它所针对的正是监管机构要求保险公司提交的这类审查证据本身 <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin 等 2025年</a>)</span>。</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled" title="监管实证:ASIC 的透明度审查">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>监管实证:ASIC 的透明度审查
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>在纸面上要求提供解释,并不能保证实践中真的会提供。澳大利亚证券投资委员会(ASIC)于2026年对五家机动车保险公司的报价与续保文件展开审查,发现没有一家公司说明了影响保费计算的关键因素,也没有说明保费相较上一年为何发生变化 <span class="citation" data-cites="asic2026rep838">(<a href="#ref-asic2026rep838" role="doc-biblioref">Australian Securities and Investments Commission 2026年</a>)</span>。这正是本章所介绍方法所要弥合的合规缺口:自动化定价的解释权,唯有当保险公司真正说明<em>究竟是哪些</em>因素推动了价格变化、<em>为何</em>如此,而不仅仅是给出模型算出的一个数字时,才具有实际意义 <span class="citation" data-cites="huang2026insurersdata">(<a href="#ref-huang2026insurersdata" role="doc-biblioref">Huang 2026年</a>)</span>。</p>
+</div>
+</div>
 <p>可解释性不仅仅是良好实践,它正在成为各领域中一项合规义务。</p>
 </section>
 <section id="大语言模型的可解释性" class="level3">
@@ -1275,6 +1288,9 @@ Amnesty International. 2021年. <em>Xenophobic Machines: Discrimination Through 
 <div id="ref-apley2020visualizing" class="csl-entry" role="listitem">
 Apley, Daniel W, 和 Jingyu Zhu. 2020年. <span>《Visualizing the effects of predictor variables in black box supervised learning models》</span>. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 82 (4): 1059～86.
 </div>
+<div id="ref-asic2026rep838" class="csl-entry" role="listitem">
+Australian Securities and Investments Commission. 2026年. <em>Report 838: Road Testing Transparency in Car Insurance Premiums</em>. Australian Securities; Investments Commission. <a href="https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-838-road-testing-transparency-in-car-insurance-premiums">https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-838-road-testing-transparency-in-car-insurance-premiums</a>.
+</div>
 <div id="ref-biran2017explanation" class="csl-entry" role="listitem">
 Biran, Or, 和 Courtenay Cotton. 2017年. <span>《Explanation and justification in machine learning: A survey》</span>. <em>IJCAI-17 Workshop on Explainable AI (XAI)</em>.
 </div>
@@ -1295,6 +1311,9 @@ Goldstein, Alex, Adam Kapelner, Justin Bleich, 和 Emil Pitkin. 2015年. <span>�
 </div>
 <div id="ref-hastie1990generalized" class="csl-entry" role="listitem">
 Hastie, Trevor J, 和 Robert J Tibshirani. 1990年. <em>Generalized Additive Models</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-huang2026insurersdata" class="csl-entry" role="listitem">
+Huang, Fei. 2026年. <span>《Insurers have a lot of data about us. Where do they get it, and how do they use it?》</span> The Conversation, 八月. <a href="https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053">https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053</a>.
 </div>
 <div id="ref-kim2016examples" class="csl-entry" role="listitem">
 Kim, Been, Rajiv Khanna, 和 Oluwasanmi Koyejo. 2016年. <span>《Examples are not enough, learn to criticize! criticism for interpretability》</span>. <em>Advances in Neural Information Processing Systems</em>.
@@ -1359,7 +1378,6 @@ Zhao, Qingyuan, 和 Trevor Hastie. 2021年. <span>《Causal interpretations of b
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")

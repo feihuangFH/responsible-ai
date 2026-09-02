@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang, UNSW Sydney">
+
+<title>Explainability Principles – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" rel="next">
+<link href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html">Chapter 4: Explainability Principles</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Responsible AI: Principles, Governance, and Quantitative Methods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Fairness Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 3: Fairness Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 4: Explainability Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Explainability Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Privacy Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 7: Privacy Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 8: Trade-offs, Integration, and Governance</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#what-is-explainability" id="toc-what-is-explainability" class="nav-link" data-scroll-target="#what-is-explainability">What is explainability?</a>
+  <ul class="collapse">
+  <li><a href="#core-definitions" id="toc-core-definitions" class="nav-link" data-scroll-target="#core-definitions">Core definitions</a></li>
+  <li><a href="#why-does-explainability-matter" id="toc-why-does-explainability-matter" class="nav-link" data-scroll-target="#why-does-explainability-matter">Why does explainability matter?</a></li>
+  <li><a href="#when-is-explainability-not-required" id="toc-when-is-explainability-not-required" class="nav-link" data-scroll-target="#when-is-explainability-not-required">When is explainability <strong>not</strong> required?</a></li>
+  <li><a href="#demands-for-explanation-across-domains" id="toc-demands-for-explanation-across-domains" class="nav-link" data-scroll-target="#demands-for-explanation-across-domains">Demands for explanation across domains</a></li>
+  </ul></li>
+  <li><a href="#goals-of-explainability" id="toc-goals-of-explainability" class="nav-link" data-scroll-target="#goals-of-explainability">Goals of explainability</a>
+  <ul class="collapse">
+  <li><a href="#three-goals-of-explainability" id="toc-three-goals-of-explainability" class="nav-link" data-scroll-target="#three-goals-of-explainability">Three goals of explainability</a></li>
+  <li><a href="#characteristics-of-good-explanations" id="toc-characteristics-of-good-explanations" class="nav-link" data-scroll-target="#characteristics-of-good-explanations">Characteristics of good explanations</a></li>
+  </ul></li>
+  <li><a href="#stakeholders" id="toc-stakeholders" class="nav-link" data-scroll-target="#stakeholders">Stakeholders</a>
+  <ul class="collapse">
+  <li><a href="#who-needs-explanations" id="toc-who-needs-explanations" class="nav-link" data-scroll-target="#who-needs-explanations">Who needs explanations?</a></li>
+  <li><a href="#mapping-stakeholders-to-explanations" id="toc-mapping-stakeholders-to-explanations" class="nav-link" data-scroll-target="#mapping-stakeholders-to-explanations">Mapping stakeholders to explanations</a></li>
+  </ul></li>
+  <li><a href="#taxonomy-of-methods" id="toc-taxonomy-of-methods" class="nav-link" data-scroll-target="#taxonomy-of-methods">Taxonomy of methods</a>
+  <ul class="collapse">
+  <li><a href="#two-primary-categories" id="toc-two-primary-categories" class="nav-link" data-scroll-target="#two-primary-categories">Two primary categories</a></li>
+  <li><a href="#dimension-1-intrinsic-vs-post-hoc" id="toc-dimension-1-intrinsic-vs-post-hoc" class="nav-link" data-scroll-target="#dimension-1-intrinsic-vs-post-hoc">Dimension 1: Intrinsic vs post-hoc</a></li>
+  <li><a href="#dimension-2-model-agnostic-vs-model-specific" id="toc-dimension-2-model-agnostic-vs-model-specific" class="nav-link" data-scroll-target="#dimension-2-model-agnostic-vs-model-specific">Dimension 2: Model-agnostic vs model-specific</a></li>
+  <li><a href="#dimension-3-global-vs-local" id="toc-dimension-3-global-vs-local" class="nav-link" data-scroll-target="#dimension-3-global-vs-local">Dimension 3: Global vs local</a></li>
+  <li><a href="#summary-taxonomy" id="toc-summary-taxonomy" class="nav-link" data-scroll-target="#summary-taxonomy">Summary taxonomy</a></li>
+  </ul></li>
+  <li><a href="#explainable-models" id="toc-explainable-models" class="nav-link" data-scroll-target="#explainable-models">Explainable models</a>
+  <ul class="collapse">
+  <li><a href="#generalised-linear-models" id="toc-generalised-linear-models" class="nav-link" data-scroll-target="#generalised-linear-models">Generalised linear models</a></li>
+  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees">Decision trees</a></li>
+  <li><a href="#gams-extending-glms" id="toc-gams-extending-glms" class="nav-link" data-scroll-target="#gams-extending-glms">GAMs: extending GLMs</a></li>
+  </ul></li>
+  <li><a href="#limits-of-explainability" id="toc-limits-of-explainability" class="nav-link" data-scroll-target="#limits-of-explainability">Limits of explainability</a>
+  <ul class="collapse">
+  <li><a href="#the-accuracyexplainability-trade-off" id="toc-the-accuracyexplainability-trade-off" class="nav-link" data-scroll-target="#the-accuracyexplainability-trade-off">The accuracy–explainability trade-off</a></li>
+  <li><a href="#human-factors-in-explanation" id="toc-human-factors-in-explanation" class="nav-link" data-scroll-target="#human-factors-in-explanation">Human factors in explanation</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  <li><a href="#post-hoc-explainability-methods" id="toc-post-hoc-explainability-methods" class="nav-link" data-scroll-target="#post-hoc-explainability-methods">Post-hoc explainability methods</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  </ul></li>
+  <li><a href="#permutation-feature-importance" id="toc-permutation-feature-importance" class="nav-link" data-scroll-target="#permutation-feature-importance">Permutation Feature Importance</a>
+  <ul class="collapse">
+  <li><a href="#break-a-feature-watch-the-damage" id="toc-break-a-feature-watch-the-damage" class="nav-link" data-scroll-target="#break-a-feature-watch-the-damage">Break a feature, watch the damage</a></li>
+  <li><a href="#computing-it" id="toc-computing-it" class="nav-link" data-scroll-target="#computing-it">Computing it</a></li>
+  <li><a href="#what-it-tells-you-and-where-it-breaks-down" id="toc-what-it-tells-you-and-where-it-breaks-down" class="nav-link" data-scroll-target="#what-it-tells-you-and-where-it-breaks-down">What it tells you, and where it breaks down</a></li>
+  <li><a href="#reading-a-pfi-ranking" id="toc-reading-a-pfi-ranking" class="nav-link" data-scroll-target="#reading-a-pfi-ranking">Reading a PFI ranking</a></li>
+  </ul></li>
+  <li><a href="#partial-dependence-plots" id="toc-partial-dependence-plots" class="nav-link" data-scroll-target="#partial-dependence-plots">Partial Dependence Plots</a>
+  <ul class="collapse">
+  <li><a href="#averaging-out-everything-except-one-feature" id="toc-averaging-out-everything-except-one-feature" class="nav-link" data-scroll-target="#averaging-out-everything-except-one-feature">Averaging out everything except one feature</a></li>
+  <li><a href="#formula" id="toc-formula" class="nav-link" data-scroll-target="#formula">Formula</a></li>
+  <li><a href="#what-the-curve-tells-you" id="toc-what-the-curve-tells-you" class="nav-link" data-scroll-target="#what-the-curve-tells-you">What the curve tells you</a></li>
+  <li><a href="#where-the-average-misleads-you" id="toc-where-the-average-misleads-you" class="nav-link" data-scroll-target="#where-the-average-misleads-you">Where the average misleads you</a></li>
+  <li><a href="#reading-a-pdp-in-practice" id="toc-reading-a-pdp-in-practice" class="nav-link" data-scroll-target="#reading-a-pdp-in-practice">Reading a PDP in practice</a></li>
+  </ul></li>
+  <li><a href="#shap" id="toc-shap" class="nav-link" data-scroll-target="#shap">SHAP</a>
+  <ul class="collapse">
+  <li><a href="#splitting-credit-for-a-prediction" id="toc-splitting-credit-for-a-prediction" class="nav-link" data-scroll-target="#splitting-credit-for-a-prediction">Splitting credit for a prediction</a></li>
+  <li><a href="#why-shapley-values-specifically" id="toc-why-shapley-values-specifically" class="nav-link" data-scroll-target="#why-shapley-values-specifically">Why Shapley values, specifically</a></li>
+  <li><a href="#two-ways-to-compute-it" id="toc-two-ways-to-compute-it" class="nav-link" data-scroll-target="#two-ways-to-compute-it">Two ways to compute it</a></li>
+  <li><a href="#reading-a-shap-output" id="toc-reading-a-shap-output" class="nav-link" data-scroll-target="#reading-a-shap-output">Reading a SHAP output</a></li>
+  <li><a href="#what-shap-buys-you-and-what-it-does-not" id="toc-what-shap-buys-you-and-what-it-does-not" class="nav-link" data-scroll-target="#what-shap-buys-you-and-what-it-does-not">What SHAP buys you, and what it does not</a></li>
+  </ul></li>
+  <li><a href="#lime" id="toc-lime" class="nav-link" data-scroll-target="#lime">LIME</a>
+  <ul class="collapse">
+  <li><a href="#zoom-in-until-the-model-looks-simple" id="toc-zoom-in-until-the-model-looks-simple" class="nav-link" data-scroll-target="#zoom-in-until-the-model-looks-simple">Zoom in until the model looks simple</a></li>
+  <li><a href="#building-the-local-model" id="toc-building-the-local-model" class="nav-link" data-scroll-target="#building-the-local-model">Building the local model</a></li>
+  <li><a href="#a-fast-explanation-with-a-fragile-foundation" id="toc-a-fast-explanation-with-a-fragile-foundation" class="nav-link" data-scroll-target="#a-fast-explanation-with-a-fragile-foundation">A fast explanation with a fragile foundation</a></li>
+  <li><a href="#choosing-between-shap-and-lime" id="toc-choosing-between-shap-and-lime" class="nav-link" data-scroll-target="#choosing-between-shap-and-lime">Choosing between SHAP and LIME</a></li>
+  </ul></li>
+  <li><a href="#validation-and-communication" id="toc-validation-and-communication" class="nav-link" data-scroll-target="#validation-and-communication">Validation and communication</a>
+  <ul class="collapse">
+  <li><a href="#are-explanations-faithful" id="toc-are-explanations-faithful" class="nav-link" data-scroll-target="#are-explanations-faithful">Are explanations faithful?</a></li>
+  <li><a href="#communicating-explanations-by-audience" id="toc-communicating-explanations-by-audience" class="nav-link" data-scroll-target="#communicating-explanations-by-audience">Communicating explanations by audience</a></li>
+  <li><a href="#common-pitfalls-in-practice" id="toc-common-pitfalls-in-practice" class="nav-link" data-scroll-target="#common-pitfalls-in-practice">Common pitfalls in practice</a></li>
+  <li><a href="#regulatory-expectations" id="toc-regulatory-expectations" class="nav-link" data-scroll-target="#regulatory-expectations">Regulatory expectations</a></li>
+  <li><a href="#explainability-for-large-language-models" id="toc-explainability-for-large-language-models" class="nav-link" data-scroll-target="#explainability-for-large-language-models">Explainability for large language models</a></li>
+  <li><a href="#summary-1" id="toc-summary-1" class="nav-link" data-scroll-target="#summary-1">Summary</a></li>
+  <li><a href="#recommended-reading" id="toc-recommended-reading" class="nav-link" data-scroll-target="#recommended-reading">Recommended reading</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="Slides-Explainability-Principles.slides.html"><i class="bi bi-easel2"></i>In-class slides</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Explainability Principles</h1>
+<p class="subtitle lead">Responsible AI: Principles, Governance, and Quantitative Methods</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang, UNSW Sydney </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h3>
+<ul>
+<li>Define explainability, and recognise interpretability and transparency as closely related terms often used interchangeably.</li>
+<li>Explain why explainability matters in high-stakes domains such as lending, hiring, healthcare, and insurance.</li>
+<li>Map stakeholder needs to different types of explanation.</li>
+<li>Classify explainability methods along the key taxonomic dimensions.</li>
+</ul>
+</section>
+<section id="what-is-explainability" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-explainability">What is explainability?</h2>
+<p>Between 2013 and 2019, the Dutch tax authority used a self-learning algorithm to flag childcare-benefit applications as high-risk for fraud. The system weighted dual nationality as a risk factor, a proxy for ethnicity, and wrongly flagged around 26,000 families, disproportionately those with a migration background, who were then forced to repay tens of thousands of euros they did not owe. Affected families could not get a meaningful account of why they had been flagged, the oversight bodies meant to review individual cases could not properly interrogate the algorithm’s reasoning either, and the resulting financial ruin left over a thousand children removed from their homes. The scandal, known in the Netherlands as the <em>toeslagenaffaire</em>, brought down the Dutch government in January 2021 <span class="citation" data-cites="amnesty2021xenophobic">(<a href="#ref-amnesty2021xenophobic" role="doc-biblioref">Amnesty International 2021</a>)</span>.</p>
+<p>No single official decided to do this. Somewhere between “an algorithm flagged this family” and “children were taken into care,” there was no point at which a family, a caseworker, or a court could get a clear, checkable account of <em>why</em>. That gap, between a model producing an output and a human being able to understand and contest it, is what this chapter is about.</p>
+<section id="core-definitions" class="level3">
+<h3 class="anchored" data-anchor-id="core-definitions">Core definitions</h3>
+<p><strong>Explainability</strong> converts a model’s internal logic into a form a specific audience can understand, for a specific purpose. A model is explainable to the degree that a person can understand the cause of its decision <span class="citation" data-cites="biran2017explanation">(<a href="#ref-biran2017explanation" role="doc-biblioref">Biran and Cotton 2017</a>)</span>, or, put operationally, to the degree that a user can correctly and efficiently predict what it will do <span class="citation" data-cites="kim2016examples">(<a href="#ref-kim2016examples" role="doc-biblioref">Kim et al. 2016</a>)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Two closely related terms appear throughout the literature, and this course will not police the boundary between them sharply. <strong>Interpretability</strong> is often used for the same underlying idea. <strong>Transparency</strong> sometimes refers more specifically to understanding a model’s internal structure directly, as opposed to a <em>post-hoc</em> explanation constructed after training without exposing what the model actually computes internally <span class="citation" data-cites="lipton2018mythos">(<a href="#ref-lipton2018mythos" role="doc-biblioref">Lipton 2018</a>)</span>. <span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019</a>)</span> argues that the terminological churn between these words has itself strayed from the needs of real problems. What matters in each case is: <strong>for whom</strong>, <strong>about what</strong>, and <strong>for what purpose</strong>?</p>
+</div>
+</div>
+</section>
+<section id="why-does-explainability-matter" class="level3">
+<h3 class="anchored" data-anchor-id="why-does-explainability-matter">Why does explainability matter?</h3>
+<p>A model can be highly accurate and still be a liability if nobody can explain what it is doing. Several distinct reasons drive the case for explainability, and they don’t all point in the same direction <span class="citation" data-cites="doshi2017towards molnar2025iml">(<a href="#ref-doshi2017towards" role="doc-biblioref">Doshi-Velez and Kim 2017</a>; <a href="#ref-molnar2025iml" role="doc-biblioref">Molnar 2025</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reason</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Human learning</strong></td>
+<td>People need explanations to update mental models when outcomes are unexpected</td>
+</tr>
+<tr class="even">
+<td><strong>Safety and testing</strong></td>
+<td>High-risk applications require confidence that models behave correctly</td>
+</tr>
+<tr class="odd">
+<td><strong>Bias detection</strong></td>
+<td>Explainability is a debugging tool for finding discriminatory patterns</td>
+</tr>
+<tr class="even">
+<td><strong>Social acceptance</strong></td>
+<td>Transparent systems gain greater user trust and legitimacy</td>
+</tr>
+<tr class="odd">
+<td><strong>Auditing</strong></td>
+<td>Models can only be properly evaluated when their decisions are visible</td>
+</tr>
+<tr class="even">
+<td><strong>Right to explanation</strong></td>
+<td>Regulatory requirements (GDPR, ASIC, EU AI Act) mandate explanations for automated decisions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="when-is-explainability-not-required" class="level3">
+<h3 class="anchored" data-anchor-id="when-is-explainability-not-required">When is explainability <strong>not</strong> required?</h3>
+<p>Explainability is not free. It can cost accuracy, engineering time, and sometimes security. The case for it weakens when <span class="citation" data-cites="doshi2017towards molnar2025iml">(<a href="#ref-doshi2017towards" role="doc-biblioref">Doshi-Velez and Kim 2017</a>; <a href="#ref-molnar2025iml" role="doc-biblioref">Molnar 2025</a>)</span>:</p>
+<ul>
+<li>The application has <strong>low stakes</strong> and no significant consequences from errors</li>
+<li>The method is <strong>well-established and thoroughly tested</strong> (e.g.&nbsp;standard actuarial tables, validated clinical scoring rules)</li>
+<li>Transparency enables <strong>gaming or manipulation</strong> (e.g.&nbsp;fraud scoring systems)</li>
+</ul>
+<p>But most consequential domains this course covers (lending, hiring, healthcare, criminal justice, insurance) involve high-stakes decisions and regulatory scrutiny by default. Explainability is generally expected.</p>
+</section>
+<section id="demands-for-explanation-across-domains" class="level3">
+<h3 class="anchored" data-anchor-id="demands-for-explanation-across-domains">Demands for explanation across domains</h3>
+<p>Regulators, decision subjects, and internal reviewers each add specific demands for explainability:</p>
+<ul>
+<li><strong>Regulators</strong> expect models to be documented, justified, and auditable</li>
+<li><strong>Decision subjects</strong> have a right to understand why they were declined, screened out, or charged a particular price</li>
+<li><strong>Practitioners signing off</strong> on a model’s use need to verify that outputs behave as expected</li>
+<li><strong>Boards and senior management</strong> need to understand model risk</li>
+</ul>
+<p>A black-box XGBoost model (a highly accurate model built by combining many decision trees, a technique called gradient boosting) may outperform a simpler model on predictive accuracy, yet be harder to document, harder to explain to an affected individual, and harder to audit for fairness.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance — regulatory demands">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance — regulatory demands
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Actuarial and insurance regulatory settings illustrate this concretely. Prudential and market-conduct regulators (e.g.&nbsp;APRA, ASIC, US state insurance departments) expect pricing and underwriting models to be filed and justified. Policyholders (the customers who hold an insurance contract) have a right to understand why they are charged a particular premium (the price paid for insurance cover) or denied a claim (a request for the insurer to pay out after a loss). Actuaries signing off on a model must verify its outputs behave as expected.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="goals-of-explainability" class="level2">
+<h2 class="anchored" data-anchor-id="goals-of-explainability">Goals of explainability</h2>
+<section id="three-goals-of-explainability" class="level3">
+<h3 class="anchored" data-anchor-id="three-goals-of-explainability">Three goals of explainability</h3>
+<p>Explainability serves several distinct purposes, not just one <span class="citation" data-cites="rudin2022interpretable">(<a href="#ref-rudin2022interpretable" role="doc-biblioref">Rudin et al. 2022</a>)</span>:</p>
+<p><strong>1. Improving the model</strong></p>
+<p>Explainability helps identify when models learn unintended patterns. A model can have strong test-set accuracy while relying on non-causal features, for example using background snow in a photo to classify wolves vs dogs. In insurance, this might mean using a proxy variable (a feature that indirectly stands in for another) for a protected attribute (a legally protected personal characteristic, such as race or gender, that a model should not rely on) without detection.</p>
+<p><strong>2. Justifying predictions</strong></p>
+<p>Different stakeholders require different explanations. Decision-makers need to verify forecasts against domain knowledge. Customers need to understand and contest decisions. Regulators need to verify compliance.</p>
+<p><strong>3. Discovering insights</strong></p>
+<p>Beyond predictions, explainability reveals relationships between inputs and outputs, useful for product design, pricing strategy, and scientific understanding.</p>
+</section>
+<section id="characteristics-of-good-explanations" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-of-good-explanations">Characteristics of good explanations</h3>
+<p>Research on how people actually process explanations, not just what is technically correct, identifies what makes them effective <span class="citation" data-cites="miller2019explanation">(<a href="#ref-miller2019explanation" role="doc-biblioref">Miller 2019</a>)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Principle</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Contrastive</strong></td>
+<td>“Why this prediction rather than another?” is more useful than a full causal chain</td>
+</tr>
+<tr class="even">
+<td><strong>Selective</strong></td>
+<td>1–2 key reasons are accepted even when many factors contribute</td>
+</tr>
+<tr class="odd">
+<td><strong>Social</strong></td>
+<td>Explanations vary by audience — a customer needs a different explanation than an actuary</td>
+</tr>
+<tr class="even">
+<td><strong>Abnormality focus</strong></td>
+<td>Rare or unexpected features make stronger explanations than common ones</td>
+</tr>
+<tr class="odd">
+<td><strong>Consistent with beliefs</strong></td>
+<td>Explanations aligning with prior knowledge are more persuasive (but watch for confirmation bias)</td>
+</tr>
+<tr class="even">
+<td><strong>Faithful</strong></td>
+<td>Explanations should truthfully reflect model behaviour, not just sound plausible</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="stakeholders" class="level2">
+<h2 class="anchored" data-anchor-id="stakeholders">Stakeholders</h2>
+<section id="who-needs-explanations" class="level3">
+<h3 class="anchored" data-anchor-id="who-needs-explanations">Who needs explanations?</h3>
+<p>A useful way to organise stakeholder needs is by the <em>role</em> someone plays in relation to a model, since the same person can occupy different roles for different systems <span class="citation" data-cites="tomsett2018interpretable">(<a href="#ref-tomsett2018interpretable" role="doc-biblioref">Tomsett et al. 2018</a>)</span>. Six roles recur across domains:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 68%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stakeholder</th>
+<th>Need</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Model creators</strong> (data scientists)</td>
+<td>Debugging, feature engineering, model selection</td>
+</tr>
+<tr class="even">
+<td><strong>Operators</strong> (e.g.&nbsp;insurers, banks, hospitals, employers)</td>
+<td>Compliance, governance, sign-off</td>
+</tr>
+<tr class="odd">
+<td><strong>Executors</strong> (e.g.&nbsp;underwriters, loan officers, clinicians, hiring managers)</td>
+<td>Verify model outputs before acting on them</td>
+</tr>
+<tr class="even">
+<td><strong>Decision subjects</strong> (e.g.&nbsp;policyholders, applicants, patients)</td>
+<td>Understand why an outcome or decision differs</td>
+</tr>
+<tr class="odd">
+<td><strong>Auditors</strong> (regulators, internal audit)</td>
+<td>Validate fairness, accuracy, compliance</td>
+</tr>
+<tr class="even">
+<td><strong>Data subjects</strong></td>
+<td>Challenge automated decisions (GDPR right to explanation)</td>
+</tr>
+</tbody>
+</table>
+<p>Different stakeholders need different types of explanation, such as local versus global, or technical versus plain language.</p>
+</section>
+<section id="mapping-stakeholders-to-explanations" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-stakeholders-to-explanations">Mapping stakeholders to explanations</h3>
+<p>Concretely, the mapping of stakeholder to explanation type looks different in every domain, but the structure is the same. Identify the question being asked, then match scope (global vs local) and audience (technical vs plain language).</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance — stakeholder mapping">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance — stakeholder mapping
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 31%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stakeholder</th>
+<th>Typical question</th>
+<th>Explanation type needed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Actuary signing off</td>
+<td>Does the model behave sensibly across the rating factors (the input variables used to set a price, e.g.&nbsp;age or location)?</td>
+<td>Global, feature effects</td>
+</tr>
+<tr class="even">
+<td>Underwriter</td>
+<td>Why is this applicant’s premium higher than expected?</td>
+<td>Local, individual prediction</td>
+</tr>
+<tr class="odd">
+<td>Customer</td>
+<td>Why did my premium increase this year?</td>
+<td>Local, contrastive, plain language</td>
+</tr>
+<tr class="even">
+<td>Regulator / auditor</td>
+<td>Does this model treat protected groups fairly?</td>
+<td>Global, group-level, with statistical tests</td>
+</tr>
+<tr class="odd">
+<td>Board / management</td>
+<td>What are the top drivers of claims costs this year?</td>
+<td>Global, feature importance</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The same mapping recurs elsewhere. A loan officer asking why an applicant was declined needs a local explanation, and a regulator auditing a hiring-screen tool for disparate impact (when a seemingly neutral policy ends up harming one group more than another) needs a global, group-level one.</p>
+</section>
+</section>
+<section id="taxonomy-of-methods" class="level2">
+<h2 class="anchored" data-anchor-id="taxonomy-of-methods">Taxonomy of methods</h2>
+<section id="two-primary-categories" class="level3">
+<h3 class="anchored" data-anchor-id="two-primary-categories">Two primary categories</h3>
+<p><strong>Explainability by design</strong>: train models that are inherently interpretable.</p>
+<ul>
+<li>Linear and logistic regression</li>
+<li>Generalised linear models (GLMs, a model that predicts an outcome as a weighted sum of the input features) and generalised additive models (GAMs, a more flexible version that allows curved rather than straight-line effects)</li>
+<li>Decision trees (models that split data by a series of branching yes/no questions) and decision rules</li>
+<li>RuleFit (a model combining decision rules with a linear model) <span class="citation" data-cites="friedman2008predictive">(<a href="#ref-friedman2008predictive" role="doc-biblioref">Friedman and Popescu 2008</a>)</span></li>
+</ul>
+<p><strong>Post-hoc explainability</strong>: apply methods after model training to explain an existing (possibly black-box) model.</p>
+<p>The choice between them is a fundamental design decision made <em>before</em> modelling, not an afterthought.</p>
+</section>
+<section id="dimension-1-intrinsic-vs-post-hoc" class="level3">
+<h3 class="anchored" data-anchor-id="dimension-1-intrinsic-vs-post-hoc">Dimension 1: Intrinsic vs post-hoc</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 64%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Intrinsic (by design)</th>
+<th>Post-hoc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>How</strong></td>
+<td>Interpretable model structure</td>
+<td>Explanation applied after training</td>
+</tr>
+<tr class="even">
+<td><strong>Examples</strong></td>
+<td>GLM, decision tree, GAM</td>
+<td>SHAP, PDP, LIME</td>
+</tr>
+<tr class="odd">
+<td><strong>Advantage</strong></td>
+<td>Explanation is exact</td>
+<td>Works on any model</td>
+</tr>
+<tr class="even">
+<td><strong>Limitation</strong></td>
+<td>May sacrifice predictive power</td>
+<td>Approximation; may not be faithful</td>
+</tr>
+</tbody>
+</table>
+<p>In regulated scoring settings (insurance pricing, credit scoring), GLMs are the standard because they are intrinsically interpretable and easy to document. Machine learning models require post-hoc explanation.</p>
+</section>
+<section id="dimension-2-model-agnostic-vs-model-specific" class="level3">
+<h3 class="anchored" data-anchor-id="dimension-2-model-agnostic-vs-model-specific">Dimension 2: Model-agnostic vs model-specific</h3>
+<p><strong>Model-agnostic</strong>: works with any model. Treats the model as a black box and queries it for predictions.</p>
+<ul>
+<li>Uses the <strong>SIPA</strong> principle: Sample data → Perform an intervention → get Predictions → Aggregate <span class="citation" data-cites="molnar2025iml">(<a href="#ref-molnar2025iml" role="doc-biblioref">Molnar 2025</a>)</span></li>
+<li>Examples: SHAP (KernelSHAP), LIME, PDP, permutation feature importance</li>
+</ul>
+<p><strong>Model-specific</strong>: designed for a particular model class.</p>
+<ul>
+<li>Examples: GLM coefficients, decision tree paths, TreeSHAP (for trees), saliency maps (for neural networks)</li>
+<li>Faster and often more accurate, but tied to the model architecture</li>
+</ul>
+</section>
+<section id="dimension-3-global-vs-local" class="level3">
+<h3 class="anchored" data-anchor-id="dimension-3-global-vs-local">Dimension 3: Global vs local</h3>
+<p><strong>Global</strong>: describes average model behaviour across the dataset.</p>
+<ul>
+<li>“What features does this model rely on overall?”</li>
+<li>Examples: permutation feature importance, PDP, ALE, surrogate models (simple models trained to approximate a complex one)</li>
+</ul>
+<p><strong>Local</strong>: explains a single prediction for one individual.</p>
+<ul>
+<li>“Why did this particular applicant receive this premium?”</li>
+<li>Examples: SHAP values for one observation, LIME, counterfactual explanations (statements like “if this input had been different, the outcome would have changed”)</li>
+</ul>
+<p>Both are needed in practice. Global methods support auditing and governance. Local methods support customer explanations and contestability.</p>
+</section>
+<section id="summary-taxonomy" class="level3">
+<h3 class="anchored" data-anchor-id="summary-taxonomy">Summary taxonomy</h3>
+<p>The three dimensions are <strong>independent axes</strong>, not a nested hierarchy. A method’s position on one does not determine its position on the others.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 27%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Values</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Origin</strong></td>
+<td>Intrinsic vs post-hoc</td>
+<td>GLM coefficients, decision-tree paths = intrinsic; KernelSHAP, TreeSHAP, PDP, LIME = post-hoc</td>
+</tr>
+<tr class="even">
+<td><strong>Applicability</strong></td>
+<td>Model-agnostic vs model-specific</td>
+<td>KernelSHAP, PDP, PFI, LIME = model-agnostic; GLM coefficients, decision-tree paths, TreeSHAP = model-specific</td>
+</tr>
+<tr class="odd">
+<td><strong>Scope</strong></td>
+<td>Global vs local</td>
+<td>Mean absolute SHAP values (aggregated), PFI, PDP = global; SHAP value for one observation, LIME = local</td>
+</tr>
+</tbody>
+</table>
+<p>Any combination is possible, e.g.:</p>
+<ul>
+<li>GLM coefficients and decision-tree paths: <strong>intrinsic + model-specific</strong></li>
+<li>KernelSHAP: <strong>post-hoc + model-agnostic</strong></li>
+<li>TreeSHAP: <strong>post-hoc + model-specific</strong></li>
+<li>A single SHAP value: <strong>local</strong></li>
+<li>The mean absolute SHAP value for a feature across all observations: <strong>global</strong></li>
+</ul>
+</section>
+</section>
+<section id="explainable-models" class="level2">
+<h2 class="anchored" data-anchor-id="explainable-models">Explainable models</h2>
+<section id="generalised-linear-models" class="level3">
+<h3 class="anchored" data-anchor-id="generalised-linear-models">Generalised linear models</h3>
+<p>Generalised linear models are a standard tool in regulated scoring settings (credit scoring, clinical risk, insurance pricing) precisely because they are intrinsically interpretable.</p>
+<p>A Poisson GLM, e.g.&nbsp;for a count outcome such as claim frequency (how often a policyholder files a claim) or hospital admissions:</p>
+<p><span class="math display">\log \mathbb{E}[Y_i] = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \log(\text{exposure}_i)</span></p>
+<p>Each coefficient <span class="math inline">\beta_j</span> has a direct interpretation. A one-unit increase in <span class="math inline">x_j</span> multiplies expected frequency by <span class="math inline">e^{\beta_j}</span>, holding all else equal.</p>
+<p><strong>Limitations:</strong> assumes a specific functional form and cannot capture complex non-linear interactions automatically.</p>
+</section>
+<section id="decision-trees" class="level3">
+<h3 class="anchored" data-anchor-id="decision-trees">Decision trees</h3>
+<p>A decision tree partitions the feature space into rectangular regions and assigns a constant prediction to each.</p>
+<p><strong>Strengths:</strong> highly interpretable, can be visualised as a flow chart.</p>
+<p><strong>Limitations:</strong> unstable (small data changes cause large tree changes), tend to overfit, and poor at smooth non-linear relationships.</p>
+<p>Decision trees are rarely used directly for pricing or scoring in regulated settings, but are useful for communicating segmentation logic to non-technical stakeholders, for example in insurance, lending, and clinical triage.</p>
+</section>
+<section id="gams-extending-glms" class="level3">
+<h3 class="anchored" data-anchor-id="gams-extending-glms">GAMs: extending GLMs</h3>
+<p>A Generalised Additive Model (GAM) <span class="citation" data-cites="hastie1990generalized">(<a href="#ref-hastie1990generalized" role="doc-biblioref">Hastie and Tibshirani 1990</a>)</span> replaces linear terms with smooth functions:</p>
+<p><span class="math display">g(\mathbb{E}[Y]) = \beta_0 + f_1(x_1) + f_2(x_2) + \cdots + f_p(x_p)</span></p>
+<p>Each <span class="math inline">f_j</span> is a smooth, visualisable function, often a spline (a flexible curve built from smooth pieces). GAMs are more flexible than GLMs while remaining interpretable through plots of each <span class="math inline">f_j</span>.</p>
+<p>Neural additive models (NAMs) <span class="citation" data-cites="agarwal2021neural">(<a href="#ref-agarwal2021neural" role="doc-biblioref">Agarwal et al. 2021</a>)</span> extend the idea to deep learning with interpretable additive structure.</p>
+</section>
+</section>
+<section id="limits-of-explainability" class="level2">
+<h2 class="anchored" data-anchor-id="limits-of-explainability">Limits of explainability</h2>
+<section id="the-accuracyexplainability-trade-off" class="level3">
+<h3 class="anchored" data-anchor-id="the-accuracyexplainability-trade-off">The accuracy–explainability trade-off</h3>
+<p>More flexible models (gradient boosting, neural networks) tend to be more accurate but less explainable. Explainable models (GLMs, decision trees) are transparent but may underfit complex patterns.</p>
+<p>This trade-off is widely assumed, but <span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019</a>)</span> argues it is often a myth, particularly on structured data with meaningful, well-engineered features: once such features exist, complex black-box models frequently show little or no accuracy advantage over a well-constructed interpretable one. The trade-off is more likely to be real where useful features are not hand-built, such as raw images or audio, but it should be checked empirically for a given problem rather than assumed. Where a genuine trade-off does exist, methods like GAMs and constrained gradient boosting can narrow it. Post-hoc explanation of a black-box model is always an approximation, and the explanation may not be fully faithful to the model’s actual reasoning.</p>
+</section>
+<section id="human-factors-in-explanation" class="level3">
+<h3 class="anchored" data-anchor-id="human-factors-in-explanation">Human factors in explanation</h3>
+<p>Technical accuracy is not sufficient on its own. An explanation only does its job if a person can actually use it <span class="citation" data-cites="miller2019explanation">(<a href="#ref-miller2019explanation" role="doc-biblioref">Miller 2019</a>)</span>:</p>
+<ul>
+<li><strong>Cognitive load</strong>: simpler explanations are preferred even if incomplete</li>
+<li><strong>Selectivity</strong>: 1–2 reasons are easier to act on than 20 feature contributions</li>
+<li><strong>Trust calibration</strong>: overly confident explanations can cause over-reliance on a flawed model</li>
+</ul>
+<p>In professional settings, the risk of a <em>plausible but misleading</em> explanation is at least as serious as no explanation at all.</p>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<ul>
+<li>Explainability is not an end in itself. It is a means to accountability, trust, and governance.</li>
+<li>The choice of method depends on <strong>who</strong> needs the explanation, <strong>what</strong> they need to understand, and <strong>what</strong> decision follows.</li>
+<li>The fundamental taxonomy: intrinsic vs post-hoc, model-agnostic vs model-specific, global vs local.</li>
+<li>In regulated scoring domains (insurance, credit, clinical risk), GLMs provide explainability by design. Machine learning models require careful post-hoc explanation.</li>
+</ul>
+</section>
+</section>
+<section id="post-hoc-explainability-methods" class="level2">
+<h2 class="anchored" data-anchor-id="post-hoc-explainability-methods">Post-hoc explainability methods</h2>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>This section covers the four most widely used post-hoc, model-agnostic methods in practice:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 22%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Scope</th>
+<th>What it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Permutation Feature Importance (PFI)</td>
+<td>Global</td>
+<td>Which features matter most to this model?</td>
+</tr>
+<tr class="even">
+<td>Partial Dependence Plots (PDP)</td>
+<td>Global</td>
+<td>How does a feature affect predictions on average?</td>
+</tr>
+<tr class="odd">
+<td>SHAP</td>
+<td>Local + Global</td>
+<td>How much did each feature contribute to <em>this</em> prediction?</td>
+</tr>
+<tr class="even">
+<td>LIME</td>
+<td>Local</td>
+<td>What simple rule approximates the model near <em>this</em> prediction?</td>
+</tr>
+</tbody>
+</table>
+<p>All methods treat the model as a black box and work for any model type (GLM, XGBoost, neural network).</p>
+</section>
+</section>
+<section id="permutation-feature-importance" class="level2">
+<h2 class="anchored" data-anchor-id="permutation-feature-importance">Permutation Feature Importance</h2>
+<section id="break-a-feature-watch-the-damage" class="level3">
+<h3 class="anchored" data-anchor-id="break-a-feature-watch-the-damage">Break a feature, watch the damage</h3>
+<p><span class="citation" data-cites="breiman2001random">Breiman (<a href="#ref-breiman2001random" role="doc-biblioref">2001</a>)</span> introduced this idea as a variable-importance measure for random forests, but the underlying logic transfers to any fitted model, not just random forests: if a model genuinely relies on a feature, scrambling that feature’s values should hurt its predictions. If shuffling a column barely changes performance, the model was not using it.</p>
+<p>The appeal is that this works without touching the model itself: no retraining, no access to internals, just repeated scoring on deliberately corrupted data.</p>
+</section>
+<section id="computing-it" class="level3">
+<h3 class="anchored" data-anchor-id="computing-it">Computing it</h3>
+<ol type="1">
+<li>Fit the model and compute baseline error <span class="math inline">e_0</span> on test data.</li>
+<li>For each feature <span class="math inline">j = 1, \ldots, p</span>:
+<ul>
+<li>Permute (shuffle) column <span class="math inline">j</span> in the test set.</li>
+<li>Re-score the model on the shuffled data, with <strong>no retraining</strong>.</li>
+<li>Compute error <span class="math inline">e_j</span> on the permuted data.</li>
+<li>Importance: <span class="math inline">I_j = e_j / e_0</span> (ratio) or <span class="math inline">e_j - e_0</span> (difference).</li>
+</ul></li>
+<li>Rank features by <span class="math inline">I_j</span>.</li>
+</ol>
+</section>
+<section id="what-it-tells-you-and-where-it-breaks-down" class="level3">
+<h3 class="anchored" data-anchor-id="what-it-tells-you-and-where-it-breaks-down">What it tells you, and where it breaks down</h3>
+<p>PFI is model-agnostic, captures interaction effects (shuffling one feature disrupts every interaction it participates in), and compresses an entire model into a single ranked list, all without retraining. But it is a coarse instrument. Permuting a feature that is correlated with others creates combinations that never occur in real data, so an importance score can reflect an artefact of the shuffle rather than genuine model behaviour. It also only shows <em>that</em> a feature matters, not <em>how</em>, in which direction, or over what range, and a single run is noisy enough that results should be averaged over several permutations. If the model itself does not generalise well, PFI faithfully reports the model’s reliance on training noise rather than real signal.</p>
+</section>
+<section id="reading-a-pfi-ranking" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-pfi-ranking">Reading a PFI ranking</h3>
+<p>A PFI ranking surfaces two kinds of signal at once. It shows which legitimate factors the model actually relies on, and which non-legitimate or proxy features contribute more than domain knowledge would suggest.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance — PFI ranking">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance — PFI ranking
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In a motor insurance pricing model, PFI might reveal:</p>
+<ul>
+<li>Age and Bonus (a driver’s no-claims discount level) are the most important legitimate rating factors</li>
+<li>InsuranceScore (a non-legitimate proxy) contributes significantly, signalling that fairness scrutiny is needed</li>
+<li>Density and Value contribute less than expected from domain knowledge, prompting a check of data quality</li>
+</ul>
+</div>
+</div>
+<p>This is often the <strong>first diagnostic</strong> run after fitting a new model, in any domain. A hiring model whose top feature turns out to be a proxy for age or gender warrants the same scrutiny.</p>
+</section>
+</section>
+<section id="partial-dependence-plots" class="level2">
+<h2 class="anchored" data-anchor-id="partial-dependence-plots">Partial Dependence Plots</h2>
+<section id="averaging-out-everything-except-one-feature" class="level3">
+<h3 class="anchored" data-anchor-id="averaging-out-everything-except-one-feature">Averaging out everything except one feature</h3>
+<p><span class="citation" data-cites="friedman2001greedy">Friedman (<a href="#ref-friedman2001greedy" role="doc-biblioref">2001</a>)</span> introduced PDP alongside gradient boosting, as a way to ask a question that a coefficient cannot answer for a black-box model: if every observation in the data shared the same value of one feature, what would the average prediction look like? The construction is direct. Fix the feature of interest to a value, force every observation to take it, score the model, and average the result. Repeat across the feature’s range and the resulting curve is the partial dependence function.</p>
+</section>
+<section id="formula" class="level3">
+<h3 class="anchored" data-anchor-id="formula">Formula</h3>
+<p>For feature <span class="math inline">x_j</span>, the partial dependence function is:</p>
+<p><span class="math display">\hat{f}_j(x_j) = \mathbb{E}_{X_{-j}}\left[\hat{f}(x_j, X_{-j})\right] \approx \frac{1}{n}\sum_{i=1}^n \hat{f}(x_j, x_{-j}^{(i)})</span></p>
+<p>We substitute <span class="math inline">x_j</span> for all observations and average, marginalising over the joint distribution of the remaining features.</p>
+</section>
+<section id="what-the-curve-tells-you" class="level3">
+<h3 class="anchored" data-anchor-id="what-the-curve-tells-you">What the curve tells you</h3>
+<p>A PDP is intuitive to read: direction (does the prediction rise or fall as the feature increases?), shape (linear, monotone, or non-linear, such as U-shaped with age), and magnitude (how much the prediction moves across the observed range) are all visible at a glance, for any model type, without assuming a functional form. A causal reading of that shape is not automatic. It requires additional causal assumptions on top of the plot itself <span class="citation" data-cites="zhao2021causal">(<a href="#ref-zhao2021causal" role="doc-biblioref">Zhao and Hastie 2021</a>)</span>.</p>
+<p>For <strong>two features</strong>, a 2D PDP surface can reveal possible interaction, but the joint surface also contains both features’ main effects, so confirming genuine interaction requires comparing it against the sum of the two one-feature PDPs, or using a dedicated interaction measure (H-statistic, SHAP interaction values, Ch5). Visualisation also becomes difficult beyond two variables.</p>
+</section>
+<section id="where-the-average-misleads-you" class="level3">
+<h3 class="anchored" data-anchor-id="where-the-average-misleads-you">Where the average misleads you</h3>
+<p>Two assumptions do most of the damage. PDP assumes <strong>feature independence</strong>: when features are correlated, it can extrapolate to combinations that are rarely or never observed in the data, and that extrapolation region is exactly where the plot is least trustworthy. And because PDP is an average, it can <strong>mask heterogeneous effects</strong>: if the effect differs across subgroups, or points in opposite directions for different individuals, the average can look flat or misleading even though no individual actually experiences that average effect. On top of this, PDP is only practical for one or two features at a time, and it does not show the underlying feature distribution, which invites over-interpreting effects in sparse regions of the plot.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Individual Conditional Expectation (ICE)</strong> curves <span class="citation" data-cites="goldstein2015peeking">(<a href="#ref-goldstein2015peeking" role="doc-biblioref">Goldstein et al. 2015</a>)</span> address the heterogeneous-effects limitation. A PDP is the average of many ICE curves, one per observation, each showing how a single instance’s prediction would change as the feature of interest varies, holding everything else about that instance fixed. Overlaying ICE curves on top of a PDP reveals whether the average effect is representative of most observations, or whether it masks subgroup effects that point in different directions and cancel out in the average. ICE curves still assume feature independence, so they remain vulnerable to the same extrapolation problem as PDP when features are correlated.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Accumulated Local Effects (ALE)</strong> plots <span class="citation" data-cites="apley2020visualizing">(<a href="#ref-apley2020visualizing" role="doc-biblioref">Apley and Zhu 2020</a>)</span> address the independence assumption by conditioning on local neighbourhoods rather than marginalising globally. Prefer ALE when features are correlated.</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: manipulating PD plots to hide discrimination">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: manipulating PD plots to hide discrimination
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The two weaknesses above are not just textbook caveats. <span class="citation" data-cites="xin2025pdppitfalls">Xin et al. (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025</a>)</span> show they can be deliberately exploited. Their adversarial framework leaves a black-box model’s predictions untouched on the real, densely-observed region of the data, but substitutes a separately chosen, non-discriminatory output whenever an input falls in the sparse “extrapolation” region that PDP’s averaging step actually depends on. Because that region is rarely or never observed in practice, almost none of the model’s real-world predictions change, yet the resulting PD plot for the manipulated feature can be engineered to look essentially flat.</p>
+<p>Applied to real motor insurance claims data and to the COMPAS recidivism dataset, the attack produced PD plots for a protected or proxy variable (age, race) that showed no visible disparity, while the underlying model’s predictions, and its discriminatory behaviour, were preserved almost entirely, with over 95% accuracy retained relative to the original model’s outputs. This directly undermines the “the protected-attribute PD plot looks flat, so the model is fine” check used elsewhere in this course. ICE curves, correlation checks between features, and ALE plots (above) make the manipulation harder to construct convincingly, but none of them make it impossible. Treat a flat PD plot as one input to a fairness review, not as proof of one.</p>
+</div>
+</div>
+</section>
+<section id="reading-a-pdp-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-pdp-in-practice">Reading a PDP in practice</h3>
+<p>A PDP for a numeric feature such as age often shows a non-linear, non-monotonic effect that a GLM coefficient cannot represent directly, but the PDP makes it visible for any model type.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance — reading a PDP">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance — reading a PDP
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A PDP for Age in a motor insurance frequency model might show high predicted frequency for young drivers (18–25), declining steeply to ~30, then gradually rising after 65.</p>
+</div>
+</div>
+<p>The same non-monotonic shape shows up elsewhere. Years of prior work experience rarely pushes a hiring model’s output in one straight line, and tumour size rarely moves a clinical risk model’s prediction linearly either. A PDP makes that curvature visible without having to guess its functional form in advance.</p>
+</section>
+</section>
+<section id="shap" class="level2">
+<h2 class="anchored" data-anchor-id="shap">SHAP</h2>
+<section id="splitting-credit-for-a-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="splitting-credit-for-a-prediction">Splitting credit for a prediction</h3>
+<p>SHAP (SHapley Additive exPlanations) <span class="citation" data-cites="lundberg2017unified">(<a href="#ref-lundberg2017unified" role="doc-biblioref">Lundberg and Lee 2017</a>)</span> borrows its answer from cooperative game theory: if several players jointly produce a payoff, how should it be split among them, based on each one’s actual contribution? Treat a model’s features as the players and its prediction as the shared payoff, and the fair split is the <strong>Shapley value</strong>, the average marginal contribution of feature <span class="math inline">j</span> across every possible combination of the other features it could appear alongside.</p>
+<p><strong>Explanation model:</strong></p>
+<p><span class="math display">g(z') = \phi_0 + \sum_{j=1}^p \phi_j z_j'</span></p>
+<p>where <span class="math inline">\phi_j</span> is the Shapley value for feature <span class="math inline">j</span> and <span class="math inline">\phi_0</span> is the baseline (average prediction).</p>
+</section>
+<section id="why-shapley-values-specifically" class="level3">
+<h3 class="anchored" data-anchor-id="why-shapley-values-specifically">Why Shapley values, specifically</h3>
+<p>Game theory guarantees this particular split satisfies three properties no other feature-attribution method achieves simultaneously <span class="citation" data-cites="lundberg2017unified">(<a href="#ref-lundberg2017unified" role="doc-biblioref">Lundberg and Lee 2017</a>)</span>: <strong>local accuracy</strong> (the contributions sum exactly to the gap between this prediction and the baseline, <span class="math inline">\sum_j \phi_j = \hat{f}(x) - \mathbb{E}[\hat{f}]</span>), <strong>missingness</strong> (a feature absent from the model gets zero credit), and <strong>consistency</strong> (if a feature’s true marginal contribution goes up after a model change, its Shapley value cannot go down).</p>
+</section>
+<section id="two-ways-to-compute-it" class="level3">
+<h3 class="anchored" data-anchor-id="two-ways-to-compute-it">Two ways to compute it</h3>
+<p><strong>KernelSHAP</strong> is model-agnostic: it samples feature coalitions, scores them, and fits a weighted linear regression with the SHAP kernel to recover the <span class="math inline">\phi_j</span>. It works for any model but is slow.</p>
+<p><strong>TreeSHAP</strong> <span class="citation" data-cites="lundberg2020local">(<a href="#ref-lundberg2020local" role="doc-biblioref">Lundberg et al. 2020</a>)</span> exploits tree structure to compute exact values in polynomial rather than exponential time, for XGBoost, LightGBM, and random forests. It is the default choice for gradient boosting models across domains, including insurance pricing, credit scoring, and clinical risk.</p>
+</section>
+<section id="reading-a-shap-output" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-shap-output">Reading a SHAP output</h3>
+<p>A <strong>waterfall plot</strong> decomposes one prediction into the baseline plus each feature’s push or pull: start at the baseline <span class="math inline">E[\hat{f}]</span> (the average prediction across the population), let each feature push the prediction up (positive SHAP value) or down (negative value), and the sum of every push and pull lands exactly on this individual’s prediction.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance — SHAP waterfall">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance — SHAP waterfall
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For a single policyholder’s motor premium prediction, age (young) pushes the prediction up and bonus (low, i.e.&nbsp;a strong no-claims record) pushes it down. This is the natural format for a <strong>customer-facing explanation</strong>: “Your premium is higher than average mainly because of your age and driving history.”</p>
+</div>
+</div>
+<p>The same waterfall format works for a declined loan application or a clinical risk score, expressed as a sum of contributions from income, credit history, or lab values relative to a baseline. Beyond the waterfall, a <strong>summary plot</strong> shows importance, direction, and feature value across every observation at once; a <strong>dependence plot</strong> shows SHAP value against feature value for one feature, the local counterpart to a PDP; the <strong>mean absolute SHAP value</strong> aggregates local values into a global importance ranking; and <strong>interaction values</strong> show how pairs of features jointly move a prediction.</p>
+</section>
+<section id="what-shap-buys-you-and-what-it-does-not" class="level3">
+<h3 class="anchored" data-anchor-id="what-shap-buys-you-and-what-it-does-not">What SHAP buys you, and what it does not</h3>
+<p>The game-theoretic guarantees are real strengths: local accuracy, missingness, and consistency hold exactly, local values aggregate cleanly into a global summary, and TreeSHAP makes all of this fast for tree-based models. But the guarantees have limits. KernelSHAP is slow without a tree-specific shortcut, and it assumes feature independence, an assumption TreeSHAP’s conditional variant relaxes at the cost of sometimes assigning non-zero credit to a correlated feature the model never actually used. Shapley values are attributions, not causes, and treating a large <span class="math inline">\phi_j</span> as evidence that a feature <em>causes</em> the outcome is a category error. And, like any post-hoc explanation, SHAP explanations can be <strong>adversarially manipulated</strong> to hide biases in the underlying model <span class="citation" data-cites="slack2020fooling">(<a href="#ref-slack2020fooling" role="doc-biblioref">Slack et al. 2020</a>)</span>.</p>
+</section>
+</section>
+<section id="lime" class="level2">
+<h2 class="anchored" data-anchor-id="lime">LIME</h2>
+<section id="zoom-in-until-the-model-looks-simple" class="level3">
+<h3 class="anchored" data-anchor-id="zoom-in-until-the-model-looks-simple">Zoom in until the model looks simple</h3>
+<p>LIME (Local Interpretable Model-Agnostic Explanations) <span class="citation" data-cites="ribeiro2016should">(<a href="#ref-ribeiro2016should" role="doc-biblioref">Ribeiro et al. 2016</a>)</span> starts from a different bet than SHAP’s game-theoretic split: a model that is hopelessly complex globally may behave <em>almost linearly</em> in a small enough neighbourhood around one point. Fit a simple, interpretable model in that neighbourhood, and its coefficients become the explanation for the complex model’s prediction there.</p>
+</section>
+<section id="building-the-local-model" class="level3">
+<h3 class="anchored" data-anchor-id="building-the-local-model">Building the local model</h3>
+<ol type="1">
+<li>Select the instance <span class="math inline">x^*</span> to explain.</li>
+<li><strong>Perturb</strong> the data: generate samples near <span class="math inline">x^*</span> by sampling from a normal distribution (tabular), removing words (text), or toggling superpixels (images).</li>
+<li>Score the black-box model on perturbed samples.</li>
+<li><strong>Weight</strong> samples by proximity to <span class="math inline">x^*</span>.</li>
+<li>Fit an interpretable model (e.g.&nbsp;sparse linear regression) on the weighted perturbed data.</li>
+<li>Use the local model’s coefficients as the explanation.</li>
+</ol>
+<p>The fitting step minimises</p>
+<p><span class="math display">\mathcal{L}(f, g, \pi_{x^*}) + \Omega(g)</span></p>
+<p>where <span class="math inline">\mathcal{L}</span> is the approximation error between explanation <span class="math inline">g</span> and black-box <span class="math inline">f</span>, <span class="math inline">\pi_{x^*}</span> is the proximity kernel, and <span class="math inline">\Omega(g)</span> penalises complexity.</p>
+</section>
+<section id="a-fast-explanation-with-a-fragile-foundation" class="level3">
+<h3 class="anchored" data-anchor-id="a-fast-explanation-with-a-fragile-foundation">A fast explanation with a fragile foundation</h3>
+<p>LIME works across tabular, text, and image data, stays model-agnostic so the black box underneath can be swapped freely, and produces short, selective explanations that are easy to hand to a non-technical audience, with a fidelity score attached to say how well the local model actually approximates the black box at that point. The fragility shows up in the construction itself. The neighbourhood is defined by a kernel width with no principled default, and that choice can change the explanation substantially. Perturbed samples are drawn without regard to feature correlations, so they can land on combinations that never occur in real data. Two nearby points can receive noticeably different explanations, and, like SHAP, a model can be deliberately built to produce LIME explanations that look reasonable while masking biased behaviour. Explanation quality also depends on the choice of interpretable representation used to build it, such as superpixels for images or word presence for text.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: healthcare — LIME on a readmission-risk score">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: healthcare — LIME on a readmission-risk score
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A hospital’s 30-day readmission-risk model flags one patient as high-risk. LIME perturbs that patient’s record (age, prior admissions, lab values, length of stay) around the instance, fits a local linear model, and returns a short list: a recent prior admission and one elevated lab value push risk upward, time since the last visit pushes it down. A discharge nurse can act on that short list directly, unlike a summary of 40 model inputs, but the explanation is a local approximation, not a full account of the model’s reasoning, so a second, more stable method (SHAP) is worth checking before it drives a real staffing or discharge decision.</p>
+</div>
+</div>
+</section>
+<section id="choosing-between-shap-and-lime" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-between-shap-and-lime">Choosing between SHAP and LIME</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 42%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>SHAP</th>
+<th>LIME</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Theoretical basis</strong></td>
+<td>Game theory (Shapley values)</td>
+<td>Local surrogate model</td>
+</tr>
+<tr class="even">
+<td><strong>Consistency</strong></td>
+<td>Guaranteed (axiomatic)</td>
+<td>Not guaranteed</td>
+</tr>
+<tr class="odd">
+<td><strong>Stability</strong></td>
+<td>High (exact for TreeSHAP)</td>
+<td>Low (kernel-width sensitive)</td>
+</tr>
+<tr class="even">
+<td><strong>Speed</strong></td>
+<td>Fast (TreeSHAP)</td>
+<td>Slower</td>
+</tr>
+<tr class="odd">
+<td><strong>Output</strong></td>
+<td>Feature contributions (additive)</td>
+<td>Local model coefficients</td>
+</tr>
+<tr class="even">
+<td><strong>Best for</strong></td>
+<td>Tree-based models in production</td>
+<td>Quick exploration, non-tree models</td>
+</tr>
+</tbody>
+</table>
+<p>In domains that use gradient boosting (XGBoost, LightGBM), such as insurance, credit, and healthcare, <strong>SHAP (TreeSHAP) is preferred</strong> over LIME for this reason.</p>
+</section>
+</section>
+<section id="validation-and-communication" class="level2">
+<h2 class="anchored" data-anchor-id="validation-and-communication">Validation and communication</h2>
+<section id="are-explanations-faithful" class="level3">
+<h3 class="anchored" data-anchor-id="are-explanations-faithful">Are explanations faithful?</h3>
+<p>A key risk is that an explanation can be plausible without accurately reflecting the model’s reasoning. <span class="citation" data-cites="doshi2017towards">Doshi-Velez and Kim (<a href="#ref-doshi2017towards" role="doc-biblioref">2017</a>)</span> distinguish three ways to test this: against a real end-task (application-grounded), against a simplified task with human judges (human-grounded), and against a formal proxy criterion with no humans involved (functionally-grounded). The tests below draw on all three.</p>
+<p>Tests to check:</p>
+<ul>
+<li><strong>Sanity check</strong>: do the most important features match domain knowledge?</li>
+<li><strong>Consistency</strong>: do similar individuals get similar explanations?</li>
+<li><strong>Simulation test</strong>: perturb one feature and check whether the SHAP value for that feature changes in the expected direction</li>
+<li><strong>Adversarial check</strong>: could these explanations be generated by a biased model that was designed to look fair? <span class="citation" data-cites="slack2020fooling">(<a href="#ref-slack2020fooling" role="doc-biblioref">Slack et al. 2020</a>)</span></li>
+</ul>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: an unfaithful explanation of COMPAS">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: an unfaithful explanation of COMPAS
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019</a>)</span> describes a concrete instance of this risk. ProPublica’s investigation of the COMPAS recidivism tool fit a linear explanation model that depended on race, and used it to argue the underlying, proprietary black-box model was racially biased. COMPAS’s developers disputed this, arguing the actual model may not depend on race beyond its correlation with age and criminal history, since COMPAS is plausibly nonlinear and never used race as an explicit predictor. If so, it was ProPublica’s <em>explanation</em> model, not the original black box, that depended on race, an unfaithful proxy mistaken for the thing it was meant to approximate. Whichever side of that specific dispute is correct, the general lesson holds: an explanation model can look damning, or reassuring, while not faithfully representing the black box it claims to explain.</p>
+</div>
+</div>
+</section>
+<section id="communicating-explanations-by-audience" class="level3">
+<h3 class="anchored" data-anchor-id="communicating-explanations-by-audience">Communicating explanations by audience</h3>
+<p>Explanations should be <strong>calibrated to the audience</strong>. The same SHAP output needs different framing for a decision subject vs an auditor. Roles vary by domain (validator, front-line decision-maker, decision subject, regulator, board), but the mapping of method to format is the same.</p>
+<p>These methods are illustrative, not audience-exclusive. The same method (e.g.&nbsp;SHAP) can serve several audiences depending on the scope and framing applied to it. What actually differs by audience is the main question, the required scope, the level of technical detail, and the communication format.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance — communicating by audience">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: insurance — communicating by audience
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 22%">
+<col style="width: 10%">
+<col style="width: 28%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Audience</th>
+<th>Main question</th>
+<th>Scope</th>
+<th>Possible methods</th>
+<th>Communication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Actuary / validator</td>
+<td>Does the model behave sensibly?</td>
+<td>Global + local</td>
+<td>PFI, PDP/ALE, SHAP summary and local cases</td>
+<td>Technical report</td>
+</tr>
+<tr class="even">
+<td>Underwriter</td>
+<td>Why is this individual prediction unusual?</td>
+<td>Local</td>
+<td>SHAP waterfall, similar-case comparison</td>
+<td>Internal dashboard</td>
+</tr>
+<tr class="odd">
+<td>Customer</td>
+<td>Why did I receive this outcome rather than another?</td>
+<td>Local, plain language</td>
+<td>Distilled local attribution or counterfactual explanation</td>
+<td>Letter or portal message</td>
+</tr>
+<tr class="even">
+<td>Regulator / auditor</td>
+<td>Is the model justified, fair and auditable?</td>
+<td>Global + subgroup + selected local</td>
+<td>PFI, PDP/ALE, SHAP summaries, fairness analysis and case reviews</td>
+<td>Regulatory documentation</td>
+</tr>
+<tr class="odd">
+<td>Board</td>
+<td>What are the main risks and business implications?</td>
+<td>Aggregated global</td>
+<td>Key findings derived from several diagnostics</td>
+<td>Executive dashboard</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The same structure recurs outside insurance. A hiring platform owes a rejected applicant a short, plain-language reason; a bank’s model-risk committee needs the aggregated technical picture; a health regulator auditing a triage algorithm needs the subgroup-level fairness view.</p>
+</section>
+<section id="common-pitfalls-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="common-pitfalls-in-practice">Common pitfalls in practice</h3>
+<ol type="1">
+<li><p><strong>Explanation <span class="math inline">\neq</span> causation</strong>: a high SHAP value for Age does not mean Age <em>causes</em> higher claims. It means the model uses Age heavily.</p></li>
+<li><p><strong>Global <span class="math inline">\neq</span> local</strong>: a feature ranked unimportant globally may be the dominant driver for an individual prediction.</p></li>
+<li><p><strong>Correlation blindness</strong>: PDP and KernelSHAP marginalise over the data distribution and can extrapolate into unrealistic regions when features are correlated. ALE is designed specifically to fix this. It averages differences in predictions over conditional, not marginal, distributions <span class="citation" data-cites="apley2020visualizing">(<a href="#ref-apley2020visualizing" role="doc-biblioref">Apley and Zhu 2020</a>)</span>. TreeSHAP is not a fix for the same problem. It is a tree-specific algorithm valued for computational efficiency and exactness. Whether it extrapolates into unrealistic combinations still depends on the SHAP convention chosen (interventional vs.&nbsp;tree-path-dependent).</p></li>
+<li><p><strong>Instability of LIME</strong>: do not present a single LIME explanation as definitive. Run multiple times and check consistency.</p></li>
+<li><p><strong>Confirmation bias</strong>: explanations that match prior beliefs are persuasive, but may be wrong. Always validate against held-out data.</p></li>
+<li><p><strong>A flat PD plot is not proof of fairness</strong>: PD plots are commonly treated as a global sanity check for a protected or proxy variable, but their own extrapolation and averaging weaknesses can be deliberately exploited to produce a flat-looking plot while the underlying model stays discriminatory <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin et al. 2025</a>)</span>.</p></li>
+</ol>
+</section>
+<section id="regulatory-expectations" class="level3">
+<h3 class="anchored" data-anchor-id="regulatory-expectations">Regulatory expectations</h3>
+<p>Explainability is increasingly a regulatory requirement, not just good practice:</p>
+<ul>
+<li><strong>EU AI Act</strong> (2024–): high-risk AI systems, including credit scoring, employment screening, and life and health insurance risk assessment and pricing, must provide explanations to affected individuals</li>
+<li><strong>GDPR Article 22</strong>: automated decisions must be explainable and contestable</li>
+<li><strong>China’s PIPL (Article 24)</strong>: grants individuals a right to an explanation of an automated decision, and a right to refuse a decision made solely by automated means where it significantly affects them <span class="citation" data-cites="china_pipl_2021">(<a href="#ref-china_pipl_2021" role="doc-biblioref">National People’s Congress (China) 2021</a>)</span>; China’s 2026 NFRA guidance for banking and insurance separately names transparency and explainability as a required governance element for AI systems <span class="citation" data-cites="nfra2026aiguidance">(<a href="#ref-nfra2026aiguidance" role="doc-biblioref">National Financial Regulatory Administration (China) 2026</a>)</span></li>
+<li><strong>Singapore’s MAS FEAT Transparency principle</strong>: requires institutions to document their AI systems internally and give customers meaningful explanations of AI-driven decisions that affect them <span class="citation" data-cites="mas_feat_2018">(<a href="#ref-mas_feat_2018" role="doc-biblioref">Monetary Authority of Singapore 2018</a>)</span></li>
+</ul>
+<p>Sector-specific rules add further detail: adverse-action notices for credit decisions (e.g.&nbsp;US ECOA/FCRA), bias-audit and notice requirements for automated employment-screening tools (e.g.&nbsp;NYC Local Law 144), and model documentation requirements for insurance rate filings (e.g.&nbsp;US state regulators, APRA CPG 234 in Australia).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Regulatory evidence: the NAIC Model Review Manual">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Regulatory evidence: the NAIC Model Review Manual
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25_0.pdf">NAIC Regulatory Review of Predictive Models</a> white paper, which US state insurance regulators use when reviewing rating models, originally focused on GLMs. Its tree-based-model appendix extends the same review framework to random forests and gradient-boosted models, and explicitly asks insurers to submit variable-importance plots and interpretability plots, including PDPs, ALE plots, and Shapley plots, with at least one plot per model variable, “accompanied by commentary on why the visualized relationship is reasonable for variables of concern.” This is a concrete example of the methods introduced in this chapter being used as practical regulatory evidence, not just classroom exercises, which also means the PD-plot vulnerability described above is not a hypothetical concern for this industry. It targets precisely the review evidence regulators ask insurers to submit <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin et al. 2025</a>)</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Regulatory evidence: ASIC's transparency review">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Regulatory evidence: ASIC’s transparency review
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Requiring an explanation on paper does not guarantee one in practice. A 2026 review by Australia’s securities and investments regulator, ASIC, examined the quote and renewal documents of five motor vehicle insurers and found that none explained the key factors that affected the calculation of the premium, or why the premium had changed from the previous year <span class="citation" data-cites="asic2026rep838">(<a href="#ref-asic2026rep838" role="doc-biblioref">Australian Securities and Investments Commission 2026</a>)</span>. This is the compliance gap the methods in this chapter exist to close: a right to an explanation of automated pricing is only meaningful if insurers actually surface <em>which</em> factors moved the price and <em>why</em>, not just that a model produced a number <span class="citation" data-cites="huang2026insurersdata">(<a href="#ref-huang2026insurersdata" role="doc-biblioref">Huang 2026</a>)</span>.</p>
+</div>
+</div>
+<p>Explainability is not just good practice. It is becoming a compliance obligation across domains.</p>
+</section>
+<section id="explainability-for-large-language-models" class="level3">
+<h3 class="anchored" data-anchor-id="explainability-for-large-language-models">Explainability for large language models</h3>
+<p>The faithfulness question above becomes sharper, not different, for large language models (LLMs). Everything covered so far (PDP, ALE, SHAP, LIME) assumes a fixed, interpretable set of input features. An LLM has neither. Its “features” are subword tokens in a variable-length prompt, and its parameters number in the billions, so none of these methods apply directly.</p>
+<p><strong>Chain-of-thought is not a faithful explanation.</strong> A natural workaround is to ask the model to “think step by step” and treat the resulting text as its explanation. <span class="citation" data-cites="turpin2023language">Turpin et al. (<a href="#ref-turpin2023language" role="doc-biblioref">2023</a>)</span> show this is unreliable. When a biasing feature is quietly added to a prompt (e.g.&nbsp;always placing the correct multiple-choice answer in position A), models systematically shift their answers toward it without ever mentioning the bias in their stated reasoning, instead producing a plausible-sounding justification for the (now-biased) answer. This is the LLM version of the sanity/adversarial checks above. A stated explanation can look reasonable while not describing what actually drove the output.</p>
+<p><strong>Mechanistic interpretability is the emerging alternative.</strong> Rather than trusting the model’s self-report, this line of work opens up the model’s internals directly. <span class="citation" data-cites="templeton2024scaling"><span class="nocase">Templeton et al.</span> (<a href="#ref-templeton2024scaling" role="doc-biblioref">2024</a>)</span> use sparse autoencoders (a neural-network technique that decomposes a model’s internal activity into distinct, nameable components) to extract millions of human-interpretable features from a production-scale LLM (Claude 3 Sonnet), showing that individual internal directions correspond to identifiable concepts. This is closer in spirit to a global, structural explanation than to a SHAP value, but it is still a research frontier, not yet a routine audit tool the way PDP or SHAP are for tabular models.</p>
+<p><strong>Practical implication.</strong> Don’t treat an LLM’s stated reasoning as equivalent to a SHAP value or a PDP curve. It has not been validated the same way, and <span class="citation" data-cites="turpin2023language">Turpin et al. (<a href="#ref-turpin2023language" role="doc-biblioref">2023</a>)</span>’s evidence suggests it often isn’t faithful. If an LLM’s output feeds a consequential decision, the audience-communication principle from earlier still applies. Be explicit about what kind of explanation you are actually giving (a self-report, not a validated attribution), since overclaiming faithfulness is itself a communication failure.</p>
+</section>
+<section id="summary-1" class="level3">
+<h3 class="anchored" data-anchor-id="summary-1">Summary</h3>
+<ul>
+<li><strong>Permutation feature importance</strong> gives a global ranking of which features matter most.</li>
+<li><strong>PDP</strong> shows the average marginal effect of a feature (global, visual, intuitive). Use ALE when features are correlated.</li>
+<li><strong>SHAP</strong> decomposes each prediction into feature contributions. It is the most principled and versatile method, and TreeSHAP is fast for tree models.</li>
+<li><strong>LIME</strong> fits a local surrogate, useful for exploration but less stable than SHAP.</li>
+<li>All explanations require validation. Plausibility is not the same as faithfulness.</li>
+<li>Communication should be calibrated to the audience: technical, managerial, and customer-facing formats all differ.</li>
+</ul>
+</section>
+<section id="recommended-reading" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-reading">Recommended reading</h3>
+<ul>
+<li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#ref-molnar2025iml" role="doc-biblioref">2025</a>)</span> — <a href="https://christophm.github.io/interpretable-ml-book/">christophm.github.io/interpretable-ml-book</a>, free web textbook, Chapters on PDP, PFI, SHAP, LIME</li>
+<li><span class="citation" data-cites="rudin2022interpretable">Rudin et al. (<a href="#ref-rudin2022interpretable" role="doc-biblioref">2022</a>)</span> — comprehensive peer-reviewed survey, fundamental principles and open challenges</li>
+<li><span class="citation" data-cites="miller2019explanation">Miller (<a href="#ref-miller2019explanation" role="doc-biblioref">2019</a>)</span> — the social-science basis for what makes an explanation effective</li>
+<li><span class="citation" data-cites="tomsett2018interpretable">Tomsett et al. (<a href="#ref-tomsett2018interpretable" role="doc-biblioref">2018</a>)</span> — the role-based stakeholder taxonomy used above</li>
+<li><span class="citation" data-cites="lipton2018mythos">Lipton (<a href="#ref-lipton2018mythos" role="doc-biblioref">2018</a>)</span> — decomposing “interpretability” into transparency and post-hoc explanation</li>
+<li><span class="citation" data-cites="lundberg2017unified">Lundberg and Lee (<a href="#ref-lundberg2017unified" role="doc-biblioref">2017</a>)</span> — original SHAP paper</li>
+<li><span class="citation" data-cites="ribeiro2016should">Ribeiro et al. (<a href="#ref-ribeiro2016should" role="doc-biblioref">2016</a>)</span> — original LIME paper</li>
+<li><span class="citation" data-cites="slack2020fooling">Slack et al. (<a href="#ref-slack2020fooling" role="doc-biblioref">2020</a>)</span> — adversarial manipulation of SHAP and LIME explanations</li>
+<li><span class="citation" data-cites="xin2025pdppitfalls">Xin et al. (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025</a>)</span> — adversarial manipulation of PD plots to conceal discrimination, validated on real insurance and COMPAS data</li>
+<li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#ref-rudin2019stop" role="doc-biblioref">2019</a>)</span> — argument for using interpretable models in high-stakes decisions, including the COMPAS explanation-fidelity case discussed above</li>
+<li><span class="citation" data-cites="doshi2017towards">Doshi-Velez and Kim (<a href="#ref-doshi2017towards" role="doc-biblioref">2017</a>)</span> — “Towards a rigorous science of interpretable machine learning”</li>
+<li><span class="citation" data-cites="turpin2023language">Turpin et al. (<a href="#ref-turpin2023language" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="templeton2024scaling"><span class="nocase">Templeton et al.</span> (<a href="#ref-templeton2024scaling" role="doc-biblioref">2024</a>)</span> — explainability specifically for large language models: chain-of-thought faithfulness and mechanistic interpretability</li>
+</ul>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-agarwal2021neural" class="csl-entry" role="listitem">
+Agarwal, Rishabh, Levi Melnick, Nicholas Frosst, et al. 2021. <span>“Neural Additive Models: Interpretable Machine Learning with Neural Nets.”</span> <em>Advances in Neural Information Processing Systems</em> 34.
+</div>
+<div id="ref-amnesty2021xenophobic" class="csl-entry" role="listitem">
+Amnesty International. 2021. <em>Xenophobic Machines: Discrimination Through Unregulated Use of Algorithms in the Dutch Childcare Benefits Scandal</em>. Amnesty International. <a href="https://www.amnesty.org/en/documents/eur35/4686/2021/en/">https://www.amnesty.org/en/documents/eur35/4686/2021/en/</a>.
+</div>
+<div id="ref-apley2020visualizing" class="csl-entry" role="listitem">
+Apley, Daniel W, and Jingyu Zhu. 2020. <span>“Visualizing the Effects of Predictor Variables in Black Box Supervised Learning Models.”</span> <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 82 (4): 1059–86.
+</div>
+<div id="ref-asic2026rep838" class="csl-entry" role="listitem">
+Australian Securities and Investments Commission. 2026. <em>Report 838: Road Testing Transparency in Car Insurance Premiums</em>. Australian Securities; Investments Commission. <a href="https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-838-road-testing-transparency-in-car-insurance-premiums">https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-838-road-testing-transparency-in-car-insurance-premiums</a>.
+</div>
+<div id="ref-biran2017explanation" class="csl-entry" role="listitem">
+Biran, Or, and Courtenay Cotton. 2017. <span>“Explanation and Justification in Machine Learning: A Survey.”</span> <em>IJCAI-17 Workshop on Explainable AI (XAI)</em>.
+</div>
+<div id="ref-breiman2001random" class="csl-entry" role="listitem">
+Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1): 5–32.
+</div>
+<div id="ref-doshi2017towards" class="csl-entry" role="listitem">
+Doshi-Velez, Finale, and Been Kim. 2017. <span>“Towards a Rigorous Science of Interpretable Machine Learning.”</span> <em>arXiv Preprint arXiv:1702.08608</em>.
+</div>
+<div id="ref-friedman2001greedy" class="csl-entry" role="listitem">
+Friedman, Jerome H. 2001. <span>“Greedy Function Approximation: A Gradient Boosting Machine.”</span> <em>The Annals of Statistics</em> 29 (5): 1189–232.
+</div>
+<div id="ref-friedman2008predictive" class="csl-entry" role="listitem">
+Friedman, Jerome H., and Bogdan E. Popescu. 2008. <span>“Predictive Learning via Rule Ensembles.”</span> <em>The Annals of Applied Statistics</em> 2 (3): 916–54.
+</div>
+<div id="ref-goldstein2015peeking" class="csl-entry" role="listitem">
+Goldstein, Alex, Adam Kapelner, Justin Bleich, and Emil Pitkin. 2015. <span>“Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation.”</span> <em>Journal of Computational and Graphical Statistics</em> 24 (1): 44–65.
+</div>
+<div id="ref-hastie1990generalized" class="csl-entry" role="listitem">
+Hastie, Trevor J, and Robert J Tibshirani. 1990. <em>Generalized Additive Models</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-huang2026insurersdata" class="csl-entry" role="listitem">
+Huang, Fei. 2026. <span>“Insurers Have a Lot of Data about Us. Where Do They Get It, and How Do They Use It?”</span> The Conversation, August. <a href="https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053">https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053</a>.
+</div>
+<div id="ref-kim2016examples" class="csl-entry" role="listitem">
+Kim, Been, Rajiv Khanna, and Oluwasanmi Koyejo. 2016. <span>“Examples Are Not Enough, Learn to Criticize! Criticism for Interpretability.”</span> <em>Advances in Neural Information Processing Systems</em>.
+</div>
+<div id="ref-lipton2018mythos" class="csl-entry" role="listitem">
+Lipton, Zachary C. 2018. <span>“The Mythos of Model Interpretability.”</span> <em>Communications of the ACM</em> 61 (10): 36–43.
+</div>
+<div id="ref-lundberg2020local" class="csl-entry" role="listitem">
+Lundberg, Scott M, Gabriel Erion, Hugh Chen, et al. 2020. <span>“From Local Explanations to Global Understanding with Explainable AI for Trees.”</span> <em>Nature Machine Intelligence</em> 2 (1): 56–67.
+</div>
+<div id="ref-lundberg2017unified" class="csl-entry" role="listitem">
+Lundberg, Scott M, and Su-In Lee. 2017. <span>“A Unified Approach to Interpreting Model Predictions.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+<div id="ref-miller2019explanation" class="csl-entry" role="listitem">
+Miller, Tim. 2019. <span>“Explanation in Artificial Intelligence: Insights from the Social Sciences.”</span> <em>Artificial Intelligence</em> 267: 1–38.
+</div>
+<div id="ref-molnar2025iml" class="csl-entry" role="listitem">
+Molnar, Christoph. 2025. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3rd ed. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
+</div>
+<div id="ref-mas_feat_2018" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2018. <span>“Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector.”</span> <a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat">https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat</a>.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+National Financial Regulatory Administration (China). 2026. <em>Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors (关于银行业保险业人工智能安全开发应用的指导意见, Jin Fa [2026] No. 8)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1">https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1</a>.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+National People’s Congress (China). 2021. <em>Personal Information Protection Law of the People’s Republic of China (中华人民共和国个人信息保护法)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+<div id="ref-ribeiro2016should" class="csl-entry" role="listitem">
+Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. <span>“Why Should i Trust You?: Explaining the Predictions of Any Classifier.”</span> <em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>, 1135–44.
+</div>
+<div id="ref-rudin2019stop" class="csl-entry" role="listitem">
+Rudin, Cynthia. 2019. <span>“Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead.”</span> <em>Nature Machine Intelligence</em> 1 (5): 206–15.
+</div>
+<div id="ref-rudin2022interpretable" class="csl-entry" role="listitem">
+Rudin, Cynthia, Chaofan Chen, Zhi Chen, Haiyang Huang, Lesia Semenova, and Chudi Zhong. 2022. <span>“Interpretable Machine Learning: Fundamental Principles and 10 Grand Challenges.”</span> <em>Statistics Surveys</em> 16: 1–85.
+</div>
+<div id="ref-slack2020fooling" class="csl-entry" role="listitem">
+Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, and Himabindu Lakkaraju. 2020. <span>“Fooling LIME and SHAP: Adversarial Attacks on Post Hoc Explanation Methods.”</span> <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180–86.
+</div>
+<div id="ref-templeton2024scaling" class="csl-entry" role="listitem">
+<span class="nocase">Templeton, Adly, Tom Conerly, Jonathan Marcus, et al.</span> 2024. <span>“Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet.”</span> <em>Transformer Circuits Thread</em>. <a href="https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html">https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html</a>.
+</div>
+<div id="ref-tomsett2018interpretable" class="csl-entry" role="listitem">
+Tomsett, Richard, Dave Braines, Dan Harborne, Alun Preece, and Supriyo Chakraborty. 2018. <span>“Interpretable to Whom? A Role-Based Model for Analyzing Interpretable Machine Learning Systems.”</span> <em>arXiv Preprint arXiv:1806.07552</em>.
+</div>
+<div id="ref-turpin2023language" class="csl-entry" role="listitem">
+Turpin, Miles, Julian Michael, Ethan Perez, and Samuel R Bowman. 2023. <span>“Language Models Don’t Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting.”</span> <em>Advances in Neural Information Processing Systems</em> 36.
+</div>
+<div id="ref-xin2025pdppitfalls" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
+</div>
+<div id="ref-zhao2021causal" class="csl-entry" role="listitem">
+Zhao, Qingyuan, and Trevor Hastie. 2021. <span>“Causal Interpretations of Black-Box Models.”</span> <em>Journal of Business &amp; Economic Statistics</em> 39 (1): 272–81.
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" class="pagination-link" aria-label="Chapter 3: Fairness Practice">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 3: Fairness Practice</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="pagination-link" aria-label="Chapter 5: Explainability Practice">
+        <span class="nav-page-text">Chapter 5: Explainability Practice</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

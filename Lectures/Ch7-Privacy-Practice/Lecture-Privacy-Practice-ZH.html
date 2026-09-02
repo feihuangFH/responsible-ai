@@ -1956,7 +1956,6 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")

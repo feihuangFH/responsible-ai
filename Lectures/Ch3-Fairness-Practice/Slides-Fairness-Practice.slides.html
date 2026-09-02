@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Fei Huang, UNSW Sydney">
+  <meta name="dcterms.date" content="2026-08-17">
+  <title>Responsible AI: Principles, Governance, and Quantitative Methods – Fairness Practice</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #1f1c1b;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #1f1c1b; } /* Normal */
+    code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+    code span.an { color: #ca60ca; } /* Annotation */
+    code span.at { color: #0057ae; } /* Attribute */
+    code span.bn { color: #b08000; } /* BaseN */
+    code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+    code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #924c9d; } /* Char */
+    code span.cn { color: #aa5500; } /* Constant */
+    code span.co { color: #898887; } /* Comment */
+    code span.cv { color: #0095ff; } /* CommentVar */
+    code span.do { color: #607880; } /* Documentation */
+    code span.dt { color: #0057ae; } /* DataType */
+    code span.dv { color: #b08000; } /* DecVal */
+    code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+    code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+    code span.fl { color: #b08000; } /* Float */
+    code span.fu { color: #644a9b; } /* Function */
+    code span.im { color: #ff5500; } /* Import */
+    code span.in { color: #b08000; } /* Information */
+    code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+    code span.op { color: #ca60ca; } /* Operator */
+    code span.ot { color: #006e28; } /* Other */
+    code span.pp { color: #006e28; } /* Preprocessor */
+    code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+    code span.sc { color: #3daee9; } /* SpecialChar */
+    code span.ss { color: #ff5500; } /* SpecialString */
+    code span.st { color: #bf0303; } /* String */
+    code span.va { color: #0057ae; } /* Variable */
+    code span.vs { color: #bf0303; } /* VerbatimString */
+    code span.wa { color: #bf0303; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-96baaebca6aae0d833d4fea310b664e9.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+  </script>
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Fairness Practice</h1>
+  <p class="subtitle">Slides — Chapter 3</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Fei Huang, UNSW Sydney 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-08-17</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Table of contents</h2>
+<ul>
+<li><a href="#/part-1-from-principle-to-practice" id="/toc-part-1-from-principle-to-practice">Part 1 — From principle to practice</a></li>
+<li><a href="#/part-2-fitting-the-models" id="/toc-part-2-fitting-the-models">Part 2 — Fitting the models</a></li>
+<li><a href="#/part-3-results" id="/toc-part-3-results">Part 3 — Results</a></li>
+<li><a href="#/break-10-min" id="/toc-break-10-min"><em>Break — 10 min</em></a></li>
+<li><a href="#/part-4-premium-redistribution" id="/toc-part-4-premium-redistribution">Part 4 — Premium redistribution</a></li>
+<li><a href="#/part-5-case-study-pretrial-risk-assessment-compas" id="/toc-part-5-case-study-pretrial-risk-assessment-compas">Part 5 — Case study: pretrial risk assessment (COMPAS)</a></li>
+</ul>
+</nav>
+</section>
+<section id="todays-roadmap" class="slide level2 smaller center">
+<h2>Today’s roadmap</h2>
+<p>2-hour session, hands-on, five parts, five discussion breaks</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Part</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00 – 0:15</td>
+<td>From principle to practice: the workflow</td>
+</tr>
+<tr class="even">
+<td>0:15 – 0:40</td>
+<td>Fitting the models (GLM + XGBoost)</td>
+</tr>
+<tr class="odd">
+<td>0:40 – 1:05</td>
+<td>Results: fairness–accuracy trade-off</td>
+</tr>
+<tr class="even">
+<td>1:05 – 1:15</td>
+<td><em>Break</em></td>
+</tr>
+<tr class="odd">
+<td>1:15 – 1:35</td>
+<td>Premium redistribution</td>
+</tr>
+<tr class="even">
+<td>1:35 – 2:00</td>
+<td>Case study: COMPAS classification</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>This is a hands-on chapter. Full R code lives in Lecture-Fairness-Practice.qmd. Bring it up on a second screen if running the code live in class. These slides carry the workflow, key results, and discussion.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="learning-objectives" class="slide level2 center">
+<h2>Learning objectives</h2>
+<ul>
+<li>Operationalise a fairness criterion end-to-end: stage → fit → measure → interpret</li>
+<li>Implement MU, MDP, MCDP, MC (GLM and XGBoost) on real data</li>
+<li>Measure the fairness–accuracy trade-off</li>
+<li>Interpret outcome redistribution across groups</li>
+<li>Apply the same framework to binary classification (COMPAS)</li>
+<li>Apply and evaluate a post-processing correction</li>
+</ul>
+</section>
+<section>
+<section id="part-1-from-principle-to-practice" class="title-slide slide level1 center">
+<h1>Part 1 — From principle to practice</h1>
+
+</section>
+<section id="the-workflow" class="slide level2 center">
+<h2>The workflow</h2>
+<ol type="1">
+<li><strong>Fix the criterion</strong> and the outcome variable (Ch 2, Step 1)</li>
+<li><strong>Choose the intervention stage</strong>, pre/in/post-processing (Ch 2, Step 2)</li>
+<li><strong>Implement and fit</strong>, keeping M0 as baseline</li>
+<li><strong>Measure the trade-off</strong>, fairness metric vs.&nbsp;accuracy metric</li>
+<li><strong>Inspect the redistribution</strong>, who gains, who loses</li>
+</ol>
+<div class="fragment">
+<p><strong>Same sequence, regardless of domain.</strong></p>
+</div>
+</section>
+<section id="the-workflow-visualised" class="slide level2 center">
+<h2>The workflow, visualised</h2>
+
+<img data-src="workflow-flowchart.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<section id="case-study-fair-pricing-for-motor-insurance" class="slide level2 smaller center">
+<h2>Case study: fair pricing for motor insurance</h2>
+<ul>
+<li><strong>100,000</strong> French motor third-party-liability policies</li>
+<li>Response: <strong>pure premium</strong> = frequency × severity</li>
+<li>Protected attribute: <strong>Gender</strong></li>
+<li>Legitimate: Age, Bonus, vehicle group, Density, Value</li>
+<li>Non-legitimate: <strong>InsuranceScore</strong>, a constructed credit-score-style proxy</li>
+</ul>
+<aside class="notes">
+<p>Pure premium is roughly the average expected claims cost per policy. Frequency means how often a policyholder claims, severity means the average cost per claim. Third-party-liability covers damage or injury the policyholder causes to others, not their own vehicle. Bonus is a no-claims discount level, sometimes called bonus-malus, where lower means fewer past claims.</p>
+<p>InsuranceScore stands in for a proxy-rich factor: retains predictive value, may correlate with gender, attracts stricter fairness scrutiny. Also serves a practical purpose. The disparate-impact remover needs continuous inputs, so summarising categorical proxies into one score makes debiasing feasible under MCDP.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-five-models" class="slide level2 center">
+<h2>The five models</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 39%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Criterion</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0</td>
+<td>Baseline</td>
+<td>Full model, includes Gender</td>
+</tr>
+<tr class="even">
+<td>MU</td>
+<td>FTU (Fairness Through Unawareness)</td>
+<td>Gender removed</td>
+</tr>
+<tr class="odd">
+<td>MDP</td>
+<td>Demographic parity</td>
+<td>All predictors debiased</td>
+</tr>
+<tr class="even">
+<td>MCDP</td>
+<td>Conditional DP</td>
+<td>Only InsuranceScore debiased</td>
+</tr>
+<tr class="odd">
+<td>MC</td>
+<td>CPV (Controlling for Protected Variable)</td>
+<td>Full model, average over Gender at scoring</td>
+</tr>
+</tbody>
+</table>
+<p>Each fitted with <strong>GLM</strong> (Poisson frequency + Gamma severity) and <strong>XGBoost</strong>.</p>
+</section>
+<section id="discuss-3-min" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>If your organisation had to deploy <strong>one</strong> of these five designs tomorrow —</p>
+<p><strong>which would you pick, and why?</strong></p>
+</section></section>
+<section>
+<section id="part-2-fitting-the-models" class="title-slide slide level1 center">
+<h1>Part 2 — Fitting the models</h1>
+
+</section>
+<section id="pre-processing-the-disparate-impact-remover" class="slide level2 center">
+<h2>Pre-processing: the disparate-impact remover</h2>
+<p>For MDP and MCDP, adjust continuous predictor distributions so they no longer depend on Gender, preserving overall shape.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>di_data <span class="ot">&lt;-</span> <span class="fu">disparate_impact_remover</span>(</span>
+<span id="cb1-2"><a></a>  <span class="at">data =</span> data_for_di, <span class="at">protected =</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>Gender),</span>
+<span id="cb1-3"><a></a>  <span class="at">features_to_transform =</span> features_to_transform, <span class="at">lambda =</span> <span class="dv">1</span></span>
+<span id="cb1-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong>MDP</strong>: apply to all predictors</li>
+<li><strong>MCDP</strong>: apply only to InsuranceScore</li>
+</ul>
+</section>
+<section id="glm-frequencyseverity-framework" class="slide level2 center">
+<h2>GLM frequency–severity framework</h2>
+<p><span class="math display">\text{Pure Premium} = \text{Claim Frequency} \times \text{Claim Severity}</span></p>
+<ul>
+<li><strong>Frequency</strong>: Poisson GLM, log link, exposure offset</li>
+<li><strong>Severity</strong>: Gamma GLM, log link, claims-only data</li>
+</ul>
+<p>Age entered as a flexible function (<span class="math inline">\text{Age}, \log(\text{Age}), \text{Age}^2, \text{Age}^3, \text{Age}^4</span>).</p>
+<aside class="notes">
+<p>Exposure is the length of time, in days, a policy was active and at risk of a claim, used to normalise claim counts. XGBoost fitted the same way with the same predictor set, count:poisson objective for frequency. All models proportionally scaled so total predicted premium matches GLM MU’s portfolio total (the sum of predicted premiums across all policies). This focuses comparison on redistribution, not portfolio-level differences.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="part-3-results" class="title-slide slide level1 center">
+<h1>Part 3 — Results</h1>
+
+</section>
+<section id="fairness-metrics" class="slide level2 center">
+<h2>Fairness metrics</h2>
+<p><strong>Disparate Impact Ratio</strong> (DIR): <span class="math inline">\dfrac{\mathbb{E}(\hat{Y} \mid X_P = b)}{\mathbb{E}(\hat{Y} \mid X_P = a)}</span></p>
+<ul>
+<li>Close to 1 = similar average premiums across groups</li>
+<li>Four-fifths rule: expect <strong>0.8 – 1.25</strong></li>
+</ul>
+<p><strong>RMSE</strong> (accuracy, lower = better)</p>
+<aside class="notes">
+<p>The Disparate Impact Ratio is how we check demographic parity here, the idea that predicted outcomes should not differ, on average, by protected group.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="fairnessaccuracy-trade-off" class="slide level2 center">
+<h2>Fairness–accuracy trade-off</h2>
+
+<img data-src="fairness-accuracy-plot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><aside class="notes">
+<p>Dashed line = DIR of 1 (most fair). Dotted lines = the four-fifths band. Points further left (lower RMSE) are more accurate. M0 sits well outside the fair band with the worst accuracy. MDP, MCDP, MC all land inside it with only a small accuracy cost. Key finding: MCDP and MC achieve DIR close to 1 with only modest accuracy loss relative to M0.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="reading-the-plot" class="slide level2 center">
+<h2>Reading the plot</h2>
+<ul>
+<li><strong>M0</strong> (red): most accurate, most unfair, above the four-fifths ceiling (DIR 1.36)</li>
+<li><strong>MU</strong> (olive): moves enough to land inside the fair band, but overshoots past DIR = 1 (to 0.92), reversing which gender pays more</li>
+<li><strong>MDP, MCDP, MC</strong>: land inside the fair band, small accuracy cost</li>
+<li>XGBoost (▲) retains most of its edge over GLM (●) at every fairness level</li>
+</ul>
+<div class="fragment">
+<p><strong>The cost of fairness here is real, but small.</strong></p>
+</div>
+</section>
+<section id="discuss-3-min-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>Removing Gender doesn’t just shrink the gender gap in MU. It reverses which gender pays more.</p>
+<p><strong>What does that tell you about unawareness alone?</strong></p>
+</section></section>
+<section id="break-10-min" class="title-slide slide level1 center">
+<h1><em>Break — 10 min</em></h1>
+
+</section>
+
+<section>
+<section id="part-4-premium-redistribution" class="title-slide slide level1 center">
+<h1>Part 4 — Premium redistribution</h1>
+
+</section>
+<section id="who-gains-and-who-loses" class="slide level2 center">
+<h2>Who gains and who loses?</h2>
+<p>Compare each fair model to <strong>MU</strong> (the industry-standard benchmark):</p>
+<p><span class="math display">\text{Relative Premium Difference}_{i} = \frac{\bar{Y}_{\text{model},i} - \bar{Y}_{\text{MU},i}}{\bar{Y}_{\text{MU},i}}</span></p>
+<p>Positive = fair model charges <strong>more</strong> than MU · Negative = charges <strong>less</strong></p>
+</section>
+<section id="premium-redistribution-by-age-and-gender" class="slide level2 center">
+<h2>Premium redistribution by age and gender</h2>
+
+<img data-src="redistribution-plot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="reading-the-plot-1" class="slide level2 center">
+<h2>Reading the plot</h2>
+<ul>
+<li><strong>MDP</strong>: clearest transfer, raising the lower-charging group and lowering the higher-charging group across most ages</li>
+<li><strong>MCDP</strong>: stays closest to MU, legitimate variables untouched, only the proxy is debiased</li>
+<li><strong>MC</strong>: intermediate, reflecting only the gender coefficient in M0</li>
+</ul>
+<div class="fragment">
+<p><strong>The solidarity principle</strong>: stricter criteria imply more cross-subsidy between groups.</p>
+</div>
+</section>
+<section id="discuss-4-min" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (4 min)</h2>
+<p>MDP produces the largest transfer between groups.</p>
+<p><strong>Who would push back hardest against deploying MDP, and what would they say?</strong></p>
+</section></section>
+<section>
+<section id="part-5-case-study-pretrial-risk-assessment-compas" class="title-slide slide level1 center">
+<h1>Part 5 — Case study: pretrial risk assessment (COMPAS)</h1>
+
+</section>
+<section id="the-scenario" class="slide level2 smaller center">
+<h2>The scenario</h2>
+<p>A US county is deciding whether to <strong>renew its contract</strong> for a pretrial risk-assessment tool that helps judges set bail and release conditions.</p>
+<ul>
+<li>Credited with reducing unnecessary pretrial detention</li>
+<li>An independent audit finds it over-flags Black defendants who do <strong>not</strong> reoffend</li>
+<li>The county’s Chief Public Defender must decide: does it meet a defensible fairness standard, and can it be corrected without becoming useless?</li>
+</ul>
+<aside class="notes">
+<p>This mirrors the real ProPublica investigation into the actual COMPAS tool. Civil-rights advocates argue for scrapping it; the vendor and some judges argue it still outperforms unstructured human judgment.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="from-pricing-to-classification" class="slide level2 center">
+<h2>From pricing to classification</h2>
+<p>Everything above is <strong>regression</strong> (continuous cost). This decision is <strong>binary</strong>: release/detain, flag/clear.</p>
+<p>The M0/MU framework applies unchanged. Only the model type and metrics change.</p>
+<ul>
+<li>N = 5,278 defendants (2,103 Caucasian; 3,175 African-American)</li>
+<li>Response: two-year recidivism · Protected attribute: ethnicity</li>
+<li>Base rates already differ sharply: <strong>39.1% vs 52.3%</strong></li>
+</ul>
+<aside class="notes">
+<p>Recidivism means being arrested for a new crime after release. Two-year recidivism here means within two years of release.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="fitting-m0-and-mu" class="slide level2 smaller center">
+<h2>Fitting M0 and MU</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Two_yr_Recidivism <span class="sc">~</span> Number_of_Priors <span class="sc">+</span> Age_Above_FourtyFive <span class="sc">+</span></span>
+<span id="cb2-2"><a></a>            Age_Below_TwentyFive <span class="sc">+</span> Female <span class="sc">+</span> Misdemeanor <span class="sc">+</span> ethnicity,</span>
+<span id="cb2-3"><a></a>          <span class="at">data =</span> compas_data, <span class="at">family =</span> binomial)</span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a>mu <span class="ot">&lt;-</span> <span class="fu">glm</span>(Two_yr_Recidivism <span class="sc">~</span> Number_of_Priors <span class="sc">+</span> Age_Above_FourtyFive <span class="sc">+</span></span>
+<span id="cb2-6"><a></a>            Age_Below_TwentyFive <span class="sc">+</span> Female <span class="sc">+</span> Misdemeanor,</span>
+<span id="cb2-7"><a></a>          <span class="at">data =</span> compas_data, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>M0 includes ethnicity directly. MU removes it, mirroring the real COMPAS tool.</p>
+</section>
+<section id="three-fairness-checks" class="slide level2 smaller center">
+<h2>Three fairness checks</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>M0 disparity ratio</th>
+<th>MU disparity ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Demographic parity</td>
+<td><strong>2.11</strong></td>
+<td><strong>1.94</strong></td>
+</tr>
+<tr class="even">
+<td>Equal opportunity / TPR gap</td>
+<td>1.75</td>
+<td>1.67</td>
+</tr>
+<tr class="odd">
+<td>Predictive rate parity / precision gap</td>
+<td>1.11</td>
+<td>1.15</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Unawareness barely moves anything.</strong> MU costs almost no accuracy (66.5% vs 66.8%). Every disparity ratio survives nearly unchanged.</p>
+</div>
+<aside class="notes">
+<p>A defendant counts as flagged high-risk when the model’s predicted probability of reoffending is above the cutoff, 0.5 here. An African-American defendant who will NOT reoffend is flagged high-risk roughly twice as often as a Caucasian defendant who will not reoffend (FPR: 33.0% vs 17.2% under MU), the same qualitative finding ProPublica reported for the real tool, replicated here on a simple logistic regression.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="why-do-the-three-checks-disagree" class="slide level2 smaller center">
+<h2>Why do the three checks disagree?</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Demographic parity ignores the true outcome. It fully reflects the base-rate gap (39.1% vs 52.3%) <em>plus</em> any model unfairness. Precision conditions on the prediction, partly absorbing that same gap.</p>
+<p><strong>This is Chapter 2’s impossibility result, on real data</strong>: separation and sufficiency can’t both hold when base rates differ. Choosing a criterion is choosing how much of the base-rate difference counts as “unfairness” vs.&nbsp;“signal.”</p>
+</div>
+</div>
+</div>
+</section>
+<section id="discuss-4-min-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (4 min)</h2>
+<p>The three checks disagree sharply on how bad COMPAS’s disparity is.</p>
+<p><strong>If you were a judge deciding whether to use this tool, which check would you trust most, and why?</strong></p>
+</section>
+<section id="post-processing-roc_pivot" class="slide level2 center">
+<h2>Post-processing: <code>roc_pivot()</code></h2>
+<p>This reject-option correction relabels predictions within <code>theta</code> of the cutoff, giving the disadvantaged group’s borderline cases the benefit of the doubt.</p>
+<ul>
+<li>Mechanism: mirrors borderline probabilities across the cutoff (<span class="math inline">p \to 2\cdot\text{cutoff} - p</span>) — a privileged borderline “favourable” case flips to unfavourable; a disadvantaged borderline “unfavourable” case flips to favourable. Confident predictions outside the band are untouched.</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>theta</th>
+<th>Accuracy</th>
+<th>Demographic parity</th>
+<th>TPR gap</th>
+<th>Precision gap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 (MU)</td>
+<td>66.5%</td>
+<td>1.94</td>
+<td>1.67</td>
+<td>1.15</td>
+</tr>
+<tr class="even">
+<td>0.05</td>
+<td>65.7%</td>
+<td>1.13</td>
+<td>1.11</td>
+<td>1.31</td>
+</tr>
+<tr class="odd">
+<td>0.10</td>
+<td>62.8%</td>
+<td>0.63</td>
+<td>0.69</td>
+<td>1.45</td>
+</tr>
+<tr class="even">
+<td>0.20</td>
+<td>56.8%</td>
+<td>0.23</td>
+<td>0.30</td>
+<td>1.73</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reading-the-trade-off" class="slide level2 smaller center">
+<h2>Reading the trade-off</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Pushing demographic parity and the TPR gap toward 1 does <strong>not</strong> leave precision alone — it actively worsens it (1.15 → 1.73). Past theta ≈ 0.10, the correction <strong>overshoots</strong> and reverses the disparity, at a steep accuracy cost.</p>
+<p><strong>No <code>theta</code> satisfies all three checks at once</strong>, because none exists while base rates differ. Post-processing lets you choose where on the curve to sit. It doesn’t let you escape the curve.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="discuss-5-min-wrap-up" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (5 min) — wrap-up</h2>
+<p>Post-processing dials fairness up on <strong>one</strong> criterion, always at the cost of another.</p>
+<p><strong>If you had to pick a theta for a real deployed system, how would you decide where to stop?</strong></p>
+</section>
+<section id="summary" class="slide level2 center">
+<h2>Summary</h2>
+<ul>
+<li>All four designs work on real data with modest accuracy loss, and the same workflow transfers to classification (COMPAS)</li>
+<li>Model choice should follow the <strong>regulatory criterion</strong>, not modelling convenience</li>
+<li>MDP: strongest group fairness, largest redistribution. MCDP: more targeted</li>
+<li>Unawareness (MU) is rarely sufficient alone</li>
+<li>Post-processing can hit one criterion, never all three at once</li>
+</ul>
+</section>
+<section id="recommended-reading" class="slide level2 center">
+<h2>Recommended reading</h2>
+<ul>
+<li><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#/next-class" role="doc-biblioref" onclick="">2024</a>)</span>, the five model designs and trade-off analysis</li>
+<li><span class="citation" data-cites="barocas2023fairml">Barocas et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2023</a>)</span>, Ch 2–3 (Classification, Regression), fairmlbook.org</li>
+<li><span class="citation" data-cites="kozodoi2021fairness">Kozodoi and V. Varga (<a href="#/next-class" role="doc-biblioref" onclick="">2021</a>)</span>; <span class="citation" data-cites="kamiran2012decision">Kamiran et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2012</a>)</span>, the R packages and methods used today</li>
+</ul>
+</section>
+<section id="next-class" class="slide level2 smaller scrollable">
+<h2>Next class</h2>
+<p><strong>Chapter 4 — Explainability Principles</strong></p>
+<p>Bring one prediction from today’s models you’d want explained to a policyholder.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-barocas2023fairml" class="csl-entry" role="listitem">
+Barocas, Solon, Moritz Hardt, and Arvind Narayanan. 2023. <em>Fairness and Machine Learning: Limitations and Opportunities</em>. MIT Press. <a href="https://fairmlbook.org">https://fairmlbook.org</a>.
+</div>
+<div id="ref-kamiran2012decision" class="csl-entry" role="listitem">
+Kamiran, Faisal, Asim Karim, and Xiangliang Zhang. 2012. <span>“Decision Theory for Discrimination-Aware Classification.”</span> <em>2012 IEEE 12th International Conference on Data Mining</em>, 924–29.
+</div>
+<div id="ref-kozodoi2021fairness" class="csl-entry" role="listitem">
+Kozodoi, Nikita, and Tibor V. Varga. 2021. <em>Fairness: Algorithmic Fairness Metrics</em>. <a href="https://CRAN.R-project.org/package=fairness">https://CRAN.R-project.org/package=fairness</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../../unsw-logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

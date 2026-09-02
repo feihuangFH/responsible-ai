@@ -2886,7 +2886,6 @@ Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")

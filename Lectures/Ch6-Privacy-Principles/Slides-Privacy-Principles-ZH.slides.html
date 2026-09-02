@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="黄斐,新南威尔士大学">
+  <meta name="dcterms.date" content="2026-08-27">
+  <title>Responsible AI: Principles, Governance, and Quantitative Methods – 隐私原则</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-96baaebca6aae0d833d4fea310b664e9.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+  </script>
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">隐私原则</h1>
+  <p class="subtitle">幻灯片 — 第六章</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+黄斐,新南威尔士大学 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-08-27</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">目录</h2>
+<ul>
+<li><a href="#/第一部分什么是隐私" id="/toc-第一部分什么是隐私">第一部分——什么是隐私?</a></li>
+<li><a href="#/第二部分监管框架" id="/toc-第二部分监管框架">第二部分——监管框架</a></li>
+<li><a href="#/第三部分理论框架" id="/toc-第三部分理论框架">第三部分——理论框架</a></li>
+<li><a href="#/休息10分钟" id="/toc-休息10分钟"><em>休息——10分钟</em></a></li>
+<li><a href="#/第四部分案例研究联网车辆" id="/toc-第四部分案例研究联网车辆">第四部分——案例研究:联网车辆</a></li>
+<li><a href="#/第五部分隐私增强技术" id="/toc-第五部分隐私增强技术">第五部分——隐私增强技术</a></li>
+<li><a href="#/总结" id="/toc-总结">总结</a></li>
+</ul>
+</nav>
+</section>
+<section id="今日安排" class="slide level2 smaller center">
+<h2>今日安排</h2>
+<p>约2小时15分钟课程,五个部分,五次讨论环节</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>部分</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00 – 0:20</td>
+<td>什么是隐私?</td>
+</tr>
+<tr class="even">
+<td>0:20 – 0:40</td>
+<td>监管框架</td>
+</tr>
+<tr class="odd">
+<td>0:40 – 1:00</td>
+<td>理论框架:Solove 与场景一致性</td>
+</tr>
+<tr class="even">
+<td>1:00 – 1:10</td>
+<td><em>休息</em></td>
+</tr>
+<tr class="odd">
+<td>1:10 – 1:35</td>
+<td>案例研究:联网车辆与 GM OnStar</td>
+</tr>
+<tr class="even">
+<td>1:35 – 2:05</td>
+<td>隐私增强技术</td>
+</tr>
+<tr class="odd">
+<td>2:05 – 2:15</td>
+<td>DPIA、大语言模型、小结</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>完整内容见 Lecture-Privacy-Principles.qmd。OnStar 案例研究是本章核心,应留出充足时间,因为它是此前所有内容最清晰的例证。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="学习目标" class="slide level2 smaller center">
+<h2>学习目标</h2>
+<ul>
+<li>界定隐私,并将其与保密性和安全性区分开来</li>
+<li>说明主要监管框架的核心原则</li>
+<li>应用 Solove 的分类体系和 Nissenbaum 的场景一致性理论</li>
+<li>以车载远程信息技术(从追踪车辆如何、何时、在何处被驾驶的设备或应用中收集的数据)为案例研究,识别联网设备带来的隐私张力</li>
+</ul>
+</section>
+<section>
+<section id="第一部分什么是隐私" class="title-slide slide level1 center">
+<h1>第一部分——什么是隐私?</h1>
+
+</section>
+<section id="三个相关概念" class="slide level2 smaller center">
+<h2>三个相关概念</h2>
+<p><strong>你会如何定义这三者?它们之间有何区别?</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+概念
+</th>
+<th>
+含义
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>隐私</strong>
+</td>
+<td>
+<span class="fragment">个人对自身信息加以控制的权利</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>保密性</strong>
+</td>
+<td>
+<span class="fragment">数据持有方未经授权不得披露的义务</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>安全性</strong>
+</td>
+<td>
+<span class="fragment">保护数据的技术/组织措施</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>隐私是权利。保密性是它所产生的义务。安全性则是落实这一权利的机制。</strong></p>
+</div>
+</section>
+<section id="为什么其重要性超越合规本身" class="slide level2 center">
+<h2>为什么其重要性超越合规本身</h2>
+<p>隐私使<strong>自主性</strong>成为可能,使人们能够在不受监视、画像或不情愿披露左右的情况下作出选择。</p>
+<ul>
+<li><strong>歧视</strong>:健康/基因数据用于保险定价,行为数据用于筛选候选人</li>
+<li><strong>寒蝉效应</strong>:患者回避就医,申请人隐瞒过往经历</li>
+<li><strong>权力不对称</strong>:机构掌握海量数据,个人却几乎不了解其使用方式</li>
+<li><strong>声誉损害</strong>:敏感记录被披露</li>
+</ul>
+</section>
+<section id="界定隐私" class="slide level2 center">
+<h2>界定隐私</h2>
+<p><strong>Westin(1967)</strong>:“个人……自行决定何时、如何以及在多大程度上将关于自身的信息传达给他人的主张。”</p>
+<div class="fragment">
+<p><strong>关键含义</strong>:为<em>某一目的</em>披露 ≠ 同意用于<em>另一目的</em>。</p>
+</div>
+<div class="case-study" title="案例研究:一次披露,被挪作多用">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>案例研究:一次披露,被挪作多用</strong></p>
+</div>
+<div class="callout-content">
+<p>一位申请人为承保目的(保险公司据以评估风险并设定价格的过程)披露了一项慢性病。同一保险公司的营销部门后来用它将该申请人排除在一项健康促进活动之外。这里没有发生新的披露。同一事实只是被反复挪用于从未获得同意的目的。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="敏感数据与个人数据" class="slide level2 smaller center">
+<h2>敏感数据与个人数据</h2>
+<p><strong>每一类别,你能在答案揭晓前先举出一个例子吗?</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+类别
+</th>
+<th>
+例子
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>个人数据</strong>
+</td>
+<td>
+<span class="fragment">姓名、地址、出生日期、车辆登记信息</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>敏感数据</strong>
+</td>
+<td>
+<span class="fragment">健康、基因、生物识别、种族、宗教、性取向</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>衍生/推断数据</strong>
+</td>
+<td>
+<span class="fragment">风险评分、行为画像、倾向性评分</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>衍生数据正日益引发争议。</strong> 从未被直接披露,却能间接揭示敏感属性。</p>
+</div>
+</section>
+<section id="讨论3分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>想一想某处存在的一项关于你的<strong>衍生/推断数据</strong>,例如一项风险评分或一份推荐画像。</p>
+<p><strong>你是否曾明确披露过它所揭示的信息?</strong></p>
+</section></section>
+<section>
+<section id="第二部分监管框架" class="title-slide slide level1 center">
+<h1>第二部分——监管框架</h1>
+
+</section>
+<section id="gdpr六项核心原则第5条" class="slide level2 smaller center">
+<h2>GDPR:六项核心原则(第5条)</h2>
+<p>欧盟《通用数据保护条例》(General Data Protection Regulation,GDPR)为所有个人数据处理活动设定了六项原则:</p>
+<ul>
+<li>合法性、公平性、透明度</li>
+<li>目的限制</li>
+<li>数据最小化</li>
+<li>准确性</li>
+<li>存储限制</li>
+<li>完整性与保密性</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>注记</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>第22条</strong>:除非已同意、为履行合同所必需,或经法律授权,否则有权不受完全基于自动化处理、且对你产生重大影响的决策约束。</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>逐条讲解,每条配一个保险行业的具体例子:</p>
+<p><strong>合法性、公平性、透明度</strong>:保险公司处理数据须有真实的法律依据(同意、履行合同所必需,或正当利益),处理过程即便在技术上合法也不能暗中对个人不公平,并且保险公司必须用通俗语言说明发生了什么,而不是把它埋藏在冗长的条款细则之中。</p>
+<p><strong>目的限制</strong>:为核保而收集的数据,不能在没有另行法律依据的情况下被悄悄挪用于营销或转售。后面即将讲到的 GM OnStar 案例,正是这一原则失效的典型:本为“驾驶指导”而收集的数据,最终影响了保险保费。</p>
+<p><strong>数据最小化</strong>:只收集实现既定目的实际所需的字段。一家为车险定价的保险公司,并不需要客户的完整浏览记录,即便这类记录恰好与理赔有相关性。</p>
+<p><strong>准确性</strong>:保持数据准确、及时更新,并允许个人更正可能影响到对其决策的错误信息,例如一条错误的理赔记录不应悄无声息地跟随某人转移到新的保险公司。</p>
+<p><strong>存储限制</strong>:一旦数据不再为既定目的所需,就不应“以防万一”而继续保留,例如保单失效后仍无限期保留车载远程信息行程数据。</p>
+<p><strong>完整性与保密性</strong>:技术与组织层面的安全措施(加密、访问控制),确保一旦发生数据泄露,不会暴露前五项原则本应保护的内容。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="gdpr关键权利" class="slide level2 center">
+<h2>GDPR:关键权利</h2>
+<ul>
+<li><strong>访问权</strong>(第15条),要求获取所持有的全部数据</li>
+<li><strong>更正权</strong>(第16条),更正不准确之处</li>
+<li><strong>删除权</strong>(第17条),“被遗忘权”</li>
+<li><strong>可携权</strong>(第20条),机器可读格式导出</li>
+<li><strong>自动化决策解释权</strong>(第13–15条及第22条),理解自动化决策的逻辑</li>
+</ul>
+</section>
+<section id="澳大利亚隐私原则" class="slide level2 smaller center">
+<h2>澳大利亚隐私原则</h2>
+<p>13项澳大利亚隐私原则(Australian Privacy Principles,APP),适用于营业额超过300万澳元的机构,以及不论规模大小的特定类别机构(医疗服务提供者、征信机构、从事个人信息交易的企业)。大多数保险公司之所以受此约束,是因为营业额门槛,而非保险行业专属的豁免:</p>
+<ul>
+<li>APP 1:公开透明的政策 · APP 3:仅收集必要信息</li>
+<li>APP 5:收集时告知 · APP 6:仅用于首要/相关目的</li>
+<li>APP 8:跨境保护对等性 · APP 11:安全性</li>
+<li>APP 12–13:访问权与更正权</li>
+</ul>
+<aside class="notes">
+<p>共13项 APP;本页只列出了与保险数据实践最相关的几项,并非全部。逐条讲解,每条配一个具体例子:</p>
+<p><strong>APP 1</strong>(公开透明的管理):保险公司须有一份公开可查的隐私政策,说明其收集了什么、为何收集,而不能仅仅是一份内部文件。</p>
+<p><strong>APP 3</strong>(主动征集的个人信息的收集):只收集为实现保险公司职能所合理必需的个人信息,例如,一份纯车险保单若无正当理由,就不应收集健康数据。</p>
+<p><strong>APP 5</strong>(收集告知):在收集个人信息之时或之前,告知个人所收集的内容及原因,通常通过申请表上的收集声明来实现。</p>
+<p><strong>APP 6</strong>(使用或披露):为核保收集的数据,只能用于该首要目的,或客户能合理预期到的、与之直接相关的次要目的,不能在没有新的法律依据的情况下出售给营销合作方。</p>
+<p><strong>APP 8</strong>(跨境披露):在将数据发送至境外之前,例如发送给境外的理赔处理供应商,保险公司必须采取合理措施,确保境外接收方不会违反 APP。</p>
+<p><strong>APP 11</strong>(安全性):采取合理措施防范数据被滥用、干扰、丢失及未授权访问,相当于 GDPR 中的完整性/保密性原则在澳大利亚的对应版本。</p>
+<p><strong>APP 12–13</strong>(访问权与更正权):保单持有人可以查询保险公司持有关于自己的哪些信息,并要求更正错误,通常须在30天内完成。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="中国新加坡与美国" class="slide level2 smaller center">
+<h2>中国、新加坡与美国</h2>
+<ul>
+<li><strong>中国《个人信息保护法》</strong>(Personal Information Protection Law,PIPL,2021年):中国版 GDPR。第24条要求自动化决策保持透明、结果公平,并赋予解释权与拒绝仅自动化决策的权利 <span class="citation" data-cites="china_pipl_2021">(<a href="#/下节课" role="doc-biblioref" onclick="">全国人民代表大会 2021年</a>)</span></li>
+<li><strong>新加坡《个人数据保护法》</strong>(Personal Data Protection Act,PDPA,2012年,2020年修订):十项义务,包括同意、访问/更正、数据泄露通知(3日内通知新加坡个人数据保护委员会 PDPC)<span class="citation" data-cites="singapore_pdpa_2012">(<a href="#/下节课" role="doc-biblioref" onclick="">Personal Data Protection Commission Singapore 2012年</a>)</span>;无独立解释权,转而通过第一章的自愿性人工智能治理框架处理</li>
+<li><strong>美国</strong>:无联邦隐私立法。加州《消费者隐私法》及其扩展版本《隐私权法》(California Consumer Privacy Act / California Privacy Rights Act,CCPA/CPRA)赋予知情、删除、更正、拒绝共享等权利 <span class="citation" data-cites="california_cpra_2023">(<a href="#/下节课" role="doc-biblioref" onclick="">California Privacy Protection Agency 2023年</a>)</span>;若现有分行业法律(《保险信息与隐私保护法》IIPPA、《格雷姆-里奇-比利雷法》GLBA)未覆盖某项实践,保险公司并非自动豁免</li>
+</ul>
+</section>
+<section id="隐私设计" class="slide level2 center">
+<h2>隐私设计</h2>
+<p>从一开始就内嵌,而非事后补充。GDPR 第25条赋予其法律效力;以下七项原则是 Cavoukian 更早提出的框架,相关但不同:</p>
+<p>主动 · 默认设置 · 内嵌于设计 · 完整功能 · 端到端安全 · 可见性 · 以用户为中心</p>
+<div class="fragment">
+<p><strong>在实践中</strong>:从第一天起就将隐私纳入流程,无论是承保模型、招聘算法,还是健康评分模型。</p>
+</div>
+</section></section>
+<section>
+<section id="第三部分理论框架" class="title-slide slide level1 center">
+<h1>第三部分——理论框架</h1>
+
+</section>
+<section id="solove-的分类体系" class="slide level2 smaller center">
+<h2>Solove 的分类体系</h2>
+<p>依侵害发生方式分为四大类。<strong>每一类,你觉得对应的危害是什么?</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+类别
+</th>
+<th>
+例子
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>收集</strong>
+</td>
+<td>
+<span class="fragment">监视、讯问</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>处理</strong>
+</td>
+<td>
+<span class="fragment">聚合、识别、二次使用、排斥</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>传播</strong>
+</td>
+<td>
+<span class="fragment">违反保密义务、披露、曝光</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>侵扰</strong>
+</td>
+<td>
+<span class="fragment">侵扰、决策干预</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>聚合往往是对人工智能而言后果最严重的一类。</strong> 各自无害的数据点组合成一份任何单一数据都不会揭示的画像。</p>
+</div>
+<aside class="notes">
+<p>逐类讲解,每类配一个具体例子:</p>
+<p><strong>收集</strong>:发生在数据被收集那一刻的危害。<em>监视</em> 是持续的观察或监控,例如车载远程信息技术持续追踪每一次行程,而不仅仅是与某次理赔相关的行程。<em>讯问</em> 是向个人施压迫使其披露信息,例如理赔专员要求提供远超该理赔实际所需的健康细节。</p>
+<p><strong>处理</strong>:危害在于已收集数据被如何处理。<em>聚合</em> 将各自无害的数据点组合成一份具有揭示性的画像,这是对人工智能而言后果最严重的一类,因为模型本质上就是聚合机器。<em>识别</em> 将匿名数据重新关联回某个具体的人。<em>二次使用</em> 将数据挪用于收集时目的之外的用途,这正是接下来将要讲到的 OnStar 案例中发生的情况。<em>排斥</em> 是剥夺个人对自身数据的知情权或控制权,例如保险公司拒绝告知客户其风险评分是由哪些因素驱动的。</p>
+<p><strong>传播</strong>:危害来自信息被进一步扩散。<em>违反保密义务</em> 打破了明确作出的不予披露的承诺。<em>披露</em> 揭露真实但敏感的事实。<em>曝光</em> 揭露令人尴尬的信息,即便在法律意义上并不属于敏感信息,例如一份公开的理赔记录暴露了一段婚外情。</p>
+<p><strong>侵扰</strong>:这类危害完全不需要任何信息传递。<em>侵扰</em> 打扰个人的独处或安宁,例如数据泄露后未经请求的联系。<em>决策干预</em> 是政府或企业插手个人的私人决策,例如一款健康应用的数据影响了保险公司对某人生活方式选择的看法。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="场景一致性" class="slide level2 smaller center">
+<h2>场景一致性</h2>
+<p>隐私的核心并非保密。而是<strong>恰当的信息流动</strong> <span class="citation" data-cites="nissenbaum2004privacy">(<a href="#/下节课" role="doc-biblioref" onclick="">Nissenbaum 2004年</a>)</span>。</p>
+<p>五个参数界定了某一场景的规范:</p>
+<ol type="1">
+<li><strong>数据主体</strong>,信息关于谁</li>
+<li><strong>发送方</strong>,谁提供了信息</li>
+<li><strong>接收方</strong>,谁接收了信息</li>
+<li><strong>信息类型</strong></li>
+<li><strong>传输原则</strong>,在何种条件下</li>
+</ol>
+<p><strong>试一试</strong>:一位保单持有人为获取报价,向保险公司分享了自己的驾驶数据。该保险公司的营销团队后来使用这些数据,向这位保单持有人推销其他产品。这里的每个参数分别是什么?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+参数
+</th>
+<th>
+在这一场景中
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>数据主体</strong>
+</td>
+<td>
+<span class="fragment">该保单持有人</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>发送方</strong>
+</td>
+<td>
+<span class="fragment">该保单持有人(通过保险公司的应用)</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>接收方</strong>
+</td>
+<td>
+<span class="fragment">保险公司,用于定价,而非用于营销</span>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>信息类型</strong>
+</td>
+<td>
+<span class="fragment">驾驶行为数据</span>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>传输原则</strong>
+</td>
+<td>
+<span class="fragment">用于获取报价,而非用于内部交叉销售</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>这里没有任何信息被披露给新的一方。违规完全出在第五个参数发生了改变。</strong></p>
+</div>
+<div class="fragment">
+<p><strong>共享这份数据的人,是否会预期它以这种方式流动?这就是检验标准。</strong></p>
+</div>
+</section>
+<section id="讨论4分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>将场景一致性检验应用于<strong>你</strong>曾遇到过的一次数据共享实践。</p>
+<p><strong>你是否曾预期它会以那种方式流动?</strong></p>
+</section></section>
+<section id="休息10分钟" class="title-slide slide level1 center">
+<h1><em>休息——10分钟</em></h1>
+
+</section>
+
+<section>
+<section id="第四部分案例研究联网车辆" class="title-slide slide level1 center">
+<h1>第四部分——案例研究:联网车辆</h1>
+
+</section>
+<section id="从-ubi-车载远程信息技术到联网车辆" class="slide level2 smaller center">
+<h2>从 UBI 车载远程信息技术到联网车辆</h2>
+<p><strong>传统 UBI</strong>(dongle,一种小型插入式设备,或应用程序):客户自愿加入;数据流向为客户 → 保险公司;可见,尽管有侵扰性。</p>
+<p><strong>联网车辆</strong> 彻底颠倒了这一局面:</p>
+<ul>
+<li>车辆本身就是一个联网传感器,<strong>无需选择加入即可产生数据</strong></li>
+<li>每隔数秒的 GPS 位置、车内麦克风、座椅占用情况、充电模式</li>
+<li>数据流向:车辆 → <strong>OEM 云端</strong>(OEM = 原始设备制造商,即汽车制造商)→ 经纪商、保险公司、广告商</li>
+<li><strong>驾驶员不再是发送方——制造商才是</strong></li>
+</ul>
+<aside class="notes">
+<p>Mozilla 2023年的《隐私未包含》研究发现,所审查的全部25个主要汽车品牌都获得了隐私警告,这是历来最差的类别。84% 与第三方共享数据。76% 声称可以出售数据。仅有2个品牌允许完全删除。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="案例研究gm-onstar" class="slide level2 smaller center">
+<h2>案例研究:GM OnStar</h2>
+<div class="case-study" title="事件经过,2022–2026年">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>事件经过,2022–2026年</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>GM 让数百万驾驶员加入 OnStar Smart Driver 项目,向客户宣传为一款提供其自身驾驶“个性化反馈”的工具</li>
+<li>客户通过在车辆信息娱乐屏幕上勾选一个选项完成注册;数据共享条款则被埋藏在细则条文中</li>
+<li>GM 将行程级数据(包括急刹车、加速与超速事件)<strong>出售</strong>给数据经纪商 <strong>LexisNexis Risk Solutions</strong></li>
+<li>LexisNexis 将这些数据打包为<strong>驾驶行为评分</strong>,并转卖给包括 Allstate、Liberty Mutual、State Farm 在内的保险公司</li>
+<li>客户因自己从不知晓存在、也从未同意分享给保险公司的评分而遭遇<strong>保费上涨</strong></li>
+</ol>
+<div class="fragment">
+<ol start="6" type="1">
+<li>《纽约时报》/The Markup 调查报道后,GM 于2024年3月将该项目<strong>关闭</strong></li>
+<li>美国联邦贸易委员会(Federal Trade Commission,FTC)于2025年1月提出和解方案,2026年1月最终确定了一项为期20年的同意令:此后收集或分享此类数据前须获得明确同意,并有五年内禁止与征信机构共享地理位置/驾驶数据的规定 <span class="citation" data-cites="ftc2026gmonstar">(<a href="#/下节课" role="doc-biblioref" onclick="">Federal Trade Commission 2026年</a>)</span></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>规模:遍及全美的数百万辆汽车。这并非一个边缘个案,而是上一张幻灯片所讨论的”车企到保险公司”数据管道真实发生的、有据可查的最清晰案例。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="讨论4分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>在接下来两张幻灯片的正式分析之前:</p>
+<p><strong>基于你对隐私、保密性与同意的理解,这里究竟出了什么问题?在哪一步本可以被叫停?</strong></p>
+</section>
+<section id="场景一致性每一项参数都被违反" class="slide level2 smaller center">
+<h2>场景一致性:每一项参数都被违反</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>客户所理解的</th>
+<th>实际发生的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>发送方</td>
+<td>我(通过应用)</td>
+<td>GM</td>
+</tr>
+<tr class="even">
+<td>接收方</td>
+<td>GM,用于指导</td>
+<td>LexisNexis → 保险公司</td>
+</tr>
+<tr class="odd">
+<td>信息类型</td>
+<td>反馈评分</td>
+<td>原始行程级记录</td>
+</tr>
+<tr class="even">
+<td>传输原则</td>
+<td>非用于转售</td>
+<td>被商业出售</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Solove</strong>:监视(每一次行程)→ 聚合(评分)→ 二次使用 + 违反保密义务(出售)→ 排斥(无法查看)→ 决策干预(保费上涨,未作解释)。</p>
+</div>
+</section>
+<section id="讨论4分钟-2" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>OnStar 案例中每一项参数都被违反——但从技术上讲,这并不构成一次数据<strong>泄露</strong>。</p>
+<p><strong>这对基于安全性的隐私保护的局限性说明了什么?</strong></p>
+</section>
+<section id="监管应对" class="slide level2 center">
+<h2>监管应对</h2>
+<p><strong>欧盟数据法案(2024年)</strong>:用户可实时访问联网产品数据,并可将其导向自己选择的第三方,打破 OEM 垄断。</p>
+<p><strong>澳大利亚</strong>:目前尚无同等规定。ACCC(澳大利亚竞争监管机构)已将 OEM 数据访问标记为一项竞争关切。</p>
+<p><strong>美国</strong>:FTC(联邦贸易委员会,美国的消费者保护监管机构)于2024年对 GM/OnStar 展开调查,并于2026年1月最终确定了一项为期20年的同意令。目前仍无全面的联邦法律。</p>
+</section></section>
+<section>
+<section id="第五部分隐私增强技术" class="title-slide slide level1 center">
+<h1>第五部分——隐私增强技术</h1>
+
+</section>
+<section id="重新识别风险" class="slide level2 center">
+<h2>重新识别风险</h2>
+<p><em>看似</em>已匿名化的数据,往往并非如此。</p>
+<ul>
+<li><strong>Sweeney(2000)</strong><span class="citation" data-cites="sweeney2000simple">(<a href="#/下节课" role="doc-biblioref" onclick="">Sweeney 2000年</a>)</span>:仅凭出生日期 + 性别 + 5位邮编,就能唯一识别出87%的美国人</li>
+<li><strong>Narayanan 和 Shmatikov(2008)</strong><span class="citation" data-cites="narayanan2008robust">(<a href="#/下节课" role="doc-biblioref" onclick="">Narayanan 和 Shmatikov 2008年</a>)</span>:通过公开的 IMDb 影评,重新识别出了“匿名”的 Netflix 评分数据</li>
+</ul>
+<div class="fragment">
+<p>在“汇总”数据中,年龄 + 邮编 + 理赔日期往往足以重新识别出一位保险保单持有人(持有保险保单的人)。</p>
+</div>
+</section>
+<section id="k-匿名性" class="slide level2 smaller center">
+<h2>k-匿名性</h2>
+<p><strong>为何被提出</strong>:Sweeney(1997年)仅用邮编 + 出生日期 + 性别,再结合花20美元购得的选民登记数据,便从马萨诸塞州“匿名化”的健康数据中重新识别出了州长韦尔德的住院记录 <span class="citation" data-cites="sweeney2002kanonymity">(<a href="#/下节课" role="doc-biblioref" onclick="">Sweeney 2002年</a>)</span>。</p>
+<p><span class="math display">|\{r' \in D : r'[Q] = r[Q]\}| \geq k</span></p>
+<p>每条记录在准标识符(年龄、邮编、性别等)上,都与至少 <span class="math inline">k-1</span> 条其他记录无法区分。</p>
+<div class="fragment">
+<p><strong>例子</strong>:三位保单持有人共享同一邮编、同一年龄段与同一性别,便构成一个规模为3的等价类,满足3-匿名性。</p>
+</div>
+<aside class="notes">
+<p>完整故事:马萨诸塞州团体保险委员会发布了“去标识化”的住院记录。Sweeney 花20美元买下坎布里奇市的选民登记记录,按邮编+出生日期+性别进行关联。与州长同一天出生的选民只有6人,其中男性只有3人,住在他所在邮编区域的只有1人。她将州长本人的健康记录寄给了州长办公室以证明这一点。她随后将这一弱点形式化为了 k-匿名性。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="扩展方法l-多样性与t-接近性" class="slide level2 smaller center">
+<h2>扩展方法:l-多样性与t-接近性</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 31%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>技术</th>
+<th>应对的问题</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>l-多样性</strong> <span class="citation" data-cites="machanavajjhala2007ldiversity">(<a href="#/下节课" role="doc-biblioref" onclick="">Machanavajjhala 等 2007年</a>)</span></td>
+<td>同质性攻击:全部 <span class="math inline">k</span> 条记录共享相同的敏感取值</td>
+<td>等价类须包含至少 <span class="math inline">l</span> 个不同的敏感取值</td>
+</tr>
+<tr class="even">
+<td><strong>t-接近性</strong> <span class="citation" data-cites="li2007tcloseness">(<a href="#/下节课" role="doc-biblioref" onclick="">Li 等 2007年</a>)</span></td>
+<td>偏态攻击:敏感取值聚集于分布的一端</td>
+<td>等价类内敏感取值的分布,须与总体分布的距离在 <span class="math inline">t</span> 以内</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>例子</strong>:五位保单持有人都被标记为欺诈,满足 k-匿名性,却不满足 l-多样性(同质性攻击)。若其中包含两种取值,但90%为欺诈、而整个保单组合中这一比例仅为5%,该等价类即便在技术上已满足多样性,依然不满足 t-接近性(偏态攻击)。</p>
+</div>
+</section>
+<section id="差分隐私为何需要" class="slide level2 smaller center">
+<h2>差分隐私:为何需要</h2>
+<p><strong>2018年</strong>:美国人口普查局的研究人员仅凭已发布的汇总统计表,再结合一个商业数据库,便重建并重新识别出了约六分之一美国人的2010年人口普查记录 <span class="citation" data-cites="abowd2018census">(<a href="#/下节课" role="doc-biblioref" onclick="">Abowd 2018年</a>)</span>。传统的披露规避方法(包括 k-匿名性一类的方法)均未能抵御这种攻击。</p>
+<p><span class="math display">\Pr[\mathcal{M}(D) \in S] \leq e^{\varepsilon} \cdot \Pr[\mathcal{M}(D') \in S]</span></p>
+<p>无论攻击者已掌握多少信息,某个人的记录是否被纳入其中,几乎都不会改变输出结果。</p>
+<aside class="notes">
+<p>Dwork 等人(2006年)正是针对这一类问题提出了差分隐私:提供一种无论攻击者已掌握何种辅助信息都始终成立的保证,而非试图预先设想每一种可能的外部数据集。人口普查局在2020年人口普查中采用了差分隐私,这至今仍是该技术规模最大的实际部署。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="拉普拉斯机制" class="slide level2 smaller center">
+<h2>拉普拉斯机制</h2>
+<p><span class="math display">\mathcal{M}(D) = f(D) + \text{Lap}\!\left(\frac{\Delta f}{\varepsilon}\right)</span></p>
+<p><span class="math inline">\Delta f</span> = 单个个体的记录可能造成的最坏情况波动。<span class="math inline">\varepsilon</span> = 隐私预算,数值越小,噪声越多,隐私性越强。</p>
+<div class="fragment">
+<p><strong>例子</strong>:真实平均理赔金额为8,000美元,<span class="math inline">\Delta f = 2{,}000</span> 美元,<span class="math inline">\varepsilon = 1</span>。发布的数值可能是7,650美元,也可能是9,400美元,取决于这次随机抽样的结果。</p>
+</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">\varepsilon</span></th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\leq 1</span></td>
+<td>隐私性强,输出较嘈杂</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">1</span>–<span class="math inline">10</span></td>
+<td>隐私性适中,实践中常用</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">&gt; 10</span></td>
+<td>隐私性弱,接近真实值</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="合成数据" class="slide level2 smaller center">
+<h2>合成数据</h2>
+<p><strong>为何被提出</strong>:美国国税局统计所得司自21世纪初以来,一直发布完全合成的公用税务申报文件 <span class="citation" data-cites="irs2018synthetic">(<a href="#/下节课" role="doc-biblioref" onclick="">Internal Revenue Service, Statistics of Income Division 2018年</a>)</span>,生成方式是序贯回归,这与第七章中 <code>synthpop</code> 所用的正是同一类方法。</p>
+<p>在真实数据上拟合一个生成模型,再从该模型中抽样得到全新的人工记录。</p>
+<div class="fragment">
+<p><strong>例子</strong>:一条”34岁保单持有人、中等人口密度邮区、Bonus 等级20、无理赔记录”的合成记录,是根据模型所学到的关系生成的,而非复制自任何真实保单持有人。</p>
+</div>
+<p><strong>平衡</strong>:保真度(统计上有用)与隐私性(无法被重新识别)之间的权衡。若无 DP 训练,关键风险在于对稀有或极端记录的记忆。</p>
+</section>
+<section id="三类技术" class="slide level2 smaller center">
+<h2>三类技术</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>技术</th>
+<th>保证</th>
+<th>保留记录</th>
+<th>建模适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>k-匿名性</strong></td>
+<td>无</td>
+<td>是(泛化后)</td>
+<td>效用降低</td>
+</tr>
+<tr class="even">
+<td><strong>差分隐私</strong></td>
+<td>有(<span class="math inline">\varepsilon</span>-DP)</td>
+<td>否(加入噪声)</td>
+<td>统计与机器学习</td>
+</tr>
+<tr class="odd">
+<td><strong>合成数据</strong></td>
+<td>无(除非经 DP 训练)</td>
+<td>否(全新记录)</td>
+<td>是,若保真度高</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>本页是对前面详细讲解过的三种技术的汇总。使用时应侧重对照三者的权衡取舍,而非重新讲解其原理。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="讨论3分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>假设你必须为外部研究发布一个数据集。</p>
+<p><strong>你会首先考虑这三类隐私增强技术中的哪一种?你愿意为此放弃什么?</strong></p>
+</section>
+<section id="联邦学习一个不同的问题" class="slide level2 smaller center">
+<h2>联邦学习:一个不同的问题</h2>
+<ul>
+<li>上述三种技术都假设数据会先被集中起来,哪怕只是短暂的,然后才施加保护</li>
+<li><strong>联邦学习</strong>:原始数据始终不离开持有它的设备或机构</li>
+<li>中央服务器发送一个共享模型 → 每个参与方在本地训练 → 仅将模型<strong>更新</strong>(权重,而非记录本身)发回并汇聚</li>
+</ul>
+<div class="fragment">
+<p><strong>例子</strong>:三家保险公司联合训练一个欺诈检测模型,各自将理赔数据保留在本机构内部,于夜间本地训练,仅将更新后的权重(而非任何记录)发回,汇聚进入次日的共享模型。</p>
+</div>
+<aside class="notes">
+<p>局限:模型更新本身仍可能泄露信息(梯度反演攻击),因此联邦学习常与差分隐私或安全聚合结合使用。协调多个参与方进行训练,在操作上比集中式训练更困难。它保护的是数据的所在位置,而非数据的内容本身。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="案例研究微众银行-fate" class="slide level2 smaller center">
+<h2>案例研究:微众银行 FATE</h2>
+<div class="case-study" title="一次真实的生产部署,发生在银行业">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>一次真实的生产部署,发生在银行业</strong></p>
+</div>
+<div class="callout-content">
+<p>微众银行(腾讯旗下的中国数字银行)构建了 <strong>FATE</strong>,一个开源联邦学习平台,已于2019年捐赠给 Linux 基金会,并用它构建了一个联邦信用评分模型。此后,微众银行牵头了中国联邦机器学习的国家标准制定工作 <span class="citation" data-cites="liu2021fate">(<a href="#/下节课" role="doc-biblioref" onclick="">Liu 等 2021年</a>)</span>。</p>
+</div>
+</div>
+</div>
+</div>
+<p>一个与之对应的保险业应用场景,例如多家保险公司联合训练一个欺诈检测模型,目前仍主要停留在研究与试点阶段——尚无与之相当的、有据可查的生产部署案例。</p>
+</section>
+<section id="讨论3分钟-2" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p><strong>这对保险业而言为何重要?通过这种方式联合训练一个共享模型,多家保险公司能获得哪些各自单独训练都无法获得的东西?又是什么阻止了它们干脆直接共享原始数据?</strong></p>
+</section></section>
+<section>
+<section id="总结" class="title-slide slide level1 center">
+<h1>总结</h1>
+
+</section>
+<section id="dpia流程" class="slide level2 smaller center">
+<h2>DPIA:流程</h2>
+<p><strong>隐私影响评估</strong>(Data Protection Impact Assessment,DPIA;在澳大利亚称为 PIA,Privacy Impact Assessment),在部署新的数据系统前进行的一套结构化风险审查。</p>
+<ol type="1">
+<li><strong>识别</strong>,梳理数据流</li>
+<li><strong>评估</strong>,依据义务评估风险</li>
+<li><strong>建议</strong>,提出控制措施</li>
+<li><strong>响应</strong>,落实并记录剩余风险</li>
+</ol>
+<p>GDPR 第35条要求,对高风险、大规模或系统性处理进行 DPIA,而大多数重大人工智能应用都符合这一条件。</p>
+<div class="fragment">
+<p><strong>应用于一款新的 UBI 车载远程信息应用</strong>:识别(GPS 定位、刹车事件,从供应商流向保险公司,再可能流向第三方)、评估(位置数据暴露家庭/工作地点;同样的 OnStar 模式可能重演)、建议(用行程汇总数据取代原始 GPS 轨迹、写入目的限制条款、对外共享前应用 k-匿名性)、响应(记录剩余的重新识别风险,并获得签字确认)。</p>
+</div>
+</section>
+<section id="大语言模型的隐私问题" class="slide level2 smaller center">
+<h2>大语言模型的隐私问题</h2>
+<p>大语言模型带来了一种表格型隐私增强技术并未针对性设计的失效模式。<strong>模型本身</strong>能够记忆并复现训练数据 <span class="citation" data-cites="carlini2021extracting nasr2023scalable">(<a href="#/下节课" role="doc-biblioref" onclick="">Carlini 等 2021年</a>; <a href="#/下节课" role="doc-biblioref" onclick="">Nasr 等 2023年</a>)</span>。</p>
+<div class="fragment">
+<p><strong>一次真实的数据泄露,而非仅是一项研究发现</strong>:2023年3月,ChatGPT 所使用的 Redis 代码库中的一个漏洞,让部分用户能看到其他用户的对话标题,并使约1.2%在某个9小时窗口期内活跃的 ChatGPT Plus 订阅用户的支付信息(姓名、邮箱、账单地址、部分卡号)遭到暴露 <span class="citation" data-cites="openai2023marchoutage">(<a href="#/下节课" role="doc-biblioref" onclick="">OpenAI 2023年</a>)</span>。</p>
+</div>
+<div class="fragment">
+<p>意大利数据保护机构(Garante)曾暂停 ChatGPT 处理意大利用户数据(2023年),理由除这起事件外,还包括缺乏法律依据与透明度 <span class="citation" data-cites="garante2023chatgpt">(<a href="#/下节课" role="doc-biblioref" onclick="">Garante per la protezione dei dati personali 2023年</a>)</span>。</p>
+</div>
+<div class="fragment">
+<p><strong>每一个大语言模型工作流程都有两个问题</strong>:该模型是否可能泄露其训练数据?更紧迫的是,<em>这条提示词</em>的数据在服务提供方那里会发生什么?</p>
+</div>
+<div class="fragment">
+<p><strong>三星对第二个问题深有体会</strong>:2023年三次独立事件中,工程师将专有源代码、会议记录与机密测试数据输入 ChatGPT,事后三星全面禁止员工使用该工具 <span class="citation" data-cites="forbes2023samsung">(<a href="#/下节课" role="doc-biblioref" onclick="">Ray 2023年</a>)</span>。</p>
+</div>
+</section>
+<section id="讨论5分钟总结" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(5分钟)——总结</h2>
+<p>假设你的机构开始为客户服务使用第三方大语言模型 API。</p>
+<p><strong>在将真实客户数据输入提示词之前,你首先希望得到解答的隐私问题是什么?</strong></p>
+</section>
+<section id="小结核心原则" class="slide level2 center">
+<h2>小结:核心原则</h2>
+<p>合法性 · 目的限制 · 数据最小化 · 透明度 · 准确性 · 安全性 · 问责制</p>
+<p>均对应具体实践:确定法律依据、不擅自挪用目的、只收集所需数据、以通俗语言解释、保持数据准确、加以保护、记录你的决策依据。</p>
+</section>
+<section id="推荐阅读" class="slide level2 center">
+<h2>推荐阅读</h2>
+<ul>
+<li><span class="citation" data-cites="solove2006taxonomy">Solove (<a href="#/下节课" role="doc-biblioref" onclick="">2006年</a>)</span>; <span class="citation" data-cites="nissenbaum2004privacy">Nissenbaum (<a href="#/下节课" role="doc-biblioref" onclick="">2004年</a>)</span>,两大理论框架</li>
+<li><span class="citation" data-cites="gdpr2016regulation">(<a href="#/下节课" role="doc-biblioref" onclick="">Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) 2016年</a>)</span>; <span class="citation" data-cites="oaic2023apps">Office of the Australian Information Commissioner (<a href="#/下节课" role="doc-biblioref" onclick="">2023年</a>)</span>,监管文本</li>
+<li><span class="citation" data-cites="carlini2021extracting">Carlini 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span>; <span class="citation" data-cites="nasr2023scalable">Nasr 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2023年</a>)</span>,大语言模型特有的隐私风险</li>
+</ul>
+</section>
+<section id="下节课" class="slide level2 smaller scrollable">
+<h2>下节课</h2>
+<p><strong>第七章——隐私实践</strong></p>
+<p>请携带安装了 R 的笔记本电脑。我们将把 k-匿名性、差分隐私和合成数据生成应用于真实的保险微观数据。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-abowd2018census" class="csl-entry" role="listitem">
+Abowd, John M. 2018年. <span>《The U.S. Census Bureau Adopts Differential Privacy》</span>. <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 2867.
+</div>
+<div id="ref-california_cpra_2023" class="csl-entry" role="listitem">
+California Privacy Protection Agency. 2023年. <em>California Privacy Rights Act (amending the California Consumer Privacy Act)</em>. <a href="https://cppa.ca.gov/regulations/consumer_privacy_act.html">https://cppa.ca.gov/regulations/consumer_privacy_act.html</a>.
+</div>
+<div id="ref-carlini2021extracting" class="csl-entry" role="listitem">
+Carlini, Nicholas, Florian Tramèr, Eric Wallace, 等. 2021年. <span>《Extracting training data from large language models》</span>. <em>30th USENIX Security Symposium</em>, 2633～50.
+</div>
+<div id="ref-ftc2026gmonstar" class="csl-entry" role="listitem">
+Federal Trade Commission. 2026年. <span>《FTC Finalizes Order Settling Allegations that GM and OnStar Collected and Sold Geolocation Data Without Consumers’ Informed Consent》</span>. <a href="https://www.ftc.gov/news-events/news/press-releases/2026/01/ftc-finalizes-order-settling-allegations-gm-onstar-collected-sold-geolocation-data-without-consumers">https://www.ftc.gov/news-events/news/press-releases/2026/01/ftc-finalizes-order-settling-allegations-gm-onstar-collected-sold-geolocation-data-without-consumers</a>.
+</div>
+<div id="ref-garante2023chatgpt" class="csl-entry" role="listitem">
+Garante per la protezione dei dati personali. 2023年. <em>Provvedimento del 30 marzo 2023 [9870832]: Limitazione provvisoria del trattamento dei dati di ChatGPT</em>. <a href="https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9870832">https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9870832</a>.
+</div>
+<div id="ref-irs2018synthetic" class="csl-entry" role="listitem">
+Internal Revenue Service, Statistics of Income Division. 2018年. <em>Creating Homogeneous Synthetic Individual Tax Files for Public Use</em>. Internal Revenue Service. <a href="https://www.irs.gov/pub/irs-soi/18rpsynthindtaxfiles.pdf">https://www.irs.gov/pub/irs-soi/18rpsynthindtaxfiles.pdf</a>.
+</div>
+<div id="ref-li2007tcloseness" class="csl-entry" role="listitem">
+Li, Ninghui, Tiancheng Li, 和 Suresh Venkatasubramanian. 2007年. <span>《t-Closeness: Privacy Beyond k-Anonymity and l-Diversity》</span>. <em>Proceedings of the 23rd IEEE International Conference on Data Engineering</em>, 106～15.
+</div>
+<div id="ref-liu2021fate" class="csl-entry" role="listitem">
+Liu, Yang, Tao Fan, Tianjian Chen, Qian Xu, 和 Qiang Yang. 2021年. <span>《FATE: An Industrial Grade Platform for Collaborative Learning With Data Protection》</span>. <em>Journal of Machine Learning Research</em> 22 (226): 1～6.
+</div>
+<div id="ref-machanavajjhala2007ldiversity" class="csl-entry" role="listitem">
+Machanavajjhala, Ashwin, Daniel Kifer, Johannes Gehrke, 和 Muthuramakrishnan Venkitasubramaniam. 2007年. <span>《<span class="math inline">\ell</span>-diversity: Privacy beyond k-anonymity》</span>. <em>ACM Transactions on Knowledge Discovery from Data</em> 1: 3.
+</div>
+<div id="ref-narayanan2008robust" class="csl-entry" role="listitem">
+Narayanan, Arvind, 和 Vitaly Shmatikov. 2008年. <span>《Robust De-anonymization of Large Sparse Datasets》</span>. <em>Proceedings of the 2008 IEEE Symposium on Security and Privacy</em>, 111～25. <a href="https://doi.org/10.1109/SP.2008.33">https://doi.org/10.1109/SP.2008.33</a>.
+</div>
+<div id="ref-nasr2023scalable" class="csl-entry" role="listitem">
+Nasr, Milad, Nicholas Carlini, Jonathan Hayase, 等. 2023年. <span>《Scalable extraction of training data from (production) language models》</span>. <em>arXiv preprint arXiv:2311.17035</em>.
+</div>
+<div id="ref-nissenbaum2004privacy" class="csl-entry" role="listitem">
+Nissenbaum, Helen. 2004年. <span>《Privacy as contextual integrity》</span>. <em>Washington Law Review</em> 79 (1): 119～57.
+</div>
+<div id="ref-oaic2023apps" class="csl-entry" role="listitem">
+Office of the Australian Information Commissioner. 2023年. <span>《Australian Privacy Principles》</span>. <a href="https://www.oaic.gov.au/privacy/australian-privacy-principles">https://www.oaic.gov.au/privacy/australian-privacy-principles</a>.
+</div>
+<div id="ref-openai2023marchoutage" class="csl-entry" role="listitem">
+OpenAI. 2023年. <span>《March 20 ChatGPT outage: Here’s what happened》</span>. 三月. <a href="https://openai.com/index/march-20-chatgpt-outage/">https://openai.com/index/march-20-chatgpt-outage/</a>.
+</div>
+<div id="ref-singapore_pdpa_2012" class="csl-entry" role="listitem">
+Personal Data Protection Commission Singapore. 2012年. <em>Personal Data Protection Act 2012</em>. <a href="https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act">https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act</a>.
+</div>
+<div id="ref-forbes2023samsung" class="csl-entry" role="listitem">
+Ray, Siladitya. 2023年. <span>《Samsung Bans ChatGPT Among Employees After Sensitive Code Leak》</span>. Forbes, 五月. <a href="https://www.forbes.com/sites/siladityaray/2023/05/02/samsung-bans-chatgpt-and-other-chatbots-for-employees-after-sensitive-code-leak/">https://www.forbes.com/sites/siladityaray/2023/05/02/samsung-bans-chatgpt-and-other-chatbots-for-employees-after-sensitive-code-leak/</a>.
+</div>
+<div id="ref-gdpr2016regulation" class="csl-entry" role="listitem">
+Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) (2016年).
+</div>
+<div id="ref-solove2006taxonomy" class="csl-entry" role="listitem">
+Solove, Daniel J. 2006年. <span>《A taxonomy of privacy》</span>. <em>University of Pennsylvania Law Review</em> 154 (3): 477～564.
+</div>
+<div id="ref-sweeney2000simple" class="csl-entry" role="listitem">
+Sweeney, Latanya. 2000年. <em>Simple Demographics Often Identify People Uniquely</em>. Data Privacy Working Paper 3. Carnegie Mellon University.
+</div>
+<div id="ref-sweeney2002kanonymity" class="csl-entry" role="listitem">
+Sweeney, Latanya. 2002年. <span>《k-Anonymity: A Model for Protecting Privacy》</span>. <em>International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems</em> 10 (5): 557～70.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+全国人民代表大会. 2021年. <em>中华人民共和国个人信息保护法(Personal Information Protection Law of the People’s Republic of China)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "已复制");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "已复制");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

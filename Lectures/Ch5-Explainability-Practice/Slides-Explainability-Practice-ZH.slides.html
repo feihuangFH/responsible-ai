@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="黄斐,新南威尔士大学">
+  <meta name="dcterms.date" content="2026-08-24">
+  <title>Responsible AI: Principles, Governance, and Quantitative Methods – 可解释性实践</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-96baaebca6aae0d833d4fea310b664e9.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+  </script>
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">可解释性实践</h1>
+  <p class="subtitle">幻灯片 — 第五章</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+黄斐,新南威尔士大学 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-08-24</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">目录</h2>
+<ul>
+<li><a href="#/动机" id="/toc-动机">动机</a></li>
+<li><a href="#/第一部分环境准备" id="/toc-第一部分环境准备">第一部分——环境准备</a></li>
+<li><a href="#/第二部分特征重要性" id="/toc-第二部分特征重要性">第二部分——特征重要性</a></li>
+<li><a href="#/第三部分主效应pdp-与-ale" id="/toc-第三部分主效应pdp-与-ale">第三部分——主效应:PDP 与 ALE</a></li>
+<li><a href="#/休息10分钟" id="/toc-休息10分钟"><em>休息——10分钟</em></a></li>
+<li><a href="#/第四部分shap全局与局部" id="/toc-第四部分shap全局与局部">第四部分——SHAP:全局与局部</a></li>
+<li><a href="#/第五部分交互效应" id="/toc-第五部分交互效应">第五部分——交互效应</a></li>
+</ul>
+</nav>
+</section>
+<section id="今日安排" class="slide level2 smaller center">
+<h2>今日安排</h2>
+<p>约2小时课程,实操为主,五个部分,五次讨论环节</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>部分</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00 – 0:10</td>
+<td>动机:为何需要可解释性,监管背景</td>
+</tr>
+<tr class="even">
+<td>0:10 – 0:25</td>
+<td>环境准备、工作流程与案例研究</td>
+</tr>
+<tr class="odd">
+<td>0:25 – 0:50</td>
+<td>特征重要性</td>
+</tr>
+<tr class="even">
+<td>0:50 – 1:15</td>
+<td>主效应、PDP 与 ALE</td>
+</tr>
+<tr class="odd">
+<td>1:15 – 1:25</td>
+<td><em>休息</em></td>
+</tr>
+<tr class="even">
+<td>1:25 – 1:55</td>
+<td>SHAP,全局与局部</td>
+</tr>
+<tr class="odd">
+<td>1:55 – 2:10</td>
+<td>交互效应与小结</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>完整的 Python 演示见 Lecture-Explainability-Practice.qmd。现场编程演示时,建议在第二块屏幕上打开该文件。这些幻灯片承载工作流程、关键图表与讨论。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="学习目标" class="slide level2 smaller center">
+<h2>学习目标</h2>
+<ul>
+<li>端到端地将事后可解释性付诸实践:重要性 → PDP/ALE → SHAP → 交互效应</li>
+<li>解读全局变量重要性及其局限</li>
+<li>使用 PDP 和 ALE 观察预测变量与预测结果之间的关系</li>
+<li>从全局和单次预测两个层面解读 SHAP 值</li>
+<li>使用 H统计量和 SHAP 交互值检测交互效应</li>
+</ul>
+</section>
+<section>
+<section id="动机" class="title-slide slide level1 center">
+<h1>动机</h1>
+
+</section>
+<section id="讨论2分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(2分钟)</h2>
+<p>人工智能在各行各业(包括保险业)的应用日益广泛,由此带来了复杂<strong>黑箱模型</strong>的广泛使用。</p>
+<p><strong>这一转变带来了哪些益处,又潜藏着哪些风险?</strong></p>
+</section>
+<section id="人工智能的益处与风险" class="slide level2 center">
+<h2>人工智能的益处与风险</h2>
+<ul>
+<li><strong>益处</strong>:提升效率与准确性</li>
+<li><strong>风险</strong>:缺乏透明性与可解释性</li>
+</ul>
+<aside class="notes">
+<p>改编自黄斐《为何你不应轻信机器学习中的解释:对部分依赖图的对抗性攻击》(2024年全澳精算师峰会),与 Xi Xin、Giles Hooker 合作完成——正是第四章 PDP 操纵案例研究所依据的同一篇论文。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="我们为何需要解释" class="slide level2 smaller center">
+<h2>我们为何需要解释?</h2>
+<p><strong>在展示答案前:你会如何回答?</strong></p>
+<div class="fragment">
+<ol type="1">
+<li><strong>透明性与可解释性</strong>:向消费者、监管机构与管理者说明模型如何作出决策,建立信任
+<ul>
+<li>理解特征重要性</li>
+<li>理解输入与输出之间的关系(主效应)</li>
+<li>识别并可视化交互效应</li>
+<li>回答”为什么”,而不只是”是什么”——因果关系</li>
+</ul></li>
+<li><strong>公平性</strong>:避免歧视与偏见</li>
+<li><strong>隐私</strong>:确保敏感信息受到保护</li>
+<li><strong>模型验证与稳健性检查</strong></li>
+</ol>
+</div>
+</section>
+<section id="可解释性的监管背景" class="slide level2 smaller center">
+<h2>可解释性的监管背景</h2>
+<p>可解释性、可说明性与透明性,是各类人工智能原则性文件中反复出现的要求:</p>
+<ul>
+<li>斯坦福以人为本人工智能研究院(HAI):于2022年1月提交白皮书,支持白宫科技政策办公室(OSTP)制定人工智能权利法案</li>
+<li>澳大利亚人工智能伦理原则</li>
+<li>欧盟《通用数据保护条例》(GDPR)<span class="citation" data-cites="gdpr2016regulation">(<a href="#/下节课" role="doc-biblioref" onclick="">Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) 2016年</a>)</span>:赋予”<strong>解释权</strong>”
+<ul>
+<li>这项权利在 GDPR 下是否真正存在,本身即存在争议 <span class="citation" data-cites="wachter2017right bordt2022posthoc">(<a href="#/下节课" role="doc-biblioref" onclick="">Wachter 等 2017年</a>; <a href="#/下节课" role="doc-biblioref" onclick="">Bordt 等 2022年</a>)</span></li>
+</ul></li>
+<li>中国《个人信息保护法》第24条 <span class="citation" data-cites="china_pipl_2021">(<a href="#/下节课" role="doc-biblioref" onclick="">National People’s Congress (China) 2021年</a>)</span>:要求自动化决策保持透明、结果公平,并同样赋予解释权</li>
+</ul>
+</section>
+<section id="保险监管实例naic" class="slide level2 smaller center">
+<h2>保险监管实例:NAIC</h2>
+<ul>
+<li>美国全国保险监理官协会(NAIC)2022年《预测模型白皮书》<span class="citation" data-cites="naic2022predictivemodels">(<a href="#/下节课" role="doc-biblioref" onclick="">National Association of Insurance Commissioners 2022年</a>)</span> 将费率备案审查范围从广义线性模型(GLM)扩展到基于树的模型(随机森林、梯度提升)</li>
+<li>该白皮书 B.3.d 条要求保险公司:
+<ul>
+<li><em>获取描述每个预测变量与目标变量之间关系的图表</em></li>
+<li><em>就所观察到的关系给出合理的解释</em></li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>这正是本章 PDP/ALE 部分所回应的那类检查要求;而正如第四章的案例研究所示,一个被操纵过的 PD 图恰恰可以在不真正修复歧视性模型的情况下通过这项检查。NAIC 现行的《模型审查手册》<a href="本章后文亦有引用"><span class="citation" data-cites="naic2025modelreview">National Association of Insurance Commissioners (<span>2025年</span>)</span></a>取代了这份2022年白皮书,但保留了相同的底层要求。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="解释方法的全貌" class="slide level2 smaller center">
+<h2>解释方法的全貌</h2>
+<div class="fragment">
+<p><strong>(部分)可解释、透明的模型</strong></p>
+<ul>
+<li>线性模型(LM)、广义线性模型(GLM)、广义可加模型(GAM)、决策树(CART)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>全局、与模型无关的方法</strong></p>
+<ul>
+<li>PD 图、ALE 图、特征交互(H统计量)、功能分解、置换特征重要性</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>局部、与模型无关的方法</strong></p>
+<ul>
+<li>个体条件期望(ICE)曲线、局部代理模型(LIME)、SHAP、反事实解释、范围规则(锚点法)</li>
+</ul>
+</div>
+<aside class="notes">
+<p>分类体系取自 Molnar <span class="citation" data-cites="molnar2025iml">(<a href="#/下节课" role="doc-biblioref" onclick="">Molnar 2025年</a>)</span>。可解释模型是第四章的内容。本章将系统讲解全局与局部这两类与模型无关方法中的大部分:置换重要性、PDP/ALE 与 SHAP,这些也是在保险实务中最为成熟的部分。LIME、反事实解释与锚点法遵循相同的与模型无关逻辑,但本课程不作详细讲解。讲解每一类别后可稍作停顿,请学生举例或联系他们已知的方法,再展示下一类别。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="第一部分环境准备" class="title-slide slide level1 center">
+<h1>第一部分——环境准备</h1>
+
+</section>
+<section id="工作流程" class="slide level2 center">
+<h2>工作流程</h2>
+<ol type="1">
+<li><strong>拟合一个准确的模型。</strong> 可解释性方法用于描述,而非修复</li>
+<li><strong>检查全局重要性。</strong> 哪些预测变量总体上驱动着模型?</li>
+<li><strong>检查主效应。</strong> PDP 与 ALE,每种关系的形状</li>
+<li><strong>检查单次预测。</strong> 局部 SHAP</li>
+<li><strong>检查交互效应。</strong> 可加性图景在哪里失效?</li>
+<li><strong>验证并沟通</strong></li>
+</ol>
+<div class="fragment">
+<p><strong>无论哪个领域、哪种表格型模型,步骤都相同。</strong></p>
+</div>
+</section>
+<section id="案例研究保险定价" class="slide level2 smaller center">
+<h2>案例研究:保险定价</h2>
+<ul>
+<li><strong>100,000</strong>份法国车险第三方责任险(TPL)保单(2009–2010年),<code>pg15training</code></li>
+<li>XGBoost 模型:理赔<strong>频率</strong>、理赔<strong>严重程度</strong>、<strong>纯保费</strong>(Tweedie)</li>
+<li>预测变量:年龄、bonus-malus、车辆类型/价值、职业、密度等</li>
+</ul>
+<aside class="notes">
+<p>XGBoost 是一种梯度提升算法:一组决策树的集成,每棵新树都在纠正此前树所犯的错误。理赔频率 = 按保单每年计,理赔发生的频繁程度。理赔严重程度 = 每次理赔的平均成本。纯保费 = 频率乘以严重程度,即每份保单的预期理赔成本。Tweedie 分布可以一步直接对纯保费建模,因为它能够处理精确零值(无理赔)与正金额的混合结构。Bonus-malus = 一种无赔款折扣/加费评分,在 Age/Bonus 幻灯片中有更详细的介绍。</p>
+<p>保险行业的解释工具箱和监管期望(NAIC 模型审查、SOA 指引)异常成熟,但这一工作流程适用于任何用于高风险决策的表格型机器学习模型:信用评分、招聘、医疗风险。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="讨论3分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>这一工作流程是:拟合 → 全局重要性 → 主效应 → 局部解释 → 交互效应 → 验证/沟通。</p>
+<p><strong>在截止日期的压力下,哪一步最常被跳过?风险是什么?</strong></p>
+</section></section>
+<section>
+<section id="第二部分特征重要性" class="title-slide slide level1 center">
+<h1>第二部分——特征重要性</h1>
+
+</section>
+<section id="xgboost-内置重要性" class="slide level2 center">
+<h2>XGBoost 内置重要性</h2>
+
+<img data-src="img/built-in-feature-importance-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
+<p>权重(Weight)= 分裂次数,增益(Gain)= 目标函数改进量,覆盖度(Cover)= 受影响的观测值数量。我们使用增益,因为它与模型拟合度的关系最为直接。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="分组重要性一个陷阱" class="slide level2 center">
+<h2>分组重要性——一个陷阱</h2>
+
+<img data-src="img/built-in-feature-importance-output-2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><div class="fragment">
+<p><strong>SubGroup2 占据主导地位,部分是一种统计假象。</strong> 类别众多 → 分裂点众多 → 总增益被夸大。分组之后,Bonus、Age、Density 反而显得<em>不那么</em>重要,尽管其各自编码特征的单独增益值很大。</p>
+</div>
+</section>
+<section id="置换特征重要性" class="slide level2 center">
+<h2>置换特征重要性</h2>
+
+<img data-src="img/permutation-feature-importance-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><p>模型无关(对任何模型类型都以同样方式起作用)。打乱某一列,衡量性能下降幅度,无需树结构信息 <span class="citation" data-cites="breiman2001random">(<a href="#/下节课" role="doc-biblioref" onclick="">Breiman 2001年</a>)</span>。</p>
+</section>
+<section id="讨论4分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>内置增益显示 SubGroup2 占据主导,但这部分是类别数量所致的统计假象。</p>
+<p><strong>如果在截止日期前你只有时间使用</strong>一种<strong>重要性方法,你会更信任哪一种?为什么?</strong></p>
+</section></section>
+<section>
+<section id="第三部分主效应pdp-与-ale" class="title-slide slide level1 center">
+<h1>第三部分——主效应:PDP 与 ALE</h1>
+
+</section>
+<section id="agepdp-与-ale" class="slide level2 center">
+<h2>Age:PDP 与 ALE</h2>
+
+<img data-src="img/pdp-ale-age-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><div class="fragment">
+<p>强烈的非线性效应。非常年轻的驾驶员 → 预测频率高得多,随后急剧下降至约30岁,此后趋于稳定。<strong>PDP 与 ALE 高度一致</strong>。这一效应是稳健的,并非与其他预测变量相关性所致的假象。</p>
+</div>
+<aside class="notes">
+<p>PDP = 部分依赖图:当某一预测变量变化、而其余变量保持在其观测值时的平均预测结果。ALE = 累积局部效应图:思路类似,但基于观测数据内的局部变化构建,因此在预测变量相关时更为稳健。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bonuspdp-与-ale" class="slide level2 center">
+<h2>Bonus:PDP 与 ALE</h2>
+
+<img data-src="img/pdp-ale-bonus-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><div class="fragment">
+<p>近似单调。较低的 Bonus(折扣,良好记录)→ 较低的预测频率。同样,<strong>PDP 与 ALE 高度一致</strong>。模型已经学到了预期的关系。</p>
+</div>
+</section></section>
+<section id="休息10分钟" class="title-slide slide level1 center">
+<h1><em>休息——10分钟</em></h1>
+
+</section>
+
+<section>
+<section id="第四部分shap全局与局部" class="title-slide slide level1 center">
+<h1>第四部分——SHAP:全局与局部</h1>
+
+</section>
+<section id="为什么用-shap" class="slide level2 center">
+<h2>为什么用 SHAP?</h2>
+<p>PDP/ALE 描述的是<strong>平均</strong>效应。而监管机构或保单持有人问的是:<em>为什么<strong>这一份</strong>保单要缴纳<strong>这一具体</strong>保费?</em></p>
+<div class="fragment">
+<p>SHAP 同时兼顾二者:业务组合层面的排序(与 PDP/ALE 一致),<strong>以及</strong>将单次预测分解为各特征贡献。</p>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>重要</strong></p>
+</div>
+<div class="callout-content">
+<p>解释 ≠ 可信度。SHAP 和 LIME 都可能被对抗性操纵,以掩盖歧视性行为 <span class="citation" data-cites="slack2020fooling">(<a href="#/下节课" role="doc-biblioref" onclick="">Slack 等 2020年</a>)</span>。应将解释与验证和公平性评估结合使用,而非将其本身视为证据。</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>SHAP = Shapley 加性解释,基于合作博弈论中的 Shapley 值。核心思路:将每个特征视为对预测结果(“共享收益”)有贡献的一名“参与者”,并依据各特征在其可能被加入的每一种顺序下的平均贡献,公平地分配这一功劳。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="shap-全局分组重要性" class="slide level2 center">
+<h2>SHAP 全局:分组重要性</h2>
+
+<img data-src="img/shap-grouped-importance-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><p>依据平均绝对 SHAP 值对变量排序,思路上类似于 PFI(置换特征重要性),基于实际贡献幅度。</p>
+</section>
+<section id="shap-全局蜂群图" class="slide level2 center">
+<h2>SHAP 全局:蜂群图</h2>
+
+<img data-src="img/shap-beeswarm-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><p>每个点 = 一份保单 × 一个特征。位置 = SHAP 值(将预测结果推高/拉低),颜色 = 特征取值。</p>
+</section>
+<section id="讨论3分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>蜂群图同时展示了幅度<strong>和</strong>方向,涵盖每一份保单。</p>
+<p><strong>它能告诉你哪些简单条形图重要性排序无法告诉你的信息?</strong></p>
+</section>
+<section id="shap-局部某一保单的保费" class="slide level2 center">
+<h2>SHAP 局部:某一保单的保费</h2>
+
+<img data-src="img/shap-local-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><aside class="notes">
+<p>一份预测纯保费接近第90百分位的保单。最大的正向贡献:Age = 20、Density = 236.4。最大的负向贡献:Group1 = 5、Bonus = -10。数值处于对数尺度(Tweedie 模型),因此需取指数以还原纯保费。与全局排序大体一致。Age、Bonus、Density 此前已被标记为具有影响力的变量。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="fragment">
+<p><strong>这正是面向客户解释的天然格式。</strong> 例如:“您的保费较高,主要是因为 X 和 Y。”</p>
+</div>
+</section>
+<section id="局部假设分析what-if-analysis" class="slide level2 center">
+<h2>局部假设分析(What-if Analysis)</h2>
+<blockquote>
+<p>如果这份保单的某一特征发生变化,会发生什么?</p>
+</blockquote>
+<p>从所选保单出发,一次只改变一个预测变量,其余变量则固定为连续变量的中位数、或分类变量的最常见类别。</p>
+<div class="fragment">
+<p>与<strong>反事实解释</strong>相关(寻找会使预测结果翻转或显著改变的特征变化),但更为简单。它不是一种最优或现实的组合变化,只是一种一次一变量的敏感性检验。</p>
+</div>
+</section></section>
+<section>
+<section id="第五部分交互效应" class="title-slide slide level1 center">
+<h1>第五部分——交互效应</h1>
+
+</section>
+<section id="为什么交互效应重要" class="slide level2 center">
+<h2>为什么交互效应重要</h2>
+<p>目前为止的一切都<strong>独立</strong>处理每个变量的效应。但树模型经常会自动捕捉交互效应。例如,年轻驾驶员的保费加成,可能因较高的 Bonus 等级而被放大。</p>
+<div class="fragment">
+<p><strong>忽略交互效应,可能使单变量摘要具有误导性。</strong></p>
+</div>
+</section>
+<section id="friedman-h统计量" class="slide level2 center">
+<h2>Friedman H统计量</h2>
+
+<img data-src="img/h-statistic-interactions-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><p>衡量两个变量的联合效应偏离可加关系的程度 <span class="citation" data-cites="friedman2008predictive">(<a href="#/下节课" role="doc-biblioref" onclick="">Friedman 和 Popescu 2008年</a>)</span>。0 = 无交互,越接近1 = 交互越强。</p>
+</section>
+<section id="shap-交互值" class="slide level2 center">
+<h2>SHAP 交互值</h2>
+
+<img data-src="img/shap-interaction-plots-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"><p>思路与 H统计量相同,但分配到<strong>单次预测</strong>上,而非单一的业务组合层面数值。</p>
+</section>
+<section id="讨论4分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>如果 Age 和 Bonus 存在强烈交互——</p>
+<p><strong>用两个独立的、逐一计算的 SHAP 贡献来解释一份保单的保费,问题出在哪里?</strong></p>
+</section>
+<section id="小结" class="slide level2 center">
+<h2>小结</h2>
+<ul>
+<li>同样的工作流程,适用于任何领域中已拟合的表格型模型</li>
+<li><strong>没有任何单一方法能讲述完整的故事。</strong> 内置重要性与置换重要性可能相互矛盾,PDP 与 ALE 在相关性存在时也可能出现分歧</li>
+<li>交互效应诊断展示了“逐一变量”的可加性图景在哪里失效</li>
+<li>解释是为受众服务的。应根据提问者调整摘要内容</li>
+</ul>
+</section>
+<section id="讨论5分钟总结" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(5分钟)——总结</h2>
+<p>如果在每个模型部署前,你只能运行今天五种方法中的<strong>两种</strong>——</p>
+<p><strong>你会选哪两种?你愿意错过什么?</strong></p>
+</section>
+<section id="推荐阅读" class="slide level2 center">
+<h2>推荐阅读</h2>
+<ul>
+<li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#/下节课" role="doc-biblioref" onclick="">2025年</a>)</span> — 今天所用每一种方法的深入介绍</li>
+<li><span class="citation" data-cites="baeder2021iml">Baeder 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span> — 将本工具箱置于保险实务背景下的 SOA 报告</li>
+<li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#/下节课" role="doc-biblioref" onclick="">2019年</a>)</span> — 主张设计内生可解释性优于事后解释的论述</li>
+</ul>
+</section>
+<section id="下节课" class="slide level2 smaller scrollable">
+<h2>下节课</h2>
+<p><strong>第六章——隐私原则</strong></p>
+<p>请带来一个你最近向某公司披露个人数据的实例,并想一想这些数据后来发生了什么。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-baeder2021iml" class="csl-entry" role="listitem">
+Baeder, Larry, Peggy Brinkmann, 和 Eric Xu. 2021年. <em>Interpretable Machine Learning for Insurance: An Introduction with Examples</em>. Society of Actuaries. <a href="https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf">https://www.soa.org/globalassets/assets/files/resources/research-report/2021/interpretable-machine-learning.pdf</a>.
+</div>
+<div id="ref-bordt2022posthoc" class="csl-entry" role="listitem">
+Bordt, Sebastian, Michèle Finck, Eric Raidl, 和 Ulrike von Luxburg. 2022年. <span>《Post-Hoc Explanations Fail to Achieve their Purpose in Adversarial Contexts》</span>. <em>Proceedings of the 2022 ACM Conference on Fairness, Accountability, and Transparency</em>, 891～905.
+</div>
+<div id="ref-breiman2001random" class="csl-entry" role="listitem">
+Breiman, Leo. 2001年. <span>《Random forests》</span>. <em>Machine Learning</em> 45 (1): 5～32.
+</div>
+<div id="ref-friedman2008predictive" class="csl-entry" role="listitem">
+Friedman, Jerome H., 和 Bogdan E. Popescu. 2008年. <span>《Predictive Learning via Rule Ensembles》</span>. <em>The Annals of Applied Statistics</em> 2 (3): 916～54.
+</div>
+<div id="ref-molnar2025iml" class="csl-entry" role="listitem">
+Molnar, Christoph. 2025年. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3 版. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
+</div>
+<div id="ref-naic2022predictivemodels" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2022年. <em>Predictive Models White Paper</em>. National Association of Insurance Commissioners.
+</div>
+<div id="ref-naic2025modelreview" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2025年. <em>Model Review Manual</em>. National Association of Insurance Commissioners. <a href="https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25.pdf">https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25.pdf</a>.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+National People’s Congress (China). 2021年. <em>Personal Information Protection Law of the People’s Republic of China (中华人民共和国个人信息保护法)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+<div id="ref-gdpr2016regulation" class="csl-entry" role="listitem">
+Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) (2016年).
+</div>
+<div id="ref-rudin2019stop" class="csl-entry" role="listitem">
+Rudin, Cynthia. 2019年. <span>《Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead》</span>. <em>Nature Machine Intelligence</em> 1 (5): 206～15.
+</div>
+<div id="ref-slack2020fooling" class="csl-entry" role="listitem">
+Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 2020年. <span>《Fooling LIME and SHAP: Adversarial attacks on post hoc explanation methods》</span>. <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180～86.
+</div>
+<div id="ref-wachter2017right" class="csl-entry" role="listitem">
+Wachter, Sandra, Brent Mittelstadt, 和 Luciano Floridi. 2017年. <span>《Why a Right to Explanation of Automated Decision-Making Does Not Exist in the General Data Protection Regulation》</span>. <em>International Data Privacy Law</em> 7 (2): 76～99.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "已复制");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "已复制");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

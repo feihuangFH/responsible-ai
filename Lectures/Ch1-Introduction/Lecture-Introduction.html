@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fei Huang, UNSW Sydney">
+
+<title>Introduction to Responsible AI – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" rel="next">
+<link href="../../index.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/Ch1-Introduction/Lecture-Introduction.html">Chapter 1: Introduction</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Responsible AI: Principles, Governance, and Quantitative Methods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch1-Introduction/Lecture-Introduction.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Fairness Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 3: Fairness Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 4: Explainability Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Explainability Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Privacy Principles</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 7: Privacy Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 8: Trade-offs, Integration, and Governance</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#why-responsible-ai" id="toc-why-responsible-ai" class="nav-link" data-scroll-target="#why-responsible-ai">Why Responsible AI?</a>
+  <ul class="collapse">
+  <li><a href="#the-promise-and-the-problem" id="toc-the-promise-and-the-problem" class="nav-link" data-scroll-target="#the-promise-and-the-problem">The promise and the problem</a></li>
+  <li><a href="#a-failure-is-not-always-obvious" id="toc-a-failure-is-not-always-obvious" class="nav-link" data-scroll-target="#a-failure-is-not-always-obvious">A failure is not always obvious</a></li>
+  </ul></li>
+  <li><a href="#major-principles-of-ai-ethics" id="toc-major-principles-of-ai-ethics" class="nav-link" data-scroll-target="#major-principles-of-ai-ethics">Major Principles of AI Ethics</a>
+  <ul class="collapse">
+  <li><a href="#six-principles" id="toc-six-principles" class="nav-link" data-scroll-target="#six-principles">Six principles</a></li>
+  <li><a href="#three-pillars" id="toc-three-pillars" class="nav-link" data-scroll-target="#three-pillars">Three pillars</a></li>
+  <li><a href="#from-principles-to-practice" id="toc-from-principles-to-practice" class="nav-link" data-scroll-target="#from-principles-to-practice">From principles to practice</a></li>
+  </ul></li>
+  <li><a href="#the-ethical-ai-lifecycle" id="toc-the-ethical-ai-lifecycle" class="nav-link" data-scroll-target="#the-ethical-ai-lifecycle">The Ethical AI Lifecycle</a>
+  <ul class="collapse">
+  <li><a href="#ai-does-not-fail-at-deployment" id="toc-ai-does-not-fail-at-deployment" class="nav-link" data-scroll-target="#ai-does-not-fail-at-deployment">AI does not fail at deployment</a></li>
+  <li><a href="#a-six-stage-lifecycle-view" id="toc-a-six-stage-lifecycle-view" class="nav-link" data-scroll-target="#a-six-stage-lifecycle-view">A six-stage lifecycle view</a></li>
+  <li><a href="#why-problem-formulation-matters-most" id="toc-why-problem-formulation-matters-most" class="nav-link" data-scroll-target="#why-problem-formulation-matters-most">Why problem formulation matters most</a></li>
+  </ul></li>
+  <li><a href="#regulatory-context" id="toc-regulatory-context" class="nav-link" data-scroll-target="#regulatory-context">Regulatory Context</a>
+  <ul class="collapse">
+  <li><a href="#a-rapidly-changing-landscape" id="toc-a-rapidly-changing-landscape" class="nav-link" data-scroll-target="#a-rapidly-changing-landscape">A rapidly changing landscape</a></li>
+  <li><a href="#united-states-sector-by-sector-leadership" id="toc-united-states-sector-by-sector-leadership" class="nav-link" data-scroll-target="#united-states-sector-by-sector-leadership">United States: sector-by-sector leadership</a></li>
+  <li><a href="#european-union-horizontal-ai-regulation" id="toc-european-union-horizontal-ai-regulation" class="nav-link" data-scroll-target="#european-union-horizontal-ai-regulation">European Union: horizontal AI regulation</a></li>
+  <li><a href="#australia-principles-based-multi-regulator-approach" id="toc-australia-principles-based-multi-regulator-approach" class="nav-link" data-scroll-target="#australia-principles-based-multi-regulator-approach">Australia: principles-based, multi-regulator approach</a></li>
+  <li><a href="#australia-whats-coming" id="toc-australia-whats-coming" class="nav-link" data-scroll-target="#australia-whats-coming">Australia: what’s coming</a></li>
+  <li><a href="#china-binding-sector-specific-rules" id="toc-china-binding-sector-specific-rules" class="nav-link" data-scroll-target="#china-binding-sector-specific-rules">China: binding sector-specific rules</a></li>
+  <li><a href="#singapore-voluntary-principles-based-frameworks" id="toc-singapore-voluntary-principles-based-frameworks" class="nav-link" data-scroll-target="#singapore-voluntary-principles-based-frameworks">Singapore: voluntary, principles-based frameworks</a></li>
+  <li><a href="#common-themes-across-jurisdictions" id="toc-common-themes-across-jurisdictions" class="nav-link" data-scroll-target="#common-themes-across-jurisdictions">Common themes across jurisdictions</a></li>
+  </ul></li>
+  <li><a href="#course-roadmap" id="toc-course-roadmap" class="nav-link" data-scroll-target="#course-roadmap">Course Roadmap</a>
+  <ul class="collapse">
+  <li><a href="#structure-principles-and-practice" id="toc-structure-principles-and-practice" class="nav-link" data-scroll-target="#structure-principles-and-practice">Structure: principles and practice</a></li>
+  <li><a href="#three-cases-to-keep-in-mind" id="toc-three-cases-to-keep-in-mind" class="nav-link" data-scroll-target="#three-cases-to-keep-in-mind">Three cases to keep in mind</a></li>
+  <li><a href="#a-quantitative-course" id="toc-a-quantitative-course" class="nav-link" data-scroll-target="#a-quantitative-course">A quantitative course</a></li>
+  <li><a href="#connecting-the-pillars" id="toc-connecting-the-pillars" class="nav-link" data-scroll-target="#connecting-the-pillars">Connecting the pillars</a></li>
+  <li><a href="#recommended-reading" id="toc-recommended-reading" class="nav-link" data-scroll-target="#recommended-reading">Recommended reading</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="Slides-Introduction.slides.html"><i class="bi bi-easel2"></i>In-class slides</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Responsible AI</h1>
+<p class="subtitle lead">Responsible AI: Principles and Quantitative Methods</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fei Huang, UNSW Sydney </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h3>
+<p>By the end of this chapter, you are expected to be able to:</p>
+<ul>
+<li>Explain why responsible AI matters for consequential automated decisions (decisions that meaningfully affect a person’s life, such as who gets a loan, a job, or an insurance policy) generally, and in high-stakes domains such as insurance, lending, hiring, and healthcare specifically.</li>
+<li>Describe the six major principles of AI ethics and their relevance to professional practice.</li>
+<li>Outline a lifecycle view of ethical AI from problem definition through deployment.</li>
+<li>Identify key regulatory developments in AI-driven discrimination across jurisdictions and sectors.</li>
+<li>Map the three course pillars (fairness, explainability, and privacy) to the broader responsible AI framework.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Insurance recurs as a worked example throughout this course. It is a domain with unusually well-developed AI regulation and quantitative fairness/privacy methods. The principles themselves apply to any consequential automated decision: hiring, lending, healthcare allocation, and criminal justice risk assessment among them.</p>
+</div>
+</div>
+</section>
+<section id="why-responsible-ai" class="level2">
+<h2 class="anchored" data-anchor-id="why-responsible-ai">Why Responsible AI?</h2>
+<section id="the-promise-and-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-promise-and-the-problem">The promise and the problem</h3>
+<p>Responsible AI is the practice of designing, deploying, and governing AI systems so that automated decisions are fair, explainable, and privacy-respecting, not just accurate. Machine learning and AI are transforming decision-making across industries: actuaries pricing insurance risk, underwriters assessing loans, HR teams screening applicants, and clinicians triaging patients are all working alongside automated systems that shape consequential outcomes.</p>
+<p>Responsible AI is inherently interdisciplinary. No single field supplies everything it takes to deploy AI responsibly. Domain expertise identifies what a fair or reasonable outcome looks like in context. Statistics and machine learning supply the modelling and measurement tools. Law defines the binding obligations. Economics clarifies the trade-offs and incentives at stake. Risk management embeds the effort into an organisation’s governance structure. Practising responsible AI also requires collaboration across stakeholders who do not share a single professional background, among them customer advocates and affected individuals, regulators who set and enforce standards, and the industry practitioners who build and deploy the systems. Within a single organisation, this typically means actuaries, data scientists, lawyers, risk officers, and business leaders working together rather than any one of them working in isolation.</p>
+<p><strong>The promise:</strong></p>
+<ul>
+<li>More accurate risk assessment and outcome prediction</li>
+<li>Faster, more consistent screening and processing of loan applications, benefit claims, and job candidates</li>
+<li>New data sources (wearables, transaction histories, digital footprints, and telematics, meaning devices or apps that track real-time behaviour such as driving) enabling finer-grained decisions</li>
+<li>Automation of routine decisions, freeing professionals for higher-value work</li>
+</ul>
+<p><strong>The problem:</strong></p>
+<ul>
+<li>Automated systems make consequential decisions affecting access, pricing, and opportunity for millions of people</li>
+<li>Complexity obscures how decisions are made, from the people affected, regulators, and even practitioners</li>
+<li>Data reflects historical patterns, including past discrimination</li>
+<li>Errors and biases scale automatically across large populations</li>
+</ul>
+<blockquote class="blockquote">
+<p>Responsible AI is not about slowing innovation — it is about making innovation defensible.</p>
+</blockquote>
+</section>
+<section id="a-failure-is-not-always-obvious" class="level3">
+<h3 class="anchored" data-anchor-id="a-failure-is-not-always-obvious">A failure is not always obvious</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Illustrative example: hidden proxy discrimination in insurance">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Illustrative example: hidden proxy discrimination in insurance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider a motor insurer that builds a new machine-learning pricing model. The team removes gender in response to regulatory pressure (in the EU, for example, gender has been a protected attribute in insurance pricing since the European Court of Justice’s 2011 <em>Test-Achats</em> ruling <span class="citation" data-cites="ecj2011testachats">(<a href="#ref-ecj2011testachats" role="doc-biblioref">European Court of Justice 2011</a>)</span>). The model never sees <code>gender</code> as an input.</p>
+<p>But <code>vehicle engine size</code> and <code>annual mileage</code> remain, and both correlate with gender in the training data. These variables may therefore act as proxies for gender, meaning that removing gender alone may not eliminate gender-related disparities in the model’s outputs.</p>
+</div>
+</div>
+<p>The same structure recurs across sectors. A widely used US healthcare algorithm allocated extra care-management resources by predicted cost rather than predicted illness, and because Black patients historically incurred lower costs for the same level of need, it systematically under-referred them for extra care <span class="citation" data-cites="obermeyer2019dissecting">(<a href="#ref-obermeyer2019dissecting" role="doc-biblioref">Obermeyer et al. 2019</a>)</span>. Amazon scrapped an internal hiring tool after finding it penalised résumés containing the word “women’s,” a pattern learned from a decade of résumés mostly submitted by men <span class="citation" data-cites="dastin2018amazon">(<a href="#ref-dastin2018amazon" role="doc-biblioref">Dastin 2018</a>)</span>. Apple Card’s credit-limit algorithm drew a New York regulatory investigation after customers reported women receiving dramatically lower limits than their husbands despite similar or better finances, though the investigation ultimately found no fair-lending violation <span class="citation" data-cites="nydfs2021applecard">(<a href="#ref-nydfs2021applecard" role="doc-biblioref">New York State Department of Financial Services 2021</a>)</span>. In China, e-commerce and travel platforms charging returning or loyal customers more than new customers for the same product, a practice known as <em>dàshùjù shāshú</em> (roughly, “big data exploiting familiar customers”), became common enough to prompt an explicit ban in the 2022 Algorithm Recommendation Provisions <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">Cyberspace Administration of China 2022</a>)</span>.</p>
+<p><strong>Questions that arise:</strong></p>
+<ul>
+<li>Is this model fair? By which definition?</li>
+<li>Can the organisation explain to a regulator <em>why</em> a given individual received a given outcome?</li>
+<li>What happens to the privacy of the behavioural data that informed the model?</li>
+<li>Who is accountable when the model produces a harmful outcome?</li>
+</ul>
+<p>These are the questions this course is designed to answer. Fairness, explainability, and privacy are developed quantitatively, each with its own toolkit. Accountability is addressed too, mainly through governance practice such as documentation and named ownership, developed most fully in Chapter 8, rather than through a standalone quantitative method.</p>
+</section>
+</section>
+<section id="major-principles-of-ai-ethics" class="level2">
+<h2 class="anchored" data-anchor-id="major-principles-of-ai-ethics">Major Principles of AI Ethics</h2>
+<section id="six-principles" class="level3">
+<h3 class="anchored" data-anchor-id="six-principles">Six principles</h3>
+<p>AI ethics frameworks converge on six core principles that apply across industries and regulatory contexts <span class="citation" data-cites="huang2025checkyourai">(<a href="#ref-huang2025checkyourai" role="doc-biblioref">Huang 2025</a>)</span>.</p>
+<p><strong>1. Fairness and non-discrimination</strong> AI systems should not produce unjustified disparate outcomes across protected groups (groups defined by a protected attribute, a characteristic such as race, gender, or age that anti-discrimination law shields from being used in decisions). This includes both direct discrimination (using a protected attribute) and indirect discrimination (using proxies, seemingly neutral variables, that reproduce disparities).</p>
+<p><strong>2. Transparency and explainability</strong> Decisions must be interpretable, not only to developers, but to customers, regulators, and affected parties. Transparency operates at two levels, how the system works and why a specific decision was reached.</p>
+<p><strong>3. Accountability</strong> It must be clear who is responsible when an AI system causes harm: the developer, the deploying organisation, the regulator, or the professional who certified the model. Accountability requires documentation and governance.</p>
+<p><strong>4. Privacy and data ethics</strong> AI systems consume vast amounts of personal data. Individuals have rights over how their data is collected, used, shared, and retained. Third-party data sources, telematics, and behavioural data create new tensions between predictive utility and privacy.</p>
+<p><strong>5. Contestability</strong> Individuals affected by automated decisions must have meaningful channels to understand, challenge, and appeal those decisions. This principle is increasingly embedded in regulation (the EU’s GDPR, or General Data Protection Regulation, Article 22; Australian Privacy Act reforms).</p>
+<p><strong>6. Stability and robustness</strong> AI models must perform reliably under real-world conditions, including data drift, adversarial inputs, and distribution shift. A model that is fair and accurate at deployment may not remain so two years later.</p>
+<p>Fairness, explainability, and privacy are three of these six, and they are the three this course develops quantitatively. Reid Blackman calls this same trio AI’s “Big Three” ethical risks in <em>Ethical Machines</em> <span class="citation" data-cites="blackman2022ethical">(<a href="#ref-blackman2022ethical" role="doc-biblioref">Blackman 2022</a>)</span>. This course’s own reason for the same scope is practical. Fairness, explainability, and privacy each already have a maturing toolkit of quantitative methods (the fairness criteria, explainability techniques, and privacy methods this course covers) with precise, well-established definitions, even though choosing among them is itself a domain-specific judgment call. Accountability, contestability, and stability still matter. This course treats them as governance and monitoring practices rather than as separate quantitative modules.</p>
+</section>
+<section id="three-pillars" class="level3">
+<h3 class="anchored" data-anchor-id="three-pillars">Three pillars</h3>
+<p>Each pillar asks a different core question, but a similar cast of stakeholders recurs across all three: the people affected by the decision, the regulators who oversee that domain, and the organisation deploying the system.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pillar</th>
+<th>Core question</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Fairness</strong></td>
+<td>Does the model treat people equitably?</td>
+</tr>
+<tr class="even">
+<td><strong>Explainability</strong></td>
+<td>Can model decisions be understood and justified?</td>
+</tr>
+<tr class="odd">
+<td><strong>Privacy</strong></td>
+<td>Are personal data used appropriately and protected?</td>
+</tr>
+</tbody>
+</table>
+<p>Each pillar has both a principled dimension (what should we do?) and a quantitative dimension (how do we measure, enforce, and verify it?). This course addresses both.</p>
+</section>
+<section id="from-principles-to-practice" class="level3">
+<h3 class="anchored" data-anchor-id="from-principles-to-practice">From principles to practice</h3>
+<p>Principles are necessary but not sufficient. Actuarial, data science, and other analytics professions all face the same translation problem:</p>
+<blockquote class="blockquote">
+<p>How do we operationalise “fairness,” “explainability,” and “privacy” in a way that is measurable, auditable, and defensible?</p>
+</blockquote>
+<p>This course focuses on the quantitative methods that bridge the gap between ethical principles and professional practice.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Principle</th>
+<th>Covered in this course</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness and non-discrimination</td>
+<td>Chapters 2–3: fairness criteria, model designs, audit protocols</td>
+</tr>
+<tr class="even">
+<td>Transparency and explainability</td>
+<td>Chapters 4–5: PFI, PDP, SHAP, ALE, interaction effects</td>
+</tr>
+<tr class="odd">
+<td>Privacy and data ethics</td>
+<td>Chapters 6–7: k-anonymity, differential privacy, synthetic data</td>
+</tr>
+<tr class="even">
+<td>Accountability</td>
+<td>Chapters 2, 4, 8: governance, documentation, trade-offs</td>
+</tr>
+<tr class="odd">
+<td>Contestability</td>
+<td>Chapter 2: fairness testing and audit protocols (the statistical evidence that can support a challenge); Chapter 4: right to explanation (the ability to demand a reason for an automated decision); Chapter 5: counterfactual explanations</td>
+</tr>
+<tr class="even">
+<td>Stability and robustness</td>
+<td>Chapter 8: integration and systemic risks</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="the-ethical-ai-lifecycle" class="level2">
+<h2 class="anchored" data-anchor-id="the-ethical-ai-lifecycle">The Ethical AI Lifecycle</h2>
+<section id="ai-does-not-fail-at-deployment" class="level3">
+<h3 class="anchored" data-anchor-id="ai-does-not-fail-at-deployment">AI does not fail at deployment</h3>
+<p>A common source of AI failure lies in problem formulation rather than the model itself, for example, asking the wrong question, using the wrong outcome variable, or failing to consider who is affected.</p>
+<blockquote class="blockquote">
+<p>“The most frequent failure in data analysis is mistaking the type of question being considered.”</p>
+<p>— <span class="citation" data-cites="leek2015question">Leek and Peng (<a href="#ref-leek2015question" role="doc-biblioref">2015</a>)</span></p>
+</blockquote>
+<p>Ethical risk is present at every stage of the AI lifecycle, not only at the point of model deployment.</p>
+</section>
+<section id="a-six-stage-lifecycle-view" class="level3">
+<h3 class="anchored" data-anchor-id="a-six-stage-lifecycle-view">A six-stage lifecycle view</h3>
+<p><span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025</a>)</span> proposes a framework that embeds ethical checkpoints throughout the AI development and deployment process.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ethical_lc.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>The ethical AI lifecycle. Source: <span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025</a>)</span>.</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Key ethical questions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Problem definition</strong></td>
+<td>Does the objective align with fairness, transparency, and regulatory standards? Is optimisation balanced between firm profitability and customer welfare? Who owns AI use, oversight, and risk?</td>
+</tr>
+<tr class="even">
+<td><strong>2. Data collection</strong></td>
+<td>Does the data invade privacy? Do proxies (e.g.&nbsp;postcode or occupation) encode sensitive attributes indirectly? Is consent meaningful? Does the data reflect historical bias?</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Exploratory data analysis</strong></td>
+<td>Could input features have discriminatory effects, directly or through correlation with protected groups? Can each feature be justified to regulators and customers, not only internal teams?</td>
+</tr>
+<tr class="even">
+<td><strong>4. Modelling</strong></td>
+<td>Does the model balance accuracy with fairness, explainability, and transparency? Can outputs be assessed for disparities across social groups? Is it interpretable enough for audit?</td>
+</tr>
+<tr class="odd">
+<td><strong>5. Evaluation</strong></td>
+<td>Does performance hold up across relevant subgroups, not only in aggregate? Do results generalise under different scenarios? Have trade-offs been communicated to decision makers?</td>
+</tr>
+<tr class="even">
+<td><strong>6. Deployment</strong></td>
+<td>Are models audited regularly after launch? Can customers appeal or contest an outcome? Is there a feedback loop back into future iterations?</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="A practitioner's role">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A practitioner’s role
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Domain professionals (actuaries in insurance, underwriters in lending who assess and price risk before approving a loan or policy, HR analysts in hiring) are increasingly involved at every stage of this lifecycle, not only model development and validation but governance, risk assessment, and stakeholder communication. Responsible AI is a professional obligation, not only a technical one.</p>
+</div>
+</div>
+</section>
+<section id="why-problem-formulation-matters-most" class="level3">
+<h3 class="anchored" data-anchor-id="why-problem-formulation-matters-most">Why problem formulation matters most</h3>
+<p><span class="citation" data-cites="leek2015question">Leek and Peng (<a href="#ref-leek2015question" role="doc-biblioref">2015</a>)</span>, quoted above, distinguish six types of question a data analysis can ask, and argue that most analysis failures come from answering the wrong type rather than answering the right type badly.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Asks</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Descriptive</td>
+<td>What happened?</td>
+<td>What is the average claim size by policy type?</td>
+</tr>
+<tr class="even">
+<td>Exploratory</td>
+<td>What patterns exist in the data?</td>
+<td>Do interview scores cluster by which recruiter conducted them?</td>
+</tr>
+<tr class="odd">
+<td>Inferential</td>
+<td>What can we infer about a population from a sample?</td>
+<td>Is this sample’s average loan default rate representative of the full borrower population?</td>
+</tr>
+<tr class="even">
+<td>Predictive</td>
+<td>What is likely to happen?</td>
+<td>How many days is this patient expected to stay in hospital?</td>
+</tr>
+<tr class="odd">
+<td>Causal</td>
+<td>Does X cause Y?</td>
+<td>Does raising the excess (the deductible a policyholder pays before cover starts) reduce claim frequency?</td>
+</tr>
+<tr class="even">
+<td>Mechanistic</td>
+<td>How exactly does the system work?</td>
+<td>How does a drug interact biologically to lower blood pressure?</td>
+</tr>
+</tbody>
+</table>
+<p>Mistaking one type for another is a common source of ethical failure, not only a technical one, but naming the type correctly is still not enough on its own. The same question type, asked in a different business context, can call for different choices at every downstream step.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise: same question type, different stakes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise: same question type, different stakes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A consulting firm has two teams working on two different client engagements, each asked a <strong>predictive</strong> question.</p>
+<p><strong>Team A</strong> works for a major supermarket, forecasting product demand so warehouses know how much stock to send where. Over-forecasting wastes stock. Under-forecasting loses sales. No individual customer is priced, screened, or denied anything based on this model’s output.</p>
+<p><strong>Team B</strong> works for an auto insurer, predicting the number and cost of claims for individual prospective policyholders, to set their premiums.</p>
+<p>For each team, what should drive the choice of model class, feature selection, and evaluation criteria? Why might the same predictive question lead to different choices?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Discussion">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Discussion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For Team A, no individual is priced, screened, or denied anything based on the model’s output, so prediction accuracy is the dominant consideration. A complex, high-accuracy model built from hundreds of engineered features is the right choice.</p>
+<p>For Team B, the predictive question is the same shape, but applied to individuals rather than aggregate stock levels, and that changes everything downstream. Interpretability now matters as much as accuracy, since the model must be explainable to regulators and to the customers it prices. Feature selection now requires scrutiny for proxies, since a feature correlated with claims might also correlate with a protected attribute. Fairness metrics become part of evaluation, not only prediction error.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="regulatory-context" class="level2">
+<h2 class="anchored" data-anchor-id="regulatory-context">Regulatory Context</h2>
+<section id="a-rapidly-changing-landscape" class="level3">
+<h3 class="anchored" data-anchor-id="a-rapidly-changing-landscape">A rapidly changing landscape</h3>
+<p>Regulation of AI in consequential decision-making is evolving quickly across all major markets, spanning insurance, lending, employment, and other high-risk domains. This section surveys the landscape jurisdiction by jurisdiction. Chapters 2, 4, and 6 develop the specific fairness, explainability, and privacy regulatory mechanisms this landscape gives rise to, in depth.</p>
+</section>
+<section id="united-states-sector-by-sector-leadership" class="level3">
+<h3 class="anchored" data-anchor-id="united-states-sector-by-sector-leadership">United States: sector-by-sector leadership</h3>
+<p>In the absence of federal AI legislation, U.S. states and sector regulators have led regulatory innovation:</p>
+<p><strong>Colorado SB21-169 (2021)</strong> <span class="citation" data-cites="colorado_sb21169_2021">(<a href="#ref-colorado_sb21169_2021" role="doc-biblioref">Colorado General Assembly 2021</a>)</span> The first U.S. law explicitly addressing algorithmic discrimination in insurance. Prohibits insurers from using external consumer data in ways that unfairly discriminate based on race, colour, national or ethnic origin, religion, sex, sexual orientation, disability, gender identity, or gender expression.</p>
+<p><strong>NYC Local Law 144 (2021)</strong> <span class="citation" data-cites="nyc_local_law_144_2021">(<a href="#ref-nyc_local_law_144_2021" role="doc-biblioref">New York City Council 2021</a>)</span> Requires employers using automated employment decision tools (AI systems that screen or rank job candidates) to commission an independent bias audit each year, publish the results, and notify candidates that such a tool is in use.</p>
+<p><strong>New York DFS Circular Letter No.&nbsp;7 (2024)</strong> <span class="citation" data-cites="nydfs_circular7_2024">(<a href="#ref-nydfs_circular7_2024" role="doc-biblioref">New York State Department of Financial Services 2024</a>)</span> Issued by New York’s Department of Financial Services (DFS), the state’s insurance and financial regulator. Requires insurers using AI systems and external consumer data in underwriting and pricing to conduct ongoing bias testing, maintain governance frameworks, and be able to explain model outputs to consumers and regulators.</p>
+<p><strong>CFPB and ECOA (2023)</strong> <span class="citation" data-cites="cfpb_circular_2023_03">(<a href="#ref-cfpb_circular_2023_03" role="doc-biblioref">Consumer Financial Protection Bureau 2023</a>)</span> The U.S. Consumer Financial Protection Bureau confirmed that the Equal Credit Opportunity Act’s adverse-action notice requirements (the legal duty to tell a rejected applicant why) apply to AI-driven credit decisions, regardless of model complexity.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="More sector rules">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>More sector rules
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The NAIC Model Bulletin (2023) <span class="citation" data-cites="naic2023modelbulletin">(<a href="#ref-naic2023modelbulletin" role="doc-biblioref">National Association of Insurance Commissioners 2023</a>)</span>, from the National Association of Insurance Commissioners, gives US state insurance regulators guidance on AI governance, risk management, and third-party model oversight. Illinois’s AI Video Interview Act <span class="citation" data-cites="illinois_ai_video_interview_act">(<a href="#ref-illinois_ai_video_interview_act" role="doc-biblioref">Illinois General Assembly 2019</a>)</span> regulates AI-based hiring assessments specifically. Insurance and employment have moved fastest so far, but sector-by-sector regulation is spreading to lending, healthcare, and beyond.</p>
+</div>
+</div>
+</section>
+<section id="european-union-horizontal-ai-regulation" class="level3">
+<h3 class="anchored" data-anchor-id="european-union-horizontal-ai-regulation">European Union: horizontal AI regulation</h3>
+<p>The <strong>EU AI Act (2024)</strong> <span class="citation" data-cites="euaiact2024">(<a href="#ref-euaiact2024" role="doc-biblioref">European Parliament and Council of the European Union 2024</a>)</span> takes a risk-based approach that applies across sectors. Annex III designates several categories of <strong>high-risk AI systems</strong>, including risk assessment and pricing for life and health insurance, employment and worker management, creditworthiness assessment, education, law enforcement, and access to essential public services. All are subject to:</p>
+<ul>
+<li>Conformity assessment (a formal check that a system meets legal requirements) before deployment</li>
+<li>Mandatory risk management systems</li>
+<li>Data governance requirements</li>
+<li>Transparency and documentation obligations</li>
+<li>Human oversight requirements</li>
+<li>Post-market monitoring</li>
+</ul>
+<p>Life and health insurance risk assessment and pricing is one Annex III category among several. Note that this specific category does not extend to other insurance lines, such as the motor insurance examples used throughout this course, though a motor insurer’s AI system could still fall under Annex III’s creditworthiness or other categories depending on what it does. The Act treats the categories it does cover as structurally similar to employment and credit decisions, not as a special case.</p>
+<p><strong>GDPR (2018)</strong> <span class="citation" data-cites="gdpr2016regulation">(<a href="#ref-gdpr2016regulation" role="doc-biblioref">Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) 2016</a>)</span>, the EU’s general data protection framework, predates the AI Act by six years and remains the more consequential instrument for most organisations in practice. Article 22 gives individuals a qualified right not to be subject to certain solely automated decisions, and Articles 13-15 separately require organisations to explain the logic behind automated processing. The AI Act applies on top of these existing GDPR obligations, not instead of them. Chapter 6 covers GDPR’s full six-principle framework and its automated-decision-making provisions in depth.</p>
+</section>
+<section id="australia-principles-based-multi-regulator-approach" class="level3">
+<h3 class="anchored" data-anchor-id="australia-principles-based-multi-regulator-approach">Australia: principles-based, multi-regulator approach</h3>
+<p>Australia has no standalone AI Act. Instead, existing sector laws apply to AI, enforced by several regulators in parallel. The absence of a new AI law does not mean an absence of accountability. This stands in contrast to the EU’s single, horizontal standalone Act, even though enforcement of that Act itself involves multiple national competent authorities and EU-level bodies rather than one single regulator. One such regulator, the Australian Securities and Investments Commission (ASIC), illustrates what happens when governance fails.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: a governance failure (ASIC REP 798)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: a governance failure (ASIC REP 798)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A licensee deployed an AI model to predict consumer credit default risk, with no AI strategy, no policies, and no risk rating of its AI use cases. An internal review, conducted ten months after deployment, found the model was built with “limited understanding” of the third-party platform it relied on, had “incomplete model documentation with missing critical elements,” and showed “poor governance and a lack of a monitoring process.” The report described it as a “black box with no ability to explain the variables in the scorecard or the impact they are having on an applicant’s score.” The licensee kept using it for several more months, and reported plans to expand its use of AI.</p>
+<p>Source: ASIC Report 798, <em>Beware the Gap</em> (Oct 2024), p.7 <span class="citation" data-cites="asic2024rep798">(<a href="#ref-asic2024rep798" role="doc-biblioref">Australian Securities and Investments Commission 2024</a>)</span>.</p>
+</div>
+</div>
+<p><strong>ASIC</strong> <span class="citation" data-cites="asic2024rep798">(<a href="#ref-asic2024rep798" role="doc-biblioref">Australian Securities and Investments Commission 2024</a>)</span> published 11 questions it expects licensees to be able to answer about any AI system they use. REP 798 found only 12 of 23 firms reviewed had fairness policies, and half had not updated their risk frameworks for AI.</p>
+<p><strong>APRA</strong> (the Australian Prudential Regulation Authority) <strong>CPS 230</strong> <span class="citation" data-cites="apra_cps230">(<a href="#ref-apra_cps230" role="doc-biblioref">Australian Prudential Regulation Authority 2023</a>)</span> (in force from July 2025) requires board-approved operational risk frameworks. APRA’s 2025–26 supervisory programme makes clear it expects AI risk to be explicitly addressed within them.</p>
+<p><strong>OAIC</strong> (the Office of the Australian Information Commissioner) <strong>/ Privacy Act automated decision-making reforms</strong>: from 10 December 2026, privacy policies must disclose how automated decisions that significantly affect an individual’s rights or interests are made <span class="citation" data-cites="pola2024act">(<a href="#ref-pola2024act" role="doc-biblioref">Privacy and Other Legislation Amendment Act 2024 (Cth) 2024</a>)</span>.</p>
+<p><strong>FAR</strong> <span class="citation" data-cites="far2023">(<a href="#ref-far2023" role="doc-biblioref">Australian Prudential Regulation Authority and Australian Securities and Investments Commission 2023</a>)</span> (the Financial Accountability Regime) imposes a “reasonable steps” obligation. Accountable persons are responsible for the areas they oversee, including AI systems operating within them, with personal civil penalties of up to A$1.56 million for knowing involvement in a breach.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Obligations do not transfer to a vendor. If a third-party model produces unfair outcomes or breaches licence conditions, the regulator looks to the deploying organisation. The question is whether it governed the vendor adequately, not who built the model <span class="citation" data-cites="hbr2026outsourcedai">(<a href="#ref-hbr2026outsourcedai" role="doc-biblioref">Parra-Orlandoni and Carvão 2026</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="australia-whats-coming" class="level3">
+<h3 class="anchored" data-anchor-id="australia-whats-coming">Australia: what’s coming</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Timing</th>
+<th>Development</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Oct 2025</td>
+<td>AI6 guidance released <span class="citation" data-cites="naic_au_2025_ai6">(<a href="#ref-naic_au_2025_ai6" role="doc-biblioref">National AI Centre 2025</a>)</span>, National AI Centre voluntary framework (see Chapter 8)</td>
+</tr>
+<tr class="even">
+<td>Dec 2025</td>
+<td>National AI Plan <span class="citation" data-cites="australia_national_ai_plan_2025">(<a href="#ref-australia_national_ai_plan_2025" role="doc-biblioref">Department of Industry, Science and Resources (Australia) 2025</a>)</span>: mandatory guardrails shelved, but existing laws carry the load for now</td>
+</tr>
+<tr class="odd">
+<td>Early 2026</td>
+<td>AI Safety Institute launched, A$29.9M watchdog assessing risks and advising regulators</td>
+</tr>
+<tr class="even">
+<td>Dec 2026</td>
+<td>Privacy Act automated-decision-making disclosure becomes mandatory</td>
+</tr>
+</tbody>
+</table>
+<p><strong>AHRC: Human Rights and Technology (2021) <span class="citation" data-cites="ahrc2021humanrightstech">(<a href="#ref-ahrc2021humanrightstech" role="doc-biblioref">Australian Human Rights Commission 2021</a>)</span> and AI and Discrimination in Insurance (2022) <span class="citation" data-cites="ahrc2022insurance">(<a href="#ref-ahrc2022insurance" role="doc-biblioref">Australian Human Rights Commission and Actuaries Institute 2022</a>)</span></strong> The Australian Human Rights Commission’s landmark 2021 report set out cross-sector principles for AI and human rights. Its 2022 insurance-specific guidance, developed jointly with the Actuaries Institute, applies those principles to underwriting and pricing, with reference to the Age Discrimination Act, Disability Discrimination Act, Racial Discrimination Act, and Sex Discrimination Act.</p>
+</section>
+<section id="china-binding-sector-specific-rules" class="level3">
+<h3 class="anchored" data-anchor-id="china-binding-sector-specific-rules">China: binding sector-specific rules</h3>
+<p>China does not yet have a single comprehensive AI law in force. The State Council’s 2026 Legislative Work Plan calls for “accelerating comprehensive legislation” <span class="citation" data-cites="sc2026legislativeplan">(<a href="#ref-sc2026legislativeplan" role="doc-biblioref">General Office of the State Council of the People’s Republic of China 2026</a>)</span>. In the meantime, sector- and topic-specific rules cover most consequential AI use.</p>
+<p><strong>Guiding Opinions on the Safe Development and Application of AI in Banking and Insurance (2026)</strong> <span class="citation" data-cites="nfra2026aiguidance">(<a href="#ref-nfra2026aiguidance" role="doc-biblioref">National Financial Regulatory Administration (China) 2026</a>)</span>, hereafter the “NFRA AI Guidance” China’s National Financial Regulatory Administration issued sector-specific AI guidance for banking and insurance institutions (Jin Fa [2026] No.&nbsp;8, 18 June 2026). It addresses risk classification and high-risk application approval, human oversight of high-risk applications, transparency and explainability, avoiding algorithmic discrimination and other fairness issues, data and cybersecurity protection, and procedural requirements for externally introduced generative AI models. Unlike the general rules below, it applies directly to banking and insurance institutions.</p>
+<p><strong>Algorithm Recommendation Provisions (2022)</strong> <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">Cyberspace Administration of China 2022</a>)</span> Issued by the Cyberspace Administration of China (CAC). Filing and security-assessment obligations apply specifically to algorithmic services with public-opinion attributes or social-mobilisation capacity, not to all algorithm use. Where it applies, it also prohibits “big data price discrimination.” This means using a consumer’s own data to charge them a worse price than another consumer receives for the same product.</p>
+<p><strong>Personal Information Protection Law (PIPL), Article 24 (2021)</strong> <span class="citation" data-cites="china_pipl_2021">(<a href="#ref-china_pipl_2021" role="doc-biblioref">National People’s Congress (China) 2021</a>)</span> China’s GDPR-equivalent automated-decision-making provision requires that automated decisions be transparent and their results fair, and bans “unreasonable differential treatment… in transaction prices” arising from automated decision-making. This is a targeted rule against algorithmically charging otherwise-comparable customers different prices without justification, not a blanket ban on all price differentiation. It also grants a right to an explanation, and a right to refuse a decision made solely by automated means where it significantly affects the individual. A more directly insurance-specific fair-pricing rule, Article 27 of the Measures for the Administration of Consumer Rights Protection by Banking and Insurance Institutions, is covered in Chapter 2’s regulatory frameworks section alongside China’s Algorithm Recommendation Provisions.</p>
+<p><strong>Generative AI Interim Measures (2023)</strong> <span class="citation" data-cites="china_genai_interim_2023">(<a href="#ref-china_genai_interim_2023" role="doc-biblioref">Cyberspace Administration of China 2023</a>)</span> <strong>and content-labelling rules (2025)</strong> <span class="citation" data-cites="china_ai_content_labeling_2025">(<a href="#ref-china_ai_content_labeling_2025" role="doc-biblioref">Cyberspace Administration of China and Ministry of Industry and Information Technology and Ministry of Public Security and National Radio and Television Administration 2025</a>)</span> Require security assessment and registration before launching a generative AI service, and mandate two forms of labelling for AI-generated content. A visible label appears on the image, video, audio, or text itself, such as a watermark, tag, or icon, so a viewer can tell the content is AI-generated. An embedded label is written into the file’s metadata. It is not necessarily visible to the viewer, but it persists even if the visible label is stripped, so platforms and regulators can still trace the content back to its AI-generated origin after it is shared or reposted.</p>
+</section>
+<section id="singapore-voluntary-principles-based-frameworks" class="level3">
+<h3 class="anchored" data-anchor-id="singapore-voluntary-principles-based-frameworks">Singapore: voluntary, principles-based frameworks</h3>
+<p>Singapore has no binding AI-specific law, and has deliberately chosen a pro-innovation, “sandbox” approach (a controlled environment for testing new approaches under relaxed rules) built on voluntary frameworks and testing tools rather than mandatory obligations:</p>
+<p><strong>Model AI Governance Framework (IMDA/PDPC, 2019, updated 2020)</strong> <span class="citation" data-cites="singapore_mgf_2020">(<a href="#ref-singapore_mgf_2020" role="doc-biblioref">Personal Data Protection Commission Singapore and Infocomm Media Development Authority 2020</a>)</span> General voluntary guidance for the private sector, issued by Singapore’s IMDA (Infocomm Media Development Authority) and PDPC (Personal Data Protection Commission), since extended with a <strong>Model AI Governance Framework for Generative AI (2024)</strong> <span class="citation" data-cites="singapore_mgf_genai_2024">(<a href="#ref-singapore_mgf_genai_2024" role="doc-biblioref">AI Verify Foundation and Infocomm Media Development Authority 2024</a>)</span> and a <strong>Model AI Governance Framework for Agentic AI (2026)</strong> as new AI paradigms have emerged.</p>
+<p><strong>AI Verify</strong> <span class="citation" data-cites="aiverify_foundation">(<a href="#ref-aiverify_foundation" role="doc-biblioref">AI Verify Foundation 2023</a>)</span> An open-source AI governance testing toolkit, now stewarded by the AI Verify Foundation, which coordinates a global community building shared AI testing standards.</p>
+<p><strong>MAS FEAT Principles (2018)</strong> <span class="citation" data-cites="mas_feat_2018">(<a href="#ref-mas_feat_2018" role="doc-biblioref">Monetary Authority of Singapore 2018</a>)</span> <strong>and the Veritas Initiative</strong> <span class="citation" data-cites="mas_veritas">(<a href="#ref-mas_veritas" role="doc-biblioref">Monetary Authority of Singapore 2019</a>)</span> The Monetary Authority of Singapore’s FEAT principles, co-created with the financial industry, apply specifically to AI and data analytics in financial services, including insurance. FEAT stands for four dimensions of responsible AI use: <strong>Fairness</strong> (AI systems should not produce discriminatory outcomes, and fairness must be considered throughout the model’s lifecycle, not checked once at the end), <strong>Ethics</strong> (AI use should align with the institution’s ethical values and broader societal expectations, with human oversight retained over consequential decisions), <strong>Accountability</strong> (responsibility for AI outcomes must be clearly assigned, including at board and senior-management level), and <strong>Transparency</strong> (institutions must document their AI systems internally and, where appropriate, give customers meaningful explanations of AI-driven decisions that affect them).</p>
+<p>The Veritas Initiative, developed jointly by MAS and the financial industry across several phases from 2020 to 2023, translates these four principles into concrete assessment methodologies that financial institutions can apply to their own models. Its use cases include credit risk scoring and customer marketing for banks, and predictive underwriting and fraud detection for insurers, backed by an open-source toolkit that automates fairness-metric assessment. MAS issued a consultation paper on binding AI Risk Management Guidelines for financial institutions in November 2025 <span class="citation" data-cites="mas_ai_risk_2025">(<a href="#ref-mas_ai_risk_2025" role="doc-biblioref">Monetary Authority of Singapore 2025</a>)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>FEAT and Veritas are the financial-sector counterpart to the fairness criteria in Chapter 2, developed independently, by a regulator, for the same underlying problem. Rather than prescribing a single fairness test, Veritas’s assessment methodology asks how a financial institution should define, measure, justify, and monitor fairness in its AI-driven pricing or underwriting system.</p>
+</div>
+</div>
+</section>
+<section id="common-themes-across-jurisdictions" class="level3">
+<h3 class="anchored" data-anchor-id="common-themes-across-jurisdictions">Common themes across jurisdictions</h3>
+<p>Despite differences in approach (the EU’s single standalone Act, the US and China’s binding-but-sectoral rules, Australia and Singapore’s voluntary frameworks layered on existing law), four themes appear consistently:</p>
+<ol type="1">
+<li><strong>Governance and accountability</strong>: AI systems must have clear ownership, documentation, and oversight mechanisms.</li>
+<li><strong>Fairness testing and bias assessment</strong>: Deploying organisations must be able to demonstrate that AI outputs do not unfairly discriminate.</li>
+<li><strong>Explainability and transparency</strong>: Affected individuals and regulators must be able to understand how AI-driven decisions are made.</li>
+<li><strong>Privacy and data protection</strong>: Personal data used in these systems must be collected, used, and retained lawfully.</li>
+</ol>
+<p>The last three themes map directly onto this course’s three pillars: fairness, explainability, and privacy. Governance and accountability is a cross-cutting theme this course addresses within each pillar’s quantitative methods (the audit protocol in Chapter 2, documentation practices throughout) rather than as a separate, fourth pillar. Whether a jurisdiction enforces these themes through a single law, several sector regulators, or voluntary industry frameworks is a question of regulatory strategy. The underlying obligations converge.</p>
+</section>
+</section>
+<section id="course-roadmap" class="level2">
+<h2 class="anchored" data-anchor-id="course-roadmap">Course Roadmap</h2>
+<section id="structure-principles-and-practice" class="level3">
+<h3 class="anchored" data-anchor-id="structure-principles-and-practice">Structure: principles and practice</h3>
+<p>Each topic is covered in two chapters, one focused on principles and conceptual frameworks that generalise across domains, and one focused on quantitative methods worked through on a real case study.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 24%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Chapter</th>
+<th>Title</th>
+<th>Key methods</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>Fairness Principles</td>
+<td>Fairness criteria and model designs (core focus); welfare analysis and audit framework (brief overview)</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>Fairness Practice</td>
+<td>Measuring and enforcing fairness criteria, case study: French motor insurance data (R)</td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td>Explainability Principles</td>
+<td>PFI, PDP, ALE, SHAP, LIME, regulatory expectations</td>
+</tr>
+<tr class="even">
+<td><strong>5</strong></td>
+<td>Explainability Practice</td>
+<td>Global and local model explanations, case study: XGBoost insurance pricing model (Python)</td>
+</tr>
+<tr class="odd">
+<td><strong>6</strong></td>
+<td>Privacy Principles</td>
+<td>k-Anonymity, differential privacy, synthetic data, regulatory frameworks</td>
+</tr>
+<tr class="even">
+<td><strong>7</strong></td>
+<td>Privacy Practice</td>
+<td>Re-identification risk, k-anonymity, DP, synthetic data, case study: insurance micro-data (R)</td>
+</tr>
+<tr class="odd">
+<td><strong>8</strong></td>
+<td>Trade-offs, Integration, and Governance</td>
+<td>Fairness–accuracy–privacy trade-offs, systemic risk, governance</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="three-cases-to-keep-in-mind" class="level3">
+<h3 class="anchored" data-anchor-id="three-cases-to-keep-in-mind">Three cases to keep in mind</h3>
+<p>Three widely-documented failures anticipate the three pillars ahead. Each is a preview of a specific chapter pair. Keep them in mind as a reason the tools in this course exist.</p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: COMPAS recidivism scoring">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: COMPAS recidivism scoring
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In 2016, ProPublica’s <em>Machine Bias</em> investigation examined COMPAS, a recidivism-risk tool used in U.S. courts <span class="citation" data-cites="angwin2016machine">(<a href="#ref-angwin2016machine" role="doc-biblioref">Angwin et al. 2016</a>)</span>. Among defendants who did <strong>not</strong> reoffend within two years, Black defendants were flagged “high risk” at nearly twice the rate of white defendants. The tool’s vendor countered that COMPAS was <strong>well-calibrated</strong>. Among defendants who received the same risk score, the reoffense rate was similar across race.</p>
+<p>Both sides had a point, and that is exactly the problem. A tool can satisfy calibration (sufficiency) and still produce a stark disparity in error rates (violate separation). <strong>Chapters 2–3</strong> give you the vocabulary to name this trade-off precisely, and the model designs to decide which criterion your context demands.</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: the UK A-level grading algorithm">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: the UK A-level grading algorithm
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When COVID-19 cancelled 2020 UK school exams, the regulator Ofqual used a standardisation algorithm to convert teachers’ predicted grades into final results, aiming to prevent grade inflation <span class="citation" data-cites="ofqual2020algorithm">(<a href="#ref-ofqual2020algorithm" role="doc-biblioref">Centre for Multilevel Modelling, University of Bristol 2020</a>)</span>. The algorithm downgraded roughly 40% of teacher predictions, leaning heavily on each school’s historical results, so students at historically lower-performing (disproportionately state) schools were downgraded more than students at small, historically high-performing (disproportionately private) schools.</p>
+<p>Neither students, schools, nor the government could get a satisfying answer to “why did this student get this grade?” before results day. Public backlash, including the Prime Minister calling it a “mutant algorithm,” forced a reversal to teacher predictions within days. <strong>Chapters 4–5</strong> cover the explainability tools (PDP, SHAP) that could have shown, before deployment, how strongly school-history variables influenced the model’s predictions overall and for individual students, though they would not have settled the more fundamental question of whether school history should determine an individual student’s grade at all. That question belongs to the fairness lens in Chapters 2–3.</p>
+</div>
+</div>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: Cambridge Analytica">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Case Study: Cambridge Analytica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In 2018, it emerged that the political consultancy Cambridge Analytica had obtained data on roughly 87 million Facebook users, collected via a third-party personality-quiz app under the guise of academic research, then repurposed for political ad micro-targeting without those users’ knowledge or consent. The US FTC (Federal Trade Commission) fined Facebook $5 billion <span class="citation" data-cites="ftc2019facebook">(<a href="#ref-ftc2019facebook" role="doc-biblioref">Federal Trade Commission 2019</a>)</span> for violating an earlier commitment to clearly notify users when their data was shared with third parties.</p>
+<p>The core failure was not a data breach in the technical sense, but data collected for one purpose being repurposed for an unrelated one. <strong>Chapters 6–7</strong> cover exactly this boundary (contextual integrity, purpose limitation) and the privacy-enhancing techniques that make repurposing harder to do quietly.</p>
+</div>
+</div>
+</section>
+<section id="a-quantitative-course" class="level3">
+<h3 class="anchored" data-anchor-id="a-quantitative-course">A quantitative course</h3>
+<p>This is not a course about AI ethics as a philosophical discipline. It is a course about the quantitative tools that make ethical commitments measurable and enforceable.</p>
+<p>By the end of the course, you should be able to:</p>
+<ul>
+<li>Fit and compare fairness-aware models and quantify the fairness–accuracy trade-off</li>
+<li>Interpret complex machine learning models using state-of-the-art explanation tools</li>
+<li>Assess and reduce re-identification risk in a tabular dataset</li>
+<li>Generate and evaluate synthetic data for privacy-preserving analysis</li>
+<li>Communicate technical results to non-technical stakeholders, including regulators</li>
+</ul>
+<p>The principles chapters draw examples from insurance, lending, hiring, healthcare, and criminal-justice applications alike. The practice chapters apply the resulting methods to real insurance datasets as a consistent worked case study, using industry-relevant tools (R, Python, XGBoost, SHAP, <code>sdcMicro</code>, <code>synthpop</code>). The same methods can be adapted to a hiring, lending, or healthcare dataset, though the relevant outcomes, fairness considerations, and legal context will differ.</p>
+</section>
+<section id="connecting-the-pillars" class="level3">
+<h3 class="anchored" data-anchor-id="connecting-the-pillars">Connecting the pillars</h3>
+<p>The three pillars of the course are not independent. They interact in important ways that will be explored throughout.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Illustrative example: the telematics insurer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Illustrative example: the telematics insurer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An insurer introduces telematics-based pricing using GPS and accelerometer data from a smartphone app. Telematics-derived rating factors may include distance driven, time of day, speeding, rapid acceleration, and harsh braking.</p>
+<ul>
+<li><strong>Fairness</strong>: do these telematics-derived factors act as proxies for protected attributes such as age, gender, or socioeconomic status?</li>
+<li><strong>Explainability</strong>: can the insurer explain to a policyholder which telematics-derived factors contributed to their premium or renewal-premium increase?</li>
+<li><strong>Privacy</strong>: does the insurer have the legal basis to collect continuous location data? Does it share data with third parties? Can policyholders request deletion?</li>
+</ul>
+<p>Each pillar generates distinct obligations, but a complete responsible AI framework must address all three. The same three-way tension appears in workplace productivity-monitoring software (fairness in performance scoring, explainability of automated flags, privacy of continuously logged activity) and in health wearables feeding into insurance or employer wellness programs.</p>
+</div>
+</div>
+</section>
+<section id="recommended-reading" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-reading">Recommended reading</h3>
+<ul>
+<li><span class="citation" data-cites="huang2025checkyourai">Huang (<a href="#ref-huang2025checkyourai" role="doc-biblioref">2025</a>)</span>: ethical AI lifecycle framework used throughout this chapter</li>
+<li><span class="citation" data-cites="leek2015question">Leek and Peng (<a href="#ref-leek2015question" role="doc-biblioref">2015</a>)</span>; <span class="citation" data-cites="peng2015art">Peng and Matsui (<a href="#ref-peng2015art" role="doc-biblioref">2015</a>)</span>: the question-types framework and characteristics of a well-posed data science question</li>
+<li><span class="citation" data-cites="barocas2016disparate">Barocas and Selbst (<a href="#ref-barocas2016disparate" role="doc-biblioref">2016</a>)</span>: foundational legal and technical treatment of algorithmic disparate impact, general to any automated decision</li>
+</ul>
+<p>Chapters 2–7 each provide their own recommended reading specific to fairness, explainability, and privacy.</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-aiverify_foundation" class="csl-entry" role="listitem">
+AI Verify Foundation. 2023. <span>“AI Verify Foundation.”</span> <a href="https://aiverifyfoundation.sg/">https://aiverifyfoundation.sg/</a>.
+</div>
+<div id="ref-singapore_mgf_genai_2024" class="csl-entry" role="listitem">
+AI Verify Foundation and Infocomm Media Development Authority. 2024. <span>“Model AI Governance Framework for Generative AI.”</span> <a href="https://aiverifyfoundation.sg/resources/mgf-gen-ai/">https://aiverifyfoundation.sg/resources/mgf-gen-ai/</a>.
+</div>
+<div id="ref-angwin2016machine" class="csl-entry" role="listitem">
+Angwin, Julia, Jeff Larson, Surya Mattu, and Lauren Kirchner. 2016. <span>“Machine Bias.”</span> <em>ProPublica</em>. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing</a>.
+</div>
+<div id="ref-ahrc2021humanrightstech" class="csl-entry" role="listitem">
+Australian Human Rights Commission. 2021. <em>Human Rights and Technology: Final Report</em>. <a href="https://humanrights.gov.au/our-work/technology-and-human-rights/projects/final-report-human-rights-and-technology">https://humanrights.gov.au/our-work/technology-and-human-rights/projects/final-report-human-rights-and-technology</a>.
+</div>
+<div id="ref-ahrc2022insurance" class="csl-entry" role="listitem">
+Australian Human Rights Commission and Actuaries Institute. 2022. <em>Guidance Resource: Artificial Intelligence and Discrimination in Insurance Pricing and Underwriting</em>. <a href="https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance">https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance</a>.
+</div>
+<div id="ref-apra_cps230" class="csl-entry" role="listitem">
+Australian Prudential Regulation Authority. 2023. <em>Prudential Standard CPS 230: Operational Risk Management</em>. <a href="https://www.apra.gov.au/operational-risk-management">https://www.apra.gov.au/operational-risk-management</a>.
+</div>
+<div id="ref-far2023" class="csl-entry" role="listitem">
+Australian Prudential Regulation Authority and Australian Securities and Investments Commission. 2023. <em>Financial Accountability Regime</em>. <a href="https://www.apra.gov.au/financial-accountability-regime">https://www.apra.gov.au/financial-accountability-regime</a>.
+</div>
+<div id="ref-asic2024rep798" class="csl-entry" role="listitem">
+Australian Securities and Investments Commission. 2024. <em>Report 798: Beware the Gap — Governance Arrangements in the Face of AI Innovation</em>. <a href="https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/">https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/</a>.
+</div>
+<div id="ref-barocas2016disparate" class="csl-entry" role="listitem">
+Barocas, Solon, and Andrew D Selbst. 2016. <span>“Big Data’s Disparate Impact.”</span> <em>California Law Review</em> 104: 671–732.
+</div>
+<div id="ref-blackman2022ethical" class="csl-entry" role="listitem">
+Blackman, Reid. 2022. <em>Ethical Machines: Your Concise Guide to Totally Unbiased, Transparent, and Respectful AI</em>. Harvard Business Review Press.
+</div>
+<div id="ref-ofqual2020algorithm" class="csl-entry" role="listitem">
+Centre for Multilevel Modelling, University of Bristol. 2020. <em>The 2020 GCSE and a-Level ’Exam Grades Fiasco’: A Secondary Data Analysis of Students’ Grades and Ofqual’s Algorithm</em>. <a href="https://www.bristol.ac.uk/cmm/research/grade/">https://www.bristol.ac.uk/cmm/research/grade/</a>.
+</div>
+<div id="ref-colorado_sb21169_2021" class="csl-entry" role="listitem">
+Colorado General Assembly. 2021. <em>Senate Bill 21-169: Protecting Consumers from Unfair Discrimination in Insurance Practices</em>. Colorado Division of Insurance. <a href="https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices">https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices</a>.
+</div>
+<div id="ref-cfpb_circular_2023_03" class="csl-entry" role="listitem">
+Consumer Financial Protection Bureau. 2023. <span>“Consumer Financial Protection Circular 2023-03: Adverse Action Notification Requirements and Proper Use of the CFPB’s Sample Forms.”</span> <a href="https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper">https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper</a>.
+</div>
+<div id="ref-china_algo_recommendation_2022" class="csl-entry" role="listitem">
+Cyberspace Administration of China. 2022. <em>Provisions on the Administration of Algorithmic Recommendation in Internet Information Services (互联网信息服务算法推荐管理规定)</em>. <a href="https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm">https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm</a>.
+</div>
+<div id="ref-china_genai_interim_2023" class="csl-entry" role="listitem">
+Cyberspace Administration of China. 2023. <em>Interim Measures for the Administration of Generative Artificial Intelligence Services (生成式人工智能服务管理暂行办法)</em>. <a href="https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm">https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm</a>.
+</div>
+<div id="ref-china_ai_content_labeling_2025" class="csl-entry" role="listitem">
+Cyberspace Administration of China and Ministry of Industry and Information Technology and Ministry of Public Security and National Radio and Television Administration. 2025. <em>Measures for the Labelling of AI-Generated and Synthesised Content (人工智能生成合成内容标识办法)</em>. <a href="https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm">https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm</a>.
+</div>
+<div id="ref-dastin2018amazon" class="csl-entry" role="listitem">
+Dastin, Jeffrey. 2018. <em>Amazon Scraps Secret AI Recruiting Tool That Showed Bias Against Women</em>. Reuters. <a href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G">https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G</a>.
+</div>
+<div id="ref-australia_national_ai_plan_2025" class="csl-entry" role="listitem">
+Department of Industry, Science and Resources (Australia). 2025. <span>“National AI Plan.”</span> <a href="https://www.industry.gov.au/publications/national-ai-plan/introduction">https://www.industry.gov.au/publications/national-ai-plan/introduction</a>.
+</div>
+<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
+European Court of Justice. 2011. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge Des Consommateurs Test-Achats ASBL and Others v Conseil Des Ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
+</div>
+<div id="ref-euaiact2024" class="csl-entry" role="listitem">
+European Parliament and Council of the European Union. 2024. <em>Regulation (EU) 2024/1689 Laying down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng</a>.
+</div>
+<div id="ref-ftc2019facebook" class="csl-entry" role="listitem">
+Federal Trade Commission. 2019. <span>“FTC Imposes $5 Billion Penalty and Sweeping New Privacy Restrictions on Facebook.”</span> <a href="https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook">https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook</a>.
+</div>
+<div id="ref-sc2026legislativeplan" class="csl-entry" role="listitem">
+General Office of the State Council of the People’s Republic of China. 2026. <em>State Council 2026 Legislative Work Plan (国务院2026年度立法工作计划)</em>. <a href="https://www.news.cn/20260511/64fb4f5178b042e6aa16bf55932f038e/c.html">https://www.news.cn/20260511/64fb4f5178b042e6aa16bf55932f038e/c.html</a>.
+</div>
+<div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
+Huang, Fei. 2025. <span>“Check Your <span>AI</span>: A Framework for Its Use in Actuarial Practice.”</span> <em>The Actuary</em>. <a href="https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice">https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice</a>.
+</div>
+<div id="ref-illinois_ai_video_interview_act" class="csl-entry" role="listitem">
+Illinois General Assembly. 2019. <em>Artificial Intelligence Video Interview Act (820 ILCS 42)</em>. <a href="https://www.ilga.gov/Legislation/ILCS/Articles?ActID=4015&amp;ChapterID=68&amp;Print=True">https://www.ilga.gov/Legislation/ILCS/Articles?ActID=4015&amp;ChapterID=68&amp;Print=True</a>.
+</div>
+<div id="ref-leek2015question" class="csl-entry" role="listitem">
+Leek, Jeffrey T, and Roger D Peng. 2015. <span>“What Is the Question?”</span> <em>Science</em> 347 (6228): 1314–15.
+</div>
+<div id="ref-mas_feat_2018" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2018. <span>“Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector.”</span> <a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat">https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat</a>.
+</div>
+<div id="ref-mas_veritas" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2019. <span>“Veritas Initiative.”</span> <a href="https://www.mas.gov.sg/schemes-and-initiatives/veritas">https://www.mas.gov.sg/schemes-and-initiatives/veritas</a>.
+</div>
+<div id="ref-mas_ai_risk_2025" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2025. <span>“Consultation Paper on Guidelines on Artificial Intelligence Risk Management for Financial Institutions.”</span> <a href="https://www.mas.gov.sg/publications/consultations/2025/consultation-paper-on-guidelines-on-artificial-intelligence-risk-management">https://www.mas.gov.sg/publications/consultations/2025/consultation-paper-on-guidelines-on-artificial-intelligence-risk-management</a>.
+</div>
+<div id="ref-naic_au_2025_ai6" class="csl-entry" role="listitem">
+National AI Centre. 2025. <span>“Guidance for AI Adoption: Foundations.”</span> <a href="https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf">https://www.industry.gov.au/sites/default/files/2025-10/guidance-for-ai-adoption-foundations.pdf</a>.
+</div>
+<div id="ref-naic2023modelbulletin" class="csl-entry" role="listitem">
+National Association of Insurance Commissioners. 2023. <span>“Model Bulletin: Use of Artificial Intelligence Systems by Insurers.”</span> <a href="https://content.naic.org/article/naic-members-approve-model-bulletin-use-ai-insurers">https://content.naic.org/article/naic-members-approve-model-bulletin-use-ai-insurers</a>.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+National Financial Regulatory Administration (China). 2026. <em>Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors (关于银行业保险业人工智能安全开发应用的指导意见, Jin Fa [2026] No. 8)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1">https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&amp;generaltype=1</a>.
+</div>
+<div id="ref-china_pipl_2021" class="csl-entry" role="listitem">
+National People’s Congress (China). 2021. <em>Personal Information Protection Law of the People’s Republic of China (中华人民共和国个人信息保护法)</em>. <a href="http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html">http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html</a>.
+</div>
+<div id="ref-nyc_local_law_144_2021" class="csl-entry" role="listitem">
+New York City Council. 2021. <em>Local Law 144 of 2021: Automated Employment Decision Tools</em>. <a href="https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/">https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/</a>.
+</div>
+<div id="ref-nydfs2021applecard" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2021. <em>Report on Apple Card Investigation</em>. <a href="https://www.dfs.ny.gov/system/files/documents/2021/03/rpt_202103_apple_card_investigation.pdf">https://www.dfs.ny.gov/system/files/documents/2021/03/rpt_202103_apple_card_investigation.pdf</a>.
+</div>
+<div id="ref-nydfs_circular7_2024" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024. <span>“Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing.”</span> <a href="https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07">https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07</a>.
+</div>
+<div id="ref-obermeyer2019dissecting" class="csl-entry" role="listitem">
+Obermeyer, Ziad, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. 2019. <span>“Dissecting Racial Bias in an Algorithm Used to Manage the Health of Populations.”</span> <em>Science</em> 366 (6464): 447–53.
+</div>
+<div id="ref-hbr2026outsourcedai" class="csl-entry" role="listitem">
+Parra-Orlandoni, M. Alejandra, and Paulo Carvão. 2026. <span>“You Outsourced the <span>AI</span> — but You Still Own the Risk.”</span> <em>Harvard Business Review</em>. <a href="https://hbr.org/2026/07/you-outsourced-the-ai-but-you-still-own-the-risk">https://hbr.org/2026/07/you-outsourced-the-ai-but-you-still-own-the-risk</a>.
+</div>
+<div id="ref-peng2015art" class="csl-entry" role="listitem">
+Peng, Roger D, and Elizabeth Matsui. 2015. <em>The Art of Data Science: A Guide for Anyone Who Works with Data</em>. Skybrude Consulting, LLC.
+</div>
+<div id="ref-singapore_mgf_2020" class="csl-entry" role="listitem">
+Personal Data Protection Commission Singapore and Infocomm Media Development Authority. 2020. <span>“Model Artificial Intelligence Governance Framework (Second Edition).”</span> <a href="https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework">https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework</a>.
+</div>
+<div id="ref-pola2024act" class="csl-entry" role="listitem">
+Privacy and Other Legislation Amendment Act 2024 (Cth) (2024).
+</div>
+<div id="ref-gdpr2016regulation" class="csl-entry" role="listitem">
+Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation) (2016).
+</div>
+</div></section></div></main> <!-- /main -->
+<div id="lang-toggle-container"></div>
+<script>
+(function () {
+  var path = window.location.pathname;
+  if (/\/$/.test(path)) { path = path + "index.html"; }
+  if (!/\.html$/.test(path)) return;
+
+  var isZh = /-ZH\.html$/.test(path);
+
+  var siblingPath = isZh
+    ? path.replace(/-ZH\.html$/, ".html")
+    : path.replace(/\.html$/, "-ZH.html");
+  if (siblingPath === path) return;
+
+  fetch(siblingPath, { method: "HEAD" })
+    .then(function (resp) {
+      if (!resp.ok) return;
+      var container = document.getElementById("lang-toggle-container");
+      if (!container) return;
+      var a = document.createElement("a");
+      a.href = siblingPath;
+      a.className = "lang-toggle-btn";
+      a.textContent = isZh ? "English" : "中文";
+      container.appendChild(a);
+    })
+    .catch(function () {
+      /* sibling page doesn't exist yet — show no toggle */
+    });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" class="pagination-link" aria-label="Chapter 2: Fairness Principles">
+        <span class="nav-page-text">Chapter 2: Fairness Principles</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

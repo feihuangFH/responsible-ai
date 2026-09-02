@@ -1,0 +1,48 @@
+<svg viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="760" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#1F4E79"/>
+    </marker>
+  </defs>
+
+  <!-- Arrows -->
+  <g stroke="#1F4E79" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <line x1="380" y1="100" x2="380" y2="136"/>
+    <line x1="380" y1="220" x2="380" y2="256"/>
+    <line x1="380" y1="340" x2="380" y2="376"/>
+    <line x1="380" y1="460" x2="380" y2="496"/>
+    <line x1="380" y1="580" x2="380" y2="616"/>
+  </g>
+
+  <!-- Step 1 -->
+  <rect x="80" y="20" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="55" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="bold">1. Fix the criterion and outcome variable</text>
+  <text x="380" y="80" text-anchor="middle" fill="#dbe6f0" font-size="14">Chapter 2, Step 1</text>
+
+  <!-- Step 2 -->
+  <rect x="80" y="140" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="175" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="bold">2. Choose the intervention stage and model design</text>
+  <text x="380" y="200" text-anchor="middle" fill="#dbe6f0" font-size="14">Pre-, in-, or post-processing — Chapter 2, Step 2</text>
+
+  <!-- Step 3 -->
+  <rect x="80" y="260" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="295" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="bold">3. Implement and fit the model(s)</text>
+  <text x="380" y="320" text-anchor="middle" fill="#dbe6f0" font-size="14">Keep M0 as the baseline for comparison</text>
+
+  <!-- Step 4 -->
+  <rect x="80" y="380" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="415" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="bold">4. Measure the trade-off</text>
+  <text x="380" y="440" text-anchor="middle" fill="#dbe6f0" font-size="14">Fairness metric vs. accuracy metric</text>
+
+  <!-- Step 5 -->
+  <rect x="80" y="500" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="535" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="bold">5. Inspect the redistribution</text>
+  <text x="380" y="560" text-anchor="middle" fill="#dbe6f0" font-size="14">Which subgroups gain, which lose</text>
+
+  <!-- Step 6 (optional) -->
+  <rect x="80" y="620" width="600" height="80" rx="6" fill="#eef3f8" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="380" y="655" text-anchor="middle" fill="#1F4E79" font-size="19" font-weight="bold">6. Stress-test for adverse selection</text>
+  <text x="380" y="680" text-anchor="middle" fill="#3a6386" font-size="14">Optional depth</text>
+</svg>

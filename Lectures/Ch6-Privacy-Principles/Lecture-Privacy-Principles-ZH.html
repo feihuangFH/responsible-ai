@@ -1553,6 +1553,14 @@ D(P_E, P_D) \leq t,
 </tr>
 </tbody>
 </table>
+<p><strong>应用于一款新产品</strong>:假设某保险公司即将推出一款基于使用情况定价(UBI)的车载远程信息应用。</p>
+<ul>
+<li><strong>识别</strong>:数据流向图会显示,每隔数秒一次的 GPS 定位、刹车与加速事件、以及速度数据,从客户的手机或插入式设备,流向供应商的平台,再流向保险公司的定价引擎,并有可能依供应商合同条款进一步流向任何第三方。</li>
+<li><strong>评估</strong>:即便声称的目的仅仅是定价,持续的位置数据依然会暴露客户的家庭住址与工作地点;GM OnStar 案例背后的同一种模式——数据在未经额外同意的情况下悄然流向超出原始目的的第三方——只要供应商介于客户与保险公司之间,就是一项真实存在的风险。</li>
+<li><strong>建议</strong>:在定价模型不需要原始 GPS 轨迹的地方,改为收集行程级的汇总统计(如汇总的速度/刹车数据);在供应商合同中写入目的限制条款,禁止转售;在向外部共享任何数据前,应用 k-匿名性或汇聚处理。</li>
+<li><strong>响应</strong>:将“即便是经过汇总的数据,驾驶模式仍可被推断出来”记录为一项剩余风险,并在产品上线前,获得对该风险负责之人的签字确认。</li>
+</ul>
+<p>这正是 GM 自身的 DPIA 流程本应在 OnStar Smart Driver 上线之前就发现的问题。</p>
 </section>
 <section id="大语言模型的隐私考量" class="level3">
 <h3 class="anchored" data-anchor-id="大语言模型的隐私考量">大语言模型的隐私考量</h3>
@@ -1757,7 +1765,6 @@ Westin, Alan F. 1967年. <em>Privacy and Freedom</em>. Atheneum.
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")

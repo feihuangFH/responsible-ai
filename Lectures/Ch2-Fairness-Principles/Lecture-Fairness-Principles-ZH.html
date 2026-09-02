@@ -184,7 +184,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index-ZH.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">首页</span></a>
   </div>
 </li>
@@ -602,7 +602,7 @@ window.Quarto = {
 <p>公平性监管大致通过四种机制发挥作用,每一种都对应本章中的某一项准则或设计选择,并且在不同司法辖区以不同的制度形式反复出现。</p>
 <ol type="1">
 <li><strong>禁止变量规则</strong> 直接禁止使用某一受保护属性,例如美国禁止在信用评分中使用种族。这对应的是 <strong>FTU</strong>,因为该属性从一开始就不会作为输入变量。</li>
-<li><strong>代理性歧视规则</strong> 针对的情形是:受保护变量本身虽未被使用,但其他变量依然承载着它的效应,而非一概禁止。Colorado 的 SB21-169 要求保险公司对算法和预测模型进行测试,以排查这种代理效应所引发的不公平歧视,而 New York 的 DFS Circular Letter No.&nbsp;7 则对用于承保与定价的人工智能系统和外部数据施加了类似的要求 <span class="citation" data-cites="colorado_sb21169_2021 nydfs_circular7_2024">(<a href="#ref-colorado_sb21169_2021" role="doc-biblioref">Colorado General Assembly 2021年</a>; <a href="#ref-nydfs_circular7_2024" role="doc-biblioref">New York State Department of Financial Services 2024年</a>)</span>。中国的《互联网信息服务算法推荐管理规定》从相反的方向处理了一种相关的代理效应,禁止利用消费者自身的数据对其收取比其他消费者购买同一产品更高的价格 <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">国家互联网信息办公室 2022年</a>)</span>。这对应的是 <strong>CPV</strong>。</li>
+<li><strong>代理性歧视规则</strong> 针对的情形是:受保护变量本身虽未被使用,但其他变量依然承载着它的效应,而非一概禁止。Colorado 的 SB21-169 要求保险公司对算法和预测模型进行测试,以排查这种代理效应所引发的不公平歧视,而 New York 的 DFS Circular Letter No.&nbsp;7 则对用于承保与定价的人工智能系统和外部数据施加了类似的要求 <span class="citation" data-cites="colorado_sb21169_2021 nydfs_circular7_2024">(<a href="#ref-colorado_sb21169_2021" role="doc-biblioref">Colorado General Assembly 2021年</a>; <a href="#ref-nydfs_circular7_2024" role="doc-biblioref">New York State Department of Financial Services 2024年</a>)</span>。中国的《互联网信息服务算法推荐管理规定》从相反的方向处理了一种相关的代理效应,禁止利用消费者自身的数据对其收取比其他消费者购买同一产品更高的价格 <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">国家互联网信息办公室 2022年</a>)</span>。一项与保险行业联系更为直接的规则强化了同一要点:《银行保险机构消费者权益保护管理办法》第27条要求对交易条件或风险状况相当的消费者,在相同产品和服务上实行合理定价,禁止不公平定价 <span class="citation" data-cites="china_consumer_protection_measures_2022">(<a href="#ref-china_consumer_protection_measures_2022" role="doc-biblioref">中国银行保险监督管理委员会 2022年</a>)</span>。这对应的是 <strong>CPV</strong>。</li>
 <li><strong>差异性影响或均等性规则</strong> 直接检验模型的结果,例如五分之四原则(美国就业法下的一项招聘比例基准)以及保险中的社区费率(不论个体风险高低,对同一群体内的所有人收取相同价格)。Colorado 的 SB21-169 测试制度也是这一逻辑在实践中最清晰的监管范例,因为保险公司必须证明,在扣除合法定价因子的影响之后,其预测模型不会产生不公平的歧视性结果 <span class="citation" data-cites="colorado_sb21169_2021">(<a href="#ref-colorado_sb21169_2021" role="doc-biblioref">Colorado General Assembly 2021年</a>)</span>。这对应的是<strong>群体准则</strong>(DP、CDP)。欧盟统一性别保险定价规则是同一逻辑更严格的个体层面版本。评级档案相同(即在车辆类型、年龄等所有允许使用的定价因子上取值相同)的一男一女,必须获得相同的价格,而不仅仅是平均价格相同。FTU 直接满足这一要求,因为在这种情况下,价格仅仅是允许使用的定价因子的函数,性别不起任何作用。CPV 同样满足这一要求,因为在评分时,顾客自身的性别从未被直接使用,而只是被取平均,因此两位在非受保护特征上相同的顾客会获得相同的价格。</li>
 <li><strong>算法影响与透明度义务</strong> 要求部署机构对模型的公平性属性进行记录、测试与解释,无论其选择了哪种设计或准则。这是一项程序性义务,而非实质性义务。没有任何一种模型设计能单靠自身满足这一义务,因为它是附加在所选设计之上的,而不是内嵌于设计之中的。New York 的 DFS Circular Letter No.&nbsp;7 要求保险公司维持治理框架,并向监管机构解释模型输出结果 <span class="citation" data-cites="nydfs_circular7_2024">(<a href="#ref-nydfs_circular7_2024" role="doc-biblioref">New York State Department of Financial Services 2024年</a>)</span>。纽约市《144号地方法》要求对自动化招聘工具每年进行一次独立偏见审计 <span class="citation" data-cites="nyc_local_law_144_2021">(<a href="#ref-nyc_local_law_144_2021" role="doc-biblioref">New York City Council 2021年</a>)</span>。加州的私家车保险监管规定(Title 10 CCR §2632.5)对同一目标采取了更具体、更机械化的实现方式。该规定要求三项强制性定价变量在定价中所占权重必须高于任何一项可选变量,而这一要求只能借助第四章所介绍的特征重要性方法加以核实 <span class="citation" data-cites="xin2025pitfalls">(<a href="#ref-xin2025pitfalls" role="doc-biblioref">Xin 等 2025年</a>)</span>。新加坡金融管理局的 FEAT 原则将<strong>透明度</strong>列为金融机构必须处理的四个必要维度之一,并通过 Veritas 计划的评估方法将其落地为可操作的流程 <span class="citation" data-cites="mas_feat_2018 mas_veritas">(<a href="#ref-mas_feat_2018" role="doc-biblioref">Monetary Authority of Singapore 2018年</a>, <a href="#ref-mas_veritas" role="doc-biblioref">2019年</a>)</span>。中国国家金融监督管理总局针对银行与保险业的指导意见,在其自身的透明度要求之外,也将“避免算法歧视”列为一项必要的治理要素 <span class="citation" data-cites="nfra2026aiguidance">(<a href="#ref-nfra2026aiguidance" role="doc-biblioref">国家金融监督管理总局 2026年a</a>)</span>。澳大利亚人权委员会(AHRC)与精算师协会联合制定的保险指引,对承保与定价设定了类似的文档记录与问责要求 <span class="citation" data-cites="ahrc2022insurance">(<a href="#ref-ahrc2022insurance" role="doc-biblioref">Australian Human Rights Commission and Actuaries Institute 2022年</a>)</span>。</li>
 </ol>
@@ -1193,6 +1193,9 @@ Xin, Xi, Giles Hooker, 和 Fei Huang. 2025年. <span>《Pitfalls in machine lear
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: Regulations, fairness criteria, and models》</span>. <em>North American Actuarial Journal</em> 28 (2): 285～319.
 </div>
+<div id="ref-china_consumer_protection_measures_2022" class="csl-entry" role="listitem">
+中国银行保险监督管理委员会. 2022年. <em>银行保险机构消费者权益保护管理办法,第二十七条(Measures for the Administration of Consumer Rights Protection by Banking and Insurance Institutions, Article 27)</em>. <a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1087524&amp;generaltype=0&amp;itemId=4098">https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1087524&amp;generaltype=0&amp;itemId=4098</a>.
+</div>
 <div id="ref-china_algo_recommendation_2022" class="csl-entry" role="listitem">
 国家互联网信息办公室. 2022年. <em>互联网信息服务算法推荐管理规定(Provisions on the Administration of Algorithmic Recommendation in Internet Information Services)</em>. <a href="https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm">https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm</a>.
 </div>
@@ -1214,7 +1217,6 @@ Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: 
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")

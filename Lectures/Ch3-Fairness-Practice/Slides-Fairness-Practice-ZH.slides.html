@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="黄斐,新南威尔士大学">
+  <meta name="dcterms.date" content="2026-08-17">
+  <title>Responsible AI: Principles, Governance, and Quantitative Methods – 公平性实践</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #1f1c1b;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #1f1c1b; } /* Normal */
+    code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+    code span.an { color: #ca60ca; } /* Annotation */
+    code span.at { color: #0057ae; } /* Attribute */
+    code span.bn { color: #b08000; } /* BaseN */
+    code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+    code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #924c9d; } /* Char */
+    code span.cn { color: #aa5500; } /* Constant */
+    code span.co { color: #898887; } /* Comment */
+    code span.cv { color: #0095ff; } /* CommentVar */
+    code span.do { color: #607880; } /* Documentation */
+    code span.dt { color: #0057ae; } /* DataType */
+    code span.dv { color: #b08000; } /* DecVal */
+    code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+    code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+    code span.fl { color: #b08000; } /* Float */
+    code span.fu { color: #644a9b; } /* Function */
+    code span.im { color: #ff5500; } /* Import */
+    code span.in { color: #b08000; } /* Information */
+    code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+    code span.op { color: #ca60ca; } /* Operator */
+    code span.ot { color: #006e28; } /* Other */
+    code span.pp { color: #006e28; } /* Preprocessor */
+    code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+    code span.sc { color: #3daee9; } /* SpecialChar */
+    code span.ss { color: #ff5500; } /* SpecialString */
+    code span.st { color: #bf0303; } /* String */
+    code span.va { color: #0057ae; } /* Variable */
+    code span.vs { color: #bf0303; } /* VerbatimString */
+    code span.wa { color: #bf0303; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-96baaebca6aae0d833d4fea310b664e9.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+  </script>
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">公平性实践</h1>
+  <p class="subtitle">幻灯片 — 第三章</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+黄斐,新南威尔士大学 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-08-17</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">目录</h2>
+<ul>
+<li><a href="#/第一部分从原则到实践" id="/toc-第一部分从原则到实践">第一部分——从原则到实践</a></li>
+<li><a href="#/第二部分拟合模型" id="/toc-第二部分拟合模型">第二部分——拟合模型</a></li>
+<li><a href="#/第三部分结果" id="/toc-第三部分结果">第三部分——结果</a></li>
+<li><a href="#/休息10分钟" id="/toc-休息10分钟"><em>休息——10分钟</em></a></li>
+<li><a href="#/第四部分保费重新分配" id="/toc-第四部分保费重新分配">第四部分——保费重新分配</a></li>
+<li><a href="#/第五部分案例研究审前风险评估compas" id="/toc-第五部分案例研究审前风险评估compas">第五部分——案例研究:审前风险评估(COMPAS)</a></li>
+</ul>
+</nav>
+</section>
+<section id="今日安排" class="slide level2 smaller center">
+<h2>今日安排</h2>
+<p>2小时课程,实操为主,五个部分,五次讨论环节</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>部分</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00 – 0:15</td>
+<td>从原则到实践:工作流程</td>
+</tr>
+<tr class="even">
+<td>0:15 – 0:40</td>
+<td>拟合模型(GLM + XGBoost)</td>
+</tr>
+<tr class="odd">
+<td>0:40 – 1:05</td>
+<td>结果:公平性—准确性权衡取舍</td>
+</tr>
+<tr class="even">
+<td>1:05 – 1:15</td>
+<td><em>休息</em></td>
+</tr>
+<tr class="odd">
+<td>1:15 – 1:35</td>
+<td>保费重新分配</td>
+</tr>
+<tr class="even">
+<td>1:35 – 2:00</td>
+<td>案例研究:COMPAS 分类</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>这是一章以实操为主的内容。完整的 R 代码见 Lecture-Fairness-Practice.qmd。如果在课堂上现场运行代码,建议在第二块屏幕上打开该文件。这些幻灯片承载工作流程、关键结果与讨论。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="学习目标" class="slide level2 center">
+<h2>学习目标</h2>
+<ul>
+<li>端到端地将一项公平性准则付诸实践:阶段 → 拟合 → 衡量 → 解读</li>
+<li>在真实数据上实现 MU、MDP、MCDP、MC(GLM 与 XGBoost)</li>
+<li>衡量公平性—准确性权衡取舍</li>
+<li>解读结果在各群体间的重新分配</li>
+<li>将同一框架应用于二元分类(COMPAS)</li>
+<li>应用并评估一种后处理修正方法</li>
+</ul>
+</section>
+<section>
+<section id="第一部分从原则到实践" class="title-slide slide level1 center">
+<h1>第一部分——从原则到实践</h1>
+
+</section>
+<section id="工作流程" class="slide level2 center">
+<h2>工作流程</h2>
+<ol type="1">
+<li><strong>确定准则</strong>以及结果变量(第二章,第一步)</li>
+<li><strong>选择干预阶段</strong>,预处理/处理中/后处理(第二章,第二步)</li>
+<li><strong>实现并拟合</strong>,保留 M0 作为基准</li>
+<li><strong>衡量权衡取舍</strong>,公平性指标对比准确性指标</li>
+<li><strong>审视重新分配</strong>,谁获益,谁受损</li>
+</ol>
+<div class="fragment">
+<p><strong>无论哪个领域,步骤都相同。</strong></p>
+</div>
+</section>
+<section id="工作流程可视化" class="slide level2 center">
+<h2>工作流程可视化</h2>
+
+<img data-src="workflow-flowchart-ZH.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
+<section id="案例研究车险公平定价" class="slide level2 smaller center">
+<h2>案例研究:车险公平定价</h2>
+<ul>
+<li><strong>100,000</strong>份法国车险第三方责任险保单</li>
+<li>响应变量:<strong>纯保费</strong> = 频率 × 严重程度</li>
+<li>受保护属性:<strong>性别</strong></li>
+<li>合法变量:年龄、无赔款折扣等级、车辆组别、密度、价值</li>
+<li>非合法变量:<strong>InsuranceScore</strong>,一个构造出的类信用评分代理变量</li>
+</ul>
+<aside class="notes">
+<p>纯保费大致相当于每份保单的平均预期理赔成本。频率是指保单持有人提出理赔的频繁程度,严重程度是指每次理赔的平均成本。第三方责任险承保的是保单持有人对他人造成的伤害或损失,不包括其自身车辆。无赔款折扣等级有时称为 bonus-malus,数值越低表示过去理赔次数越少。</p>
+<p>InsuranceScore 代表了一类富含代理信息的因子:保留预测价值,可能与性别相关,受到更严格的公平性审查。它也具有实际用途。差异性影响消除器需要连续型输入变量,因此将分类型代理变量汇总为单一评分,使得在 MCDP 下进行去偏处理成为可能。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="五种模型" class="slide level2 center">
+<h2>五种模型</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>模型</th>
+<th>准则</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0</td>
+<td>基准</td>
+<td>完整模型,包含性别变量</td>
+</tr>
+<tr class="even">
+<td>MU</td>
+<td>FTU(无意识公平)</td>
+<td>移除性别变量</td>
+</tr>
+<tr class="odd">
+<td>MDP</td>
+<td>人口统计学均等性</td>
+<td>所有预测变量均去偏</td>
+</tr>
+<tr class="even">
+<td>MCDP</td>
+<td>条件 DP</td>
+<td>仅对 InsuranceScore 去偏</td>
+</tr>
+<tr class="odd">
+<td>MC</td>
+<td>CPV(控制受保护变量)</td>
+<td>完整模型,评分时对性别取平均</td>
+</tr>
+</tbody>
+</table>
+<p>每种模型均分别以 <strong>GLM</strong>(Poisson 频率 + Gamma 严重程度)和 <strong>XGBoost</strong> 拟合。</p>
+</section>
+<section id="讨论3分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>如果你的机构明天必须部署这五种设计中的<strong>一种</strong>——</p>
+<p><strong>你会选哪一个?为什么?</strong></p>
+</section></section>
+<section>
+<section id="第二部分拟合模型" class="title-slide slide level1 center">
+<h1>第二部分——拟合模型</h1>
+
+</section>
+<section id="预处理差异性影响消除器" class="slide level2 center">
+<h2>预处理:差异性影响消除器</h2>
+<p>对于 MDP 与 MCDP,调整连续预测变量的分布,使其不再依赖于性别,同时保留总体形态。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>di_data <span class="ot">&lt;-</span> <span class="fu">disparate_impact_remover</span>(</span>
+<span id="cb1-2"><a></a>  <span class="at">data =</span> data_for_di, <span class="at">protected =</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>Gender),</span>
+<span id="cb1-3"><a></a>  <span class="at">features_to_transform =</span> features_to_transform, <span class="at">lambda =</span> <span class="dv">1</span></span>
+<span id="cb1-4"><a></a>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong>MDP</strong>:应用于所有预测变量</li>
+<li><strong>MCDP</strong>:仅应用于 InsuranceScore</li>
+</ul>
+</section>
+<section id="glm-频率严重程度框架" class="slide level2 center">
+<h2>GLM 频率—严重程度框架</h2>
+<p><span class="math display">\text{纯保费} = \text{理赔频率} \times \text{理赔严重程度}</span></p>
+<ul>
+<li><strong>频率</strong>:Poisson GLM,对数链接函数,风险敞口偏移量</li>
+<li><strong>严重程度</strong>:Gamma GLM,对数链接函数,仅基于理赔数据</li>
+</ul>
+<p>年龄以一个灵活的函数形式(<span class="math inline">\text{Age}, \log(\text{Age}), \text{Age}^2, \text{Age}^3, \text{Age}^4</span>)纳入模型。</p>
+<aside class="notes">
+<p>风险敞口是指保单处于有效状态、面临理赔风险的天数,用于对理赔次数进行标准化。XGBoost 采用相同的预测变量集以相同方式拟合,频率部分使用 count:poisson 目标函数。所有模型均按比例缩放,使预测保费总额与 GLM MU 的组合总额(全部保单预测保费之和)相匹配。这样比较的重点便落在重新分配上,而非组合层面的总体差异。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="第三部分结果" class="title-slide slide level1 center">
+<h1>第三部分——结果</h1>
+
+</section>
+<section id="公平性指标" class="slide level2 center">
+<h2>公平性指标</h2>
+<p><strong>差异性影响比率</strong>(DIR):<span class="math inline">\dfrac{\mathbb{E}(\hat{Y} \mid X_P = b)}{\mathbb{E}(\hat{Y} \mid X_P = a)}</span></p>
+<ul>
+<li>接近1 = 各群体间平均保费相近</li>
+<li>五分之四原则:期望落在<strong>0.8–1.25</strong>之间</li>
+</ul>
+<p><strong>RMSE</strong>(准确性,越低越好)</p>
+<aside class="notes">
+<p>差异性影响比率正是我们在此检验人口统计学均等性的方式,即预测结果在受保护群体间平均而言不应存在差异这一理念。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="公平性准确性权衡取舍" class="slide level2 center">
+<h2>公平性—准确性权衡取舍</h2>
+
+<img data-src="fairness-accuracy-plot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><aside class="notes">
+<p>虚线 = DIR 为1(最公平)。点线 = 五分之四区间。位置更靠左(RMSE 更低)的点更为准确。M0 落在公平区间之外,准确性也最差。MDP、MCDP、MC 均落在区间内,准确性代价很小。关键发现:MCDP 与 MC 实现了接近1的 DIR,相对于 M0 的准确性损失却很有限。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="解读该图" class="slide level2 center">
+<h2>解读该图</h2>
+<ul>
+<li><strong>M0</strong>(红色):最准确,最不公平,DIR 为1.36,超过五分之四原则的上限</li>
+<li><strong>MU</strong>(橄榄色):移动幅度足以落入公平区间,但超调越过 DIR = 1(降至0.92),导致哪一方支付更多发生反转</li>
+<li><strong>MDP、MCDP、MC</strong>:落在公平区间内,准确性代价很小</li>
+<li>在每一个公平性水平上,XGBoost(▲)相对于 GLM(●)都保留了大部分优势</li>
+</ul>
+<div class="fragment">
+<p><strong>这里公平性的代价是真实存在的,但幅度很小。</strong></p>
+</div>
+</section>
+<section id="讨论3分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>移除性别变量后,MU 中的性别差距并非仅仅缩小,而是发生了反转:哪一方支付更多的方向变了。</p>
+<p><strong>这对“仅靠无意识”这件事说明了什么?</strong></p>
+</section></section>
+<section id="休息10分钟" class="title-slide slide level1 center">
+<h1><em>休息——10分钟</em></h1>
+
+</section>
+
+<section>
+<section id="第四部分保费重新分配" class="title-slide slide level1 center">
+<h1>第四部分——保费重新分配</h1>
+
+</section>
+<section id="谁获益谁受损" class="slide level2 center">
+<h2>谁获益,谁受损?</h2>
+<p>将每一个公平模型与<strong>MU</strong>(行业标准基准模型)进行比较:</p>
+<p><span class="math display">\text{相对保费差异}_{i} = \frac{\bar{Y}_{\text{模型},i} - \bar{Y}_{\text{MU},i}}{\bar{Y}_{\text{MU},i}}</span></p>
+<p>正值 = 公平模型收取<strong>更高</strong>保费 · 负值 = 收取<strong>更低</strong>保费</p>
+</section>
+<section id="按年龄和性别划分的保费重新分配" class="slide level2 center">
+<h2>按年龄和性别划分的保费重新分配</h2>
+
+<img data-src="redistribution-plot.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="解读该图-1" class="slide level2 center">
+<h2>解读该图</h2>
+<ul>
+<li><strong>MDP</strong>:转移最为明显,在大多数年龄段内提高原本收费较低群体的保费,降低原本收费较高群体的保费</li>
+<li><strong>MCDP</strong>:与 MU 最为接近,合法变量保持不变,仅代理变量被去偏</li>
+<li><strong>MC</strong>:重新分配程度居中,仅反映 M0 中的性别系数</li>
+</ul>
+<div class="fragment">
+<p><strong>团结互助原则</strong>:准则越严格,群体间的交叉补贴就越多。</p>
+</div>
+</section>
+<section id="讨论4分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>MDP 在各群体间产生了最大幅度的转移。</p>
+<p><strong>谁会最强烈地反对部署 MDP?他们会说什么?</strong></p>
+</section></section>
+<section>
+<section id="第五部分案例研究审前风险评估compas" class="title-slide slide level1 center">
+<h1>第五部分——案例研究:审前风险评估(COMPAS)</h1>
+
+</section>
+<section id="案例情境" class="slide level2 smaller center">
+<h2>案例情境</h2>
+<p>美国某县正在决定是否<strong>续签</strong>一份审前风险评估工具的合同,该工具用于协助法官设定保释与释放条件。</p>
+<ul>
+<li>被认为有效减少了不必要的审前羁押</li>
+<li>一项独立审计发现,该工具过度将<strong>不会</strong>再犯的黑人被告标记为高风险</li>
+<li>该县首席公设辩护人必须做出判断:它是否符合站得住脚的公平性标准?能否在不使其失去实用价值的前提下加以修正?</li>
+</ul>
+<aside class="notes">
+<p>这一情境呼应了针对真实 COMPAS 工具的 ProPublica 调查报道。民权倡导者主张废除该工具;供应商与部分法官则认为它仍优于不加结构的人工判断。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="从定价到分类" class="slide level2 center">
+<h2>从定价到分类</h2>
+<p>以上内容全部是<strong>回归</strong>问题(连续型成本)。而这一决策是<strong>二元</strong>的:释放/羁押、标记/放行。</p>
+<p>M0/MU 框架原封不动地适用。改变的只是模型类型和指标。</p>
+<ul>
+<li>N = 5,278名被告(2,103名白人;3,175名非裔美国人)</li>
+<li>响应变量:两年内再犯 · 受保护属性:族裔</li>
+<li>基础再犯率已存在显著差异:<strong>39.1% 对比52.3%</strong></li>
+</ul>
+<aside class="notes">
+<p>再犯是指出狱后因新罪行而被逮捕。这里的两年内再犯是指在出狱后两年内。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="拟合-m0-与-mu" class="slide level2 smaller center">
+<h2>拟合 M0 与 MU</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Two_yr_Recidivism <span class="sc">~</span> Number_of_Priors <span class="sc">+</span> Age_Above_FourtyFive <span class="sc">+</span></span>
+<span id="cb2-2"><a></a>            Age_Below_TwentyFive <span class="sc">+</span> Female <span class="sc">+</span> Misdemeanor <span class="sc">+</span> ethnicity,</span>
+<span id="cb2-3"><a></a>          <span class="at">data =</span> compas_data, <span class="at">family =</span> binomial)</span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a>mu <span class="ot">&lt;-</span> <span class="fu">glm</span>(Two_yr_Recidivism <span class="sc">~</span> Number_of_Priors <span class="sc">+</span> Age_Above_FourtyFive <span class="sc">+</span></span>
+<span id="cb2-6"><a></a>            Age_Below_TwentyFive <span class="sc">+</span> Female <span class="sc">+</span> Misdemeanor,</span>
+<span id="cb2-7"><a></a>          <span class="at">data =</span> compas_data, <span class="at">family =</span> binomial)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>M0 直接包含族裔变量。MU 移除了该变量,与实际的 COMPAS 工具做法一致。</p>
+</section>
+<section id="三项公平性检验" class="slide level2 smaller center">
+<h2>三项公平性检验</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>准则</th>
+<th>M0 差异比率</th>
+<th>MU 差异比率</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>人口统计学均等性</td>
+<td><strong>2.11</strong></td>
+<td><strong>1.94</strong></td>
+</tr>
+<tr class="even">
+<td>机会均等/TPR 差距</td>
+<td>1.75</td>
+<td>1.67</td>
+</tr>
+<tr class="odd">
+<td>预测率均等性/精确率差距</td>
+<td>1.11</td>
+<td>1.15</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>无意识几乎没有改变任何东西。</strong> MU 几乎不损失准确率(66.5% 对比66.8%)。每一项差异比率都几乎原封不动地保留了下来。</p>
+</div>
+<aside class="notes">
+<p>只要模型预测的再犯概率高于此处设定的0.5分界值,该被告便被计为标记为高风险。一名不会再犯的非裔美国被告,被标记为高风险的概率大约是一名不会再犯的白人被告的两倍(FPR:MU 下为33.0% 对比17.2%),这与 ProPublica 针对实际工具所报告的发现在性质上完全一致,在这里用一个简单的逻辑回归模型便复现了这一结果。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="为什么这三项检验会出现分歧" class="slide level2 smaller center">
+<h2>为什么这三项检验会出现分歧?</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>重要</strong></p>
+</div>
+<div class="callout-content">
+<p>人口统计学均等性忽略真实结果。它<em>同时</em>完全反映了基准率差距(39.1% 对比52.3%)以及模型本身的不公平。精确率以预测结果为条件,部分吸收了这一差距。</p>
+<p><strong>这正是第二章的不可能性结论在真实数据上的体现</strong>:当基准率不同时,分离性与充分性无法同时成立。选择一项准则,就是在选择基准率差异中有多少应被计入“不公平”,又有多少应被视为“信号”。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="讨论4分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>这三项检验对 COMPAS 差异究竟有多严重的判断存在显著分歧。</p>
+<p><strong>如果你是一名决定是否使用该工具的法官,你会最信任哪一项检验?为什么?</strong></p>
+</section>
+<section id="后处理roc_pivot" class="slide level2 center">
+<h2>后处理:<code>roc_pivot()</code></h2>
+<p>这一拒绝选项修正,对落在分界值附近、宽度为 <code>theta</code> 的区间内的预测结果重新贴标签,给予处于弱势群体的边界个案以有利推定。</p>
+<ul>
+<li>机制:以分界值为中心镜像翻转边界概率(<span class="math inline">p \to 2\cdot\text{分界值} - p</span>)——优势群体中刚好落在”有利”一侧的边界个案翻转为不利;弱势群体中刚好落在”不利”一侧的边界个案翻转为有利。区间之外、模型有把握的预测保持不变。</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>theta</th>
+<th>准确率</th>
+<th>人口统计学均等性</th>
+<th>TPR 差距</th>
+<th>精确率差距</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0(MU)</td>
+<td>66.5%</td>
+<td>1.94</td>
+<td>1.67</td>
+<td>1.15</td>
+</tr>
+<tr class="even">
+<td>0.05</td>
+<td>65.7%</td>
+<td>1.13</td>
+<td>1.11</td>
+<td>1.31</td>
+</tr>
+<tr class="odd">
+<td>0.10</td>
+<td>62.8%</td>
+<td>0.63</td>
+<td>0.69</td>
+<td>1.45</td>
+</tr>
+<tr class="even">
+<td>0.20</td>
+<td>56.8%</td>
+<td>0.23</td>
+<td>0.30</td>
+<td>1.73</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="解读这一权衡取舍" class="slide level2 smaller center">
+<h2>解读这一权衡取舍</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>重要</strong></p>
+</div>
+<div class="callout-content">
+<p>将人口统计学均等性和 TPR 差距推向1,并<strong>不会</strong>让精确率保持不变——反而会主动使其恶化(1.15 → 1.73)。超过 theta ≈ 0.10 之后,修正会<strong>下冲</strong>并反转差异,同时准确性代价陡增。</p>
+<p><strong>没有任何 <code>theta</code> 能够同时满足这三项检验</strong>,因为只要基准率存在差异,这样的值就根本不存在。后处理让你可以选择落在这条曲线上的哪个位置,但无法让你逃离这条曲线本身。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="讨论5分钟总结" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(5分钟)——总结</h2>
+<p>后处理可以在<strong>某一项</strong>准则上调高公平性,但总是以牺牲另一项为代价。</p>
+<p><strong>如果你必须为一个实际部署的系统选定一个 theta 值,你会如何决定在哪里停下?</strong></p>
+</section>
+<section id="小结" class="slide level2 center">
+<h2>小结</h2>
+<ul>
+<li>全部四种设计都能在真实数据上以有限的准确性代价实现,同样的工作流程也可迁移至分类问题(COMPAS)</li>
+<li>模型的选择应当遵从<strong>监管准则</strong>,而非建模上的便利性</li>
+<li>MDP:群体公平性最强,重新分配幅度最大。MCDP:更具针对性</li>
+<li>无意识(MU)本身很少足够</li>
+<li>后处理可以命中某一项准则,但永远无法同时命中全部三项</li>
+</ul>
+</section>
+<section id="推荐阅读" class="slide level2 center">
+<h2>推荐阅读</h2>
+<ul>
+<li><span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#/下节课" role="doc-biblioref" onclick="">2024年</a>)</span>,五种模型设计与权衡取舍分析</li>
+<li><span class="citation" data-cites="barocas2023fairml">Barocas 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2023年</a>)</span>,第二至三章(分类、回归),fairmlbook.org</li>
+<li><span class="citation" data-cites="kozodoi2021fairness">Kozodoi 和 V. Varga (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span>; <span class="citation" data-cites="kamiran2012decision">Kamiran 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2012年</a>)</span>,今天所使用的 R 包与方法</li>
+</ul>
+</section>
+<section id="下节课" class="slide level2 smaller scrollable">
+<h2>下节课</h2>
+<p><strong>第四章——可解释性原则</strong></p>
+<p>请带来今天模型中的一项预测结果,一项你希望能够向保单持有人解释清楚的预测结果。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-barocas2023fairml" class="csl-entry" role="listitem">
+Barocas, Solon, Moritz Hardt, 和 Arvind Narayanan. 2023年. <em>Fairness and Machine Learning: Limitations and Opportunities</em>. MIT Press. <a href="https://fairmlbook.org">https://fairmlbook.org</a>.
+</div>
+<div id="ref-kamiran2012decision" class="csl-entry" role="listitem">
+Kamiran, Faisal, Asim Karim, 和 Xiangliang Zhang. 2012年. <span>《Decision theory for discrimination-aware classification》</span>. <em>2012 IEEE 12th International Conference on Data Mining</em>, 924～29.
+</div>
+<div id="ref-kozodoi2021fairness" class="csl-entry" role="listitem">
+Kozodoi, Nikita, 和 Tibor V. Varga. 2021年. <em>fairness: Algorithmic Fairness Metrics</em>. <a href="https://CRAN.R-project.org/package=fairness">https://CRAN.R-project.org/package=fairness</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: Regulations, fairness criteria, and models》</span>. <em>North American Actuarial Journal</em> 28 (2): 285～319.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "已复制");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "已复制");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

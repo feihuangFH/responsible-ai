@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Fei Huang, UNSW Sydney">
+  <meta name="dcterms.date" content="2026-08-13">
+  <title>Responsible AI: Principles, Governance, and Quantitative Methods – Fairness Principles</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-96baaebca6aae0d833d4fea310b664e9.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+  </script>
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Fairness Principles</h1>
+  <p class="subtitle">Slides — Chapter 2</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Fei Huang, UNSW Sydney 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-08-13</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Table of contents</h2>
+<ul>
+<li><a href="#/step-1-what-is-fair" id="/toc-step-1-what-is-fair">Step 1 — What is fair?</a></li>
+<li><a href="#/step-2-designing-fair-models" id="/toc-step-2-designing-fair-models">Step 2 — Designing fair models</a></li>
+<li><a href="#/break-10-min" id="/toc-break-10-min"><em>Break — 10 min</em></a></li>
+<li><a href="#/steps-3-4-brief-overview" id="/toc-steps-3-4-brief-overview">Steps 3 &amp; 4 — brief overview</a></li>
+<li><a href="#/fairness-for-large-language-models" id="/toc-fairness-for-large-language-models">Fairness for large language models</a></li>
+</ul>
+</nav>
+</section>
+<section id="todays-roadmap" class="slide level2 smaller center">
+<h2>Today’s roadmap</h2>
+<p>2-hour session with five parts and five discussion breaks</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Part</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00 – 0:45</td>
+<td>Step 1: What is fair?</td>
+</tr>
+<tr class="even">
+<td>0:45 – 1:15</td>
+<td>Step 2: Designing fair models</td>
+</tr>
+<tr class="odd">
+<td>1:15 – 1:25</td>
+<td><em>Break</em></td>
+</tr>
+<tr class="even">
+<td>1:25 – 1:40</td>
+<td>Steps 3 &amp; 4 (brief)</td>
+</tr>
+<tr class="odd">
+<td>1:40 – 1:55</td>
+<td>Fairness for large language models</td>
+</tr>
+<tr class="even">
+<td>1:55 – 2:00</td>
+<td>Summary</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>Full detail lives in Lecture-Fairness-Principles.qmd. These slides are the in-class condensed version with discussion prompts built in.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="learning-objectives" class="slide level2 center">
+<h2>Learning objectives</h2>
+<ul>
+<li>Distinguish social, legal, and economic perspectives on fairness</li>
+<li>Compare quantitative fairness criteria and their assumptions</li>
+<li>Connect fairness criteria to model design and regulation</li>
+<li>Explain why no single criterion satisfies every stakeholder</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Insurance recurs as a worked example. The framework applies to any consequential automated decision.</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<section id="step-1-what-is-fair" class="title-slide slide level1 center">
+<h1>Step 1 — What is fair?</h1>
+
+</section>
+<section id="the-motivating-problem" class="slide level2 smaller center">
+<h2>The motivating problem</h2>
+<div class="case-study" title="Case Study: COMPAS recidivism scoring">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Case Study: COMPAS recidivism scoring</strong></p>
+</div>
+<div class="callout-content">
+<p>ProPublica’s <em>Machine Bias</em> investigation found Black defendants who did <strong>not</strong> reoffend were flagged “high risk” nearly twice as often as white defendants <span class="citation" data-cites="angwin2016machine">(<a href="#/next-class" role="doc-biblioref" onclick="">Angwin et al. 2016</a>)</span>.</p>
+<p>The vendor countered that COMPAS was <strong>well-calibrated</strong>: same risk score, similar reoffense rate across race.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Has fairness been achieved?</strong> There’s no single answer. COMPAS is calibrated the same way for both groups, but its errors are not evenly distributed. Which one counts as “fair” depends on which of those two you prioritise.</p>
+</div>
+<div class="fragment">
+<p>This is not a coincidence of the COMPAS data. Whenever two groups reoffend, default, or claim at genuinely different rates, satisfying both sides at once becomes mathematically near-impossible, as this chapter makes precise later.</p>
+</div>
+<aside class="notes">
+<p>Both sides had a defensible claim, and that is exactly the problem. ProPublica’s critique was a separation-style argument, equal error rates across groups, and the vendor’s defence was a sufficiency-style argument, equal calibration across groups <span class="citation" data-cites="chouldechova2017fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Chouldechova 2017</a>)</span>. A tool can satisfy one and violate the other, and choosing which to prioritise is the central question this chapter works through, not a modelling detail to resolve after the fact.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="three-lenses-on-fairness" class="slide level2 center">
+<h2>Three lenses on fairness</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lens</th>
+<th>What it emphasises</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Anti-discrimination</strong></td>
+<td>Legal obligation to avoid unjustified disparate outcomes</td>
+</tr>
+<tr class="even">
+<td><strong>Competing ethical notions</strong></td>
+<td>Distributive justice, solidarity, pooling vs individualising</td>
+</tr>
+<tr class="odd">
+<td><strong>Consumer / user trust</strong></td>
+<td>Promises made in contracts, disclosures, conduct standards</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>These lenses don’t always agree. The point is making trade-offs <strong>visible</strong> before a model is built.</p>
+</div>
+</section>
+<section id="feature-principles" class="slide level2 center">
+<h2>Feature principles</h2>
+<p>Using an input feature isn’t a purely statistical question:</p>
+<ul>
+<li><strong>Control</strong>. Can the person influence it?</li>
+<li><strong>Mutability</strong>. Fixed, or changes over time?</li>
+<li><strong>Statistical discrimination</strong>. Does it predict the outcome?</li>
+<li><strong>Causality</strong>. Does it <em>cause</em> the outcome?</li>
+<li><strong>Past discrimination</strong>. Does using it reinforce history?</li>
+<li><strong>Socially valuable behaviour</strong>. Does it discourage good actions?</li>
+</ul>
+<aside class="notes">
+<p>Predictive power is necessary but not sufficient. A high-performing predictor can still be problematic on causality, history, or socially valuable behaviour, as with a credit score used in hiring or genetic testing used in insurance underwriting. Regulators have acted on this reasoning: 11 US states, most recently New York from April 2026, now restrict or ban employers from using credit checks in hiring, because credit history has no demonstrated causal link to job performance and reflects historical economic inequality <span class="citation" data-cites="martinez2026creditchecks">(<a href="#/next-class" role="doc-biblioref" onclick="">Martinez 2026</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exercise-match-example-to-principle" class="slide level2 smaller center">
+<h2>Exercise: match example to principle</h2>
+<p>Match each example below to one of the six feature principles <span class="citation" data-cites="frees2023discriminating">(<a href="#/next-class" role="doc-biblioref" onclick="">Frees and Huang 2023</a>)</span>:</p>
+<ol type="1">
+<li>Vehicle engine size predicts motor insurance claims frequency</li>
+<li>A cancer diagnosis is known to cause elevated mortality risk</li>
+<li>Ownership of a sports car, versus gender, race, ethnicity, or nationality</li>
+<li>Basing insurance decisions on genetic test results</li>
+<li>Age changes predictably over time, unlike place of birth</li>
+<li>Discriminating on skin colour versus eye colour</li>
+</ol>
+<aside class="notes">
+<p>No fragments here, work through it live with the class before advancing to the answers slide.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="answers-feature-principles" class="slide level2 smaller center">
+<h2>Answers: feature principles</h2>
+<div class="fragment">
+<p><strong>1. Statistical discrimination</strong> — engine size has predictive value, which is necessary but not sufficient on its own</p>
+</div>
+<div class="fragment">
+<p><strong>2. Causality</strong> — a known causal driver of the insured event</p>
+</div>
+<div class="fragment">
+<p><strong>3. Control</strong> — sports car ownership is a choice, sensitive attributes are not</p>
+</div>
+<div class="fragment">
+<p><strong>4. Socially valuable behaviour</strong> — discourages participating in genetic testing research</p>
+</div>
+<div class="fragment">
+<p><strong>5. Mutability</strong> — changes over time versus staying fixed</p>
+</div>
+<div class="fragment">
+<p><strong>6. Past discrimination</strong> — skin colour maps onto a protected, historically discriminated-against characteristic, eye colour does not</p>
+</div>
+</section>
+<section id="direct-and-indirect-discrimination" class="slide level2 center">
+<h2>Direct and indirect discrimination</h2>
+<p><strong>Direct</strong> (disparate treatment) means treated less favourably <em>because</em> a protected characteristic differs.</p>
+<p><strong>Indirect</strong> (disparate impact) means disproportionately affected because protected status is inferred through a neutral-seeming practice.</p>
+<ul>
+<li><em>Identifiable proxies</em>, such as postcode↔︎race or résumé gaps↔︎caregiving status</li>
+<li><em>Unidentifiable proxies</em> are opaque models reproducing disparities with no single surrogate</li>
+</ul>
+</section>
+<section id="case-study-algorithmic-healthcare-rationing" class="slide level2 smaller center">
+<h2>Case Study: algorithmic healthcare rationing</h2>
+<div title="Removing the attribute isn't enough">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Removing the attribute isn’t enough</strong></p>
+</div>
+<div class="callout-content">
+<p>A hospital algorithm used healthcare <strong>cost</strong> as a proxy for <strong>need</strong>, to allocate care-management resources <span class="citation" data-cites="obermeyer2019dissecting">(<a href="#/next-class" role="doc-biblioref" onclick="">Obermeyer et al. 2019</a>)</span>.</p>
+<p>Black patients historically had less access to care → lower costs for the <em>same</em> underlying need → the model systematically under-referred them, without ever using race as an input.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="discuss-3-min" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>Think of a variable, in a domain you know, that could be a <strong>proxy</strong> for a protected attribute.</p>
+<p><strong>Identifiable, or unidentifiable? Why does that distinction change how you’d fix it?</strong></p>
+</section>
+<section id="indicative-answers-proxy-variables" class="slide level2 smaller center">
+<h2>Indicative answers: proxy variables</h2>
+<div title="A few examples across domains">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A few examples across domains</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Insurance</strong>: postcode as a proxy for race or socioeconomic status (identifiable, a single named column); claims-handling <em>tone</em> in free-text notes as a proxy for perceived credibility (harder to name, embedded in language).</p>
+<p><strong>Hiring</strong>: employment gaps as a proxy for caregiving status (identifiable); résumé-writing style learned from a demographically skewed training set (unidentifiable, no single feature to point to).</p>
+<p><strong>Lending</strong>: postcode or shopping patterns as a proxy for race (identifiable, the classic redlining pattern); an opaque credit score itself, if its inputs are undisclosed, can behave as an unidentifiable proxy even though it’s a single number.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Identifiable proxies can be found and removed (MCDP-style orthogonalisation, or dropping the variable). Unidentifiable proxies can’t be, since there’s no single column to act on, which is why testing outcomes directly (MDP, disparate-impact audits) matters more when the proxy is diffuse.</strong></p>
+</div>
+</section>
+<section id="fairness-criteria-the-taxonomy" class="slide level2 center">
+<h2>Fairness criteria: the taxonomy</h2>
+
+<img data-src="img/fairness-taxonomy-diagram.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"></section>
+<section id="fairness-criteria-individual-fairness" class="slide level2 center">
+<h2>Fairness criteria: individual fairness</h2>
+<p><span class="math inline">X_P</span> = protected attribute, <span class="math inline">X_{NP}</span> = other features, <span class="math inline">Y</span> = actual outcome, <span class="math inline">\hat{Y}</span> = prediction</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 43%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Formal condition</th>
+<th>Intuition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FTU (fairness through unawareness)</td>
+<td><span class="math inline">\hat{Y} = f(X_{NP})</span></td>
+<td>Remove the protected attribute</td>
+</tr>
+<tr class="even">
+<td>Fairness through awareness</td>
+<td><span class="math inline">D(\hat{Y}(x), \hat{Y}(y)) \le d(x, y)</span></td>
+<td>Similar individuals get similar outcomes, via an explicit similarity metric <span class="math inline">d</span></td>
+</tr>
+<tr class="odd">
+<td>CPV (controlling for the protected variable)</td>
+<td><span class="math inline">\hat{Y}_{CPV}(x) = E_{X_P}[f(x_{NP}, X_P)]</span></td>
+<td>Average the model over <span class="math inline">X_P</span></td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>Here <span class="math inline">x</span> and <span class="math inline">y</span> are two individuals (specific feature vectors), not the population-level <span class="math inline">X_P</span>/<span class="math inline">X_{NP}</span> used elsewhere in this table. <span class="math inline">\hat{Y}(x)</span>, <span class="math inline">\hat{Y}(y)</span> are their predicted outcomes, <span class="math inline">d(x,y)</span> measures how similar the two individuals are, and <span class="math inline">D</span> measures how far apart their predictions are. Two similar individuals can’t get predictions further apart than their similarity allows.</p>
+<p>FTU and fairness through awareness <span class="citation" data-cites="dwork2012fairness">(<a href="#/next-class" role="doc-biblioref" onclick="">Dwork et al. 2012</a>)</span> are general algorithmic-fairness concepts, applicable to any domain. CPV targets a different problem, proxy discrimination, where the protected attribute is excluded but its effect leaks through other variables. Developed for statistical profiling generally by <span class="citation" data-cites="popesydnor2011">Pope and Sydnor (<a href="#/next-class" role="doc-biblioref" onclick="">2011</a>)</span> and adapted for insurance pricing as “discrimination-free pricing” by <span class="citation" data-cites="lindholm2022discrimination">Lindholm et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2022</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="fairness-criteria-group-fairness" class="slide level2 center">
+<h2>Fairness criteria: group fairness</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 43%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Formal condition</th>
+<th>Intuition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Demographic parity</td>
+<td><span class="math inline">\hat{Y} \perp X_P</span></td>
+<td>Same outcome distribution, all groups</td>
+</tr>
+<tr class="even">
+<td>Conditional DP</td>
+<td><span class="math inline">\hat{Y} \perp X_P \mid X_{L}</span></td>
+<td>Equal predictions within legitimate segments (segments defined by factors accepted as fair grounds for differentiation, covered later)</td>
+</tr>
+<tr class="odd">
+<td>Separation</td>
+<td><span class="math inline">\hat{Y} \perp X_P \mid Y</span></td>
+<td>Equal error rates across groups</td>
+</tr>
+<tr class="even">
+<td>Sufficiency</td>
+<td><span class="math inline">Y \perp X_P \mid \hat{Y}</span></td>
+<td>Equal calibration across groups</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p><span class="math inline">\perp</span> means statistically independent of (knowing one tells you nothing about the other). <span class="math inline">\mid</span> means given, or within groups defined by.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="separation-vs-sufficiency" class="slide level2 center">
+<h2>Separation vs sufficiency</h2>
+<p><strong>Separation</strong> asks whether, conditional on truth <span class="math inline">Y</span>, errors are the same across groups.</p>
+<p><strong>Sufficiency</strong> asks whether, conditional on the prediction <span class="math inline">\hat{Y}</span>, the truth is the same across groups.</p>
+<div class="fragment">
+<p><strong>Both are desirable, but generally can’t both hold when base rates (the actual outcome rate in each group) differ.</strong> (Except special cases, like perfect prediction.)</p>
+</div>
+</section>
+<section id="naming-the-criteria" class="slide level2 smaller center">
+<h2>Naming the criteria</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Event</th>
+<th>Condition</th>
+<th>Notion (<span class="math inline">\Pr\{\text{event} \mid \text{condition}\}</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\hat{Y}=1</span></td>
+<td><span class="math inline">Y=1</span></td>
+<td>TPR, recall</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\hat{Y}=0</span></td>
+<td><span class="math inline">Y=1</span></td>
+<td>FNR</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\hat{Y}=1</span></td>
+<td><span class="math inline">Y=0</span></td>
+<td>FPR</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\hat{Y}=0</span></td>
+<td><span class="math inline">Y=0</span></td>
+<td>TNR</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Y=1</span></td>
+<td><span class="math inline">\hat{Y}=1</span></td>
+<td>PPV, precision</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">Y=0</span></td>
+<td><span class="math inline">\hat{Y}=0</span></td>
+<td>NPV</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Same mechanism as the precision-recall trade-off</strong>, applied across groups instead of across thresholds. PPV is a function of TPR, FPR, and base rate, so matching TPR/FPR (recall) across groups with different base rates still leaves PPV (precision) unequal.</p>
+</div>
+<aside class="notes">
+<p>Separation is built from the first four rows (error rates conditioned on Y). Sufficiency is built from PPV (conditioned on Ŷ).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside class="notes">
+<p><span class="math display">\Pr(\hat{Y} &gt; t \mid Y = y, X_P = 0) = \Pr(\hat{Y} &gt; t \mid Y = y, X_P = 1)</span> for separation. <span class="math display">\Pr(Y = y \mid \hat{Y} = s, X_P = 0) = \Pr(Y = y \mid \hat{Y} = s, X_P = 1)</span> for sufficiency. This is the COMPAS tension from Chapter 1, calibrated (sufficiency) but unequal error rates (violates separation).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="discuss-3-min-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>In practice, you usually can’t satisfy both separation and sufficiency at once, and have to prioritise one.</p>
+<p><strong>What would you look at to decide which one to prioritise for a given decision?</strong></p>
+</section>
+<section id="indicative-answer-separation-vs-sufficiency" class="slide level2 smaller center">
+<h2>Indicative answer: separation vs sufficiency</h2>
+<div title="What the literature suggests">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What the literature suggests</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>The relative cost of the two error types.</strong> Equalised-odds-style separation was originally motivated by asymmetric error costs <span class="citation" data-cites="hardt2016equality">(<a href="#/next-class" role="doc-biblioref" onclick="">Hardt et al. 2016</a>)</span>. If a false positive (e.g.&nbsp;wrongly denying parole) is a much worse harm than a false negative, prioritise equalising <em>that</em> error rate across groups rather than full calibration.</p>
+<p><strong>Whether a human interprets the score downstream, or a fixed threshold gates the decision automatically.</strong> A score a human consults (e.g.&nbsp;a risk score shown to a judge) needs to mean the same thing for every group, which is what calibration guarantees, so sufficiency matters more. A score that triggers an automatic cutoff is better served by equal error rates at that cutoff, which is what separation guarantees.</p>
+<p><strong>What the original COMPAS debate actually turned on.</strong> ProPublica’s separation-style critique focused specifically on FPR, the rate at which defendants who did <em>not</em> reoffend were nonetheless flagged high-risk, a punitive error. Northpointe’s sufficiency-style defence focused on calibration, arguing the score meant the same thing for every defendant. Neither side was wrong about the criterion they picked; they disagreed about which error mattered more <span class="citation" data-cites="kleinberg2017inherent chouldechova2017fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Kleinberg et al. 2017</a>; <a href="#/next-class" role="doc-biblioref" onclick="">Chouldechova 2017</a>)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="incompatibility-of-criteria" class="slide level2 center">
+<h2>Incompatibility of criteria</h2>
+<p>Individual and group fairness together are often <strong>impossible</strong> to achieve simultaneously.</p>
+<div class="fragment">
+<p><strong>This is exactly the COMPAS tension from the start of this chapter.</strong> ProPublica’s critique was separation-style, the vendor’s defence was sufficiency-style. Both were valid, and neither could hold at once given the different reoffense base rates across race.</p>
+</div>
+<aside class="notes">
+<p>This is a special case of a more general result <span class="citation" data-cites="kleinberg2017inherent">(<a href="#/next-class" role="doc-biblioref" onclick="">Kleinberg et al. 2017</a>)</span>: except in narrow special cases, no classifier can simultaneously satisfy calibration and balanced error rates across groups when the groups have different base rates.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="why-base-rates-force-the-trade-off" class="slide level2 smaller center">
+<h2>Why base rates force the trade-off</h2>
+<p><span class="math display">\text{PPV}_g = \frac{p_g(1 - \text{FNR}_g)}{p_g(1-\text{FNR}_g) + (1-p_g)\,\text{FPR}_g}</span></p>
+<ul>
+<li>If <strong>separation</strong> holds, FPR and FNR are the same in both groups, so PPV depends only on the base rate <span class="math inline">p_g</span></li>
+<li><strong>Sufficiency</strong> needs equal PPV across groups, which then forces <span class="math inline">p_0 = p_1</span></li>
+<li>COMPAS: two-year reoffense rate was 51% for Black defendants, 39% for White defendants <span class="citation" data-cites="chouldechova2017fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Chouldechova 2017</a>)</span>, so <span class="math inline">p_0 \neq p_1</span></li>
+</ul>
+<div class="fragment">
+<p><strong>Equally reliable “high risk” flags in both groups, but different reoffense rates, mean different false positive rates. That’s algebra, not evidence of biased predictions.</strong></p>
+</div>
+<aside class="notes">
+<p>Except at the two degenerate extremes, a perfect classifier where FPR = FNR = 0, or one that ignores the data entirely, separation and sufficiency cannot both hold once base rates differ. Worth walking through slowly: PPV is what sufficiency/calibration asks to be equal. Holding FPR and FNR fixed (that’s separation) turns PPV into a function of the base rate alone, so equal PPV across groups collapses to requiring equal base rates, which COMPAS does not have.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="confusion-matrices" class="slide level2 smaller center">
+<h2>Confusion matrices</h2>
+<p>100 people per group, <strong>same</strong> FNR (10%) and FPR (20%) in both, so separation holds by construction.</p>
+<p><strong>Group A</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Predicted <span class="math inline">\hat{Y}=1</span></th>
+<th>Predicted <span class="math inline">\hat{Y}=0</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Actual <span class="math inline">Y=1</span></td>
+<td>TP = 27</td>
+<td>FN = 3</td>
+</tr>
+<tr class="even">
+<td>Actual <span class="math inline">Y=0</span></td>
+<td>FP = 14</td>
+<td>TN = 56</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Group B</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Predicted <span class="math inline">\hat{Y}=1</span></th>
+<th>Predicted <span class="math inline">\hat{Y}=0</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Actual <span class="math inline">Y=1</span></td>
+<td>TP = 54</td>
+<td>FN = 6</td>
+</tr>
+<tr class="even">
+<td>Actual <span class="math inline">Y=0</span></td>
+<td>FP = 8</td>
+<td>TN = 32</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="worked-example" class="slide level2 smaller center">
+<h2>Worked example</h2>
+<p><span class="math display">\text{Flag rate}_g = \frac{TP+FP}{TP+FP+FN+TN} \quad \text{TPR}_g = \frac{TP}{TP+FN} \quad \text{FPR}_g = \frac{FP}{FP+TN} \quad \text{PPV}_g = \frac{TP}{TP+FP}</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Group A (<span class="math inline">p_0</span> = 30%)</th>
+<th>Group B (<span class="math inline">p_1</span> = 60%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reoffend</td>
+<td>30</td>
+<td>60</td>
+</tr>
+<tr class="even">
+<td>Do not reoffend</td>
+<td>70</td>
+<td>40</td>
+</tr>
+<tr class="odd">
+<td>Correctly flagged</td>
+<td>27</td>
+<td>54</td>
+</tr>
+<tr class="even">
+<td>Wrongly flagged</td>
+<td>14</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Total flagged high-risk</td>
+<td>41</td>
+<td>62</td>
+</tr>
+<tr class="even">
+<td>Flag rate (demographic parity)</td>
+<td>41%</td>
+<td>62%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\text{TPR}_g,\ \text{FPR}_g</span> (separation)</td>
+<td>90%, 20%</td>
+<td>90%, 20%</td>
+</tr>
+<tr class="even">
+<td><strong>PPV<span class="math inline">_g</span> (sufficiency)</strong></td>
+<td><strong>27/41 ≈ 66%</strong></td>
+<td><strong>54/62 ≈ 87%</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Same error rates, but flag rate differs (41% vs 62%) and PPV jumps from 66% to 87%, purely from the base-rate gap.</strong> Matching flag rate or PPV instead would each require different FPR/FNR in each group, violating separation.</p>
+</div>
+<p><strong>Matching criterion to regime:</strong></p>
+<ul>
+<li>Prohibition on <span class="math inline">X_P</span> → FTU.</li>
+<li>Proxy discrimination (protected variable not used, but its effect leaks through correlated variables) → CPV, e.g.&nbsp;Colorado’s SB21-169 and New York’s DFS Circular Letter No.&nbsp;7 <span class="citation" data-cites="colorado_sb21169_2021 nydfs_circular7_2024">(<a href="#/next-class" role="doc-biblioref" onclick="">Colorado General Assembly 2021</a>; <a href="#/next-class" role="doc-biblioref" onclick="">New York State Department of Financial Services 2024</a>)</span>.</li>
+<li>Prohibition on proxies too → MU* (MU extended to also drop named proxy variables). Colorado’s SB21-169 testing regime is also the clearest regulatory example of conditional demographic parity in practice <span class="citation" data-cites="colorado_sb21169_2021">(<a href="#/next-class" role="doc-biblioref" onclick="">Colorado General Assembly 2021</a>)</span>.</li>
+<li>EU unisex insurance pricing → same price for the same rating profile, an individual-level condition. FTU and CPV both satisfy it directly.</li>
+</ul>
+<aside class="notes">
+<p>CPV is not a blanket ban on the protected variable, it targets proxy discrimination: cases where the protected variable itself is excluded but other variables still carry its effect. Colorado requires insurers to test predictive models for unfair discrimination arising from this kind of proxy effect; New York imposes similar expectations for AI systems and external data used in underwriting and pricing.</p>
+<p>MU* extends MU by also removing rating variables explicitly named as proxies for <span class="math inline">X_P</span> under a specific regulation, rather than <span class="math inline">X_P</span> alone. Plain MU leaves those variables untouched. MU* still leaves unnamed or statistically inferred proxies untouched, which is what MCDP and MDP are designed to catch.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="two-logics-of-resource-allocation" class="slide level2 center">
+<h2>Two logics of resource allocation</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Position</th>
+<th>Emphasis</th>
+<th>Logic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Social good</strong></td>
+<td>Solidarity, access, universal service</td>
+<td>Subsidising solidarity</td>
+</tr>
+<tr class="even">
+<td><strong>Economic commodity</strong></td>
+<td>Efficiency, adverse selection</td>
+<td>Chance solidarity</td>
+</tr>
+</tbody>
+</table>
+<div class="case-study" title="Actuarial fairness and the EU gender ban">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Actuarial fairness and the EU gender ban</strong></p>
+</div>
+<div class="callout-content">
+<p>Actuarial fairness means charging each insured person only for their own risk. In the EU’s 2012 ban on gender-based motor pricing, the ECJ held that equal treatment <strong>took precedence</strong> over gender being a statistically valid predictor <span class="citation" data-cites="ecj2011testachats">(<a href="#/next-class" role="doc-biblioref" onclick="">European Court of Justice 2011</a>)</span>. The ban didn’t remove the underlying risk difference — it redistributed <strong>who pays for it</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Adverse selection means higher-risk people are more likely to buy insurance, since they know their own risk better than the insurer does. Subsidising solidarity pools costs across everyone regardless of individual risk. Chance solidarity pools the shared uncertainty of who will have a claim, while pricing still tracks individual risk.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="consumer-user-trust" class="slide level2 center">
+<h2>Consumer / user trust</h2>
+<ul>
+<li>Information asymmetry, since the user discloses while the org holds far more data (formalised in insurance as “utmost good faith”: a duty for both sides to disclose relevant facts honestly)</li>
+<li>Compliant ≠ fair-feeling, if it diverges from disclosed promises</li>
+<li><strong>Outcome-irrelevant differentiation</strong> means pricing on shop-around likelihood, not actual risk, and it’s contested when it correlates with a protected attribute</li>
+</ul>
+<aside class="notes">
+<p>Compliance with anti-discrimination rules is necessary but not sufficient for this lens.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="discuss-4-min" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (4 min)</h2>
+<p>Separation and sufficiency can’t both hold when base rates differ.</p>
+<p><strong>If you had to pick one, for a domain you care about — which, and what are you trading away?</strong></p>
+</section>
+<section id="indicative-answer-applying-the-trade-off" class="slide level2 smaller center">
+<h2>Indicative answer: applying the trade-off</h2>
+<div title="Two examples, using the framework from Step 1">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Two examples, using the framework from Step 1</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Criminal-justice risk scoring</strong> (like COMPAS): a false positive (wrongly flagged high-risk) is a punitive harm affecting someone’s liberty. This pushes toward <strong>separation</strong>, specifically equalising FPR, even at the cost of calibration.</p>
+<p><strong>Medical risk scoring</strong> (e.g.&nbsp;a score a clinician uses to prioritise screening): the score is interpreted by a human downstream, and a “70% risk” that means different things by group directly undermines clinical trust. This pushes toward <strong>sufficiency</strong>: calibration matters more than matching error rates exactly.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Whichever you pick, name what you’re giving up.</strong> That’s the actual skill this chapter is teaching: not “solving” the trade-off, but making the choice, and its cost, explicit and defensible.</p>
+</div>
+</section></section>
+<section>
+<section id="step-2-designing-fair-models" class="title-slide slide level1 center">
+<h1>Step 2 — Designing fair models</h1>
+
+</section>
+<section id="how-is-fairness-enforced" class="slide level2 center">
+<h2>How is fairness enforced?</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 46%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>What happens</th>
+<th>Models</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pre-processing</strong></td>
+<td>Adjust inputs before training</td>
+<td>MDP, MCDP</td>
+</tr>
+<tr class="even">
+<td><strong>In-processing</strong></td>
+<td>Build fairness into the objective</td>
+<td>Constrained optimisation</td>
+</tr>
+<tr class="odd">
+<td><strong>Post-processing</strong></td>
+<td>Adjust outputs after training</td>
+<td>MC</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>The right stage depends on the criterion chosen in Step 1, not what’s easiest to implement.</strong> MDP/MCDP/MC are this course’s <em>named</em> examples per stage. The same criterion could in principle be reached by a different route <span class="citation" data-cites="barocas2023fairml">(<a href="#/next-class" role="doc-biblioref" onclick="">Barocas et al. 2023</a>, ch.&nbsp;3)</span>.</p>
+</div>
+</section>
+<section id="the-five-model-designs" class="slide level2 center">
+<h2>The five model designs</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Criterion</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0</td>
+<td>Baseline</td>
+<td>Uses <span class="math inline">X_P</span> and <span class="math inline">X_{NP}</span></td>
+</tr>
+<tr class="even">
+<td>MU</td>
+<td>FTU</td>
+<td>Protected attribute removed</td>
+</tr>
+<tr class="odd">
+<td>MDP</td>
+<td>Demographic parity</td>
+<td>Debias all <span class="math inline">X_{NP}</span></td>
+</tr>
+<tr class="even">
+<td>MCDP</td>
+<td>Conditional DP</td>
+<td>Debias only non-legitimate predictors</td>
+</tr>
+<tr class="odd">
+<td>MC</td>
+<td>CPV</td>
+<td>Fit M0, then average over <span class="math inline">X_P</span> at scoring</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Step 1’s criteria came from a classification example (COMPAS). Insurance pricing is usually regression</strong> — <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#/next-class" role="doc-biblioref" onclick="">2024</a>)</span> formalise these five designs for continuous <span class="math inline">\hat{Y}</span> (claim frequency, severity, pure premium). DP extends directly (equal <em>average</em> <span class="math inline">\hat{Y}</span> across groups); separation/sufficiency’s TPR/FPR/PPV form needs a continuous-outcome analogue instead.</p>
+</div>
+<aside class="notes">
+<p>No confusion matrix once <span class="math inline">\hat{Y}</span> is continuous — TPR/FPR/PPV don’t apply directly. The underlying idea (equal error rates for separation, equal calibration for sufficiency) still generalises, but the exact formula has to be adapted. The five designs (M0-MC) don’t care which criterion, or which extension of it, you pick — same toolkit either way.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="formal-definitions" class="slide level2 smaller center">
+<h2>Formal definitions</h2>
+<p>Notation from <span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#/next-class" role="doc-biblioref" onclick="">2024</a>)</span>: <span class="math inline">X_{NP}^*</span> is debiased <span class="math inline">X_{NP}</span>, <span class="math inline">X_{NP_{legit}} / X_{NP_{not}}</span> split <span class="math inline">X_{NP}</span> for MCDP.</p>
+<p><span class="math display">\hat{Y}_{M0} = f_{M0}(X_{NP}, X_P)</span> <span class="math display">\hat{Y}_{MU} = f_{MU}(X_{NP})</span> <span class="math display">\hat{Y}_{MDP} = f_{MDP}(X_{NP}^*)</span> <span class="math display">\hat{Y}_{MCDP} = f_{MCDP}(X_{NP_{not}}^*,\, X_{NP_{legit}})</span> <span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP},\, X_P = x_{P_j})</span></p>
+<aside class="notes">
+<p><span class="math inline">X_{NP}^*</span> construction: orthogonal-predictors method, regress <span class="math inline">X_{NP}</span> on <span class="math inline">X_P</span>, take residual, <span class="math inline">X_{NP}^* = X_{NP} - \hat{X}_{NP}</span> — first proposed for insurance pricing by <span class="citation" data-cites="frees2023discriminating">Frees and Huang (<a href="#/next-class" role="doc-biblioref" onclick="">2023</a>)</span>. M0/MDP/MCDP need <span class="math inline">X_P</span> at both training and prediction; MC needs it only at training, since prediction uses the population-average <span class="math inline">x_{P_j}</span> rather than the individual’s own value.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside class="notes">
+<p>MDP: <span class="math inline">\tilde{X}_j = X_j - E[X_j \mid X_P]</span>, train on residuals. This ensures <span class="math inline">\hat{Y} \perp X_P</span> by construction, but only removes the mean dependence on <span class="math inline">X_P</span>. Optimal transport <span class="citation" data-cites="lindholm2024fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Lindholm et al. 2024b</a>)</span> remaps the full distribution instead, more thorough but more computationally involved (Kamiran and Calders 2012, <span class="citation" data-cites="kamiran2012preprocessing">Kamiran and Calders (<a href="#/next-class" role="doc-biblioref" onclick="">2012</a>)</span>). MCDP: same debiasing, only on non-legitimate predictors <span class="math inline">X_{NL}</span>, <span class="math inline">\tilde{X}_{NL} = X_{NL} - E[X_{NL} \mid X_P, X_L]</span>. This allows variation through legitimate factors. MC: fits M0 in full, then averages out <span class="math inline">X_P</span> at scoring time, <span class="math inline">\hat{Y}_{MC}(x) = \frac{1}{N}\sum_j \hat{f}_{M0}(x_{NP}, X_P=x_{P_j})</span>. This removes direct effects while preserving accuracy on other features.</p>
+<p>Pre-processing (MDP, MCDP) guarantees the criterion regardless of downstream training (data-processing inequality), but only for the criterion it was built for. In-processing (constrained optimisation, e.g. <span class="citation" data-cites="lindholm2024multitask">Lindholm et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2024a</a>)</span>’s multi-task network) can reach the best accuracy for a given fairness level since the constraint is optimised for directly, but needs access to the training pipeline. Post-processing (MC) works on any trained black-box model with no retraining, and can be provably optimal if the underlying score is already Bayes-optimal, but it explicitly uses group membership at the point of decision.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="legitimate-vs-non-legitimate-variables" class="slide level2 center">
+<h2>Legitimate vs non-legitimate variables</h2>
+<p><strong>Legitimate</strong> means grounds a regulator/institution accepts for differentiated treatment.</p>
+<ul>
+<li>Insurance: claims history, vehicle type ✓ · fine-grained geography ✗ (some markets)</li>
+<li>Lending: income, repayment history ✓ · postcode alone ✗</li>
+<li>Hiring: role-relevant skills ✓ · protected-attribute proxies ✗</li>
+</ul>
+<p><strong>MCDP</strong> is built for this. Differences allowed only through legitimate variables.</p>
+</section>
+<section id="how-regulation-maps-to-model-design" class="slide level2 center">
+<h2>How regulation maps to model design</h2>
+<p>No restriction → <strong>M0</strong> · Prohibit <span class="math inline">X_P</span> → <strong>MU</strong> · Prohibit proxies too → <strong>MU*</strong> · Equal average outcomes → <strong>MDP</strong> · Full pooling → <strong>community rating</strong> (same price for everyone in a group regardless of individual risk)</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Not every regulation maps to one criterion cleanly, common under principles-based regimes: China’s NFRA guidance <span class="citation" data-cites="nfra2026aiguidance nfra2026qa sina2026nfra">(<a href="#/next-class" role="doc-biblioref" onclick="">National Financial Regulatory Administration 2026a</a>, <a href="#/next-class" role="doc-biblioref" onclick="">2026b</a>; <a href="#/next-class" role="doc-biblioref" onclick="">Sina Finance 2026</a>)</span>, Australia’s AHRC <span class="citation" data-cites="ahrc2022insurance">(<a href="#/next-class" role="doc-biblioref" onclick="">Australian Human Rights Commission and Actuaries Institute 2022</a>)</span>, and Singapore’s MAS FEAT/Veritas <span class="citation" data-cites="mas_feat_2018 mas_veritas">(<a href="#/next-class" role="doc-biblioref" onclick="">Monetary Authority of Singapore 2018</a>, <a href="#/next-class" role="doc-biblioref" onclick="">2019</a>)</span> all avoid prescribing a single fairness criterion. The institution has to choose, using Step 1’s judgement.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-fairnessaccuracy-trade-off" class="slide level2 center">
+<h2>The fairness–accuracy trade-off</h2>
+<p>French motor insurance evidence <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#/next-class" role="doc-biblioref" onclick="">Xin and Huang 2024</a>)</span>:</p>
+<ul>
+<li>MCDP and MC show loss ratios (the share of premium income paid out in claims) <strong>close</strong> to unconstrained M0</li>
+<li>Accuracy loss: <strong>modest</strong></li>
+<li>Disparity reduction: <strong>substantial</strong></li>
+<li>XGBoost retained most of its edge while meeting fairness criteria</li>
+</ul>
+<div class="fragment">
+<p><strong>The cost of fairness is smaller than often assumed, but not zero.</strong> Strict demographic parity trades off against something like adverse selection. Quantifiable, but still a business decision.</p>
+</div>
+<aside class="notes">
+<p>The same modest-accuracy-loss pattern recurs beyond insurance. <span class="citation" data-cites="rodolfa2021negligible">Rodolfa et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2021</a>)</span> find it across education, mental health, criminal justice, and housing safety. <span class="citation" data-cites="hardt2016equality">Hardt et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2016</a>)</span> find a similar pattern in credit scoring. <span class="citation" data-cites="mehrabi2021survey">Mehrabi et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2021</a>)</span> surveys the broader evidence.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-trade-off-visualised" class="slide level2 smaller center">
+<h2>The trade-off, visualised</h2>
+
+<img data-src="img/accuracy-fairness-tradeoff.png" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">Root mean square error (x, lower is more accurate) vs.&nbsp;disparate impact ratio (y, 1 is perfect parity), five model designs, GLM and XGBoost, French motor insurance data <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#/next-class" role="doc-biblioref" onclick="">Xin and Huang 2024</a>)</span>. Dotted lines mark the four-fifths rule’s 0.8–1.25 band.</p><aside class="notes">
+<p>M0 (uses the protected attribute) is the most accurate point on the plot but sits furthest outside the four-fifths band. MDP and MCDP pull the ratio back toward 1 for a small RMSE cost. MCDP and MC push slightly below 1, still at small accuracy cost relative to M0. MU happens to land inside the band on this dataset too, which is a property of this dataset’s proxy structure, not a general guarantee. It’s why FTU is necessary but not sufficient.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="discuss-4-min-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (4 min)</h2>
+<p>The insurance case study found only a <strong>modest</strong> accuracy cost for fairness.</p>
+<p><strong>Do you think that generalises, or is it domain-specific? What would make the trade-off worse?</strong></p>
+</section>
+<section id="indicative-answer-does-the-modest-trade-off-generalise" class="slide level2 smaller center">
+<h2>Indicative answer: does the modest trade-off generalise?</h2>
+<div title="Evidence points both ways">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Evidence points both ways</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Supporting generalisation</strong>: <span class="citation" data-cites="rodolfa2021negligible">Rodolfa et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2021</a>)</span> find the same modest-cost pattern across education, mental health, criminal justice, and housing safety; <span class="citation" data-cites="hardt2016equality">Hardt et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2016</a>)</span> find it in credit scoring too. Several independent domains, same qualitative result.</p>
+<p><strong>Against blanket generalisation</strong>: the cost depends on how much of a model’s predictive power is actually <em>carried by</em> the protected attribute or its correlates. A large base-rate gap between groups (like COMPAS’s) means removing or orthogonalising that signal costs more. A weak correlation means fairness is closer to free.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>What would make it worse: smaller training data (less signal to substitute for the removed correlation), a narrower feature set, or a genuinely strong relationship between the protected attribute and the outcome that the model can’t recover elsewhere.</strong></p>
+</div>
+</section></section>
+<section id="break-10-min" class="title-slide slide level1 center">
+<h1><em>Break — 10 min</em></h1>
+
+</section>
+
+<section>
+<section id="steps-3-4-brief-overview" class="title-slide slide level1 center">
+<h1>Steps 3 &amp; 4 — brief overview</h1>
+
+</section>
+<section id="step-3-downstream-impact" class="slide level2 smaller center">
+<h2>Step 3: downstream impact</h2>
+<p>A model meeting its criterion can still produce an unfair <strong>outcome</strong> once its predictions hit a real process.</p>
+<div class="fragment">
+<p><strong>A downstream step, re-ranking, a discretionary override, a separate margin or eligibility adjustment, can undo fairness achieved at the model stage if it correlates with a protected group.</strong></p>
+</div>
+<aside class="notes">
+<p>Same structure in hiring, pricing, and lending, wherever a fair model’s output is adjusted afterward by a separate, unconstrained layer. fair.feihuang.org Step 3 covers the welfare-analysis methods that quantify this.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="step-4-auditing-the-system" class="slide level2 center">
+<h2>Step 4: auditing the system</h2>
+<p><strong>Audit</strong> asks whether we can demonstrate compliance. <strong>Test</strong> asks whether we can find a problem.</p>
+<p>A credible audit:</p>
+<ul>
+<li>Pre-commits its test, tolerance, control variables <em>before</em> looking at the data</li>
+<li>Uses <strong>equivalence testing (TOST)</strong>, not a conventional significance test</li>
+<li>Puts the burden of proof on the organisation, not the regulator</li>
+</ul>
+<aside class="notes">
+<p>TOST (two one-sided tests) checks whether a difference is small enough to fall within an acceptable range, rather than testing whether it differs from zero the way a standard significance test does.</p>
+<p>A separate, older tradition tests blindness directly. It sends matched pairs through the real decision-making system that differ only in the attribute of interest (e.g.&nbsp;an otherwise-identical résumé with a Black-sounding versus White-sounding name), and compares outcomes <span class="citation" data-cites="barocas2023fairml">(<a href="#/next-class" role="doc-biblioref" onclick="">Barocas et al. 2023</a>, ch.&nbsp;7)</span>. This is the design behind classic audit studies like Bertrand and Mullainathan’s résumé study, and it’s also the design behind the LLM case study coming up. <span class="citation" data-cites="huang2026beyond">Huang et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2026</a>)</span> hold everything but the claimant’s stated gender fixed and compare the model’s output.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="fairness-for-large-language-models" class="title-slide slide level1 center">
+<h1>Fairness for large language models</h1>
+
+</section>
+<section id="where-the-bias-comes-from" class="slide level2 center">
+<h2>Where the bias comes from</h2>
+<p>No fixed input schema. No column called “Gender,” prediction is open-ended text.</p>
+<ul>
+<li>Shaped by the <strong>training corpus</strong>, which reproduces whatever stereotypes are in the text</li>
+<li>Further shaped by <strong>alignment fine-tuning</strong> (e.g.&nbsp;RLHF, reinforcement learning from human feedback), which encodes the labellers’ preferences</li>
+<li>No single attribute to remove. Bias surfaces in word choice, tone, assumed perspective</li>
+</ul>
+</section>
+<section id="why-measurement-is-harder" class="slide level2 center">
+<h2>Why measurement is harder</h2>
+<p>Group-fairness criteria compare a well-defined <span class="math inline">\hat{Y}</span> across groups.</p>
+<p>Open-ended generation has <strong>no single <span class="math inline">\hat{Y}</span></strong>. Evaluation needs templated probes (swap a name/pronoun, compare sentiment/toxicity).</p>
+<div class="fragment">
+<p>Dozens of proposed metrics, little consensus <span class="citation" data-cites="gallegos2024bias">(<a href="#/next-class" role="doc-biblioref" onclick="">Gallegos et al. 2024</a>)</span>. This is considerably less mature than the tabular setting this course focuses on.</p>
+</div>
+</section>
+<section id="discuss-3-min-2" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>A conventional bias audit compares outcomes for Male vs.&nbsp;Female claimants only, since that’s how gender has traditionally been recorded.</p>
+<p><strong>Real intake forms increasingly offer Non-binary and “prefer not to say” options too. If an LLM passed a Male/Female audit with no disparity, would you trust it to be unbiased for the categories the audit never tested? What could go wrong that a binary audit would miss entirely?</strong></p>
+</section>
+<section id="case-study-gender-bias-in-llm-insurance-claims-the-design" class="slide level2 smaller center">
+<h2>Case Study: gender bias in LLM insurance claims — the design</h2>
+<p><span class="citation" data-cites="huang2026beyond">Huang et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2026</a>)</span>’s counterfactual audit:</p>
+<ul>
+<li><strong>1,388</strong> real vehicle insurance claims (accident image, vehicle metadata, optionally an AI-generated narrative)</li>
+<li><strong>4</strong> gender conditions: Male, Female, Non-binary, Not Specified, not just the conventional Male/Female binary</li>
+<li><strong>2 × 2</strong> further conditions: claimant’s name present/absent, narrative present/absent</li>
+<li><strong>6 LLMs</strong>: GPT-5, GPT-4o, Gemini 2.5 Pro, Gemini 3 Flash, Claude 4 Sonnet, Claude 4.5 Sonnet</li>
+<li><strong>3 outcomes</strong> per claim: predicted claim amount, eligibility, damage severity</li>
+<li><span class="math inline">4 \times 2 \times 2 \times 1{,}388 \times 6 \times 3 \rightarrow</span> <strong>133,248 model evaluations</strong></li>
+</ul>
+<aside class="notes">
+<p>Everything about the claim is held fixed except the gender field and the two prompt conditions, a counterfactual design, the same logic as the résumé-audit technique covered earlier in this chapter.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="case-study-gender-bias-in-llm-insurance-claims-results" class="slide level2 smaller center">
+<h2>Case Study: gender bias in LLM insurance claims — results</h2>
+<div class="fragment">
+<p>Under the conventional <strong>Male/Female, full-information</strong> audit: <strong>none</strong> of the six models shows a significant disparity.</p>
+</div>
+<div class="fragment">
+<p>Once <strong>Non-binary</strong> and <strong>Not Specified</strong> are included, three models (GPT-5, GPT-4o, Gemini 2.5 Pro) show significant disparities. GPT-4o is the most biased: <strong>$128–$288</strong> difference in predicted claim amount, favouring Not Specified claimants when the name is present, but the disparity flips to favour Non-binary over Male claimants once the name is removed.</p>
+</div>
+<div class="fragment">
+<p>Three models (Gemini 3 Flash, Claude 4 Sonnet, Claude 4.5 Sonnet) show <strong>no</strong> significant disparity under any of the 16 conditions tested.</p>
+</div>
+<div class="fragment">
+<p><strong>A binary-only audit would have certified all six models as fair.</strong></p>
+</div>
+</section>
+<section id="exercise-how-would-you-fix-this" class="slide level2 smaller center">
+<h2>Exercise: how would you fix this?</h2>
+<p>GPT-4o shows the bias; three other models (Gemini 3 Flash, Claude 4 Sonnet, Claude 4.5 Sonnet) don’t.</p>
+<p><strong>Before the next slide: as the insurer’s AI governance lead, what would you actually change? List at least two concrete options.</strong></p>
+</section>
+<section id="indicative-answer-fixing-the-llm-insurance-claims-bias" class="slide level2 smaller center">
+<h2>Indicative answer: fixing the LLM insurance-claims bias</h2>
+<div title="Options grounded in the paper and this chapter">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Options grounded in the paper and this chapter</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Change the prompt, not just the model.</strong> GPT-4o’s bias pattern flips depending on whether the claimant’s name is present. Stripping the name (and other demographic-adjacent free text) from the prompt before the claim reaches the model is the LLM analogue of <strong>FTU</strong>, removing an input the model doesn’t need to do its job.</p>
+<p><strong>Switch models, if procurement allows it.</strong> Three of the six models tested show no significant disparity under any condition. Model choice is itself a fairness lever, not just a technical one, provided switching doesn’t trade away needed capability.</p>
+<p><strong>Audit is not a one-off gate.</strong> GPT-5 fixed most of GPT-4o’s disparities, but that isn’t guaranteed for every update. <strong>Every model version change should trigger a new, multiplicity-aware audit</strong> (multiple gender categories, multiple prompt configurations), not a one-time sign-off at procurement.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Notice what’s missing: there’s no MCDP-style pre-processing step.</strong> The LLM’s input isn’t a fixed feature vector <span class="math inline">X_{NP}</span> you can orthogonalise, so the five-model toolkit from Step 2 doesn’t transfer directly to open-ended generation.</p>
+</div>
+</section>
+<section id="discuss-3-min-3" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>Real-estate platforms are starting to use GenAI to suggest listing prices.</p>
+<p><strong>Historically, human-set housing prices have been higher in white-dominant neighbourhoods than in comparable minority-dominant ones. If an LLM is trained on this same historical data, would you expect its prices to reproduce, widen, or narrow that gap? Why?</strong></p>
+</section>
+<section id="case-study-genai-and-housing-price-discrimination-the-design" class="slide level2 smaller center">
+<h2>Case Study: GenAI and housing price discrimination — the design</h2>
+<p><span class="citation" data-cites="tanlamai2026genai">Tanlamai et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2026</a>)</span>’s comparison:</p>
+<ul>
+<li><strong>284,749</strong> real U.S. property listings (Aug–Sep 2023), across five property types</li>
+<li>Each listing’s <strong>human-set asking price</strong> is the baseline</li>
+<li><strong>GPT-4o</strong> is prompted to act as a real-estate agent and generate its own price for the same listing, from the same characteristics (location, size, beds/baths, school rating, climate-risk scores)</li>
+<li>Neighbourhoods classified <strong>white-dominant</strong> (&gt;50% white residents) or <strong>minority-dominant</strong>, from Census Bureau data</li>
+<li>A fixed-effects regression on <span class="math inline">\log(\text{Price})</span> compares human vs.&nbsp;GenAI prices, controlling for property characteristics, house type, and city</li>
+<li>Robustness checked across <strong>4 LLMs</strong>: GPT-4o, GPT-3.5, Gemini 1.5 Flash, Claude 3.5 Sonnet</li>
+</ul>
+</section>
+<section id="case-study-genai-and-housing-price-discrimination-results" class="slide level2 smaller center">
+<h2>Case Study: GenAI and housing price discrimination — results</h2>
+<div class="fragment">
+<p><strong>Human-set prices</strong>: houses in minority-dominant neighbourhoods are priced <strong>22.9% lower</strong> than comparable houses in white-dominant neighbourhoods.</p>
+</div>
+<div class="fragment">
+<p><strong>GPT-4o prices</strong>: the same gap shrinks to <strong>14.2%</strong>, an <strong>8.7 percentage-point reduction</strong>, not an amplification.</p>
+</div>
+<div class="fragment">
+<p>GenAI prices are lower than human prices overall (13.5% lower on average), but the reduction is <strong>larger</strong> for minority-dominant neighbourhoods, which is what narrows the gap.</p>
+</div>
+<div class="fragment">
+<p><strong>The opposite direction from the insurance case study.</strong> Mechanism checks suggest it isn’t just “regression to the mean”: it’s driven by what the training data (much of it public web content) encodes about pricing generally, not a simple averaging effect.</p>
+</div>
+</section>
+<section id="exercise-how-would-you-fix-this-1" class="slide level2 smaller center">
+<h2>Exercise: how would you fix this?</h2>
+<p>GPT-4o narrows the racial pricing gap (22.9% → 14.2%), but doesn’t eliminate it.</p>
+<p><strong>Before the next slide: would you deploy GPT-4o’s prices as-is, or add a correction step? What would that correction look like, using this chapter’s own toolkit?</strong></p>
+</section>
+<section id="indicative-answer-fixing-the-residual-housing-price-gap" class="slide level2 smaller center">
+<h2>Indicative answer: fixing the residual housing-price gap</h2>
+<div title="Options grounded in this chapter">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Options grounded in this chapter</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Treat the residual 14.2% gap as an unfinished Step 2 problem, not a solved one.</strong> GPT-4o’s price is a fitted output over <span class="math inline">X_{NP}</span> (location, size, school rating, and so on), so it can be treated like any other predicted price for this chapter’s toolkit.</p>
+<p><strong>MCDP-style correction</strong>: identify which of GPT-4o’s inputs are legitimate risk factors (e.g.&nbsp;flood risk, school rating) versus non-legitimate proxies (e.g.&nbsp;a postcode standing in for neighbourhood racial composition), and orthogonalise only the latter against race before the price is finalised.</p>
+<p><strong>MC-style correction</strong>: average GPT-4o’s price over the neighbourhood’s racial composition at scoring time, the same post-processing idea used in the insurance-pricing worked example earlier in this chapter.</p>
+<p><strong>Neither is free.</strong> Both require the platform to first classify legitimate vs.&nbsp;non-legitimate inputs (a judgement call) or to have race/neighbourhood-composition data available at scoring time, exactly the same practical costs already discussed for MCDP and MC.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="discuss-3-min-4" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (3 min)</h2>
+<p>If you were auditing an LLM drafting <strong>claim-denial letters</strong> —</p>
+<p><strong>what would “fair” even mean here, with no single <span class="math inline">\hat{Y}</span> to compare?</strong></p>
+</section>
+<section id="indicative-answer-fairness-for-open-ended-text" class="slide level2 smaller center">
+<h2>Indicative answer: fairness for open-ended text</h2>
+<div title="No single Ŷ, but not undefined either">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No single Ŷ, but not undefined either</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Templated probes, not direct criteria.</strong> Hold the claim details fixed, swap only the claimant’s name or stated demographic, and compare the <em>generated text</em> across the swap: tone (via sentiment analysis), specificity of the stated denial reason, or presence of an appeals-process explanation.</p>
+<p><strong>Decompose “fair” into measurable proxies.</strong> Even without a single outcome number, ask: is the <em>rate</em> of denial letters (a binary extractable from the text) equal across groups, a demographic-parity-style question? Is the letter’s reading level or actionability, a proxy for how easy it is to contest the decision, equal across groups?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>This is exactly <span class="citation" data-cites="gallegos2024bias">Gallegos et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2024</a>)</span>’s point: dozens of proposed metrics exist because no single one dominates. The audit design has to be built for the specific harm, not borrowed wholesale from the tabular setting.</strong></p>
+</div>
+</section>
+<section id="summary-the-four-step-framework" class="slide level2 center">
+<h2>Summary: the four-step framework</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Question</th>
+<th>Depth here</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Define fairness</strong></td>
+<td>Which criterion applies?</td>
+<td>Full</td>
+</tr>
+<tr class="even">
+<td><strong>2. Design a fair model</strong></td>
+<td>Which design enforces it?</td>
+<td>Full</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Assess impact</strong></td>
+<td>Who gains/loses in practice?</td>
+<td>Brief</td>
+</tr>
+<tr class="even">
+<td><strong>4. Audit the system</strong></td>
+<td>Can we demonstrate compliance?</td>
+<td>Brief</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="discuss-5-min-wrap-up" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 Discuss (5 min) — wrap-up</h2>
+<p>Of the four steps — <strong>define, design, assess impact, audit</strong> —</p>
+<p><strong>which do you think organisations skip most often in practice, and why?</strong></p>
+</section>
+<section id="indicative-answer-which-step-gets-skipped" class="slide level2 smaller center">
+<h2>Indicative answer: which step gets skipped</h2>
+<div title="Most commonly nominated: Step 4 (audit)">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Most commonly nominated: Step 4 (audit)</strong></p>
+</div>
+<div class="callout-content">
+<p>Steps 1 and 2 are where the interesting technical work happens, and where a data science team’s incentives naturally point, so they tend to get done. Step 3 (impact assessment) is at least partially forced by growing algorithmic-impact-assessment regulation. <strong>Step 4 (ongoing audit) is the one most often skipped</strong>, because it has no natural endpoint (a model “passes” once at deployment, but nothing forces a recheck later), and because, as the LLM case study earlier in this chapter showed, a model that passes today’s audit can fail tomorrow’s after a routine version update.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="recommended-reading" class="slide level2 center">
+<h2>Recommended reading</h2>
+<ul>
+<li><span class="citation" data-cites="xin2024antidiscrimination">Xin and Huang (<a href="#/next-class" role="doc-biblioref" onclick="">2024</a>)</span> — criteria, model designs, trade-off on insurance data</li>
+<li><span class="citation" data-cites="barocas2023fairml">Barocas et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2023</a>)</span> — <em>Fairness and Machine Learning</em> (free, fairmlbook.org)</li>
+<li><span class="citation" data-cites="gallegos2024bias">Gallegos et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2024</a>)</span>; <span class="citation" data-cites="huang2026beyond">Huang et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2026</a>)</span>; <span class="citation" data-cites="tanlamai2026genai">Tanlamai et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2026</a>)</span> — fairness specifically in LLMs</li>
+</ul>
+<p>Full list, including fair.feihuang.org’s interactive tools, in the lecture notes.</p>
+</section>
+<section id="next-class" class="slide level2 smaller scrollable">
+<h2>Next class</h2>
+<p><strong>Chapter 3 — Fairness Practice</strong></p>
+<p>Bring a laptop with R installed. We’ll fit these five model designs on real data.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-angwin2016machine" class="csl-entry" role="listitem">
+Angwin, Julia, Jeff Larson, Surya Mattu, and Lauren Kirchner. 2016. <span>“Machine Bias.”</span> <em>ProPublica</em>. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing</a>.
+</div>
+<div id="ref-ahrc2022insurance" class="csl-entry" role="listitem">
+Australian Human Rights Commission and Actuaries Institute. 2022. <em>Guidance Resource: Artificial Intelligence and Discrimination in Insurance Pricing and Underwriting</em>. <a href="https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance">https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance</a>.
+</div>
+<div id="ref-barocas2023fairml" class="csl-entry" role="listitem">
+Barocas, Solon, Moritz Hardt, and Arvind Narayanan. 2023. <em>Fairness and Machine Learning: Limitations and Opportunities</em>. MIT Press. <a href="https://fairmlbook.org">https://fairmlbook.org</a>.
+</div>
+<div id="ref-chouldechova2017fair" class="csl-entry" role="listitem">
+Chouldechova, Alexandra. 2017. <span>“Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments.”</span> <em>Big Data</em> 5 (2): 153–63. <a href="https://doi.org/10.1089/big.2016.0047">https://doi.org/10.1089/big.2016.0047</a>.
+</div>
+<div id="ref-colorado_sb21169_2021" class="csl-entry" role="listitem">
+Colorado General Assembly. 2021. <em>Senate Bill 21-169: Protecting Consumers from Unfair Discrimination in Insurance Practices</em>. Colorado Division of Insurance. <a href="https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices">https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices</a>.
+</div>
+<div id="ref-dwork2012fairness" class="csl-entry" role="listitem">
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Rich Zemel. 2012. <span>“Fairness Through Awareness.”</span> <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em>, 214–26.
+</div>
+<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
+European Court of Justice. 2011. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge Des Consommateurs Test-Achats ASBL and Others v Conseil Des Ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
+</div>
+<div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
+Frees, Edward W, and Fei Huang. 2023. <span>“The Discriminating (Pricing) Actuary.”</span> <em>North American Actuarial Journal</em> 27 (1): 2–24.
+</div>
+<div id="ref-gallegos2024bias" class="csl-entry" role="listitem">
+Gallegos, Isabel O, Ryan A Rossi, Joe Barrow, et al. 2024. <span>“Bias and Fairness in Large Language Models: A Survey.”</span> <em>Computational Linguistics</em> 50 (3): 1097–179.
+</div>
+<div id="ref-hardt2016equality" class="csl-entry" role="listitem">
+Hardt, Moritz, Eric Price, and Nati Srebro. 2016. <span>“Equality of Opportunity in Supervised Learning.”</span> <em>Advances in Neural Information Processing Systems</em> 29.
+</div>
+<div id="ref-huang2026beyond" class="csl-entry" role="listitem">
+Huang, Fei, Md Mushahidul Islam Shamim, Warut Khern-Am-Nuai, and Maxime C. Cohen. 2026. <span>“Beyond the Binary: Gender Bias in LLM-Evaluated Insurance Claims.”</span> <a href="https://ssrn.com/abstract=7127259">https://ssrn.com/abstract=7127259</a>.
+</div>
+<div id="ref-kamiran2012preprocessing" class="csl-entry" role="listitem">
+Kamiran, Faisal, and Toon Calders. 2012. <span>“Data Preprocessing Techniques for Classification Without Discrimination.”</span> <em>Knowledge and Information Systems</em> 33 (1): 1–33.
+</div>
+<div id="ref-kleinberg2017inherent" class="csl-entry" role="listitem">
+Kleinberg, Jon, Sendhil Mullainathan, and Manish Raghavan. 2017. <span>“Inherent Trade-Offs in the Fair Determination of Risk Scores.”</span> <em>Proceedings of the 8th Innovations in Theoretical Computer Science Conference</em>.
+</div>
+<div id="ref-lindholm2022discrimination" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2022. <span>“Discrimination-Free Insurance Pricing.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 52 (1): 55–89.
+</div>
+<div id="ref-lindholm2024multitask" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2024a. <span>“A Multi-Task Network Approach for Calculating Discrimination-Free Insurance Prices.”</span> <em>European Actuarial Journal</em> 14: 329–69.
+</div>
+<div id="ref-lindholm2024fair" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, and Mario V Wüthrich. 2024b. <span>“What Is Fair? Proxy Discrimination Vs. Demographic Disparities in Insurance Pricing.”</span> <em>Scandinavian Actuarial Journal</em> 2024 (9): 935–70.
+</div>
+<div id="ref-martinez2026creditchecks" class="csl-entry" role="listitem">
+Martinez, Alonzo. 2026. <em>New York Bans Most Credit Checks in Hiring by April 2026</em>. <a href="https://www.forbes.com/sites/alonzomartinez/2026/01/09/new-york-bans-most-credit-checks-in-hiring-by-april-2026/">https://www.forbes.com/sites/alonzomartinez/2026/01/09/new-york-bans-most-credit-checks-in-hiring-by-april-2026/</a>.
+</div>
+<div id="ref-mehrabi2021survey" class="csl-entry" role="listitem">
+Mehrabi, Ninareh, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. 2021. <span>“A Survey on Bias and Fairness in Machine Learning.”</span> <em>ACM Computing Surveys</em> 54 (6): 1–35.
+</div>
+<div id="ref-mas_feat_2018" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2018. <span>“Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector.”</span> <a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat">https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat</a>.
+</div>
+<div id="ref-mas_veritas" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2019. <span>“Veritas Initiative.”</span> <a href="https://www.mas.gov.sg/schemes-and-initiatives/veritas">https://www.mas.gov.sg/schemes-and-initiatives/veritas</a>.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+National Financial Regulatory Administration. 2026a. <em>Guiding Opinions on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Industries</em>. 国家金融监督管理总局, 18 June 2026.
+</div>
+<div id="ref-nfra2026qa" class="csl-entry" role="listitem">
+National Financial Regulatory Administration. 2026b. <em>Responsible Officials Answer Reporters’ Questions on the "Guiding Opinions on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Industries" (国家金融监督管理总局有关司局负责人就《关于银行业保险业人工智能安全开发应用的指导意见》答记者问)</em>. 21st Century Business Herald, 18 June 2026. <a href="https://www.21jingji.com/article/20260618/herald/b99238cd7adaa34627784d1d9ac7f11b.html">https://www.21jingji.com/article/20260618/herald/b99238cd7adaa34627784d1d9ac7f11b.html</a>.
+</div>
+<div id="ref-nydfs_circular7_2024" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024. <span>“Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing.”</span> <a href="https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07">https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07</a>.
+</div>
+<div id="ref-obermeyer2019dissecting" class="csl-entry" role="listitem">
+Obermeyer, Ziad, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. 2019. <span>“Dissecting Racial Bias in an Algorithm Used to Manage the Health of Populations.”</span> <em>Science</em> 366 (6464): 447–53.
+</div>
+<div id="ref-popesydnor2011" class="csl-entry" role="listitem">
+Pope, Devin G, and Justin R Sydnor. 2011. <span>“Implementing Anti-Discrimination Policies in Statistical Profiling Models.”</span> <em>American Economic Journal: Economic Policy</em> 3 (3): 206–31.
+</div>
+<div id="ref-rodolfa2021negligible" class="csl-entry" role="listitem">
+Rodolfa, Kit T, Hemank Lamba, and Rayid Ghani. 2021. <span>“Empirical Observation of Negligible Fairness-Accuracy Trade-Offs in Machine Learning for Public Policy.”</span> <em>Nature Machine Intelligence</em> 3: 896–904.
+</div>
+<div id="ref-sina2026nfra" class="csl-entry" role="listitem">
+Sina Finance. 2026. <em>Financial Regulatory Administration Issues 32 Guiding Opinions to Promote Safe Development and Application of AI in Banking and Insurance (金融监管总局发布32项指导性意见 促进银行保险业安全开发应用人工智能)</em>. Sina.com, 22 June 2026. <a href="https://finance.sina.com.cn/roll/2026-06-22/doc-iniefqsc7223919.shtml">https://finance.sina.com.cn/roll/2026-06-22/doc-iniefqsc7223919.shtml</a>.
+</div>
+<div id="ref-tanlamai2026genai" class="csl-entry" role="listitem">
+Tanlamai, Jitsama, Warut Khern-am-nuai, and Maxime C. Cohen. 2026. <span>“Generative AI and Price Discrimination in the Housing Market.”</span> <em>Information Systems Research</em>, ahead of print. <a href="https://doi.org/10.1287/isre.2024.1234">https://doi.org/10.1287/isre.2024.1234</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../../unsw-logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

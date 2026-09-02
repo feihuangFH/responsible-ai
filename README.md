@@ -1,28 +1,26 @@
-# Responsible AI (Chinese) — Course Site Preview
+# Responsible AI — Course Site
 
-一个正在构建中的开放学习资源:负责任人工智能(公平性、可解释性、隐私)课程网站的中文版预览。
+An open learning resource on responsible AI: fairness, explainability, and
+privacy in high-stakes automated decision-making, available in both English
+and Chinese.
 
-This repository hosts a scoped, work-in-progress preview of the Chinese-language
-version of *Responsible AI: Principles, Governance, and Quantitative Methods*, a
-course on fairness, explainability, and privacy in high-stakes automated
-decision-making.
+**Live site:** https://responsible-ai.feihuang.org
 
-**Live site:** _add your GitHub Pages URL here once enabled, e.g._
-`https://<your-username>.github.io/responsible-ai-chinese/`
+## Scope
 
-## Current scope
-
-This repository intentionally contains **only**:
-
-- 首页 (homepage)
-- 第一章:导论 (Chapter 1: Introduction)
-
-Chapters 2–8 are still being finalised and are not yet included here. This is
-a deliberate, temporary scope limit, not a bug — more chapters will be added
-as they're ready.
+This repository hosts the full public-facing course site: all 8 chapters
+(lecture notes and in-class slides), in both English and Chinese, with a
+language toggle on every page. Instructor-only materials (assignment
+solutions, marking rubrics) are not included here.
 
 ## License
 
-All rights reserved. This content is for teaching use in the Peking
-University Guanghua School of Management BA Workshop only. See
-[LICENSE](LICENSE) for full terms.
+Materials created for this resource are licensed under
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) unless
+otherwise noted. See [LICENSE](LICENSE) for full terms.
+
+## Development note
+
+This project was developed with support from AI coding assistants. All
+analysis, content decisions, and conclusions are the author's own and her
+responsibility.

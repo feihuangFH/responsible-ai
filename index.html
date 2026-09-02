@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="黄斐,新南威尔士大学">
+<meta name="author" content="Fei Huang, UNSW Sydney">
 
-<title>负责任人工智能:原则、治理与量化方法 – Responsible AI: Principles, Governance, and Quantitative Methods</title>
+<title>Responsible AI: Principles, Governance, and Quantitative Methods</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -34,7 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html" rel="next">
+<link href="./Lectures/Ch1-Introduction/Lecture-Introduction.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b6aba4ac4b850922cff467f5e3088352.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1d3dbff23c6f075fea3077ef334eaf79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -59,17 +59,17 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交",
-    "search-label": "搜索"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
@@ -91,13 +91,13 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">首页</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -109,12 +109,12 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">负责任人工智能</a> 
+      <a href="./">Responsible AI: Principles, Governance, and Quantitative Methods</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="搜索"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -122,55 +122,55 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">首页</span></a>
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第一章:导论</span></a>
+  <a href="./Lectures/Ch1-Introduction/Lecture-Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第二章:公平性原则</span></a>
+  <a href="./Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Fairness Principles</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第三章:公平性实践</span></a>
+  <a href="./Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 3: Fairness Practice</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第四章:可解释性原则</span></a>
+  <a href="./Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 4: Explainability Principles</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第五章:可解释性实践</span></a>
+  <a href="./Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Explainability Practice</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第六章:隐私原则</span></a>
+  <a href="./Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Privacy Principles</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第七章:隐私实践</span></a>
+  <a href="./Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 7: Privacy Practice</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration-ZH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第八章:权衡取舍、整合与治理</span></a>
+  <a href="./Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 8: Trade-offs, Integration, and Governance</span></a>
   </div>
 </li>
     </ul>
@@ -184,8 +184,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">负责任人工智能:原则、治理与量化方法</h1>
-<p class="subtitle lead">Responsible AI: Principles, Governance, and Quantitative Methods</p>
+<h1 class="title">Responsible AI: Principles, Governance, and Quantitative Methods</h1>
+<p class="subtitle lead">Open Learning Resource (draft, 2026)</p>
 </div>
 
 
@@ -193,9 +193,9 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>黄斐,新南威尔士大学 </p>
+             <p>Fei Huang, UNSW Sydney </p>
           </div>
   </div>
     
@@ -208,98 +208,151 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </header>
 
 
-<section id="概述" class="level2">
-<h2 class="anchored" data-anchor-id="概述">概述</h2>
-<p>这份学习资源涵盖具有重大影响的自动化决策系统中的<strong>负责任人工智能</strong>:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This open learning resource covers <strong>responsible AI</strong> for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">提示</span>从这里开始
+<span class="screen-reader-only">Tip</span>Start here
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>使用<strong>左侧边栏</strong>打开任意章节。每个章节的课堂笔记均包含全部代码和图表。</p>
+<p>Use the <strong>left sidebar</strong> to open any chapter, or follow the lecture links below. Each chapter has three formats: HTML lecture notes (with all code and plots), a downloadable PDF of the same notes, and a condensed slide deck for in-class use.</p>
+</div>
+</div>
+<div class="columns home-columns">
+<div class="column" style="width:100%;">
+<section id="lectures" class="level3">
+<h3 class="anchored" data-anchor-id="lectures">Lectures</h3>
+<ul>
+<li>Chapter 1: Introduction
+<ul>
+<li><a href="Lectures/Ch1-Introduction/Lecture-Introduction.html">Lecture Notes</a> · <a href="Lectures/Ch1-Introduction/Slides-Introduction.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 2: Fairness Principles
+<ul>
+<li><a href="Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch2-Fairness-Principles/Slides-Fairness-Principles.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 3: Fairness Practice
+<ul>
+<li><a href="Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch3-Fairness-Practice/Slides-Fairness-Practice.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 4: Explainability Principles
+<ul>
+<li><a href="Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch4-Explainability-Principles/Slides-Explainability-Principles.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 5: Explainability Practice
+<ul>
+<li><a href="Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch5-Explainability-Practice/Slides-Explainability-Practice.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 6: Privacy Principles
+<ul>
+<li><a href="Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch6-Privacy-Principles/Slides-Privacy-Principles.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 7: Privacy Practice
+<ul>
+<li><a href="Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch7-Privacy-Practice/Slides-Privacy-Practice.slides.html">Slides</a></li>
+</ul></li>
+<li>Chapter 8: Trade-offs, Integration, and Governance
+<ul>
+<li><a href="Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html">Lecture Notes</a> · <a href="Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html">Slides</a></li>
+</ul></li>
+</ul>
+</section>
 </div>
 </div>
 </section>
-<section id="课程地图" class="level2">
-<h2 class="anchored" data-anchor-id="课程地图">课程地图</h2>
+<section id="course-map" class="level2">
+<h2 class="anchored" data-anchor-id="course-map">Course map</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 29%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>章节</th>
-<th>主题</th>
-<th>重点</th>
+<th>Chapter</th>
+<th>Theme</th>
+<th>Focus</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>导论</td>
-<td>动机、生命周期、治理与职业背景</td>
+<td>Introduction</td>
+<td>Motivation, lifecycle, governance, and professional context</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>公平性原则</td>
-<td>定义、法律与经济视角、公平性准则</td>
+<td>Fairness principles</td>
+<td>Definitions, legal and economic perspectives, fairness criteria</td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>公平性实践</td>
-<td>保险领域中的衡量、缓解与案例研究</td>
+<td>Fairness practice</td>
+<td>Measurement, mitigation, and case studies in insurance</td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>可解释性原则</td>
-<td>透明度、可解释性与利益相关方需求</td>
+<td>Explainability principles</td>
+<td>Transparency, interpretability, and stakeholder needs</td>
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>可解释性实践</td>
-<td>方法、验证与沟通</td>
+<td>Explainability practice</td>
+<td>Methods, validation, and communication</td>
 </tr>
 <tr class="even">
 <td>6</td>
-<td>隐私原则</td>
-<td>数据保护、同意机制与监管基础</td>
+<td>Privacy principles</td>
+<td>Data protection, consent, and regulatory foundations</td>
 </tr>
 <tr class="odd">
 <td>7</td>
-<td>隐私实践</td>
-<td>技术、风险评估与操作管控</td>
+<td>Privacy practice</td>
+<td>Techniques, risk assessment, and operational controls</td>
 </tr>
 <tr class="even">
 <td>8</td>
-<td>权衡取舍与整合</td>
-<td>平衡多重目标,并将负责任人工智能嵌入工作流程</td>
+<td>Trade-offs and integration</td>
+<td>Balancing objectives and embedding responsible AI in workflows</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="关于作者" class="level2">
-<h2 class="anchored" data-anchor-id="关于作者">关于作者</h2>
+<section id="about-the-author" class="level2">
+<h2 class="anchored" data-anchor-id="about-the-author">About the Author</h2>
 <div class="columns about-author">
 <div class="column" style="width:30%;">
 <p><img src="Fei_Huang.jpeg" class="about-author-photo img-fluid"></p>
 </div><div class="column" style="width:70%;">
-<section id="黄斐-博士" class="level4">
-<h4 class="anchored" data-anchor-id="黄斐-博士"><a href="https://www.unsw.edu.au/staff/fei-huang">黄斐 博士</a></h4>
+<section id="dr.-fei-huang" class="level4">
+<h4 class="anchored" data-anchor-id="dr.-fei-huang"><a href="https://www.unsw.edu.au/staff/fei-huang">Dr.&nbsp;Fei Huang</a></h4>
 <div class="about-author-contact">
-<p>新南威尔士大学商学院风险与精算学院</p>
-<p>邮箱:<a href="mailto:feihuang@unsw.edu.au">feihuang@unsw.edu.au</a> · 网站:<a href="https://www.feihuang.org">feihuang.org</a></p>
+<p>School of Risk and Actuarial Studies, UNSW Business School</p>
+<p>Email: <a href="mailto:feihuang@unsw.edu.au">feihuang@unsw.edu.au</a> · Website: <a href="https://www.feihuang.org">feihuang.org</a></p>
 </div>
-<p>黄斐博士是新南威尔士大学商学院风险与精算学院的副教授。她的研究与教学聚焦于负责任人工智能、保险,以及准确、可解释且公平的数据驱动决策。</p>
+<p>Dr.&nbsp;Fei Huang is an Associate Professor in Risk and Actuarial Studies at UNSW Business School. Her research and teaching focus on responsible AI, insurance, and data-driven decision-making that is accurate, interpretable, and equitable.</p>
 </section>
 </div>
 </div>
 </section>
-<section id="许可协议" class="level2">
-<h2 class="anchored" data-anchor-id="许可协议">许可协议</h2>
-<p>© 2026 黄斐(Fei Huang)。保留所有权利。</p>
-<p>本网站内容仅供北京大学光华管理学院 BA 工作坊课程教学使用,仅限注册学员在课程期间学习参考。未经作者书面许可,任何单位或个人不得以任何形式复制、传播、修改、汇编或用于商业用途本网站的任何内容。如需转载或引用,请联系作者获得授权。</p>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p>Materials created for this resource are licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)</a> license unless otherwise noted. See the LICENSE file in this repository.</p>
+</section>
+<section id="how-to-cite" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-cite">How to cite</h2>
+<p>Huang, F. (2026). <em>Responsible AI: Principles, Governance, and Quantitative Methods</em> (draft). UNSW Sydney.</p>
+</section>
+<section id="development-note" class="level2">
+<h2 class="anchored" data-anchor-id="development-note">Development note</h2>
+<p>This project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author’s own and her responsibility.</p>
 
 
 </section>
@@ -313,7 +366,6 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   if (!/\.html$/.test(path)) return;
 
   var isZh = /-ZH\.html$/.test(path);
-  if (isZh) return; /* Chinese pages don't show a toggle back to English */
 
   var siblingPath = isZh
     ? path.replace(/-ZH\.html$/, ".html")
@@ -361,12 +413,12 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "已复制");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "已复制");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -740,8 +792,8 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html" class="pagination-link" aria-label="第一章:导论">
-        <span class="nav-page-text">第一章:导论</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lectures/Ch1-Introduction/Lecture-Introduction.html" class="pagination-link" aria-label="Chapter 1: Introduction">
+        <span class="nav-page-text">Chapter 1: Introduction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

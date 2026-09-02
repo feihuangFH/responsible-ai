@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2ed7f7ae727038b1aa95f4c24ad3a3a6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="黄斐,新南威尔士大学">
+  <meta name="dcterms.date" content="2026-08-13">
+  <title>Responsible AI: Principles, Governance, and Quantitative Methods – 公平性原则</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-96baaebca6aae0d833d4fea310b664e9.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-F11HECZVN7"></script>
+
+  <script type="text/javascript">
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
+  </script>
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">公平性原则</h1>
+  <p class="subtitle">幻灯片 — 第二章</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+黄斐,新南威尔士大学 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-08-13</p>
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">目录</h2>
+<ul>
+<li><a href="#/第一步什么是公平" id="/toc-第一步什么是公平">第一步——什么是公平?</a></li>
+<li><a href="#/第二步设计公平模型" id="/toc-第二步设计公平模型">第二步——设计公平模型</a></li>
+<li><a href="#/休息10分钟" id="/toc-休息10分钟"><em>休息——10分钟</em></a></li>
+<li><a href="#/第三四步简要概览" id="/toc-第三四步简要概览">第三、四步——简要概览</a></li>
+<li><a href="#/大语言模型的公平性" id="/toc-大语言模型的公平性">大语言模型的公平性</a></li>
+</ul>
+</nav>
+</section>
+<section id="今日安排" class="slide level2 smaller center">
+<h2>今日安排</h2>
+<p>2小时课程,五个部分,五次讨论环节</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>部分</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00 – 0:45</td>
+<td>第一步:什么是公平?</td>
+</tr>
+<tr class="even">
+<td>0:45 – 1:15</td>
+<td>第二步:设计公平模型</td>
+</tr>
+<tr class="odd">
+<td>1:15 – 1:25</td>
+<td><em>休息</em></td>
+</tr>
+<tr class="even">
+<td>1:25 – 1:40</td>
+<td>第三、四步(简述)</td>
+</tr>
+<tr class="odd">
+<td>1:40 – 1:55</td>
+<td>大语言模型的公平性</td>
+</tr>
+<tr class="even">
+<td>1:55 – 2:00</td>
+<td>小结</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>完整内容见 Lecture-Fairness-Principles.qmd。这些幻灯片是课堂精简版,内置讨论提示。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="学习目标" class="slide level2 center">
+<h2>学习目标</h2>
+<ul>
+<li>区分公平性的社会、法律与经济视角</li>
+<li>比较各种量化公平性准则及其假设</li>
+<li>将公平性准则与模型设计及监管联系起来</li>
+<li>说明为什么没有任何单一准则能满足所有利益相关方</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>注记</strong></p>
+</div>
+<div class="callout-content">
+<p>保险是反复出现的实例场景。该框架适用于任何重大自动化决策。</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<section id="第一步什么是公平" class="title-slide slide level1 center">
+<h1>第一步——什么是公平?</h1>
+
+</section>
+<section id="引出问题" class="slide level2 smaller center">
+<h2>引出问题</h2>
+<div class="case-study" title="案例研究:COMPAS 再犯风险评分">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>案例研究:COMPAS 再犯风险评分</strong></p>
+</div>
+<div class="callout-content">
+<p>ProPublica 的调查报道 <em>Machine Bias</em> 发现,在未再犯的被告人中,黑人被告被标记为“高风险”的比例几乎是白人被告的两倍 <span class="citation" data-cites="angwin2016machine">(<a href="#/下节课" role="doc-biblioref" onclick="">Angwin 等 2016年</a>)</span>。</p>
+<p>该工具的供应商则反驳称,COMPAS 具有良好的<strong>校准性</strong>:相同风险评分下,不同种族的再犯率相近。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>公平性是否已经实现?</strong> 这没有单一的答案。COMPAS对两个群体的校准方式相同,但其错误并未均匀分布。哪一个才算“公平”,取决于你更看重这两者中的哪一个。</p>
+</div>
+<div class="fragment">
+<p>这并非COMPAS数据所特有的巧合。只要两个群体的再犯率、违约率或理赔率存在真实的差异,同时满足双方的准则在数学上就几乎不可能,本章后文将对此给出精确说明。</p>
+</div>
+<aside class="notes">
+<p>双方的说法都有其依据,而这恰恰正是问题所在。ProPublica 的批评本质上是一种分离性论证(各群体间错误率相等),而供应商的辩护本质上是一种充分性论证(各群体间校准性相等)<span class="citation" data-cites="chouldechova2017fair">(<a href="#/下节课" role="doc-biblioref" onclick="">Chouldechova 2017年</a>)</span>。一个工具完全可能满足其中一项准则,却违反另一项,而优先选择哪一项准则正是本章要展开讨论的核心问题,并非事后才需要解决的建模细节。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="公平性的三重视角" class="slide level2 center">
+<h2>公平性的三重视角</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>视角</th>
+<th>强调的重点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>反歧视</strong></td>
+<td>避免不合理差异性结果的法律义务</td>
+</tr>
+<tr class="even">
+<td><strong>相互竞争的伦理观念</strong></td>
+<td>分配正义、团结互助、集中分摊与个体化</td>
+</tr>
+<tr class="odd">
+<td><strong>消费者/用户信任</strong></td>
+<td>合同、披露文件与行为准则中的承诺</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>这三重视角并不总是一致。关键在于在构建模型之前,使权衡取舍变得<strong>可见</strong>。</p>
+</div>
+</section>
+<section id="特征选取原则" class="slide level2 center">
+<h2>特征选取原则</h2>
+<p>使用某项输入特征,并非纯粹的统计学问题:</p>
+<ul>
+<li><strong>可控性</strong>。本人能否施加影响?</li>
+<li><strong>可变性</strong>。固定不变,还是随时间变化?</li>
+<li><strong>统计性歧视</strong>。它能否预测结果?</li>
+<li><strong>因果性</strong>。它是否<em>导致</em>了结果?</li>
+<li><strong>历史性歧视</strong>。使用它是否会强化历史?</li>
+<li><strong>具有社会价值的行为</strong>。它是否会抑制良好行为?</li>
+</ul>
+<aside class="notes">
+<p>预测能力是必要条件,但并不充分。一个预测效果很好的变量,如果在因果性、历史性或社会价值行为方面存在问题,仍然可能是有问题的,招聘中使用的信用评分或保险承保中使用的基因检测都是例证。监管机构正是基于这一逻辑采取了行动:美国已有11个州(最近一次是纽约州,自2026年4月起)限制或禁止雇主在招聘中使用信用记录审查,因为信用记录与工作表现之间并未被证明存在因果联系,且反映了历史性的经济不平等 <span class="citation" data-cites="martinez2026creditchecks">(<a href="#/下节课" role="doc-biblioref" onclick="">Martinez 2026年</a>)</span>。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="练习将示例与原则配对" class="slide level2 smaller center">
+<h2>练习:将示例与原则配对</h2>
+<p>请将下列每个示例与六项特征选取原则中的一项配对 <span class="citation" data-cites="frees2023discriminating">(<a href="#/下节课" role="doc-biblioref" onclick="">Frees 和 Huang 2023年</a>)</span>:</p>
+<ol type="1">
+<li>车辆发动机排量能够预测车险理赔频率</li>
+<li>癌症诊断已知会导致死亡风险上升</li>
+<li>是否拥有跑车,相较于性别、种族、族裔或国籍</li>
+<li>保险决策基于基因检测结果作出</li>
+<li>年龄会随时间可预测地变化,而出生地则不会</li>
+<li>基于肤色进行区别对待,相较于基于眼睛颜色</li>
+</ol>
+<aside class="notes">
+<p>此处不设逐条淡入,先与全班一起讨论,再翻到答案页。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="参考答案特征选取原则" class="slide level2 smaller center">
+<h2>参考答案:特征选取原则</h2>
+<div class="fragment">
+<p><strong>1. 统计性歧视</strong> — 发动机排量具备预测价值,这是必要条件,但本身并不充分</p>
+</div>
+<div class="fragment">
+<p><strong>2. 因果性</strong> — 已知会导致该保险事件的因素</p>
+</div>
+<div class="fragment">
+<p><strong>3. 可控性</strong> — 拥有跑车是一种选择,而敏感属性不是</p>
+</div>
+<div class="fragment">
+<p><strong>4. 具有社会价值的行为</strong> — 会抑制人们参与基因检测研究</p>
+</div>
+<div class="fragment">
+<p><strong>5. 可变性</strong> — 随时间变化,而非始终固定</p>
+</div>
+<div class="fragment">
+<p><strong>6. 历史性歧视</strong> — 肤色对应着一种受保护、且历史上曾遭受歧视的特征,而眼睛颜色则不然</p>
+</div>
+</section>
+<section id="直接歧视与间接歧视" class="slide level2 center">
+<h2>直接歧视与间接歧视</h2>
+<p><strong>直接</strong>(差别对待)是指<em>因为</em>某项受保护特征不同,而受到较不利的对待。</p>
+<p><strong>间接</strong>(差异性影响)是指因某项表面中立的做法间接推断出受保护身份,而受到不成比例的影响。</p>
+<ul>
+<li><em>可识别代理变量</em>,例如邮编↔︎种族,或简历空白期↔︎照护者身份</li>
+<li><em>不可识别代理变量</em> 是指在没有单一替代变量的情况下复现差异的不透明模型</li>
+</ul>
+</section>
+<section id="案例研究算法化医疗资源分配" class="slide level2 smaller center">
+<h2>案例研究:算法化医疗资源分配</h2>
+<div title="移除属性本身还不够">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>移除属性本身还不够</strong></p>
+</div>
+<div class="callout-content">
+<p>某医院算法使用医疗<strong>支出</strong>作为医疗<strong>需求</strong>的代理变量,用以分配护理管理资源 <span class="citation" data-cites="obermeyer2019dissecting">(<a href="#/下节课" role="doc-biblioref" onclick="">Obermeyer 等 2019年</a>)</span>。</p>
+<p>黑人患者历史上获得医疗服务的机会更少 → 在<em>同等</em>潜在需求下支出更低 → 该模型系统性地对其转介不足,而从未将种族作为输入变量。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="讨论3分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>想一想在你熟悉的某个领域中,可能成为受保护属性<strong>代理变量</strong>的一个变量。</p>
+<p><strong>它是可识别的,还是不可识别的?这一区分为什么会改变你解决问题的方式?</strong></p>
+</section>
+<section id="参考答案代理变量举例" class="slide level2 smaller center">
+<h2>参考答案:代理变量举例</h2>
+<div title="跨领域的几个例子">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>跨领域的几个例子</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>保险</strong>:邮编作为种族或社会经济地位的代理变量(可识别,是一个具名的列);理赔处理记录自由文本中的“语气”作为可信度感知的代理变量(更难以命名,嵌入在语言之中)。</p>
+<p><strong>招聘</strong>:就业空白期作为照护者身份的代理变量(可识别);从人口结构失衡的训练数据中习得的简历撰写风格(不可识别,没有单一特征可以指出)。</p>
+<p><strong>贷款</strong>:邮编或消费模式作为种族的代理变量(可识别,经典的“红线”模式);一个不透明的信用评分本身,如果其输入未公开,即便是单一数值,也可能表现为不可识别的代理变量。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>可识别的代理变量可以被找出并移除(MCDP式正交化,或直接删除该变量)。不可识别的代理变量则做不到这一点,因为不存在单一的列可供操作——这正是当代理效应弥散时,直接检验结果(MDP、差异性影响审计)更为重要的原因。</strong></p>
+</div>
+</section>
+<section id="公平性准则分类体系" class="slide level2 center">
+<h2>公平性准则:分类体系</h2>
+
+<img data-src="img/fairness-taxonomy-diagram-ZH.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"></section>
+<section id="公平性准则个体公平性" class="slide level2 center">
+<h2>公平性准则:个体公平性</h2>
+<p><span class="math inline">X_P</span> = 受保护属性,<span class="math inline">X_{NP}</span> = 其他特征,<span class="math inline">Y</span> = 实际结果,<span class="math inline">\hat{Y}</span> = 预测结果</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 43%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>准则</th>
+<th>形式化条件</th>
+<th>直观含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FTU(无意识公平)</td>
+<td><span class="math inline">\hat{Y} = f(X_{NP})</span></td>
+<td>移除受保护属性</td>
+</tr>
+<tr class="even">
+<td>有意识公平</td>
+<td><span class="math inline">D(\hat{Y}(x), \hat{Y}(y)) \le d(x, y)</span></td>
+<td>相似个体获得相似结果,通过明确的相似性度量 <span class="math inline">d</span></td>
+</tr>
+<tr class="odd">
+<td>CPV(控制受保护变量)</td>
+<td><span class="math inline">\hat{Y}_{CPV}(x) = E_{X_P}[f(x_{NP}, X_P)]</span></td>
+<td>对模型在 <span class="math inline">X_P</span> 上取平均</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>这里的 <span class="math inline">x</span> 和 <span class="math inline">y</span> 是两个具体个体(特定特征向量),而非本表其他位置的总体层面 <span class="math inline">X_P</span>/<span class="math inline">X_{NP}</span>。<span class="math inline">\hat{Y}(x)</span>、<span class="math inline">\hat{Y}(y)</span> 是他们各自的预测结果,<span class="math inline">d(x,y)</span> 衡量两个个体的相似程度,<span class="math inline">D</span> 衡量二者预测结果的差距。两个相似的个体获得的预测结果之差,不能超出其相似性所允许的范围。</p>
+<p>FTU 与有意识公平 <span class="citation" data-cites="dwork2012fairness">(<a href="#/下节课" role="doc-biblioref" onclick="">Dwork 等 2012年</a>)</span> 是通用的算法公平性概念,适用于任何领域。CPV 针对的是一个不同的问题,代理性歧视,即受保护属性本身被排除,但其效应通过其他变量泄漏。该方法最初由 <span class="citation" data-cites="popesydnor2011">Pope 和 Sydnor (<a href="#/下节课" role="doc-biblioref" onclick="">2011年</a>)</span> 针对统计画像这一更一般问题提出,后由 <span class="citation" data-cites="lindholm2022discrimination">Lindholm 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2022年</a>)</span> 改造并应用于保险定价,称为“无歧视定价”。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="公平性准则群体公平性" class="slide level2 center">
+<h2>公平性准则:群体公平性</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 43%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>准则</th>
+<th>形式化条件</th>
+<th>直观含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>人口统计学均等性</td>
+<td><span class="math inline">\hat{Y} \perp X_P</span></td>
+<td>所有群体的结果分布相同</td>
+</tr>
+<tr class="even">
+<td>条件人口统计学均等性</td>
+<td><span class="math inline">\hat{Y} \perp X_P \mid X_{L}</span></td>
+<td>合法细分市场内预测相等(由被认可为公平差异化依据的因素所界定,后文详述)</td>
+</tr>
+<tr class="odd">
+<td>分离性</td>
+<td><span class="math inline">\hat{Y} \perp X_P \mid Y</span></td>
+<td>各群体间错误率相等</td>
+</tr>
+<tr class="even">
+<td>充分性</td>
+<td><span class="math inline">Y \perp X_P \mid \hat{Y}</span></td>
+<td>各群体间校准程度相等</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p><span class="math inline">\perp</span> 表示统计独立(知道其中一个变量,无法告诉你关于另一个变量的任何信息)。<span class="math inline">\mid</span> 表示“给定”或“在……所界定的群体内”。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="分离性与充分性" class="slide level2 center">
+<h2>分离性与充分性</h2>
+<p><strong>分离性</strong> 追问的是:在给定真实结果 <span class="math inline">Y</span> 的条件下,各群体间的错误率是否相同。</p>
+<p><strong>充分性</strong> 追问的是:在给定预测结果 <span class="math inline">\hat{Y}</span> 的条件下,各群体间的真实结果是否相同。</p>
+<div class="fragment">
+<p><strong>二者都是值得追求的目标,但当基准率(各群体中实际结果发生的比例)不同时,通常无法同时成立。</strong>(完美预测等特殊情形除外。)</p>
+</div>
+<aside class="notes">
+<p>分离性:<span class="math display">\Pr(\hat{Y} &gt; t \mid Y = y, X_P = 0) = \Pr(\hat{Y} &gt; t \mid Y = y, X_P = 1)</span> 充分性:<span class="math display">\Pr(Y = y \mid \hat{Y} = s, X_P = 0) = \Pr(Y = y \mid \hat{Y} = s, X_P = 1)</span> 这正是第一章中 COMPAS 案例所体现的张力:具有良好的校准性(充分性),但错误率不均等(违反分离性)。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="为各准则命名" class="slide level2 smaller center">
+<h2>为各准则命名</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>事件</th>
+<th>条件</th>
+<th>对应概念(<span class="math inline">\Pr\{\text{事件} \mid \text{条件}\}</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\hat{Y}=1</span></td>
+<td><span class="math inline">Y=1</span></td>
+<td>TPR,召回率</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\hat{Y}=0</span></td>
+<td><span class="math inline">Y=1</span></td>
+<td>FNR</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\hat{Y}=1</span></td>
+<td><span class="math inline">Y=0</span></td>
+<td>FPR</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\hat{Y}=0</span></td>
+<td><span class="math inline">Y=0</span></td>
+<td>TNR</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Y=1</span></td>
+<td><span class="math inline">\hat{Y}=1</span></td>
+<td>PPV,精确率</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">Y=0</span></td>
+<td><span class="math inline">\hat{Y}=0</span></td>
+<td>NPV</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>与精确率-召回率权衡背后是同一种机制</strong>,只是应用到群体之间,而非应用到阈值变化上。PPV是TPR、FPR与基准率的函数,因此即便在基准率不同的群体间匹配TPR/FPR(召回表现),PPV(精确率)仍会不相等。</p>
+</div>
+<aside class="notes">
+<p>分离性建立在前四行(以Y为条件的错误率)之上。充分性建立在PPV(以Ŷ为条件)之上。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="讨论3分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>实际中,你通常无法同时满足分离性与充分性,必须优先选择其中一项。</p>
+<p><strong>你会依据什么来判断,针对某一具体决策,应当优先选择哪一项?</strong></p>
+</section>
+<section id="参考答案分离性与充分性的取舍" class="slide level2 smaller center">
+<h2>参考答案:分离性与充分性的取舍</h2>
+<div title="文献中的建议">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>文献中的建议</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>两类错误的相对代价。</strong> 均等化机会/分离性这一思路最初正是由不对称的错误代价所驱动的 <span class="citation" data-cites="hardt2016equality">(<a href="#/下节课" role="doc-biblioref" onclick="">Hardt 等 2016年</a>)</span>。如果假阳性(例如错误地拒绝假释)造成的危害远大于假阴性,应优先在各群体间均等化<em>这一项</em>错误率,而非追求完整的校准性。</p>
+<p><strong>该分数是由人工在下游解读,还是由固定阈值自动触发决策。</strong> 若一项分数由人工决策者参考(例如向法官展示的风险评分),它就需要对每个群体而言含义相同,而这正是校准性所保证的,因此充分性更为重要。若一项分数用于触发自动化的截断决策,则在该截断点上的错误率均等更为重要,而这正是分离性所保证的。</p>
+<p><strong>COMPAS原始争论究竟围绕什么展开。</strong> ProPublica 的分离性论证聚焦于FPR——即未再犯的被告仍被标记为高风险的比例,这是一种惩罚性错误。Northpointe 的充分性辩护则聚焦于校准性,主张该分数对每一名被告而言含义相同。双方在准则选择上都没有错;他们的分歧在于哪一种错误更为重要 <span class="citation" data-cites="kleinberg2017inherent chouldechova2017fair">(<a href="#/下节课" role="doc-biblioref" onclick="">Kleinberg 等 2017年</a>; <a href="#/下节课" role="doc-biblioref" onclick="">Chouldechova 2017年</a>)</span>。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="准则之间的不相容性" class="slide level2 center">
+<h2>准则之间的不相容性</h2>
+<p>同时实现个体公平性与群体公平性,往往是<strong>不可能</strong>的。</p>
+<div class="fragment">
+<p><strong>这正是本章开头 COMPAS 案例中的张力所在。</strong> ProPublica 的批评本质上是一种分离性论证,供应商的辩护本质上是一种充分性论证。两者各自成立,但由于不同种族的再犯基准率不同,二者无法同时被满足。</p>
+</div>
+<aside class="notes">
+<p>这是一个更一般性结论的特例 <span class="citation" data-cites="kleinberg2017inherent">(<a href="#/下节课" role="doc-biblioref" onclick="">Kleinberg 等 2017年</a>)</span>:除少数特殊情形外,当各群体的基准率不同时,没有任何分类器能够同时满足校准性与各群体间均衡的错误率。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="为何基准率差异会导致这一权衡取舍" class="slide level2 smaller center">
+<h2>为何基准率差异会导致这一权衡取舍</h2>
+<p><span class="math display">\text{PPV}_g = \frac{p_g(1 - \text{FNR}_g)}{p_g(1-\text{FNR}_g) + (1-p_g)\,\text{FPR}_g}</span></p>
+<ul>
+<li>若<strong>分离性</strong>成立,两个群体的FPR与FNR相同,则PPV仅取决于基准率 <span class="math inline">p_g</span></li>
+<li><strong>充分性</strong>要求各群体间PPV相等,这就迫使 <span class="math inline">p_0 = p_1</span></li>
+<li>COMPAS案例:两年内再犯率黑人被告为51%,白人被告为39% <span class="citation" data-cites="chouldechova2017fair">(<a href="#/下节课" role="doc-biblioref" onclick="">Chouldechova 2017年</a>)</span>,即 <span class="math inline">p_0 \neq p_1</span></li>
+</ul>
+<div class="fragment">
+<p><strong>两个群体中“高风险”标签同样可靠,但再犯率不同,就会导致假阳性率不同。这是代数结果,而非预测存在偏见的证据。</strong></p>
+</div>
+<aside class="notes">
+<p>除非处于两种极端情形,分类器完全准确(FPR = FNR = 0),或分类器完全不利用数据,否则一旦基准率不同,分离性与充分性便无法同时成立。可以放慢节奏讲解:PPV正是充分性/校准性要求在各群体间相等的量。在FPR与FNR保持不变(即分离性成立)的前提下,PPV就仅仅是基准率的函数,因此各群体间PPV相等就等价于要求基准率相等,而COMPAS案例中并非如此。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="混淆矩阵" class="slide level2 smaller center">
+<h2>混淆矩阵</h2>
+<p>每组100人,两组的FNR<strong>相同</strong>(均为10%),FPR<strong>相同</strong>(均为20%),因此分离性严格成立。</p>
+<p><strong>群体A</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>预测 <span class="math inline">\hat{Y}=1</span></th>
+<th>预测 <span class="math inline">\hat{Y}=0</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实际 <span class="math inline">Y=1</span></td>
+<td>TP = 27</td>
+<td>FN = 3</td>
+</tr>
+<tr class="even">
+<td>实际 <span class="math inline">Y=0</span></td>
+<td>FP = 14</td>
+<td>TN = 56</td>
+</tr>
+</tbody>
+</table>
+<p><strong>群体B</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>预测 <span class="math inline">\hat{Y}=1</span></th>
+<th>预测 <span class="math inline">\hat{Y}=0</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实际 <span class="math inline">Y=1</span></td>
+<td>TP = 54</td>
+<td>FN = 6</td>
+</tr>
+<tr class="even">
+<td>实际 <span class="math inline">Y=0</span></td>
+<td>FP = 8</td>
+<td>TN = 32</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="数值示例" class="slide level2 smaller center">
+<h2>数值示例</h2>
+<p><span class="math display">\text{标记比例}_g = \frac{TP+FP}{TP+FP+FN+TN} \quad \text{TPR}_g = \frac{TP}{TP+FN} \quad \text{FPR}_g = \frac{FP}{FP+TN} \quad \text{PPV}_g = \frac{TP}{TP+FP}</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>群体A(<span class="math inline">p_0</span> = 30%)</th>
+<th>群体B(<span class="math inline">p_1</span> = 60%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>再犯</td>
+<td>30</td>
+<td>60</td>
+</tr>
+<tr class="even">
+<td>未再犯</td>
+<td>70</td>
+<td>40</td>
+</tr>
+<tr class="odd">
+<td>正确标记为高风险</td>
+<td>27</td>
+<td>54</td>
+</tr>
+<tr class="even">
+<td>错误标记为高风险</td>
+<td>14</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>被标记为高风险的总人数</td>
+<td>41</td>
+<td>62</td>
+</tr>
+<tr class="even">
+<td>标记比例(人口统计学均等)</td>
+<td>41%</td>
+<td>62%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\text{TPR}_g,\ \text{FPR}_g</span>(分离性)</td>
+<td>90%, 20%</td>
+<td>90%, 20%</td>
+</tr>
+<tr class="even">
+<td><strong>PPV<span class="math inline">_g</span>(充分性)</strong></td>
+<td><strong>27/41 ≈ 66%</strong></td>
+<td><strong>54/62 ≈ 87%</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>错误率相同,但标记比例相差悬殊(41% vs 62%),PPV也从66%跃升至87%,原因仅仅在于基准率的差距。</strong> 若要让标记比例或PPV相等,都必须为两组设定不同的FPR/FNR,而这违反了分离性。</p>
+</div>
+<p><strong>将准则与制度相匹配:</strong></p>
+<ul>
+<li>禁止使用 <span class="math inline">X_P</span> → FTU。</li>
+<li>代理性歧视(未使用受保护变量,但其效应通过相关变量泄漏)→ CPV,例如 Colorado 的 SB21-169 与 New York 的 DFS Circular Letter No.&nbsp;7 <span class="citation" data-cites="colorado_sb21169_2021 nydfs_circular7_2024">(<a href="#/下节课" role="doc-biblioref" onclick="">Colorado General Assembly 2021年</a>; <a href="#/下节课" role="doc-biblioref" onclick="">New York State Department of Financial Services 2024年</a>)</span>。</li>
+<li>同时禁止代理变量 → MU*(MU 的扩展版本,同时移除列名代理变量)。Colorado 的 SB21-169 测试制度也是条件人口统计学均等性在实践中最清晰的监管范例 <span class="citation" data-cites="colorado_sb21169_2021">(<a href="#/下节课" role="doc-biblioref" onclick="">Colorado General Assembly 2021年</a>)</span>。</li>
+<li>欧盟统一性别保险定价 → 相同评级档案下价格相同,这是一项个体层面的条件。FTU 与 CPV 都能直接满足这一要求。</li>
+</ul>
+<aside class="notes">
+<p>CPV 并非一概禁止受保护变量,它针对的是代理性歧视:受保护变量本身被排除,但其他变量依然承载着它的效应。Colorado 要求保险公司对预测模型进行测试,以排查这种代理效应所引发的不公平歧视;New York 对用于承保与定价的人工智能系统和外部数据也施加了类似的要求。</p>
+<p>MU* 在 MU 的基础上,进一步移除某项特定监管下被明确列名为 <span class="math inline">X_P</span> 代理变量的定价变量,而不仅仅是 <span class="math inline">X_P</span> 本身。普通的 MU 不触碰这些变量。MU* 依然不会触碰那些未被列名、或仅凭统计推断出的代理变量,而这正是 MCDP 与 MDP 所要捕捉的对象。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="资源分配的两种逻辑" class="slide level2 center">
+<h2>资源分配的两种逻辑</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>立场</th>
+<th>强调重点</th>
+<th>逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>社会性商品</strong></td>
+<td>团结互助、可及性、普遍服务</td>
+<td>补贴式团结</td>
+</tr>
+<tr class="even">
+<td><strong>经济性商品</strong></td>
+<td>效率、逆向选择</td>
+<td>机会式团结</td>
+</tr>
+</tbody>
+</table>
+<div class="case-study" title="精算公平性与欧盟性别定价禁令">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>精算公平性与欧盟性别定价禁令</strong></p>
+</div>
+<div class="callout-content">
+<p>精算公平性是指仅按每位被保人自身的风险收费。在欧盟2012年对基于性别的车险定价的禁令中,欧洲法院裁定,平等待遇<strong>优先于</strong>性别作为一项统计学有效预测变量的事实 <span class="citation" data-cites="ecj2011testachats">(<a href="#/下节课" role="doc-biblioref" onclick="">European Court of Justice 2011年</a>)</span>。该禁令并未消除潜在的风险差异——它只是重新分配了<strong>谁来为这种风险差异买单</strong>。</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>逆向选择是指高风险人群更倾向于购买保险,因为相较于保险公司,他们更了解自身的风险状况。补贴式团结不论个体风险高低,在所有人之间分摊成本。机会式团结分摊的是“谁将会发生理赔”这一共同的不确定性,而定价本身仍然追踪个体风险。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="消费者用户信任" class="slide level2 center">
+<h2>消费者/用户信任</h2>
+<ul>
+<li>信息不对称:用户披露信息,而机构掌握着远远更多的数据(保险中将其正式化为“最大诚信原则”:双方都有义务诚实披露相关事实)</li>
+<li>合规 ≠ 感受上的公平,如果它偏离了已披露的承诺</li>
+<li><strong>与结果无关的差异化对待</strong> 是指依据比价可能性而非实际风险定价,当它与某个受保护属性相关时,争议会更大</li>
+</ul>
+<aside class="notes">
+<p>遵守反歧视规则,对这一视角而言是必要条件,但并不充分。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="讨论4分钟" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>当基准率不同时,分离性与充分性无法同时成立。</p>
+<p><strong>如果必须二选一,针对你所关心的某个领域——你会选哪一个,又放弃了什么?</strong></p>
+</section>
+<section id="参考答案如何应用这一权衡" class="slide level2 smaller center">
+<h2>参考答案:如何应用这一权衡</h2>
+<div title="两个例子,运用第一步的框架">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>两个例子,运用第一步的框架</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>刑事司法风险评分</strong>(如COMPAS):假阳性(被错误标记为高风险)是一种影响人身自由的惩罚性危害。这会促使你倾向于<strong>分离性</strong>——具体而言是均等化FPR——即便要以牺牲校准性为代价。</p>
+<p><strong>医疗风险评分</strong>(例如临床医生用于确定筛查优先级的评分):该评分由下游的人工进行解读,若“70%风险”在不同群体间含义不同,会直接损害临床信任。这会促使你倾向于<strong>充分性</strong>:校准性比精确匹配错误率更为重要。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>无论选哪一个,都要说清楚你放弃了什么。</strong> 这正是本章真正要教授的技能:不是“解决”这一权衡,而是让这一选择及其代价变得明确、可辩护。</p>
+</div>
+</section></section>
+<section>
+<section id="第二步设计公平模型" class="title-slide slide level1 center">
+<h1>第二步——设计公平模型</h1>
+
+</section>
+<section id="公平性如何被落实" class="slide level2 center">
+<h2>公平性如何被落实?</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>具体做法</th>
+<th>模型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>预处理</strong></td>
+<td>训练前调整输入变量</td>
+<td>MDP、MCDP</td>
+</tr>
+<tr class="even">
+<td><strong>处理中</strong></td>
+<td>将公平性构建进目标函数</td>
+<td>约束优化</td>
+</tr>
+<tr class="odd">
+<td><strong>后处理</strong></td>
+<td>训练后调整输出结果</td>
+<td>MC</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>选择哪一阶段,取决于第一步中所选定的准则,而非哪一种最容易实现。</strong> MDP/MCDP/MC 是本课程为每个阶段所起的<em>专有名称</em>示例。原则上,同一准则也可以通过不同路径实现 <span class="citation" data-cites="barocas2023fairml">(<a href="#/下节课" role="doc-biblioref" onclick="">Barocas 等 2023年</a>, 第三章)</span>。</p>
+</div>
+</section>
+<section id="五种模型设计" class="slide level2 center">
+<h2>五种模型设计</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>模型</th>
+<th>准则</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M0</td>
+<td>基准</td>
+<td>同时使用 <span class="math inline">X_P</span> 和 <span class="math inline">X_{NP}</span></td>
+</tr>
+<tr class="even">
+<td>MU</td>
+<td>FTU</td>
+<td>移除受保护属性</td>
+</tr>
+<tr class="odd">
+<td>MDP</td>
+<td>人口统计学均等性</td>
+<td>对所有 <span class="math inline">X_{NP}</span> 去偏</td>
+</tr>
+<tr class="even">
+<td>MCDP</td>
+<td>条件 DP</td>
+<td>仅对非合法预测变量去偏</td>
+</tr>
+<tr class="odd">
+<td>MC</td>
+<td>CPV</td>
+<td>拟合 M0,评分时对 <span class="math inline">X_P</span> 取平均</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>第一步的准则来自一个分类问题的例子(COMPAS)。保险定价通常是回归问题</strong>——<span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#/下节课" role="doc-biblioref" onclick="">2024年</a>)</span> 是针对连续型 <span class="math inline">\hat{Y}</span>(理赔频率、理赔金额、纯保费)对这五种设计进行形式化的。DP可以直接推广(各群体间<em>平均</em> <span class="math inline">\hat{Y}</span> 相等);分离性/充分性的TPR/FPR/PPV形式则需要一个连续结果变量的类比替代。</p>
+</div>
+<aside class="notes">
+<p>一旦 <span class="math inline">\hat{Y}</span> 是连续变量,就不存在混淆矩阵——TPR/FPR/PPV无法直接套用。其背后的核心思想(分离性对应误差率相等,充分性对应校准性相等)仍可推广,但具体公式需要相应调整。五种设计(M0-MC)本身并不关心你选择了哪一项准则、或该准则的哪一种推广形式——同一套工具都可使用。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="形式化定义" class="slide level2 smaller center">
+<h2>形式化定义</h2>
+<p>记号沿用 <span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#/下节课" role="doc-biblioref" onclick="">2024年</a>)</span>:<span class="math inline">X_{NP}^*</span> 为去偏后的 <span class="math inline">X_{NP}</span>,<span class="math inline">X_{NP_{legit}}</span> / <span class="math inline">X_{NP_{not}}</span> 为 MCDP 对 <span class="math inline">X_{NP}</span> 的划分。</p>
+<p><span class="math display">\hat{Y}_{M0} = f_{M0}(X_{NP}, X_P)</span> <span class="math display">\hat{Y}_{MU} = f_{MU}(X_{NP})</span> <span class="math display">\hat{Y}_{MDP} = f_{MDP}(X_{NP}^*)</span> <span class="math display">\hat{Y}_{MCDP} = f_{MCDP}(X_{NP_{not}}^*,\, X_{NP_{legit}})</span> <span class="math display">\hat{Y}_{MC} = \frac{1}{N}\sum_{j=1}^N \hat{f}_{M0}(X_{NP},\, X_P = x_{P_j})</span></p>
+<aside class="notes">
+<p><span class="math inline">X_{NP}^*</span> 的构造:正交预测变量法,将 <span class="math inline">X_{NP}</span> 对 <span class="math inline">X_P</span> 回归,取残差,<span class="math inline">X_{NP}^* = X_{NP} - \hat{X}_{NP}</span>——该方法由 <span class="citation" data-cites="frees2023discriminating">Frees 和 Huang (<a href="#/下节课" role="doc-biblioref" onclick="">2023年</a>)</span> 首先提出并应用于保险定价。M0/MDP/MCDP 在训练与预测阶段都需要 <span class="math inline">X_P</span>;MC 仅在训练阶段需要,因为预测阶段使用的是总体平均的 <span class="math inline">x_{P_j}</span>,而非投保人本人的取值。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside class="notes">
+<p>MDP:<span class="math inline">\tilde{X}_j = X_j - E[X_j \mid X_P]</span>,基于残差训练。这从构造上保证了 <span class="math inline">\hat{Y} \perp X_P</span>,但只消除了对 <span class="math inline">X_P</span> 的均值依赖。最优传输 <span class="citation" data-cites="lindholm2024fair">(<a href="#/下节课" role="doc-biblioref" onclick="">Lindholm 等 2024年b</a>)</span> 改为重新映射整体分布,更彻底但计算上更复杂(Kamiran 与 Calders,2012年,<span class="citation" data-cites="kamiran2012preprocessing">Kamiran 和 Calders (<a href="#/下节课" role="doc-biblioref" onclick="">2012年</a>)</span>)。MCDP:同样的去偏方法,仅应用于非合法预测变量 <span class="math inline">X_{NL}</span>,<span class="math inline">\tilde{X}_{NL} = X_{NL} - E[X_{NL} \mid X_P, X_L]</span>。这允许结果差异通过合法因子体现。MC:完整拟合 M0,然后在评分时对 <span class="math inline">X_P</span> 取平均,<span class="math inline">\hat{Y}_{MC}(x) = \frac{1}{N}\sum_j \hat{f}_{M0}(x_{NP}, X_P=x_{P_j})</span>。这消除了直接影响,同时保留了在其他特征上的准确性。</p>
+<p>预处理(MDP、MCDP)无论下游如何训练都能保证该准则成立(数据处理不等式),但仅针对其构建时所设定的那一项准则。处理中方法(约束优化,例如 <span class="citation" data-cites="lindholm2024multitask">Lindholm 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2024年a</a>)</span> 的多任务网络)由于直接针对约束进行优化,能在给定公平性水平下达到最佳准确性,但需要访问训练流程。后处理(MC)可作用于任何已训练的黑箱模型,无需重新训练,若底层评分本身已是贝叶斯最优,甚至可被证明是最优方案,但它在决策时刻明确使用了群体身份信息。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="合法变量与非合法变量" class="slide level2 center">
+<h2>合法变量与非合法变量</h2>
+<p><strong>合法</strong> 是指监管机构/机构认可的差异化对待依据。</p>
+<ul>
+<li>保险:理赔记录、车辆类型 ✓ · 精细化地理信息 ✗(部分市场)</li>
+<li>信贷:收入、还款记录 ✓ · 仅凭邮编 ✗</li>
+<li>招聘:与岗位相关的技能 ✓ · 受保护属性的代理变量 ✗</li>
+</ul>
+<p><strong>MCDP</strong> 正是为此而设计。差异仅允许通过合法变量体现。</p>
+</section>
+<section id="监管如何映射到模型设计" class="slide level2 center">
+<h2>监管如何映射到模型设计</h2>
+<p>无限制 → <strong>M0</strong> · 禁止 <span class="math inline">X_P</span> → <strong>MU</strong> · 同时禁止代理变量 → <strong>MU*</strong> · 平均结果相等 → <strong>MDP</strong> · 完全集中分摊 → <strong>社区费率</strong>(不论个体风险高低,群体内所有人同价)</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>注记</strong></p>
+</div>
+<div class="callout-content">
+<p>并非每一项监管都能干净地对应到单一准则,这在原则导向型监管体系中相当普遍:中国的 NFRA 指引 <span class="citation" data-cites="nfra2026aiguidance nfra2026qa sina2026nfra">(<a href="#/下节课" role="doc-biblioref" onclick="">国家金融监督管理总局 2026年a</a>, <a href="#/下节课" role="doc-biblioref" onclick="">2026年b</a>; <a href="#/下节课" role="doc-biblioref" onclick="">新浪财经 2026年</a>)</span>、澳大利亚人权委员会 <span class="citation" data-cites="ahrc2022insurance">(<a href="#/下节课" role="doc-biblioref" onclick="">Australian Human Rights Commission and Actuaries Institute 2022年</a>)</span>,以及新加坡 MAS 的 FEAT/Veritas <span class="citation" data-cites="mas_feat_2018 mas_veritas">(<a href="#/下节课" role="doc-biblioref" onclick="">Monetary Authority of Singapore 2018年</a>, <a href="#/下节课" role="doc-biblioref" onclick="">2019年</a>)</span> 都未规定单一的公平性准则。机构必须运用第一步的判断力自行选择。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="公平性准确性权衡取舍" class="slide level2 center">
+<h2>公平性—准确性权衡取舍</h2>
+<p>法国车险证据 <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#/下节课" role="doc-biblioref" onclick="">Xin 和 Huang 2024年</a>)</span>:</p>
+<ul>
+<li>MCDP 与 MC 的赔付率(保费收入中用于赔付理赔的比例)与不受约束的 M0 <strong>接近</strong></li>
+<li>准确性损失:<strong>有限</strong></li>
+<li>差异下降:<strong>显著</strong></li>
+<li>XGBoost 在满足公平性准则的同时保留了大部分优势</li>
+</ul>
+<div class="fragment">
+<p><strong>公平性的代价比通常设想的要小,但并非为零。</strong> 严格的人口统计学均等性会带来类似逆向选择的权衡取舍。可以量化,但仍是一项商业决策。</p>
+</div>
+<aside class="notes">
+<p>同样的、代价有限的准确性下降模式,在保险之外也反复出现。<span class="citation" data-cites="rodolfa2021negligible">Rodolfa 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span> 在教育、心理健康、刑事司法和住房安全等领域发现了这一点。<span class="citation" data-cites="hardt2016equality">Hardt 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2016年</a>)</span> 在信用评分中发现了类似模式。<span class="citation" data-cites="mehrabi2021survey">Mehrabi 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span> 对更广泛的证据进行了综述。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="权衡取舍的可视化" class="slide level2 smaller center">
+<h2>权衡取舍的可视化</h2>
+
+<img data-src="img/accuracy-fairness-tradeoff.png" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">均方根误差(横轴,数值越低越准确)与差异性影响比率(纵轴,1为完全均等),五种模型设计,分别以 GLM 和 XGBoost 拟合,基于法国车险数据 <span class="citation" data-cites="xin2024antidiscrimination">(<a href="#/下节课" role="doc-biblioref" onclick="">Xin 和 Huang 2024年</a>)</span>。虚线标出五分之四原则的0.8–1.25区间。</p><aside class="notes">
+<p>M0(使用受保护属性)是图中最准确的点,但也是偏离五分之四区间最远的点。MDP 和 MCDP 以较小的 RMSE 代价将比率拉回接近1。MCDP 和 MC 将比率略微压低至1以下,相对于 M0 的准确性代价依然很小。MU 在这一数据集上也恰好落在区间内,这是该数据集代理变量结构的特征,而非普遍保证。这正是 FTU 必要但不充分的原因。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="讨论4分钟-1" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(4分钟)</h2>
+<p>保险案例研究发现,公平性带来的准确性代价<strong>有限</strong>。</p>
+<p><strong>你认为这具有普遍性,还是因领域而异?什么因素会使这一权衡取舍变得更差?</strong></p>
+</section>
+<section id="参考答案这一有限的权衡取舍是否具有普遍性" class="slide level2 smaller center">
+<h2>参考答案:这一有限的权衡取舍是否具有普遍性?</h2>
+<div title="证据指向两个方向">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>证据指向两个方向</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>支持普遍性的证据</strong>:<span class="citation" data-cites="rodolfa2021negligible">Rodolfa 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span> 在教育、心理健康、刑事司法与住房安全等领域中都发现了同样的“代价有限”模式;<span class="citation" data-cites="hardt2016equality">Hardt 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2016年</a>)</span> 在信用评分领域也发现了这一点。多个独立领域,得出了相同的定性结论。</p>
+<p><strong>反对一概而论的证据</strong>:代价大小取决于模型的预测能力究竟有多少是<em>由</em>受保护属性或其相关变量所承载的。若各群体间的基准率差距很大(如COMPAS那样),移除或正交化这一信号的代价就会更高。若相关性较弱,公平性则近乎“免费”。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>会使这一权衡变差的因素包括:训练数据规模更小(可替代被移除相关性的信号更少)、特征集更窄,或受保护属性与结果之间存在模型在其他地方无法弥补的、真正强的关联。</strong></p>
+</div>
+</section></section>
+<section id="休息10分钟" class="title-slide slide level1 center">
+<h1><em>休息——10分钟</em></h1>
+
+</section>
+
+<section>
+<section id="第三四步简要概览" class="title-slide slide level1 center">
+<h1>第三、四步——简要概览</h1>
+
+</section>
+<section id="第三步下游影响" class="slide level2 smaller center">
+<h2>第三步:下游影响</h2>
+<p>一个满足其准则的模型,一旦其预测结果进入真实流程,依然可能产生不公平的<strong>结果</strong>。</p>
+<div class="fragment">
+<p><strong>一个下游环节,例如重新排序、自由裁量式的人工干预,或单独的利润率或资格调整,如果与某个受保护群体相关,就可能抵消模型阶段所实现的公平性。</strong></p>
+</div>
+<aside class="notes">
+<p>同样的结构也出现在招聘、定价与信贷领域,只要一个公平模型的输出结果事后被另一个不受约束的独立环节所调整。fair.feihuang.org 第三步涵盖了量化这一问题的福利分析方法。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="第四步审计系统" class="slide level2 center">
+<h2>第四步:审计系统</h2>
+<p><strong>审计</strong> 追问的是我们能否证明合规性。<strong>测试</strong> 追问的是我们能否发现问题。</p>
+<p>一次可信的审计:</p>
+<ul>
+<li>在查看数据<em>之前</em>预先设定测试方法、容忍度和控制变量</li>
+<li>使用<strong>等效性检验(TOST)</strong>,而非传统显著性检验</li>
+<li>举证责任在于机构,而非监管机构</li>
+</ul>
+<aside class="notes">
+<p>TOST(双单侧检验)检验的是某项差异是否小到足以落在可接受范围之内,而非像标准显著性检验那样检验其是否不为零。</p>
+<p>另有一种更早的传统直接检验盲性。它将仅在所关注属性上有所不同的匹配对送入真实决策系统(例如,一份除姓名外完全相同的简历,一份使用听起来像黑人的姓名,另一份使用听起来像白人的姓名),然后比较结果 <span class="citation" data-cites="barocas2023fairml">(<a href="#/下节课" role="doc-biblioref" onclick="">Barocas 等 2023年</a>, 第七章)</span>。这正是 Bertrand 与 Mullainathan 简历研究等经典审计研究背后的设计,也是接下来大语言模型案例研究背后的设计。<span class="citation" data-cites="huang2026beyond">Huang 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2026年</a>)</span> 固定除申请人所声明性别之外的所有其他因素,比较模型的输出结果。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="大语言模型的公平性" class="title-slide slide level1 center">
+<h1>大语言模型的公平性</h1>
+
+</section>
+<section id="偏见从何而来" class="slide level2 center">
+<h2>偏见从何而来</h2>
+<p>没有固定的输入结构。没有一列名为“性别”的变量,预测结果是开放式文本。</p>
+<ul>
+<li>受<strong>训练语料库</strong>塑造,训练语料库会复现文本中固有的刻板印象</li>
+<li>进一步受<strong>对齐微调</strong>(如 RLHF,基于人类反馈的强化学习)塑造,对齐微调编码了标注者的偏好</li>
+<li>没有单一可移除的属性。偏见体现在措辞选择、语气、默认假定的视角之中</li>
+</ul>
+</section>
+<section id="为什么衡量更加困难" class="slide level2 center">
+<h2>为什么衡量更加困难</h2>
+<p>群体公平性准则比较的是各群体间一个界定明确的 <span class="math inline">\hat{Y}</span>。</p>
+<p>开放式生成任务<strong>没有单一的 <span class="math inline">\hat{Y}</span></strong>。评估需要借助模板化探测(替换姓名/代词,比较情感倾向/有害程度)。</p>
+<div class="fragment">
+<p>数十种被提出的指标,但几乎没有共识 <span class="citation" data-cites="gallegos2024bias">(<a href="#/下节课" role="doc-biblioref" onclick="">Gallegos 等 2024年</a>)</span>。这一领域的成熟度,远不及本课程所聚焦的表格型场景。</p>
+</div>
+</section>
+<section id="讨论3分钟-2" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>传统的偏见审计只比较男性与女性申请人的结果,因为性别历来都是这样记录的。</p>
+<p><strong>如今的实际投保表单越来越多地提供“非二元”与“不愿透露”等选项。如果一个大语言模型通过了男/女二元审计、未显示出差异,你会因此就信任它对审计从未测试过的类别也是无偏见的吗?一个二元审计可能完全遗漏了什么问题?</strong></p>
+</section>
+<section id="案例研究大语言模型保险理赔中的性别偏见研究设计" class="slide level2 smaller center">
+<h2>案例研究:大语言模型保险理赔中的性别偏见——研究设计</h2>
+<p><span class="citation" data-cites="huang2026beyond">Huang 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2026年</a>)</span> 的反事实审计:</p>
+<ul>
+<li><strong>1,388</strong> 项真实车险理赔案例(事故图片、车辆元数据,部分含AI生成的理赔叙述)</li>
+<li><strong>4</strong> 种性别条件:男性、女性、非二元、未说明,而非仅限于传统的男/女二元划分</li>
+<li><strong>2 × 2</strong> 项附加条件:申请人姓名是否呈现、理赔叙述是否呈现</li>
+<li><strong>6个大语言模型</strong>:GPT-5、GPT-4o、Gemini 2.5 Pro、Gemini 3 Flash、Claude 4 Sonnet、Claude 4.5 Sonnet</li>
+<li>每项理赔<strong>3个结果</strong>:预测理赔金额、理赔资格、损坏严重程度</li>
+<li><span class="math inline">4 \times 2 \times 2 \times 1{,}388 \times 6 \times 3 \rightarrow</span> <strong>133,248次模型评估</strong></li>
+</ul>
+<aside class="notes">
+<p>除性别字段与两项提示词条件外,理赔案例的其他一切信息均保持不变——这是一种反事实设计,与本章此前所讲的简历审计技术逻辑相同。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="案例研究大语言模型保险理赔中的性别偏见结果" class="slide level2 smaller center">
+<h2>案例研究:大语言模型保险理赔中的性别偏见——结果</h2>
+<div class="fragment">
+<p>在传统的<strong>男/女、信息完整</strong>审计下:六个模型中<strong>没有一个</strong>表现出显著差异。</p>
+</div>
+<div class="fragment">
+<p>一旦纳入<strong>非二元</strong>与<strong>未说明</strong>类别,三个模型(GPT-5、GPT-4o、Gemini 2.5 Pro)表现出显著差异。GPT-4o偏见最为明显:预测理赔金额相差<strong>128–288美元</strong>,姓名呈现时偏向未说明类申请人,但姓名被移除后,这一模式反转为偏向非二元类申请人而非男性申请人。</p>
+</div>
+<div class="fragment">
+<p>三个模型(Gemini 3 Flash、Claude 4 Sonnet、Claude 4.5 Sonnet)在全部16种测试条件下均<strong>未</strong>表现出显著差异。</p>
+</div>
+<div class="fragment">
+<p><strong>一次二元审计本会将全部六个模型都认证为公平。</strong></p>
+</div>
+</section>
+<section id="练习你会如何解决这一问题" class="slide level2 smaller center">
+<h2>练习:你会如何解决这一问题?</h2>
+<p>GPT-4o表现出偏见;另外三个模型(Gemini 3 Flash、Claude 4 Sonnet、Claude 4.5 Sonnet)没有。</p>
+<p><strong>在下一页揭晓之前:假设你是该保险公司的人工智能治理负责人,你会具体做出哪些改变?请至少列出两项具体方案。</strong></p>
+</section>
+<section id="参考答案修复大语言模型保险理赔偏见" class="slide level2 smaller center">
+<h2>参考答案:修复大语言模型保险理赔偏见</h2>
+<div title="立足于论文与本章内容的方案">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>立足于论文与本章内容的方案</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>修改提示词,而不只是更换模型。</strong> GPT-4o的偏见模式会随申请人姓名是否呈现而反转。在理赔信息进入模型之前,先移除姓名(以及其他与人口统计学特征相关的自由文本),这在逻辑上相当于大语言模型版本的<strong>FTU</strong>——移除模型完成任务并不需要的输入。</p>
+<p><strong>如果采购流程允许,更换模型。</strong> 本研究测试的六个模型中有三个在任何条件下都未表现出显著差异。模型选择本身就是一项公平性杠杆,而不仅仅是技术问题,前提是更换模型不会牺牲所需的能力。</p>
+<p><strong>审计不是一次性的关卡。</strong> GPT-5修复了GPT-4o的大部分差异,但这并不能保证每一次版本更新都是如此。<strong>每一次模型版本变更,都应触发一次新的、考虑多重条件的公平性审计</strong>(涵盖多种性别类别、多种提示词配置),而不是在采购时一次性签署了事。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>请注意这份清单中缺少了什么:没有MCDP式的预处理步骤。</strong> 大语言模型的输入并非一个可供正交化的固定特征向量 <span class="math inline">X_{NP}</span>,因此第二步中的五种模型设计工具并不能直接迁移到开放式生成任务上。</p>
+</div>
+</section>
+<section id="讨论3分钟-3" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>房地产平台正开始使用生成式人工智能来建议挂牌价格。</p>
+<p><strong>历史上,人工设定的房屋价格在白人主导社区一直高于可比的少数族裔主导社区。如果一个大语言模型是基于这同一份历史数据训练的,你预期它生成的价格会复现、扩大,还是缩小这一差距?为什么?</strong></p>
+</section>
+<section id="案例研究生成式人工智能与住房价格歧视研究设计" class="slide level2 smaller center">
+<h2>案例研究:生成式人工智能与住房价格歧视——研究设计</h2>
+<p><span class="citation" data-cites="tanlamai2026genai">Tanlamai 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2026年</a>)</span> 的比较:</p>
+<ul>
+<li><strong>284,749</strong> 套真实美国房产挂牌信息(2023年8-9月),涵盖五种房产类型</li>
+<li>以每套房产<strong>人工设定的挂牌价格</strong>作为基准</li>
+<li><strong>GPT-4o</strong> 被要求扮演房地产经纪人的角色,根据同一挂牌信息中的房产特征(位置、面积、卧室/浴室数量、学校评级、气候风险评分)生成自己的价格</li>
+<li>依据人口普查局数据,将社区划分为<strong>白人主导</strong>(白人居民占比&gt;50%)或<strong>少数族裔主导</strong></li>
+<li>通过对 <span class="math inline">\log(\text{价格})</span> 的固定效应回归,比较人工价格与生成式人工智能价格,并控制房产特征、房屋类型与所在城市</li>
+<li>在<strong>4个大语言模型</strong>(GPT-4o、GPT-3.5、Gemini 1.5 Flash、Claude 3.5 Sonnet)间检验稳健性</li>
+</ul>
+</section>
+<section id="案例研究生成式人工智能与住房价格歧视结果" class="slide level2 smaller center">
+<h2>案例研究:生成式人工智能与住房价格歧视——结果</h2>
+<div class="fragment">
+<p><strong>人工设定价格</strong>:少数族裔主导社区中,可比房屋的定价比白人主导社区<strong>低22.9%</strong>。</p>
+</div>
+<div class="fragment">
+<p><strong>GPT-4o生成的价格</strong>:同一差距缩小至<strong>14.2%</strong>,降幅达<strong>8.7个百分点</strong>,而非被放大。</p>
+</div>
+<div class="fragment">
+<p>生成式人工智能生成的价格总体上低于人工价格(平均低13.5%),但在少数族裔主导社区中降幅<strong>更大</strong>,这正是差距得以缩小的原因。</p>
+</div>
+<div class="fragment">
+<p><strong>与保险案例研究的方向恰好相反。</strong> 机制层面的检验表明,这并非仅仅是“向均值回归”的效应,而是由训练数据(其中大量来自公开网络内容)对定价这件事本身所编码的信息所驱动,而非简单的平均化效应。</p>
+</div>
+</section>
+<section id="练习你会如何解决这一问题-1" class="slide level2 smaller center">
+<h2>练习:你会如何解决这一问题?</h2>
+<p>GPT-4o缩小了种族定价差距(22.9% → 14.2%),但并未消除它。</p>
+<p><strong>在下一页揭晓之前:你会直接部署GPT-4o生成的价格,还是会加入一个纠正步骤?若加入,这个纠正步骤会是怎样的,请运用本章自身的工具来回答。</strong></p>
+</section>
+<section id="参考答案修复房价残余差距" class="slide level2 smaller center">
+<h2>参考答案:修复房价残余差距</h2>
+<div title="立足于本章内容的方案">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>立足于本章内容的方案</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>将剩余的14.2%差距视为第二步尚未完成的问题,而非已解决的问题。</strong> GPT-4o生成的价格是基于 <span class="math inline">X_{NP}</span>(位置、面积、学校评级等)拟合出的输出,因此可以像本章中任何其他预测价格一样,套用本章的工具加以处理。</p>
+<p><strong>MCDP式纠正</strong>:识别GPT-4o的哪些输入变量属于合法风险因素(例如洪水风险、学校评级),哪些属于非合法代理变量(例如邮编充当社区种族构成的代理),并仅将后者与种族正交化后再确定最终价格。</p>
+<p><strong>MC式纠正</strong>:在评分时,对社区种族构成取平均以修正GPT-4o生成的价格,这与本章此前保险定价工作示例中所用的后处理思路相同。</p>
+<p><strong>两者都并非没有代价。</strong> 二者都要求平台事先对合法与非合法输入进行分类(这本身是一项需要判断的决定),或要求在评分时能够获取种族/社区构成数据——这与此前讨论MCDP和MC时所提到的实际成本完全相同。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="讨论3分钟-4" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(3分钟)</h2>
+<p>如果你要审计一个起草<strong>拒赔信</strong>的大语言模型——</p>
+<p><strong>在没有单一 <span class="math inline">\hat{Y}</span> 可供比较的情况下,“公平”在这里究竟意味着什么?</strong></p>
+</section>
+<section id="参考答案开放式文本的公平性" class="slide level2 smaller center">
+<h2>参考答案:开放式文本的公平性</h2>
+<div title="没有单一的Ŷ,但也并非无法界定">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>没有单一的Ŷ,但也并非无法界定</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>模板化探测,而非直接套用准则。</strong> 保持理赔细节不变,仅替换申请人的姓名或所声明的人口统计学特征,比较替换前后<em>生成文本</em>的差异:语气(通过情感分析测量)、拒赔理由陈述的具体程度,或是否包含申诉流程说明。</p>
+<p><strong>将“公平”拆解为可测量的代理指标。</strong> 即便没有单一的结果数值,仍可以追问:拒赔信的<em>比例</em>(可从文本中提取的一个二元变量)在各群体间是否相等,这是一个人口统计学均等式的问题?信的可读程度或可操作性(即申请人对该决定提出申诉的难易程度的代理指标)在各群体间是否相等?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>这正是 <span class="citation" data-cites="gallegos2024bias">Gallegos 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2024年</a>)</span> 的核心观点:存在数十种被提出的指标,恰恰因为没有哪一种能够一统全局。审计设计必须针对具体的伤害类型量身定制,而不能直接照搬表格型场景下的做法。</strong></p>
+</div>
+</section>
+<section id="小结四步框架" class="slide level2 center">
+<h2>小结:四步框架</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>步骤</th>
+<th>问题</th>
+<th>本课程涉及深度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. 界定公平性</strong></td>
+<td>哪一种准则适用?</td>
+<td>完整讲授</td>
+</tr>
+<tr class="even">
+<td><strong>2. 设计公平模型</strong></td>
+<td>哪一种设计能够落实它?</td>
+<td>完整讲授</td>
+</tr>
+<tr class="odd">
+<td><strong>3. 评估影响</strong></td>
+<td>实践中谁获益、谁受损?</td>
+<td>简要</td>
+</tr>
+<tr class="even">
+<td><strong>4. 审计系统</strong></td>
+<td>我们能否证明合规性?</td>
+<td>简要</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="讨论5分钟总结" class="slide level2 center" data-background-color="#2c3e50">
+<h2>💬 讨论(5分钟)——总结</h2>
+<p>在这四个步骤——<strong>界定、设计、评估影响、审计</strong>——中,</p>
+<p><strong>你认为机构在实践中最常跳过哪一个?为什么?</strong></p>
+</section>
+<section id="参考答案最常被跳过的步骤" class="slide level2 smaller center">
+<h2>参考答案:最常被跳过的步骤</h2>
+<div title="最常被提及的答案:第四步(审计)">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>最常被提及的答案:第四步(审计)</strong></p>
+</div>
+<div class="callout-content">
+<p>第一、二步是真正有趣的技术工作所在,也自然契合数据科学团队的激励方向,因此往往会被完成。第三步(影响评估)至少在一定程度上受到日益增长的算法影响评估监管要求的推动。<strong>第四步(持续审计)是最常被跳过的一步</strong>,因为它没有一个自然的终点(模型在部署时“通过”一次,此后并无机制强制重新检验),也因为正如本章此前的大语言模型案例研究所示,一个通过了今日审计的模型,在经历一次常规版本更新后,完全可能无法通过明日的审计。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="推荐阅读" class="slide level2 center">
+<h2>推荐阅读</h2>
+<ul>
+<li><span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#/下节课" role="doc-biblioref" onclick="">2024年</a>)</span> — 准则、模型设计,以及基于保险数据的权衡取舍</li>
+<li><span class="citation" data-cites="barocas2023fairml">Barocas 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2023年</a>)</span> — <em>Fairness and Machine Learning</em>(免费,fairmlbook.org)</li>
+<li><span class="citation" data-cites="gallegos2024bias">Gallegos 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2024年</a>)</span>; <span class="citation" data-cites="huang2026beyond">Huang 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2026年</a>)</span>; <span class="citation" data-cites="tanlamai2026genai">Tanlamai 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2026年</a>)</span> — 专门针对大语言模型的公平性研究</li>
+</ul>
+<p>完整清单,包括 fair.feihuang.org 的互动工具,见课堂讲义。</p>
+</section>
+<section id="下节课" class="slide level2 smaller scrollable">
+<h2>下节课</h2>
+<p><strong>第三章——公平性实践</strong></p>
+<p>请携带安装了 R 的笔记本电脑。我们将在真实数据上拟合这五种模型设计。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-angwin2016machine" class="csl-entry" role="listitem">
+Angwin, Julia, Jeff Larson, Surya Mattu, 和 Lauren Kirchner. 2016年. <span>《Machine Bias》</span>. <em>ProPublica</em>. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing</a>.
+</div>
+<div id="ref-ahrc2022insurance" class="csl-entry" role="listitem">
+Australian Human Rights Commission and Actuaries Institute. 2022年. <em>Guidance Resource: Artificial Intelligence and Discrimination in Insurance Pricing and Underwriting</em>. <a href="https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance">https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance</a>.
+</div>
+<div id="ref-barocas2023fairml" class="csl-entry" role="listitem">
+Barocas, Solon, Moritz Hardt, 和 Arvind Narayanan. 2023年. <em>Fairness and Machine Learning: Limitations and Opportunities</em>. MIT Press. <a href="https://fairmlbook.org">https://fairmlbook.org</a>.
+</div>
+<div id="ref-chouldechova2017fair" class="csl-entry" role="listitem">
+Chouldechova, Alexandra. 2017年. <span>《Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments》</span>. <em>Big Data</em> 5 (2): 153～63. <a href="https://doi.org/10.1089/big.2016.0047">https://doi.org/10.1089/big.2016.0047</a>.
+</div>
+<div id="ref-colorado_sb21169_2021" class="csl-entry" role="listitem">
+Colorado General Assembly. 2021年. <em>Senate Bill 21-169: Protecting Consumers from Unfair Discrimination in Insurance Practices</em>. Colorado Division of Insurance. <a href="https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices">https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices</a>.
+</div>
+<div id="ref-dwork2012fairness" class="csl-entry" role="listitem">
+Dwork, Cynthia, Moritz Hardt, Toniann Pitassi, Omer Reingold, 和 Rich Zemel. 2012年. <span>《Fairness through awareness》</span>. <em>Proceedings of the 3rd Innovations in Theoretical Computer Science Conference</em>, 214～26.
+</div>
+<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
+European Court of Justice. 2011年. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge des Consommateurs Test-Achats ASBL and Others v Conseil des ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
+</div>
+<div id="ref-frees2023discriminating" class="csl-entry" role="listitem">
+Frees, Edward W, 和 Fei Huang. 2023年. <span>《The discriminating (pricing) actuary》</span>. <em>North American Actuarial Journal</em> 27 (1): 2～24.
+</div>
+<div id="ref-gallegos2024bias" class="csl-entry" role="listitem">
+Gallegos, Isabel O, Ryan A Rossi, Joe Barrow, 等. 2024年. <span>《Bias and fairness in large language models: A survey》</span>. <em>Computational Linguistics</em> 50 (3): 1097～179.
+</div>
+<div id="ref-hardt2016equality" class="csl-entry" role="listitem">
+Hardt, Moritz, Eric Price, 和 Nati Srebro. 2016年. <span>《Equality of Opportunity in Supervised Learning》</span>. <em>Advances in Neural Information Processing Systems</em> 29.
+</div>
+<div id="ref-huang2026beyond" class="csl-entry" role="listitem">
+Huang, Fei, Md Mushahidul Islam Shamim, Warut Khern-Am-Nuai, 和 Maxime C. Cohen. 2026年. <span>《Beyond the Binary: Gender Bias in LLM-evaluated Insurance Claims》</span>. <a href="https://ssrn.com/abstract=7127259">https://ssrn.com/abstract=7127259</a>.
+</div>
+<div id="ref-kamiran2012preprocessing" class="csl-entry" role="listitem">
+Kamiran, Faisal, 和 Toon Calders. 2012年. <span>《Data preprocessing techniques for classification without discrimination》</span>. <em>Knowledge and Information Systems</em> 33 (1): 1～33.
+</div>
+<div id="ref-kleinberg2017inherent" class="csl-entry" role="listitem">
+Kleinberg, Jon, Sendhil Mullainathan, 和 Manish Raghavan. 2017年. <span>《Inherent trade-offs in the fair determination of risk scores》</span>. <em>Proceedings of the 8th Innovations in Theoretical Computer Science Conference</em>.
+</div>
+<div id="ref-lindholm2022discrimination" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, 和 Mario V Wüthrich. 2022年. <span>《Discrimination-free insurance pricing》</span>. <em>ASTIN Bulletin: The Journal of the IAA</em> 52 (1): 55～89.
+</div>
+<div id="ref-lindholm2024multitask" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, 和 Mario V Wüthrich. 2024年a. <span>《A Multi-Task Network Approach for Calculating Discrimination-Free Insurance Prices》</span>. <em>European Actuarial Journal</em> 14: 329～69.
+</div>
+<div id="ref-lindholm2024fair" class="csl-entry" role="listitem">
+Lindholm, Mathias, Ronald Richman, Andreas Tsanakas, 和 Mario V Wüthrich. 2024年b. <span>《What Is Fair? Proxy Discrimination Vs. Demographic Disparities in Insurance Pricing》</span>. <em>Scandinavian Actuarial Journal</em> 2024 (9): 935～70.
+</div>
+<div id="ref-martinez2026creditchecks" class="csl-entry" role="listitem">
+Martinez, Alonzo. 2026年. <em>New York Bans Most Credit Checks In Hiring By April 2026</em>. <a href="https://www.forbes.com/sites/alonzomartinez/2026/01/09/new-york-bans-most-credit-checks-in-hiring-by-april-2026/">https://www.forbes.com/sites/alonzomartinez/2026/01/09/new-york-bans-most-credit-checks-in-hiring-by-april-2026/</a>.
+</div>
+<div id="ref-mehrabi2021survey" class="csl-entry" role="listitem">
+Mehrabi, Ninareh, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, 和 Aram Galstyan. 2021年. <span>《A Survey on Bias and Fairness in Machine Learning》</span>. <em>ACM Computing Surveys</em> 54 (6): 1～35.
+</div>
+<div id="ref-mas_feat_2018" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2018年. <span>《Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector》</span>. <a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat">https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat</a>.
+</div>
+<div id="ref-mas_veritas" class="csl-entry" role="listitem">
+Monetary Authority of Singapore. 2019年. <span>《Veritas Initiative》</span>. <a href="https://www.mas.gov.sg/schemes-and-initiatives/veritas">https://www.mas.gov.sg/schemes-and-initiatives/veritas</a>.
+</div>
+<div id="ref-nydfs_circular7_2024" class="csl-entry" role="listitem">
+New York State Department of Financial Services. 2024年. <span>《Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing》</span>. <a href="https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07">https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07</a>.
+</div>
+<div id="ref-obermeyer2019dissecting" class="csl-entry" role="listitem">
+Obermeyer, Ziad, Brian Powers, Christine Vogeli, 和 Sendhil Mullainathan. 2019年. <span>《Dissecting racial bias in an algorithm used to manage the health of populations》</span>. <em>Science</em> 366 (6464): 447～53.
+</div>
+<div id="ref-popesydnor2011" class="csl-entry" role="listitem">
+Pope, Devin G, 和 Justin R Sydnor. 2011年. <span>《Implementing anti-discrimination policies in statistical profiling models》</span>. <em>American Economic Journal: Economic Policy</em> 3 (3): 206～31.
+</div>
+<div id="ref-rodolfa2021negligible" class="csl-entry" role="listitem">
+Rodolfa, Kit T, Hemank Lamba, 和 Rayid Ghani. 2021年. <span>《Empirical observation of negligible fairness-accuracy trade-offs in machine learning for public policy》</span>. <em>Nature Machine Intelligence</em> 3: 896～904.
+</div>
+<div id="ref-tanlamai2026genai" class="csl-entry" role="listitem">
+Tanlamai, Jitsama, Warut Khern-am-nuai, 和 Maxime C. Cohen. 2026年. <span>《Generative AI and Price Discrimination in the Housing Market》</span>. <em>Information Systems Research</em>, 网络首发. <a href="https://doi.org/10.1287/isre.2024.1234">https://doi.org/10.1287/isre.2024.1234</a>.
+</div>
+<div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
+Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: Regulations, fairness criteria, and models》</span>. <em>North American Actuarial Journal</em> 28 (2): 285～319.
+</div>
+<div id="ref-nfra2026aiguidance" class="csl-entry" role="listitem">
+国家金融监督管理总局. 2026年a. <em>关于银行业保险业人工智能安全开发应用的指导意见(Guiding Opinions on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Industries)</em>. 国家金融监督管理总局,2026年6月18日.
+</div>
+<div id="ref-nfra2026qa" class="csl-entry" role="listitem">
+国家金融监督管理总局. 2026年b. <em>国家金融监督管理总局有关司局负责人就《关于银行业保险业人工智能安全开发应用的指导意见》答记者问(Responsible Officials Answer Reporters’ Questions on the "Guiding Opinions on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Industries")</em>. 21世纪经济报道,2026年6月18日. <a href="https://www.21jingji.com/article/20260618/herald/b99238cd7adaa34627784d1d9ac7f11b.html">https://www.21jingji.com/article/20260618/herald/b99238cd7adaa34627784d1d9ac7f11b.html</a>.
+</div>
+<div id="ref-sina2026nfra" class="csl-entry" role="listitem">
+新浪财经. 2026年. <em>金融监管总局发布32项指导性意见 促进银行保险业安全开发应用人工智能(Financial Regulatory Administration Issues 32 Guiding Opinions to Promote Safe Development and Application of AI in Banking and Insurance)</em>. 新浪网,2026年6月22日. <a href="https://finance.sina.com.cn/roll/2026-06-22/doc-iniefqsc7223919.shtml">https://finance.sina.com.cn/roll/2026-06-22/doc-iniefqsc7223919.shtml</a>.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "已复制");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "已复制");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
