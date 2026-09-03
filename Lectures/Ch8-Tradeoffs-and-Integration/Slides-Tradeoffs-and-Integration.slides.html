@@ -304,6 +304,34 @@ Fei Huang, UNSW Sydney
           display:block!important;
       }</style></aside>
 </section>
+<section id="case-study-credit-based-insurance-scores" class="slide level2 smaller center">
+<h2>Case Study: credit-based insurance scores</h2>
+<div class="case-study" title="The limits of actuarial fairness">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The limits of actuarial fairness</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Since the early 1990s, US car insurers have priced policies partly on <strong>credit-based insurance scores</strong> — a textbook case of actuarial fairness: charge people by their true expected cost</li>
+<li>The scores are genuinely predictive, yet the practice triggered sustained regulatory pushback: investigations in 17+ states, 5 congressional hearings, dozens of restricting state laws <span class="citation" data-cites="kiviat2019moral">(<a href="#/thank-you" role="doc-biblioref" onclick="">Kiviat 2019</a>)</span></li>
+<li>Regulators’ objection: prediction alone doesn’t settle who <em>deserves</em> to pay more — they demanded to know <em>why</em> scores predicted claims, not just <em>that</em> they did</li>
+<li>Most states now require insurers to disregard specific negative credit events tied to documented hardship: divorce, job loss, a medical emergency (“extraordinary life circumstances” exemptions)</li>
+<li>A 2007 FTC report found over 25% of Black consumers fell in the lowest score decile vs.&nbsp;3% of white consumers — yet scores still predicted claims <em>within</em> each group, satisfying actuarial fairness on its own terms</li>
+<li><strong>Outcome</strong>: only 4 US states ban the practice outright — every other state instead imposes constraints (disclosure, exemptions, restricted factors) while still permitting it</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>A criterion can be statistically valid and satisfy a named fairness definition, and still be rejected as illegitimate.</strong> Which criterion should govern a practice is a contested, political determination, not a purely quantitative one.</p>
+</div>
+</section>
 <section id="revisiting-the-motivating-problem" class="slide level2 smaller center">
 <h2>Revisiting the motivating problem</h2>
 <div class="case-study" title="Chapter 1: the insurer that removed gender">
@@ -322,13 +350,35 @@ Fei Huang, UNSW Sydney
 </div>
 </div>
 <div class="fragment">
-<p>Now you can answer more rigorously. Chapter 2 says FTU-fair, maybe, but DP- or CDP-fair, probably not. Chapter 3 points to fitting MCDP or MC and auditing with TOST (equivalence testing, which shows compliance rather than just failing to find a violation). Chapters 4 and 5 point to SHAP, to find what’s driving the residual disparity and check for interactions. Chapters 6 and 7 raise re-identification risk in the data, and whether differential privacy or synthetic data belongs in the pipeline.</p>
+<p>Now you can answer more rigorously:</p>
+<ul>
+<li><strong>Ch. 2</strong>: FTU-fair, maybe. DP- or CDP-fair, probably not.</li>
+<li><strong>Ch. 3</strong>: Fit MCDP or MC. Audit with a pre-committed TOST (shows compliance, not just failure to detect a violation).</li>
+<li><strong>Ch. 4–5</strong>: Use SHAP to find what’s driving the residual disparity, and check for interactions.</li>
+<li><strong>Ch. 6–7</strong>: Assess re-identification risk in the data. Consider whether differential privacy or synthetic data belongs in the pipeline.</li>
+</ul>
 </div>
 </section>
 <section id="discuss-4-min" class="slide level2 center" data-background-color="#2c3e50">
 <h2>💬 Discuss (4 min)</h2>
 <p>Using everything from Chapters 2–7 —</p>
-<p><strong>how would you now answer “has the insurer achieved fairness”? What’s still missing, even with all these tools?</strong></p>
+<p><strong>a.</strong> How would you now answer “has the insurer achieved fairness”? What’s still missing, even with all these tools?</p>
+<p><strong>b.</strong> Taking insurance as an example: how would you decide whether a variable like engine size or annual mileage should be used for pricing at all, versus excluded outright, even though each has a genuine, non-discriminatory reason to correlate with risk? What changes when the variable is external or non-traditional, telematics, social media activity, or credit history, rather than a variable the insurer collected for its own actuarial purpose?</p>
+<aside class="notes">
+<p>Sample answer (a). Even after this checklist, “has the insurer achieved fairness” still doesn’t have a single yes/no answer, and that’s the point. What’s still missing: (i) a decision about which criterion (DP, CDP, individual fairness) is the right one for this regulatory regime and product, a governance choice this course’s tools can inform but not make; (ii) proof the debiasing pipeline is audited going forward, not just at launch, since disparity can re-emerge as the population or correlated-feature relationships drift; (iii) contestability, an individual customer with a bad outcome still needs a route to challenge it, which no amount of aggregate SHAP or PDP analysis provides; (iv) certainty the proxy search was exhaustive, PDP and SHAP surface the most likely candidates but can’t prove no other hidden channel exists. As the credit-score case study earlier in this chapter shows, even a model that clears every quantitative test can still fail the separate, non-statistical question of whether the criterion itself is the right one to apply.</p>
+<p>Sample answer (b). A workable decision framework asks four questions of any candidate variable: (1) Is there a plausible causal or mechanical story connecting it to risk, not just a correlation, engine size affecting speed and claim severity is a mechanism, whereas many correlations have no such story? (2) Was it collected with proper consent and a clear legal basis, and is its use consistent with data minimisation (Chapters 6–7), rather than repurposed from data gathered for something else? (3) How tightly does it proxy a protected attribute, and is that proxying incidental or does it dominate the variable’s predictive power? (4) Would the causal story survive being said out loud to a regulator or an affected customer, echoing the credit-score case study’s finding that regulators specifically probed <em>why</em>, not just <em>whether</em>, a factor predicted the outcome.</p>
+<p>External and non-traditional data, telematics, social media activity, wearables, purchase or browsing history, sharpens all four questions rather than sidestepping them. These variables typically lack the traditional actuarial paper trail (they weren’t designed as risk factors), often carry a weaker or entirely absent causal story, and can proxy protected attributes even more tightly and less transparently than a variable like postcode, since patterns in, say, social-media activity or telematics can encode demographic information in ways that are much harder to audit for. The same four-question framework still applies, but the bar for justification should be higher precisely because these variables are further removed from the traditional, well-understood risk factors that regulators and the public already accept.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="part-2-the-key-trade-offs" class="title-slide slide level1 center">
@@ -377,6 +427,10 @@ Fei Huang, UNSW Sydney
 </tr>
 </tbody>
 </table>
+<p><em>Accuracy measured by RMSE (smaller error = higher accuracy); “reduction” describes the drop from M0’s accuracy level as fairness constraints tighten.</em></p>
+<div class="fragment">
+<p><strong>Not always a trade-off.</strong> When errors are unevenly distributed across groups to begin with, a fairness-aware model can sometimes reduce disparity <em>and</em> improve accuracy at once — a genuine win-win <span class="citation" data-cites="huang2024fairdecisions">(<a href="#/thank-you" role="doc-biblioref" onclick="">Huang et al. 2024</a>)</span>.</p>
+</div>
 <div title="A policy decision, not a modelling decision">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -444,6 +498,19 @@ Fei Huang, UNSW Sydney
 <h2>💬 Discuss (4 min)</h2>
 <p>If explanation tools can be gamed to look fair —</p>
 <p><strong>what would actually make you trust a vendor’s fairness claims?</strong></p>
+<aside class="notes">
+<p>Sample answer. Not a single SHAP plot or PDP the vendor chooses to show, since both can be adversarially manipulated to look flat or neutral <span class="citation" data-cites="slack2020fooling xin2025pdppitfalls">(<a href="#/thank-you" role="doc-biblioref" onclick="">Slack et al. 2020</a>; <a href="#/thank-you" role="doc-biblioref" onclick="">Xin et al. 2025</a>)</span>. What would actually build trust: (i) a pre-registered test protocol, the fairness criterion and audit method agreed before seeing results, so the vendor can’t retroactively pick a flattering view; (ii) independent access to run that audit on held-out or regulator-controlled data, not just the vendor’s own curated sample; (iii) multiple independent checks, a formal criterion like CDP plus at least one explanation method, since gaming one method is far easier than gaming all of them simultaneously; (iv) an ongoing monitoring commitment and contractual audit rights, not a one-time certificate; (v) remembering that vendor accountability doesn’t transfer, the deploying organisation is still on the hook, which is itself a reason to insist on all of the above rather than taking a vendor’s word for it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section id="break-10-min" class="title-slide slide level1 center">
 <h1><em>Break — 10 min</em></h1>
@@ -479,6 +546,19 @@ Fei Huang, UNSW Sydney
 <h2>💬 Discuss (4 min)</h2>
 <p>Of the six lifecycle stages —</p>
 <p><strong>which do you think most AI failures actually originate in, even though they surface much later?</strong></p>
+<aside class="notes">
+<p>Sample answer. Most genuine root causes trace back to Stage 1 (problem definition) and Stage 2 (data collection), even though the failure typically surfaces much later, as a fairness audit finding, a customer complaint, or a regulatory investigation. A mis-specified objective at Stage 1, optimising for a proxy like “predicted cost” instead of the true target “medical need” is the canonical example from Chapter 1’s healthcare-algorithm case, and no amount of sophisticated Stage 3–4 modelling can fix a wrong question. Similarly, historical bias baked into training labels at Stage 2 (e.g.&nbsp;past human decisions the model is trained to imitate) gets inherited by any model regardless of how carefully it’s validated afterwards. This is why the earlier slide in this section states it plainly: a wrong choice at Stage 1 can’t be fixed by better modelling later. Worth contrasting with Stage 6 (monitoring) failures, which are common too, but those are usually failures to <em>detect</em> a problem that originated earlier, not new failures created at that stage.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="capstone-case-study-claims-triage" class="slide level2 smaller center">
 <h2>Capstone case study: claims triage</h2>
@@ -740,6 +820,19 @@ Fei Huang, UNSW Sydney
 <h2>💬 Discuss (5 min) — wrap-up</h2>
 <p>Of those five limitations —</p>
 <p><strong>which worries you most, for a system you might build or evaluate after this course?</strong></p>
+<aside class="notes">
+<p>This is a personal reflection question with no single correct answer, grade for genuine engagement with one limitation rather than a generic restatement of “fairness is important.” A rough guide to what a strong answer for each looks like: criteria are contested, worth worrying about if you’ll work somewhere without a clear governance process for that decision, many organisations don’t have one yet; methods have assumptions, worth worrying about if you’re likely to deploy tools without checking their assumptions (e.g.&nbsp;SHAP’s handling of correlated features); regulation is evolving, worth worrying about in a fast-changing jurisdiction or sector; interaction effects are hard to anticipate, worth worrying about for any system where fairness, explainability, and privacy interact, since this course mostly tested each pillar in isolation; the structured-data focus, worth worrying about for anyone increasingly working with generative AI or LLM-based systems, where this toolkit needs adaptation, not a wholesale replacement.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="the-integrated-view" class="slide level2 center">
 <h2>The integrated view</h2>
@@ -785,6 +878,12 @@ Huang, Fei. 2025. <span>“Check Your <span>AI</span>: A Framework for Its Use i
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <em>Working Paper</em>.
 </div>
+<div id="ref-huang2024fairdecisions" class="csl-entry" role="listitem">
+Huang, Fei, Junhao Shen, Yanrong Yang, and Ran Zhao. 2024. <span>“Learning Fair Decisions with Factor Models: Applications to Annuity Pricing.”</span> <em>arXiv Preprint arXiv:2412.04663</em>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019. <span>“The Moral Limits of Predictive Practices: The Case of Credit-Based Insurance Scores.”</span> <em>American Sociological Review</em> 84 (6): 1134–58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
+</div>
 <div id="ref-molnar2025iml" class="csl-entry" role="listitem">
 Molnar, Christoph. 2025. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3rd ed. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
 </div>
@@ -793,6 +892,9 @@ National AI Centre. 2025. <span>“Guidance for AI Adoption: Foundations.”</sp
 </div>
 <div id="ref-slack2020fooling" class="csl-entry" role="listitem">
 Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, and Himabindu Lakkaraju. 2020. <span>“Fooling LIME and SHAP: Adversarial Attacks on Post Hoc Explanation Methods.”</span> <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180–86.
+</div>
+<div id="ref-xin2025pdppitfalls" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, and Fei Huang. 2025. <span>“Pitfalls in Machine Learning Interpretability: Manipulating Partial Dependence Plots to Hide Discrimination.”</span> <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
 </div>
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, and Fei Huang. 2024. <span>“Antidiscrimination Insurance Pricing: Regulations, Fairness Criteria, and Models.”</span> <em>North American Actuarial Journal</em> 28 (2): 285–319.

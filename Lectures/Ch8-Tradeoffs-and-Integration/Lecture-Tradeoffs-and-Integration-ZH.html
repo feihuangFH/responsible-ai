@@ -439,20 +439,22 @@ window.Quarto = {
 </section>
 <section id="重访最初的引导性问题" class="level3">
 <h3 class="anchored" data-anchor-id="重访最初的引导性问题">重访最初的引导性问题</h3>
-<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:保险业,重访最初的引导性问题">
+<div class="case-study callout callout-style-default callout-note callout-titled" title="案例研究:基于信用的车险评分与精算公平性的局限">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>案例研究:保险业,重访最初的引导性问题
+<span class="screen-reader-only">注记</span>案例研究:基于信用的车险评分与精算公平性的局限
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>在第一章中,我们介绍了一家车险公司,该公司从定价模型中剔除了性别变量,但保留了发动机排量和年行驶里程。这两个变量在数据中都与性别相关。</p>
+<p>自20世纪90年代初以来,美国车险公司在定价时部分依据基于信用的保险评分——一种源自消费者信用记录的统计评分——理由是该评分确实能够预测谁将提出理赔。这正是精算公平性的典型体现:按照个人真实的预期成本向其收费。尽管该评分具有真实的预测效力,这一做法仍引发了持续而强烈的监管反弹:至少17个州展开调查、举行了五场国会听证会,并出台了数十项限制其使用的州法律 <span class="citation" data-cites="kiviat2019moral">(<a href="#ref-kiviat2019moral" role="doc-biblioref">Kiviat 2019年</a>)</span>。</p>
+<p>监管者的异议并非在于评分不具备预测能力——大多数人也承认它确实有效——而在于预测本身并不能决定谁”应得”支付更高的保费。他们要求保险公司解释信用评分<em>为何</em>能够预测理赔,并据此将真正的不负责任(普遍被认为可以据此合理定价)与离婚、失业或医疗急症等不幸遭遇(如今大多数州已通过法律规定的”特殊生活情形”豁免条款,要求保险公司对此不予计入)区分开来。2007年美国联邦贸易委员会(FTC)的一份报告进一步揭示了分配层面的问题:超过四分之一的非裔美国消费者评分处于最低十分位,而白人消费者的这一比例仅为3%;然而由于该评分在每个种族群体内部仍具有预测力,依据精算公平性自身的标准,这一做法仍被视为”公平”。</p>
+<p>最终的监管结果反映的是这种有争议的中间立场,而非一个彻底的解决方案。只有四个州(夏威夷、加利福尼亚、马萨诸塞和马里兰)全面禁止使用基于信用的车险评分。其余所有州则在允许这一做法继续存在的前提下施加各类限制,例如上文提到的特殊生活情形豁免条款、要求向消费者披露信息,或限制可使用哪些信用因素。</p>
 </div>
 </div>
-<p>同样的结构,即受保护属性被剔除、但其影响通过相关特征持续存在,同样出现在招聘、信贷和医疗模型之中。我们提出了一个问题:<em>这家保险公司是否已经实现了公平?</em></p>
+<p>这一案例表明,一项标准即便在统计上有效、并满足某个被明确命名和认可的公平性定义,仍可能被认定为不正当,因为应当由哪种公平性标准来支配某项实践,本身就是一个存在争议的政治性判断,而非纯粹的量化问题。现在,我们可以针对本课程自己的示例,严谨地回答同样的问题:一家车险公司从定价模型中剔除了性别变量,但保留了发动机排量和年行驶里程,这两个变量在数据中都与性别相关。同样的结构,即受保护属性被剔除、但其影响通过相关特征持续存在,同样出现在招聘、信贷和医疗模型之中。我们提出了一个问题:<em>这家保险公司是否已经实现了公平?</em></p>
 <p>到目前为止,你已经拥有严谨回答这一问题的工具:</p>
 <ul>
 <li><strong>第二章</strong>:该模型是否满足 FTU 公平?可能满足。是否满足 DP 或 CDP 公平?很可能不满足。将 <span class="math inline">X_P</span> 从输入中剔除,并不能保证 <span class="math inline">\hat{Y} \perp X_P</span>。</li>
@@ -481,40 +483,41 @@ window.Quarto = {
 <thead>
 <tr class="header">
 <th>模型</th>
-<th>Gini(频率)</th>
+<th>RMSE(准确性)</th>
 <th>平均性别保费比率</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>M0(无约束)</td>
-<td>最高</td>
+<td>最低</td>
 <td>差异最大</td>
 </tr>
 <tr class="even">
 <td>MU(通过无知实现公平)</td>
-<td>中度降低</td>
+<td>略有上升</td>
 <td>中度降低</td>
 </tr>
 <tr class="odd">
 <td>MCDP</td>
-<td>小幅降低</td>
+<td>小幅上升</td>
 <td>大幅降低</td>
 </tr>
 <tr class="even">
 <td>MC</td>
-<td>小幅降低</td>
+<td>小幅上升</td>
 <td>大幅降低</td>
 </tr>
 <tr class="odd">
 <td>MDP(完全均等)</td>
-<td>降低幅度最大</td>
+<td>上升幅度最大</td>
 <td>差异接近零</td>
 </tr>
 </tbody>
 </table>
-<p>Gini(频率)衡量模型按理赔风险对保单持有人排序的能力,数值越高越好。平均性别保费比率比较女性与男性被收取的平均保费,数值越接近1表示差异越小。</p>
+<p>RMSE(准确性)衡量预测保费与实际理赔成本之间的偏差,数值越小越好。平均性别保费比率比较女性与男性被收取的平均保费,数值越接近1表示差异越小。</p>
 <p>关键发现:<strong>公平性的代价比通常设想的要小,但并非为零。</strong> MCDP 与 MC 在预测准确性仅有适度损失的情况下,大幅降低了性别差异。MDP 实现了人口统计学均等性,但付出了较为可观的准确性代价。</p>
+<p>然而,这种权衡取舍并非普遍存在。当无约束模型自身的误差在各群体间分布不均时,例如系统性地对某一群体预测偏高或偏低,一个引入公平性约束的模型有时能够在缩小群体间误差差异的同时,<em>同步提升</em>整体准确性,实现真正的双赢,而非此消彼长。<span class="citation" data-cites="huang2024fairdecisions">Huang 等 (<a href="#ref-huang2024fairdecisions" role="doc-biblioref">2024年</a>)</span> 在年金定价领域展示了这一点:他们提出的带公平性正则化的因子模型,在澳大利亚死亡率数据上,相较于无约束基准模型,既缩小了不同人口群体间的决策误差差异,又提升了预测准确性。某一具体问题究竟是能够实现这种双赢,还是必然面临真实的权衡取舍,是一个需要通过实证检验来回答的问题,而非可以事先假定的结论。</p>
 <div class="callout callout-style-default callout-note callout-titled" title="这一权衡取舍是政策决策,而非建模决策">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1151,6 +1154,12 @@ Huang, Fei. 2025年. <span>《Check your <span>AI</span>: a framework for its us
 </div>
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, 和 Giles Hooker. 2026年. <span>《Fairness Testing for Algorithmic Pricing》</span>. <em>Working paper</em>.
+</div>
+<div id="ref-huang2024fairdecisions" class="csl-entry" role="listitem">
+Huang, Fei, Junhao Shen, Yanrong Yang, 和 Ran Zhao. 2024年. <span>《Learning Fair Decisions with Factor Models: Applications to Annuity Pricing》</span>. <em>arXiv preprint arXiv:2412.04663</em>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019年. <span>《The moral limits of predictive practices: The case of credit-based insurance scores》</span>. <em>American Sociological Review</em> 84 (6): 1134～58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
 </div>
 <div id="ref-molnar2025iml" class="csl-entry" role="listitem">
 Molnar, Christoph. 2025年. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3 版. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.

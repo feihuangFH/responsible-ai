@@ -300,6 +300,34 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="案例研究基于信用的车险评分" class="slide level2 smaller center">
+<h2>案例研究:基于信用的车险评分</h2>
+<div class="case-study" title="精算公平性的局限">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>精算公平性的局限</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>自20世纪90年代初以来,美国车险公司在定价时部分依据<strong>基于信用的保险评分</strong>——这正是精算公平性的典型体现:按照个人真实的预期成本收费</li>
+<li>该评分确实具有预测效力,但这一做法仍引发了持续的监管反弹:至少17个州展开调查、5场国会听证会、数十项限制性州法律 <span class="citation" data-cites="kiviat2019moral">(<a href="#/谢谢大家" role="doc-biblioref" onclick="">Kiviat 2019年</a>)</span></li>
+<li>监管者的异议在于:预测本身并不能决定谁”应得”支付更高保费——他们要求解释评分<em>为何</em>能预测理赔,而不只是<em>确实</em>能预测</li>
+<li>如今大多数州要求保险公司对与离婚、失业、医疗急症等有据可查的不幸遭遇相关的负面信用记录不予计入(“特殊生活情形”豁免条款)</li>
+<li>2007年FTC报告显示:超过25%的非裔美国消费者评分处于最低十分位,白人消费者仅3%——但评分在每个种族群体<em>内部</em>仍具有预测力,因而依据精算公平性自身标准仍属”公平”</li>
+<li><strong>结果</strong>:仅有4个州全面禁止这一做法——其余所有州均在允许该做法继续存在的前提下施加限制(披露要求、豁免条款、限制可用因素)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>一项标准即便在统计上有效、并满足某个被明确命名的公平性定义,仍可能被认定为不正当。</strong> 应由哪种标准来支配某项实践,本身是一个存在争议的政治性判断,而非纯粹的量化问题。</p>
+</div>
+</section>
 <section id="重访最初的引导性问题" class="slide level2 smaller center">
 <h2>重访最初的引导性问题</h2>
 <div class="case-study" title="第一章:剔除性别变量的保险公司">
@@ -318,13 +346,35 @@
 </div>
 </div>
 <div class="fragment">
-<p>现在你可以更严谨地回答这个问题了。第二章告诉我们:也许满足 FTU 公平,但很可能不满足 DP 或 CDP 公平。第三章指出可以拟合 MCDP 或 MC,并用 TOST 进行审计(等效性检验,证明合规性而非仅仅是未能发现违规)。第四、五章指向 SHAP,用以找出驱动残余差异的因素并检查交互效应。第六、七章则提出了数据中的重新识别风险,以及差分隐私或合成数据是否应纳入流程之中。</p>
+<p>现在你可以更严谨地回答这个问题了:</p>
+<ul>
+<li><strong>第二章</strong>:也许满足 FTU 公平,但很可能不满足 DP 或 CDP 公平。</li>
+<li><strong>第三章</strong>:拟合 MCDP 或 MC,并用预先设定的 TOST 进行审计(证明合规性,而非仅仅是未能发现违规)。</li>
+<li><strong>第四、五章</strong>:用 SHAP 找出驱动残余差异的因素,并检查交互效应。</li>
+<li><strong>第六、七章</strong>:评估数据中的重新识别风险,考虑差分隐私或合成数据是否应纳入流程之中。</li>
+</ul>
 </div>
 </section>
 <section id="讨论4分钟" class="slide level2 center" data-background-color="#2c3e50">
 <h2>💬 讨论(4分钟)</h2>
 <p>综合运用第二至七章的全部内容——</p>
-<p><strong>你现在会如何回答“这家保险公司是否已经实现了公平”?即便拥有了所有这些工具,还缺少什么?</strong></p>
+<p><strong>a.</strong> 你现在会如何回答“这家保险公司是否已经实现了公平”?即便拥有了所有这些工具,还缺少什么?</p>
+<p><strong>b.</strong> 以保险业为例:即便发动机排量或年行驶里程都各自具备与风险相关的、非歧视性的合理理由,你会如何判断这类变量究竟应当被用于定价,还是应当被彻底排除?如果该变量是外部的、非传统的数据——例如远程信息处理数据、社交媒体活动或信用记录,而非保险公司出于自身精算目的所收集的数据——情况又会有何不同?</p>
+<aside class="notes">
+<p>参考答案(a)。即便完成了这份清单,“这家保险公司是否已经实现了公平”仍然没有唯一的是非答案,这正是本题的用意所在。仍然缺少的是:(一)决定哪种标准(DP、CDP、个体公平性)适用于该监管制度与产品类型,这是一项治理决策,本课程的工具可以为其提供依据,但无法代为做出;(二)证明去偏流程在上线后仍持续接受审计,而非仅在launch时检验一次,因为随着人群结构或相关特征关系的漂移,差异可能重新出现;(三)可争议性,个体客户若遭遇不利结果,仍需要一条申诉渠道,而无论多少总体层面的 SHAP 或 PDP 分析都无法提供这一点;(四)代理变量排查是否真正做到穷尽,PDP 与 SHAP 只能揭示最有可能的候选变量,却无法证明不存在其他隐藏渠道。正如本章前面的信用评分案例研究所示,即便一个模型通过了每一项量化检验,仍可能在另一个独立的、非统计性的问题上失败:所选标准本身是否正确。</p>
+<p>参考答案(b)。一个可操作的判断框架会针对任何候选变量提出四个问题:(1)该变量与风险之间是否存在合理的因果或机制性联系,而不仅仅是相关关系?发动机排量影响车速与理赔严重程度,这是一种机制;而许多相关关系并不具备这样的故事。(2)该数据的收集是否取得了适当同意、具有明确的法律依据,其使用是否符合数据最小化原则(第六、七章),而非挪用为其他目的所收集的数据?(3)该变量对受保护属性的代理程度有多紧密,这种代理关系是附带产生的,还是主导了该变量的预测能力?(4)这一因果故事如果向监管者或受影响的客户当面陈述,是否还能站得住脚?这呼应了信用评分案例研究的发现:监管者追问的重点在于某一因素<em>为何</em>能够预测结果,而不仅仅是它<em>是否</em>能够预测。</p>
+<p>外部与非传统数据——远程信息处理数据、社交媒体活动、可穿戴设备数据、购物或浏览记录——并不会回避这四个问题,反而会使其变得更加尖锐。这类变量通常缺乏传统精算意义上的可追溯依据(它们最初并非为风险评估而设计),其因果故事往往更为薄弱甚至完全缺失,而且它们对受保护属性的代理程度可能比邮编等变量更为紧密、也更难被察觉,因为诸如社交媒体活动或远程信息处理数据中的模式,可能以极难审计的方式暗含人口统计学信息。同样的四问框架依然适用,但对这类变量的合理性要求理应更高,原因正在于它们与监管者和公众已经理解并接受的传统风险因素相距更远。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="第二部分-关键的权衡取舍" class="title-slide slide level1 center">
@@ -373,6 +423,10 @@
 </tr>
 </tbody>
 </table>
+<p><em>准确性以 RMSE 衡量(误差越小,准确性越高);“降低”指随着公平性约束收紧,准确性相对 M0 水平的下降幅度。</em></p>
+<div class="fragment">
+<p><strong>并非总是权衡取舍。</strong> 当误差本身在各群体间分布不均时,引入公平性约束的模型有时能够同时缩小差异<em>并</em>提升准确性——实现真正的双赢 <span class="citation" data-cites="huang2024fairdecisions">(<a href="#/谢谢大家" role="doc-biblioref" onclick="">Huang 等 2024年</a>)</span>。</p>
+</div>
 <div title="这是政策决策,而非建模决策">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -440,6 +494,19 @@
 <h2>💬 讨论(4分钟)</h2>
 <p>如果解释工具可以被操纵得看似公平——</p>
 <p><strong>究竟什么才能真正让你信任一家供应商关于公平性的宣称?</strong></p>
+<aside class="notes">
+<p>参考答案。不能仅凭供应商选择展示的某一张 SHAP 图或 PDP 图,因为两者都可能被对抗性操纵得看起来平坦或中立 <span class="citation" data-cites="slack2020fooling xin2025pdppitfalls">(<a href="#/谢谢大家" role="doc-biblioref" onclick="">Slack 等 2020年</a>; <a href="#/谢谢大家" role="doc-biblioref" onclick="">Xin 等 2025年</a>)</span>。真正能够建立信任的是:(一)预先登记的测试方案,即在看到结果之前就已商定好公平性标准与审计方法,使供应商无法事后挑选一张最有利的图;(二)能够在留存数据或监管方掌控的数据上独立运行该审计,而不仅仅依赖供应商自行筛选的样本;(三)多重独立检验,例如一项正式标准(如 CDP)再加上至少一种解释方法,因为同时操纵多种方法远比操纵单一方法困难得多;(四)持续性的监测承诺与合同审计权,而非一次性的认证证书;(五)牢记供应商的问责并不会随之转移,部署方机构仍需承担责任,这本身就是坚持以上所有要求、而非仅凭供应商一面之词的理由。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section id="休息-10分钟" class="title-slide slide level1 center">
 <h1><em>休息 — 10分钟</em></h1>
@@ -475,6 +542,19 @@
 <h2>💬 讨论(4分钟)</h2>
 <p>在这六个生命周期阶段中——</p>
 <p><strong>你认为大多数人工智能失效实际上起源于哪一个阶段,即便它们要到很久之后才会显现出来?</strong></p>
+<aside class="notes">
+<p>参考答案。大多数真正的根本原因可以追溯到第一阶段(问题定义)和第二阶段(数据收集),即便失效通常要到很久以后才会显现出来——表现为一次公平性审计发现、一起客户投诉,或一场监管调查。第一阶段中目标设定有误,例如以“预测成本”这一代理变量替代真正的目标“医疗需求”,正是第一章医疗算法案例中的典型情形,无论第三、四阶段的建模多么精巧,都无法弥补一个错误的问题设定。同样,第二阶段中固化于训练标签中的历史性偏差(例如模型被训练去模仿的过往人工决策)会被任何模型继承,无论此后验证工作做得多么细致。这正是本节前面那张幻灯片明确指出的道理:第一阶段的错误选择,无法通过后续更好的建模来弥补。也值得与第六阶段(监测)的失效作对比,那类失效同样常见,但通常属于未能<em>察觉</em>一个早已存在的问题,而非在该阶段新产生的失效。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="综合案例研究理赔分流" class="slide level2 smaller center">
 <h2>综合案例研究:理赔分流</h2>
@@ -732,6 +812,19 @@
 <h2>💬 讨论(5分钟)— 总结</h2>
 <p>在这五项局限性中——</p>
 <p><strong>对于你在本课程结束后可能会构建或评估的系统而言,哪一项最让你担忧?</strong></p>
+<aside class="notes">
+<p>这是一道个人反思题,没有唯一正确答案,评分时应关注学生是否真正针对某一项局限性展开论述,而非泛泛重复“公平性很重要”。以下是每一项局限性所对应的强答案大致方向:标准存在争议——如果你未来任职的机构缺乏明确的治理流程来做出这项决策(许多机构目前确实还没有),这一点就值得担忧;方法存在前提假设——如果你可能在不核实前提条件的情况下直接部署工具(例如 SHAP 对相关特征的处理方式),这一点就值得担忧;监管环境仍在演变——如果你所处的司法辖区或行业变化迅速,这一点就值得担忧;相互作用效应难以预见——对于公平性、可解释性与隐私相互交织的任何系统而言都值得担忧,因为本课程大多是分别单独检验每一支柱;仅限于结构化数据——对于未来会越来越多地接触生成式人工智能或大语言模型系统的人而言值得担忧,本课程的工具箱需要加以调整,而非直接照搬。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="整合性的视角" class="slide level2 center">
 <h2>整合性的视角</h2>
@@ -777,6 +870,12 @@ Huang, Fei. 2025年. <span>《Check your <span>AI</span>: a framework for its us
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, 和 Giles Hooker. 2026年. <span>《Fairness Testing for Algorithmic Pricing》</span>. <em>Working paper</em>.
 </div>
+<div id="ref-huang2024fairdecisions" class="csl-entry" role="listitem">
+Huang, Fei, Junhao Shen, Yanrong Yang, 和 Ran Zhao. 2024年. <span>《Learning Fair Decisions with Factor Models: Applications to Annuity Pricing》</span>. <em>arXiv preprint arXiv:2412.04663</em>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019年. <span>《The moral limits of predictive practices: The case of credit-based insurance scores》</span>. <em>American Sociological Review</em> 84 (6): 1134～58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
+</div>
 <div id="ref-molnar2025iml" class="csl-entry" role="listitem">
 Molnar, Christoph. 2025年. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3 版. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
 </div>
@@ -785,6 +884,9 @@ National AI Centre. 2025年. <span>《Guidance for AI Adoption: Foundations》</
 </div>
 <div id="ref-slack2020fooling" class="csl-entry" role="listitem">
 Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 2020年. <span>《Fooling LIME and SHAP: Adversarial attacks on post hoc explanation methods》</span>. <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society</em>, 180～86.
+</div>
+<div id="ref-xin2025pdppitfalls" class="csl-entry" role="listitem">
+Xin, Xi, Giles Hooker, 和 Fei Huang. 2025年. <span>《Pitfalls in machine learning interpretability: Manipulating partial dependence plots to hide discrimination》</span>. <em>Insurance: Mathematics and Economics</em> 125: 103135. <a href="https://doi.org/10.1016/j.insmatheco.2025.103135">https://doi.org/10.1016/j.insmatheco.2025.103135</a>.
 </div>
 <div id="ref-xin2024antidiscrimination" class="csl-entry" role="listitem">
 Xin, Xi, 和 Fei Huang. 2024年. <span>《Antidiscrimination insurance pricing: Regulations, fairness criteria, and models》</span>. <em>North American Actuarial Journal</em> 28 (2): 285～319.

@@ -443,20 +443,22 @@ window.Quarto = {
 </section>
 <section id="revisiting-the-motivating-problem" class="level3">
 <h3 class="anchored" data-anchor-id="revisiting-the-motivating-problem">Revisiting the motivating problem</h3>
-<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: insurance, the motivating problem revisited">
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Case Study: credit-based insurance scores and the limits of actuarial fairness">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Case Study: insurance, the motivating problem revisited
+<span class="screen-reader-only">Note</span>Case Study: credit-based insurance scores and the limits of actuarial fairness
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In Chapter 1, we introduced a motor insurer that removed gender from its pricing model but retained engine size and annual mileage. Both correlate with gender in the data.</p>
+<p>Since the early 1990s, US car insurers have priced policies partly on credit-based insurance scores, statistical scores derived from a consumer’s credit history, on the grounds that the scores are genuinely predictive of who will file claims. This is actuarial fairness in its purest form: charging people according to their true expected cost. Despite that predictive validity, the practice triggered unusually sustained regulatory pushback, investigations in at least 17 US states, five congressional hearings, and dozens of state laws restricting its use <span class="citation" data-cites="kiviat2019moral">(<a href="#ref-kiviat2019moral" role="doc-biblioref">Kiviat 2019</a>)</span>.</p>
+<p>Regulators’ objection was not that the scores failed to predict, most agreed they did, but that prediction alone did not settle who deserved to pay more. They pushed insurers to explain <em>why</em> credit scores predicted claims, and used that reasoning to separate genuine irresponsibility (broadly accepted as fairly priced) from misfortune such as divorce, job loss, or a medical emergency (which most states now require insurers to disregard, via “extraordinary life circumstances” exemptions written into law). A 2007 FTC report added a distributional dimension: more than a quarter of African American consumers fell in the lowest score decile, versus 3 percent of white consumers, yet the scores still predicted claims within each group, satisfying actuarial fairness on its own terms.</p>
+<p>The regulatory outcome reflects this contested middle ground rather than a clean resolution. Only four US states (Hawaii, California, Massachusetts, and Maryland) ban the use of credit-based insurance scores outright. Every other state instead imposes constraints, such as the extraordinary life circumstances exemptions above, mandatory disclosure to consumers, or restrictions on which credit factors may be used, while still permitting the underlying practice.</p>
 </div>
 </div>
-<p>The same structure, a protected attribute removed with its influence persisting through correlated features, recurs in hiring, lending, and healthcare models alike. We asked one question. <em>Has the insurer achieved fairness?</em></p>
+<p>The case shows that a criterion can be statistically valid and satisfy a named, recognised fairness definition, and still be rejected as illegitimate, because which fairness criterion should govern a practice is itself a contested, political determination, not a purely quantitative one. We can now answer that same question rigorously for our own course’s worked example: a motor insurer that removed gender from its pricing model but retained engine size and annual mileage, both of which correlate with gender in the data. This structure, a protected attribute removed with its influence persisting through correlated features, recurs in hiring, lending, and healthcare models alike. We asked one question. <em>Has the insurer achieved fairness?</em></p>
 <p>By now, you have the tools to answer this rigorously:</p>
 <ul>
 <li><strong>Chapter 2</strong>: Is the model FTU-fair? Possibly. Is it DP- or CDP-fair? Likely not. Removing <span class="math inline">X_P</span> as an input does not guarantee <span class="math inline">\hat{Y} \perp X_P</span>.</li>
@@ -485,40 +487,41 @@ window.Quarto = {
 <thead>
 <tr class="header">
 <th>Model</th>
-<th>Gini (frequency)</th>
+<th>RMSE (accuracy)</th>
 <th>Mean gender premium ratio</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>M0 (unconstrained)</td>
-<td>Highest</td>
+<td>Lowest</td>
 <td>Highest disparity</td>
 </tr>
 <tr class="even">
 <td>MU (unawareness)</td>
-<td>Moderate reduction</td>
+<td>Slight increase</td>
 <td>Moderate reduction</td>
 </tr>
 <tr class="odd">
 <td>MCDP</td>
-<td>Small reduction</td>
+<td>Modest increase</td>
 <td>Large reduction</td>
 </tr>
 <tr class="even">
 <td>MC</td>
-<td>Small reduction</td>
+<td>Modest increase</td>
 <td>Large reduction</td>
 </tr>
 <tr class="odd">
 <td>MDP (full parity)</td>
-<td>Largest reduction</td>
+<td>Largest increase</td>
 <td>Near zero disparity</td>
 </tr>
 </tbody>
 </table>
-<p>Gini (frequency) measures how well the model ranks policyholders by claim risk, higher is better. Mean gender premium ratio compares the average premium charged to women against men, closer to one means less disparity.</p>
+<p>RMSE (accuracy) measures how far predicted premiums deviate from actual claims cost, smaller is better. Mean gender premium ratio compares the average premium charged to women against men, closer to one means less disparity.</p>
 <p>Key finding. <strong>The cost of fairness is smaller than often assumed, but it is not zero.</strong> MCDP and MC achieve large reductions in gender disparity with only modest losses in predictive accuracy. MDP achieves demographic parity but at a meaningful accuracy cost.</p>
+<p>This trade-off is not universal, however. When the unconstrained model’s errors are themselves unevenly distributed across groups, for example if it systematically under- or over-predicts for one group more than another, a fairness-aware model can reduce that error disparity while simultaneously <em>improving</em> overall accuracy, a genuine win-win rather than a trade-off. <span class="citation" data-cites="huang2024fairdecisions">Huang et al. (<a href="#ref-huang2024fairdecisions" role="doc-biblioref">2024</a>)</span> demonstrate this in annuity pricing: their fairness-regularised factor model reduced decision-error disparity across demographic groups while also improving predictive accuracy relative to the unconstrained benchmark, using Australian mortality data. Whether a given problem admits this kind of win-win, or forces a genuine trade-off, is an empirical question, not something to assume either way in advance.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="The trade-off is a policy decision, not a modelling decision">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1164,6 +1167,12 @@ Huang, Fei. 2025. <span>“Check Your <span>AI</span>: A Framework for Its Use i
 </div>
 <div id="ref-huang2026fairtesting" class="csl-entry" role="listitem">
 Huang, Fei, and Giles Hooker. 2026. <span>“Fairness Testing for Algorithmic Pricing.”</span> <em>Working Paper</em>.
+</div>
+<div id="ref-huang2024fairdecisions" class="csl-entry" role="listitem">
+Huang, Fei, Junhao Shen, Yanrong Yang, and Ran Zhao. 2024. <span>“Learning Fair Decisions with Factor Models: Applications to Annuity Pricing.”</span> <em>arXiv Preprint arXiv:2412.04663</em>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019. <span>“The Moral Limits of Predictive Practices: The Case of Credit-Based Insurance Scores.”</span> <em>American Sociological Review</em> 84 (6): 1134–58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
 </div>
 <div id="ref-molnar2025iml" class="csl-entry" role="listitem">
 Molnar, Christoph. 2025. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>. 3rd ed. <a href="https://christophm.github.io/interpretable-ml-book/">https://christophm.github.io/interpretable-ml-book/</a>.
