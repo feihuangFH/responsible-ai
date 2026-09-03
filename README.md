@@ -1,8 +1,8 @@
-# Responsible AI — Course Site
+# Quantitative Responsible AI — Course Site
 
-An open learning resource on responsible AI: fairness, explainability, and
-privacy in high-stakes automated decision-making, available in both English
-and Chinese.
+An open learning resource on quantitative responsible AI: fairness,
+explainability, and privacy in high-stakes automated decision-making,
+available in both English and Chinese.
 
 **Live site:** https://responsible-ai.feihuang.org
 

@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "",
-    "text": "This open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.\n\n\n\n\n\n\nTipStart here\n\n\n\nUse the left sidebar to open any chapter, or follow the lecture links below. Each chapter has three formats: HTML lecture notes (with all code and plots), a downloadable PDF of the same notes, and a condensed slide deck for in-class use.\n\n\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
+    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
     "crumbs": [
       "Home"
     ]
@@ -12,19 +12,9 @@
   {
     "objectID": "index.html#overview",
     "href": "index.html#overview",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "",
-    "text": "This open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.\n\n\n\n\n\n\nTipStart here\n\n\n\nUse the left sidebar to open any chapter, or follow the lecture links below. Each chapter has three formats: HTML lecture notes (with all code and plots), a downloadable PDF of the same notes, and a condensed slide deck for in-class use.\n\n\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#course-map",
-    "href": "index.html#course-map",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
-    "section": "Course map",
-    "text": "Course map\n\n\n\n\n\n\n\n\nChapter\nTheme\nFocus\n\n\n\n\n1\nIntroduction\nMotivation, lifecycle, governance, and professional context\n\n\n2\nFairness principles\nDefinitions, legal and economic perspectives, fairness criteria\n\n\n3\nFairness practice\nMeasurement, mitigation, and case studies in insurance\n\n\n4\nExplainability principles\nTransparency, interpretability, and stakeholder needs\n\n\n5\nExplainability practice\nMethods, validation, and communication\n\n\n6\nPrivacy principles\nData protection, consent, and regulatory foundations\n\n\n7\nPrivacy practice\nTechniques, risk assessment, and operational controls\n\n\n8\nTrade-offs and integration\nBalancing objectives and embedding responsible AI in workflows",
+    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
     "crumbs": [
       "Home"
     ]
@@ -32,7 +22,7 @@
   {
     "objectID": "index.html#about-the-author",
     "href": "index.html#about-the-author",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "About the Author",
     "text": "About the Author\n\n\n\n\n\nDr. Fei Huang\n\nSchool of Risk and Actuarial Studies, UNSW Business School\nEmail: feihuang@unsw.edu.au · Website: feihuang.org\n\nDr. Fei Huang is an Associate Professor in Risk and Actuarial Studies at UNSW Business School. Her research and teaching focus on responsible AI, insurance, and data-driven decision-making that is accurate, interpretable, and equitable.",
     "crumbs": [
@@ -42,9 +32,9 @@
   {
     "objectID": "index.html#license",
     "href": "index.html#license",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "License",
-    "text": "License\nMaterials created for this resource are licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) license unless otherwise noted. See the LICENSE file in this repository.",
+    "text": "License\nMaterials created for this resource are licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) license unless otherwise noted.",
     "crumbs": [
       "Home"
     ]
@@ -52,9 +42,19 @@
   {
     "objectID": "index.html#how-to-cite",
     "href": "index.html#how-to-cite",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "How to cite",
-    "text": "How to cite\nHuang, F. (2026). Responsible AI: Principles, Governance, and Quantitative Methods (draft). UNSW Sydney.",
+    "text": "How to cite\nHuang, F. (2026). Quantitative Responsible AI: Principles, Governance, and Methods. UNSW Sydney.\nTo cite this resource, please use this BibTeX entry:\n@misc{huang2026quantresponsibleai,\n  author    = {Huang, Fei},\n  title     = {Quantitative Responsible AI: Principles, Governance, and Methods},\n  publisher = {UNSW Sydney},\n  year      = {2026},\n  url       = {https://responsible-ai.feihuang.org}\n}",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#development-note",
+    "href": "index.html#development-note",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
+    "section": "Development note",
+    "text": "Development note\nThis project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author’s own and her responsibility.",
     "crumbs": [
       "Home"
     ]
@@ -5729,9 +5729,9 @@
   {
     "objectID": "index-ZH.html",
     "href": "index-ZH.html",
-    "title": "负责任人工智能:原则、治理与量化方法",
+    "title": "量化负责任人工智能:原则、治理与方法",
     "section": "",
-    "text": "这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n提示从这里开始\n\n\n\n使用左侧边栏打开任意章节。每个章节的课堂笔记均包含全部代码和图表。",
+    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n提示从这里开始\n\n\n\n使用左侧边栏打开任意章节。每个章节的课堂笔记均包含全部代码和图表。",
     "crumbs": [
       "首页"
     ]
@@ -5739,9 +5739,9 @@
   {
     "objectID": "index-ZH.html#概述",
     "href": "index-ZH.html#概述",
-    "title": "负责任人工智能:原则、治理与量化方法",
+    "title": "量化负责任人工智能:原则、治理与方法",
     "section": "",
-    "text": "这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n提示从这里开始\n\n\n\n使用左侧边栏打开任意章节。每个章节的课堂笔记均包含全部代码和图表。",
+    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n提示从这里开始\n\n\n\n使用左侧边栏打开任意章节。每个章节的课堂笔记均包含全部代码和图表。",
     "crumbs": [
       "首页"
     ]
@@ -5749,7 +5749,7 @@
   {
     "objectID": "index-ZH.html#课程地图",
     "href": "index-ZH.html#课程地图",
-    "title": "负责任人工智能:原则、治理与量化方法",
+    "title": "量化负责任人工智能:原则、治理与方法",
     "section": "课程地图",
     "text": "课程地图\n\n\n\n章节\n主题\n重点\n\n\n\n\n1\n导论\n动机、生命周期、治理与职业背景\n\n\n2\n公平性原则\n定义、法律与经济视角、公平性准则\n\n\n3\n公平性实践\n保险领域中的衡量、缓解与案例研究\n\n\n4\n可解释性原则\n透明度、可解释性与利益相关方需求\n\n\n5\n可解释性实践\n方法、验证与沟通\n\n\n6\n隐私原则\n数据保护、同意机制与监管基础\n\n\n7\n隐私实践\n技术、风险评估与操作管控\n\n\n8\n权衡取舍与整合\n平衡多重目标,并将负责任人工智能嵌入工作流程",
     "crumbs": [
@@ -5759,7 +5759,7 @@
   {
     "objectID": "index-ZH.html#关于作者",
     "href": "index-ZH.html#关于作者",
-    "title": "负责任人工智能:原则、治理与量化方法",
+    "title": "量化负责任人工智能:原则、治理与方法",
     "section": "关于作者",
     "text": "关于作者\n\n\n\n\n\n黄斐 博士\n\n新南威尔士大学商学院风险与精算学院\n邮箱:feihuang@unsw.edu.au · 网站:feihuang.org\n\n黄斐博士是新南威尔士大学商学院风险与精算学院的副教授。她的研究与教学聚焦于负责任人工智能、保险,以及准确、可解释且公平的数据驱动决策。",
     "crumbs": [
@@ -5769,7 +5769,7 @@
   {
     "objectID": "index-ZH.html#许可协议",
     "href": "index-ZH.html#许可协议",
-    "title": "负责任人工智能:原则、治理与量化方法",
+    "title": "量化负责任人工智能:原则、治理与方法",
     "section": "许可协议",
     "text": "许可协议\n© 2026 黄斐(Fei Huang)。保留所有权利。\n本网站内容仅供北京大学光华管理学院 BA 工作坊课程教学使用,仅限注册学员在课程期间学习参考。未经作者书面许可,任何单位或个人不得以任何形式复制、传播、修改、汇编或用于商业用途本网站的任何内容。如需转载或引用,请联系作者获得授权。",
     "crumbs": [
@@ -5777,19 +5777,9 @@
     ]
   },
   {
-    "objectID": "index.html#development-note",
-    "href": "index.html#development-note",
-    "title": "Responsible AI: Principles, Governance, and Quantitative Methods",
-    "section": "Development note",
-    "text": "Development note\nThis project was developed with support from AI coding assistants. All analysis, content decisions, and conclusions are the author’s own and her responsibility.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
     "objectID": "index-ZH.html#开发说明",
     "href": "index-ZH.html#开发说明",
-    "title": "负责任人工智能:原则、治理与量化方法",
+    "title": "量化负责任人工智能:原则、治理与方法",
     "section": "开发说明",
     "text": "开发说明\n本项目的开发得到了 AI 编程助手的支持。所有分析、内容决策与结论均由作者本人负责。",
     "crumbs": [
