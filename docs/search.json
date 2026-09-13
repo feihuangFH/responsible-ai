@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "",
-    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
+    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
     "crumbs": [
       "Home"
     ]
@@ -14,7 +14,7 @@
     "href": "index.html#overview",
     "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "",
-    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
+    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
     "crumbs": [
       "Home"
     ]
@@ -34,7 +34,7 @@
     "href": "index.html#license",
     "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "License",
-    "text": "License\nMaterials created for this resource are licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) license unless otherwise noted.",
+    "text": "License\nMaterials created for this resource are licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) license unless otherwise noted.\n\n\n\n\n\n\nNoteFor educators\n\n\n\nThis license doesn’t permit public redistribution of adapted versions. If you’d like to adapt this content for your own non-commercial course, please get in touch at feihuang@unsw.edu.au to discuss.",
     "crumbs": [
       "Home"
     ]
@@ -44,7 +44,17 @@
     "href": "index.html#how-to-cite",
     "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "How to cite",
-    "text": "How to cite\nHuang, F. (2026). Quantitative Responsible AI: Principles, Governance, and Methods. UNSW Sydney.\nTo cite this resource, please use this BibTeX entry:\n@misc{huang2026quantresponsibleai,\n  author    = {Huang, Fei},\n  title     = {Quantitative Responsible AI: Principles, Governance, and Methods},\n  publisher = {UNSW Sydney},\n  year      = {2026},\n  url       = {https://responsible-ai.feihuang.org}\n}",
+    "text": "How to cite\nHuang, F. (2026). Quantitative Responsible AI: Principles, Governance, and Methods. UNSW Sydney. https://responsible-ai.feihuang.org\nTo cite this resource, please use this BibTeX entry:\n@misc{huang2026quantresponsibleai,\n  author    = {Huang, Fei},\n  title     = {Quantitative Responsible AI: Principles, Governance, and Methods},\n  publisher = {UNSW Sydney},\n  year      = {2026},\n  url       = {https://responsible-ai.feihuang.org}\n}",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#acknowledgement",
+    "href": "index.html#acknowledgement",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
+    "section": "Acknowledgement",
+    "text": "Acknowledgement\nI would like to thank Xi Xin for his help in preparing some of the course materials, and acknowledge Dr. Patrick Laub, whose Quarto website templates supported the development of this site.",
     "crumbs": [
       "Home"
     ]
@@ -205,6 +215,13 @@
     "title": "Trade-offs, Integration, and Governance",
     "section": "Six governance practices",
     "text": "Six governance practices\nSource: National AI Centre AI6 guidance (National AI Centre 2025)\n\nAccountability. A named owner, including for vendor systems\nImpact assessment. Who could be harmed, especially vulnerable groups\nRisk management. Context-specific, since the same model can carry different risk depending on deployment\nTransparency. A register of every AI system in use\nTest & monitor. Before deployment, and continuously after\nHuman control. Real intervention points, not rubber-stamping\n\n\n\n\n\n\n\nImportant\n\n\nVendor accountability doesn’t transfer. The regulator looks to the deploying organisation (Ch 1’s ASIC REP 798)."
+  },
+  {
+    "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#ai6-practices-applied-to-claims-triage",
+    "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#ai6-practices-applied-to-claims-triage",
+    "title": "Trade-offs, Integration, and Governance",
+    "section": "AI6 practices, applied to claims triage",
+    "text": "AI6 practices, applied to claims triage\nEach practice, grounded in a real regulatory anchor, applied to this chapter’s own claims-triage system (see the capstone case study):\n\n\n\n\n\n\n\n\nPractice\nRegulatory anchor\nApplied here\n\n\n\n\n1. Accountability\nFAR; ASIC REP 798; APRA CPS 230\nWho owns the decision to reject a claim: the vendor, the assessor, or the insurer?\n\n\n2. Impact assessment\nAnti-discrimination law; Privacy Act ADM (Dec 2026)\nCould the triage score systematically disadvantage claimants least able to absorb a delay?\n\n\n3. Risk management\nAPRA CPS 230\nSame model, different risk: a delayed motor claim vs. a delayed hardship claim\n\n\n4. Transparency\nPrivacy Act ADM (Dec 2026); ASIC’s 11 questions\nCan a claimant be told, today, why their payment was delayed?\n\n\n5. Test & monitor\nAPRA CPS 230 model risk\nDoes the model stay calibrated as fraud patterns shift?\n\n\n6. Human control\nFAR “reasonable steps”; APRA CPS 230 continuity\nDoes the reviewing assessor have real authority to override the flag?"
   },
   {
     "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#governance-is-a-culture-not-a-checklist",
@@ -3195,11 +3212,25 @@
     "text": "Australia: principles-based, multi-regulator\nNo standalone AI Act, existing sector laws apply, enforced in parallel by regulators such as ASIC (the Australian Securities and Investments Commission). The absence of a new AI law does not mean an absence of accountability.\n\n\n\n\n\n\nImportant\n\n\nObligations don’t transfer to a vendor. If a third-party model produces unfair outcomes, the regulator looks to the deploying organisation (Parra-Orlandoni and Carvão 2026)."
   },
   {
+    "objectID": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#australia-is-not-the-eu",
+    "href": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#australia-is-not-the-eu",
+    "title": "Introduction to Responsible AI",
+    "section": "Australia is not the EU",
+    "text": "Australia is not the EU\n\n\n\n\n\n\n\n\n\nEU AI Act\nAustralia (2026)\n\n\n\n\nLegislation\nStandalone AI-specific Act\nNo standalone AI Act (yet)\n\n\nCoverage\nMandatory “high-risk” category\nExisting laws apply to AI\n\n\nRegulator\nSingle AI regulator\nMulti-regulator (ASIC, APRA, OAIC…)\n\n\nEnforcement\nProhibitions and fines\nStandards-led, risk-based\n\n\n\n\nNo new AI law ≠ no accountability. The regulators are already watching."
+  },
+  {
     "objectID": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#case-study-asic-rep-798",
     "href": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#case-study-asic-rep-798",
     "title": "Introduction to Responsible AI",
     "section": "Case Study: ASIC REP 798",
     "text": "Case Study: ASIC REP 798\n\n\n\n\n\n\n\nA governance failure\n\n\nA licensee deployed an AI credit-default model, no AI strategy, no policies, no risk rating. Review ten months in found “limited understanding” of the third-party platform, “incomplete model documentation,” “poor governance.” Described as a “black box.” The licensee kept using it for months more.\nSource: ASIC Report 798 (Oct 2024) (Australian Securities and Investments Commission 2024)\n\n\n\n\n\nAt what point does continuing to use a system you can’t explain stop being an operational gap and become an ethical failure?\n\n\nASIC published 11 questions it expects licensees to answer about any AI system. REP 798 found only 12 of 23 firms reviewed had fairness policies, and half hadn’t updated risk frameworks for AI. Also cover: APRA (Australian Prudential Regulation Authority) CPS 230 (board-approved operational risk frameworks, in force July 2025); OAIC (Office of the Australian Information Commissioner)/Privacy Act reforms (Dec 2026, automated-decision disclosure); FAR (Financial Accountability Regime; personal civil penalties up to A$1.56M)."
+  },
+  {
+    "objectID": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#the-trust-gap",
+    "href": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#the-trust-gap",
+    "title": "Introduction to Responsible AI",
+    "section": "The trust gap",
+    "text": "The trust gap\n\n\n\n\n\n\n\nAustralia has the lowest AI trust of any country surveyed\n\n\n\n30% of Australians believe AI’s benefits outweigh its risks — the lowest of any country in the study\n78% are concerned about negative outcomes from AI\n30% think current safeguards and regulation are adequate\n\nSource: KPMG & University of Melbourne, Trust, Attitudes and Use of AI: A Global Study 2025 (KPMG and University of Melbourne 2025)\n\n\n\n\n\nThis is the public REP 798 is written for. A governance failure like the one on the previous slide is exactly what erodes the 30% further."
   },
   {
     "objectID": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#australia-whats-coming",
@@ -3311,7 +3342,7 @@
     "href": "Lectures/Ch1-Introduction/Slides-Introduction.slides.html#next-class",
     "title": "Introduction to Responsible AI",
     "section": "Next class",
-    "text": "Next class\nChapter 2: Fairness Principles\nBring one example (from any domain) of a decision you think might be unfair, and why.\n\n\n\n\nAI Verify Foundation. 2023. “AI Verify Foundation.” https://aiverifyfoundation.sg/.\n\n\nAngwin, Julia, Jeff Larson, Surya Mattu, and Lauren Kirchner. 2016. “Machine Bias.” ProPublica. https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing.\n\n\nAustralian Securities and Investments Commission. 2024. Report 798: Beware the Gap — Governance Arrangements in the Face of AI Innovation. https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/.\n\n\nBarocas, Solon, and Andrew D Selbst. 2016. “Big Data’s Disparate Impact.” California Law Review 104: 671–732.\n\n\nBlackman, Reid. 2022. Ethical Machines: Your Concise Guide to Totally Unbiased, Transparent, and Respectful AI. Harvard Business Review Press.\n\n\nCentre for Multilevel Modelling, University of Bristol. 2020. The 2020 GCSE and a-Level ’Exam Grades Fiasco’: A Secondary Data Analysis of Students’ Grades and Ofqual’s Algorithm. https://www.bristol.ac.uk/cmm/research/grade/.\n\n\nColorado General Assembly. 2021. Senate Bill 21-169: Protecting Consumers from Unfair Discrimination in Insurance Practices. Colorado Division of Insurance. https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices.\n\n\nConsumer Financial Protection Bureau. 2023. “Consumer Financial Protection Circular 2023-03: Adverse Action Notification Requirements and Proper Use of the CFPB’s Sample Forms.” https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper.\n\n\nCyberspace Administration of China. 2022. Provisions on the Administration of Algorithmic Recommendation in Internet Information Services (互联网信息服务算法推荐管理规定). https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm.\n\n\nCyberspace Administration of China and Ministry of Industry and Information Technology and Ministry of Public Security and National Radio and Television Administration. 2025. Measures for the Labelling of AI-Generated and Synthesised Content (人工智能生成合成内容标识办法). https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm.\n\n\nDastin, Jeffrey. 2018. Amazon Scraps Secret AI Recruiting Tool That Showed Bias Against Women. Reuters. https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G.\n\n\nEuropean Court of Justice. 2011. Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge Des Consommateurs Test-Achats ASBL and Others v Conseil Des Ministres. Case C-236/09. https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236.\n\n\nEuropean Parliament and Council of the European Union. 2024. Regulation (EU) 2024/1689 Laying down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act). https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng.\n\n\nFederal Trade Commission. 2019. “FTC Imposes $5 Billion Penalty and Sweeping New Privacy Restrictions on Facebook.” https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook.\n\n\nGeneral Office of the State Council of the People’s Republic of China. 2026. State Council 2026 Legislative Work Plan (国务院2026年度立法工作计划). https://www.news.cn/20260511/64fb4f5178b042e6aa16bf55932f038e/c.html.\n\n\nHuang, Fei. 2025. “Check Your AI: A Framework for Its Use in Actuarial Practice.” The Actuary. https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice.\n\n\nLeek, Jeffrey T, and Roger D Peng. 2015. “What Is the Question?” Science 347 (6228): 1314–15.\n\n\nMonetary Authority of Singapore. 2018. “Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector.” https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat.\n\n\nMonetary Authority of Singapore. 2019. “Veritas Initiative.” https://www.mas.gov.sg/schemes-and-initiatives/veritas.\n\n\nNational Financial Regulatory Administration (China). 2026. Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors (关于银行业保险业人工智能安全开发应用的指导意见, Jin Fa [2026] No. 8). https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&generaltype=1.\n\n\nNational People’s Congress (China). 2021. Personal Information Protection Law of the People’s Republic of China (中华人民共和国个人信息保护法). http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html.\n\n\nNew York City Council. 2021. Local Law 144 of 2021: Automated Employment Decision Tools. https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/.\n\n\nNew York State Department of Financial Services. 2021. Report on Apple Card Investigation. https://www.dfs.ny.gov/system/files/documents/2021/03/rpt_202103_apple_card_investigation.pdf.\n\n\nNew York State Department of Financial Services. 2024. “Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing.” https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07.\n\n\nObermeyer, Ziad, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. 2019. “Dissecting Racial Bias in an Algorithm Used to Manage the Health of Populations.” Science 366 (6464): 447–53.\n\n\nParra-Orlandoni, M. Alejandra, and Paulo Carvão. 2026. “You Outsourced the AI — but You Still Own the Risk.” Harvard Business Review. https://hbr.org/2026/07/you-outsourced-the-ai-but-you-still-own-the-risk.\n\n\nPeng, Roger D, and Elizabeth Matsui. 2015. The Art of Data Science: A Guide for Anyone Who Works with Data. Skybrude Consulting, LLC.\n\n\nPersonal Data Protection Commission Singapore and Infocomm Media Development Authority. 2020. “Model Artificial Intelligence Governance Framework (Second Edition).” https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework."
+    "text": "Next class\nChapter 2: Fairness Principles\nBring one example (from any domain) of a decision you think might be unfair, and why.\n\n\n\n\nAI Verify Foundation. 2023. “AI Verify Foundation.” https://aiverifyfoundation.sg/.\n\n\nAngwin, Julia, Jeff Larson, Surya Mattu, and Lauren Kirchner. 2016. “Machine Bias.” ProPublica. https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing.\n\n\nAustralian Securities and Investments Commission. 2024. Report 798: Beware the Gap — Governance Arrangements in the Face of AI Innovation. https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/.\n\n\nBarocas, Solon, and Andrew D Selbst. 2016. “Big Data’s Disparate Impact.” California Law Review 104: 671–732.\n\n\nBlackman, Reid. 2022. Ethical Machines: Your Concise Guide to Totally Unbiased, Transparent, and Respectful AI. Harvard Business Review Press.\n\n\nCentre for Multilevel Modelling, University of Bristol. 2020. The 2020 GCSE and a-Level ’Exam Grades Fiasco’: A Secondary Data Analysis of Students’ Grades and Ofqual’s Algorithm. https://www.bristol.ac.uk/cmm/research/grade/.\n\n\nColorado General Assembly. 2021. Senate Bill 21-169: Protecting Consumers from Unfair Discrimination in Insurance Practices. Colorado Division of Insurance. https://doi.colorado.gov/for-consumers/sb21-169-protecting-consumers-from-unfair-discrimination-in-insurance-practices.\n\n\nConsumer Financial Protection Bureau. 2023. “Consumer Financial Protection Circular 2023-03: Adverse Action Notification Requirements and Proper Use of the CFPB’s Sample Forms.” https://www.federalregister.gov/documents/2024/04/17/2024-08003/consumer-financial-protection-circular-2023-03-adverse-action-notification-requirements-and-proper.\n\n\nCyberspace Administration of China. 2022. Provisions on the Administration of Algorithmic Recommendation in Internet Information Services (互联网信息服务算法推荐管理规定). https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm.\n\n\nCyberspace Administration of China and Ministry of Industry and Information Technology and Ministry of Public Security and National Radio and Television Administration. 2025. Measures for the Labelling of AI-Generated and Synthesised Content (人工智能生成合成内容标识办法). https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm.\n\n\nDastin, Jeffrey. 2018. Amazon Scraps Secret AI Recruiting Tool That Showed Bias Against Women. Reuters. https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G.\n\n\nEuropean Court of Justice. 2011. Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge Des Consommateurs Test-Achats ASBL and Others v Conseil Des Ministres. Case C-236/09. https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236.\n\n\nEuropean Parliament and Council of the European Union. 2024. Regulation (EU) 2024/1689 Laying down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act). https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng.\n\n\nFederal Trade Commission. 2019. “FTC Imposes $5 Billion Penalty and Sweeping New Privacy Restrictions on Facebook.” https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook.\n\n\nGeneral Office of the State Council of the People’s Republic of China. 2026. State Council 2026 Legislative Work Plan (国务院2026年度立法工作计划). https://www.news.cn/20260511/64fb4f5178b042e6aa16bf55932f038e/c.html.\n\n\nHuang, Fei. 2025. “Check Your AI: A Framework for Its Use in Actuarial Practice.” The Actuary. https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice.\n\n\nKPMG, and University of Melbourne. 2025. Trust, Attitudes and Use of Artificial Intelligence: A Global Study 2025 — Australia Snapshot. https://kpmg.com/au/en/insights/artificial-intelligence-ai/trust-in-ai-global-insights-2025.html.\n\n\nLeek, Jeffrey T, and Roger D Peng. 2015. “What Is the Question?” Science 347 (6228): 1314–15.\n\n\nMonetary Authority of Singapore. 2018. “Principles to Promote Fairness, Ethics, Accountability and Transparency (FEAT) in the Use of Artificial Intelligence and Data Analytics in Singapore’s Financial Sector.” https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat.\n\n\nMonetary Authority of Singapore. 2019. “Veritas Initiative.” https://www.mas.gov.sg/schemes-and-initiatives/veritas.\n\n\nNational Financial Regulatory Administration (China). 2026. Guidance on the Safe Development and Application of Artificial Intelligence in the Banking and Insurance Sectors (关于银行业保险业人工智能安全开发应用的指导意见, Jin Fa [2026] No. 8). https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&generaltype=1.\n\n\nNational People’s Congress (China). 2021. Personal Information Protection Law of the People’s Republic of China (中华人民共和国个人信息保护法). http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html.\n\n\nNew York City Council. 2021. Local Law 144 of 2021: Automated Employment Decision Tools. https://rules.cityofnewyork.us/rule/automated-employment-decision-tools-updated/.\n\n\nNew York State Department of Financial Services. 2021. Report on Apple Card Investigation. https://www.dfs.ny.gov/system/files/documents/2021/03/rpt_202103_apple_card_investigation.pdf.\n\n\nNew York State Department of Financial Services. 2024. “Insurance Circular Letter No. 7 (2024): Use of Artificial Intelligence Systems and External Consumer Data and Information Sources in Insurance Underwriting and Pricing.” https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07.\n\n\nObermeyer, Ziad, Brian Powers, Christine Vogeli, and Sendhil Mullainathan. 2019. “Dissecting Racial Bias in an Algorithm Used to Manage the Health of Populations.” Science 366 (6464): 447–53.\n\n\nParra-Orlandoni, M. Alejandra, and Paulo Carvão. 2026. “You Outsourced the AI — but You Still Own the Risk.” Harvard Business Review. https://hbr.org/2026/07/you-outsourced-the-ai-but-you-still-own-the-risk.\n\n\nPeng, Roger D, and Elizabeth Matsui. 2015. The Art of Data Science: A Guide for Anyone Who Works with Data. Skybrude Consulting, LLC.\n\n\nPersonal Data Protection Commission Singapore and Infocomm Media Development Authority. 2020. “Model Artificial Intelligence Governance Framework (Second Edition).” https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework."
   },
   {
     "objectID": "Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html",
@@ -5745,7 +5776,7 @@
     "href": "index-ZH.html",
     "title": "量化负责任人工智能:原则、治理与方法",
     "section": "",
-    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n提示从这里开始\n\n\n\n使用左侧边栏打开任意章节。每个章节的课堂笔记均包含全部代码和图表。",
+    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n注记教学使用记录\n\n\n\n本课程材料已用于北京大学光华管理学院 BA 工作坊的教学。\n\n课程大纲:查看链接\n课程录像:YouTube 播放列表\n\n\n\n\n\n\n\n\n第一章:导论\n\n课堂笔记 · 幻灯片\n\n第二章:公平性原则\n\n课堂笔记 · 幻灯片\n\n第三章:公平性实践\n\n课堂笔记 · 幻灯片\n\n第四章:可解释性原则\n\n课堂笔记 · 幻灯片\n\n第五章:可解释性实践\n\n课堂笔记 · 幻灯片\n\n第六章:隐私原则\n\n课堂笔记 · 幻灯片\n\n第七章:隐私实践\n\n课堂笔记 · 幻灯片\n\n第八章:权衡取舍、整合与治理\n\n课堂笔记 · 幻灯片",
     "crumbs": [
       "首页"
     ]
@@ -5755,17 +5786,7 @@
     "href": "index-ZH.html#概述",
     "title": "量化负责任人工智能:原则、治理与方法",
     "section": "",
-    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n提示从这里开始\n\n\n\n使用左侧边栏打开任意章节。每个章节的课堂笔记均包含全部代码和图表。",
-    "crumbs": [
-      "首页"
-    ]
-  },
-  {
-    "objectID": "index-ZH.html#课程地图",
-    "href": "index-ZH.html#课程地图",
-    "title": "量化负责任人工智能:原则、治理与方法",
-    "section": "课程地图",
-    "text": "课程地图\n\n\n\n章节\n主题\n重点\n\n\n\n\n1\n导论\n动机、生命周期、治理与职业背景\n\n\n2\n公平性原则\n定义、法律与经济视角、公平性准则\n\n\n3\n公平性实践\n保险领域中的衡量、缓解与案例研究\n\n\n4\n可解释性原则\n透明度、可解释性与利益相关方需求\n\n\n5\n可解释性实践\n方法、验证与沟通\n\n\n6\n隐私原则\n数据保护、同意机制与监管基础\n\n\n7\n隐私实践\n技术、风险评估与操作管控\n\n\n8\n权衡取舍与整合\n平衡多重目标,并将负责任人工智能嵌入工作流程",
+    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n注记教学使用记录\n\n\n\n本课程材料已用于北京大学光华管理学院 BA 工作坊的教学。\n\n课程大纲:查看链接\n课程录像:YouTube 播放列表\n\n\n\n\n\n\n\n\n第一章:导论\n\n课堂笔记 · 幻灯片\n\n第二章:公平性原则\n\n课堂笔记 · 幻灯片\n\n第三章:公平性实践\n\n课堂笔记 · 幻灯片\n\n第四章:可解释性原则\n\n课堂笔记 · 幻灯片\n\n第五章:可解释性实践\n\n课堂笔记 · 幻灯片\n\n第六章:隐私原则\n\n课堂笔记 · 幻灯片\n\n第七章:隐私实践\n\n课堂笔记 · 幻灯片\n\n第八章:权衡取舍、整合与治理\n\n课堂笔记 · 幻灯片",
     "crumbs": [
       "首页"
     ]
@@ -5785,7 +5806,27 @@
     "href": "index-ZH.html#许可协议",
     "title": "量化负责任人工智能:原则、治理与方法",
     "section": "许可协议",
-    "text": "许可协议\n© 2026 黄斐(Fei Huang)。保留所有权利。\n本网站内容仅供北京大学光华管理学院 BA 工作坊课程教学使用,仅限注册学员在课程期间学习参考。未经作者书面许可,任何单位或个人不得以任何形式复制、传播、修改、汇编或用于商业用途本网站的任何内容。如需转载或引用,请联系作者获得授权。",
+    "text": "许可协议\n除另有说明外,本资源所创作的材料均遵循知识共享 署名-非商业性使用-禁止演绎 4.0 国际(CC BY-NC-ND 4.0)许可协议。\n\n\n\n\n\n\n注记致教育工作者\n\n\n\n该许可协议不允许公开发布改编版本。如果你希望将本课程内容用于自己的非商业性课程并加以改编,请通过邮箱 feihuang@unsw.edu.au 与我联系商议。",
+    "crumbs": [
+      "首页"
+    ]
+  },
+  {
+    "objectID": "index-ZH.html#引用方式",
+    "href": "index-ZH.html#引用方式",
+    "title": "量化负责任人工智能:原则、治理与方法",
+    "section": "引用方式",
+    "text": "引用方式\n黄斐(2026)。《量化负责任人工智能:原则、治理与方法》。新南威尔士大学。https://responsible-ai.feihuang.org\n引用本资源时,请使用以下 BibTeX 条目:\n@misc{huang2026quantresponsibleai,\n  author    = {Huang, Fei},\n  title     = {Quantitative Responsible AI: Principles, Governance, and Methods},\n  publisher = {UNSW Sydney},\n  year      = {2026},\n  url       = {https://responsible-ai.feihuang.org}\n}",
+    "crumbs": [
+      "首页"
+    ]
+  },
+  {
+    "objectID": "index-ZH.html#致谢",
+    "href": "index-ZH.html#致谢",
+    "title": "量化负责任人工智能:原则、治理与方法",
+    "section": "致谢",
+    "text": "致谢\n感谢 Xi Xin 协助准备部分课程材料,同时感谢 Patrick Laub 博士,他的 Quarto 网站模板为本网站的搭建提供了支持。",
     "crumbs": [
       "首页"
     ]

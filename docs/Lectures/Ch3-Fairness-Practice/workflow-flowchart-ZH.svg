@@ -1,0 +1,48 @@
+<svg viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="760" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrow-zh" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#1F4E79"/>
+    </marker>
+  </defs>
+
+  <!-- Arrows -->
+  <g stroke="#1F4E79" stroke-width="2" fill="none" marker-end="url(#arrow-zh)">
+    <line x1="380" y1="100" x2="380" y2="136"/>
+    <line x1="380" y1="220" x2="380" y2="256"/>
+    <line x1="380" y1="340" x2="380" y2="376"/>
+    <line x1="380" y1="460" x2="380" y2="496"/>
+    <line x1="380" y1="580" x2="380" y2="616"/>
+  </g>
+
+  <!-- Step 1 -->
+  <rect x="80" y="20" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="57" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold">1. 确定准则与结果变量</text>
+  <text x="380" y="82" text-anchor="middle" fill="#dbe6f0" font-size="15">第二章,第一步</text>
+
+  <!-- Step 2 -->
+  <rect x="80" y="140" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="177" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold">2. 选择干预阶段与模型设计</text>
+  <text x="380" y="202" text-anchor="middle" fill="#dbe6f0" font-size="15">预处理、处理中或后处理——第二章,第二步</text>
+
+  <!-- Step 3 -->
+  <rect x="80" y="260" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="297" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold">3. 实现并拟合模型</text>
+  <text x="380" y="322" text-anchor="middle" fill="#dbe6f0" font-size="15">保留M0作为基准模型</text>
+
+  <!-- Step 4 -->
+  <rect x="80" y="380" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="417" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold">4. 衡量权衡取舍</text>
+  <text x="380" y="442" text-anchor="middle" fill="#dbe6f0" font-size="15">公平性指标 vs. 准确性指标</text>
+
+  <!-- Step 5 -->
+  <rect x="80" y="500" width="600" height="80" rx="6" fill="#1F4E79"/>
+  <text x="380" y="537" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold">5. 审视重新分配</text>
+  <text x="380" y="562" text-anchor="middle" fill="#dbe6f0" font-size="15">哪些子群体获益,哪些受损</text>
+
+  <!-- Step 6 (optional) -->
+  <rect x="80" y="620" width="600" height="80" rx="6" fill="#eef3f8" stroke="#1F4E79" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="380" y="657" text-anchor="middle" fill="#1F4E79" font-size="20" font-weight="bold">6. 对逆向选择进行压力测试</text>
+  <text x="380" y="682" text-anchor="middle" fill="#3a6386" font-size="15">选读深度</text>
+</svg>

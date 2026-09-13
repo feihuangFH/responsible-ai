@@ -1,26 +1,29 @@
-# Quantitative Responsible AI — Course Site
+Quantitative Responsible AI — Open Learning Resource
+===========
 
-An open learning resource on quantitative responsible AI: fairness,
-explainability, and privacy in high-stakes automated decision-making,
-available in both English and Chinese.
+Quarto website for a **Quantitative Responsible AI** course developed by [Fei Huang](https://www.feihuang.org) at UNSW Sydney.
 
-**Live site:** https://responsible-ai.feihuang.org
+## Local development
 
-## Scope
+From this folder:
 
-This repository hosts the full public-facing course site: all 8 chapters
-(lecture notes and in-class slides), in both English and Chinese, with a
-language toggle on every page. Instructor-only materials (assignment
-solutions, marking rubrics) are not included here.
+```bash
+quarto render
+```
+
+Preview the site:
+
+```bash
+quarto preview
+```
+
+Rendered HTML is written to `docs/` (same pattern as the ACTL4305 course site).
+
+## Structure
+
+- `index.qmd` — home page and chapter index
+- `Lectures/Ch1-Introduction/` … `Lectures/Ch8-Tradeoffs-and-Integration/` — one lecture per chapter (HTML + Reveal.js slides)
 
 ## License
 
-Materials created for this resource are licensed under
-[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) unless
-otherwise noted. See [LICENSE](LICENSE) for full terms.
-
-## Development note
-
-This project was developed with support from AI coding assistants. All
-analysis, content decisions, and conclusions are the author's own and her
-responsibility.
+See LICENSE. Course materials by Fei Huang are under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).

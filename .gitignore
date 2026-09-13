@@ -1,9 +1,8 @@
-# macOS
-.DS_Store
+*
+!docs
+!docs/**
+!LICENSE
+!README.md
+/.quarto/
 
-# Windows
-Thumbs.db
-
-# Editor files
-*.swp
-*~
+**/*.quarto_ipynb
