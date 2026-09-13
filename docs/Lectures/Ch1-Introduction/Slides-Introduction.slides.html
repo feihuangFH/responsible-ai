@@ -347,17 +347,17 @@ Fei Huang, UNSW Sydney
 <p><strong>Illustrative example: hidden proxy discrimination</strong></p>
 </div>
 <div class="callout-content">
-<p>A motor insurer builds a new machine-learning pricing model. The team removes <code>gender</code> in response to regulatory pressure. The model never sees it.</p>
-<p>But <code>vehicle engine size</code> and <code>annual mileage</code> remain, and both correlate with gender in the training data, so they can act as invisible proxies for it.</p>
+<p>US insurers have used credit-based insurance scores since the early 1990s. The scores are genuinely predictive of claims cost.</p>
+<p>A 2007 FTC study found the score is far from race-neutral. It placed over 25% of Black consumers in the lowest, most expensive score band, against 3% of white consumers <span class="citation" data-cites="kiviat2019moral">(<a href="#/next-class" role="doc-biblioref" onclick="">Kiviat 2019</a>)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><strong>Removing the input doesn’t remove the effect.</strong></p>
+<p><strong>Removing race as an input wouldn’t have fixed this. Credit history already tracks it.</strong></p>
 </div>
 <aside class="notes">
-<p>The regulatory pressure is real, not hypothetical: in the EU, gender has been a protected attribute in insurance pricing since the European Court of Justice’s 2011 Test-Achats ruling <span class="citation" data-cites="ecj2011testachats">(<a href="#/next-class" role="doc-biblioref" onclick="">European Court of Justice 2011</a>)</span>.</p>
+<p>Guidance from Australia’s Human Rights Commission and the Actuaries Institute makes the same point directly: removing a protected attribute from a dataset is not sufficient, since other data may still act as a proxy for it <span class="citation" data-cites="ahrc2022insurance">(<a href="#/next-class" role="doc-biblioref" onclick="">Australian Human Rights Commission and Actuaries Institute 2022</a>)</span>. The regulatory aftermath: investigations in 17+ US states, five congressional hearings, and four states banning the practice outright. Every other state instead imposes constraints such as disclosure and hardship exemptions. Chapter 8 returns to this case in depth.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -494,7 +494,7 @@ Fei Huang, UNSW Sydney
 <p><strong>Insurance pricing</strong></p>
 </div>
 <div class="callout-content">
-<p>Vehicle engine size and mileage can proxy for gender and age, as in this chapter’s own worked example. Occupation or a credit-based score can proxy for socioeconomic status or race.</p>
+<p>A credit-based score can proxy for race, as in this chapter’s own worked example. Vehicle engine size and mileage can proxy for gender and age, though each also carries genuine risk signal, which is what makes them harder to simply exclude.</p>
 </div>
 </div>
 </div>
@@ -1444,6 +1444,9 @@ AI Verify Foundation. 2023. <span>“AI Verify Foundation.”</span> <a href="ht
 <div id="ref-angwin2016machine" class="csl-entry" role="listitem">
 Angwin, Julia, Jeff Larson, Surya Mattu, and Lauren Kirchner. 2016. <span>“Machine Bias.”</span> <em>ProPublica</em>. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing</a>.
 </div>
+<div id="ref-ahrc2022insurance" class="csl-entry" role="listitem">
+Australian Human Rights Commission and Actuaries Institute. 2022. <em>Guidance Resource: Artificial Intelligence and Discrimination in Insurance Pricing and Underwriting</em>. <a href="https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance">https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance</a>.
+</div>
 <div id="ref-asic2024rep798" class="csl-entry" role="listitem">
 Australian Securities and Investments Commission. 2024. <em>Report 798: Beware the Gap — Governance Arrangements in the Face of AI Innovation</em>. <a href="https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/">https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/</a>.
 </div>
@@ -1471,9 +1474,6 @@ Cyberspace Administration of China and Ministry of Industry and Information Tech
 <div id="ref-dastin2018amazon" class="csl-entry" role="listitem">
 Dastin, Jeffrey. 2018. <em>Amazon Scraps Secret AI Recruiting Tool That Showed Bias Against Women</em>. Reuters. <a href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G">https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G</a>.
 </div>
-<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
-European Court of Justice. 2011. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge Des Consommateurs Test-Achats ASBL and Others v Conseil Des Ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
-</div>
 <div id="ref-euaiact2024" class="csl-entry" role="listitem">
 European Parliament and Council of the European Union. 2024. <em>Regulation (EU) 2024/1689 Laying down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng</a>.
 </div>
@@ -1485,6 +1485,9 @@ General Office of the State Council of the People’s Republic of China. 2026. <
 </div>
 <div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
 Huang, Fei. 2025. <span>“Check Your <span>AI</span>: A Framework for Its Use in Actuarial Practice.”</span> <em>The Actuary</em>. <a href="https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice">https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice</a>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019. <span>“The Moral Limits of Predictive Practices: The Case of Credit-Based Insurance Scores.”</span> <em>American Sociological Review</em> 84 (6): 1134–58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
 </div>
 <div id="ref-kpmg_unimelb_2025_trust" class="csl-entry" role="listitem">
 KPMG, and University of Melbourne. 2025. <em>Trust, Attitudes and Use of Artificial Intelligence: A Global Study 2025 — Australia Snapshot</em>. <a href="https://kpmg.com/au/en/insights/artificial-intelligence-ai/trust-in-ai-global-insights-2025.html">https://kpmg.com/au/en/insights/artificial-intelligence-ai/trust-in-ai-global-insights-2025.html</a>.

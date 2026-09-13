@@ -333,10 +333,12 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>设想一家车险公司正在构建一个新的机器学习定价模型。团队为回应监管压力而移除了性别变量(例如在欧盟,自欧洲法院2011年 <em>Test-Achats</em> 判决 <span class="citation" data-cites="ecj2011testachats">(<a href="#ref-ecj2011testachats" role="doc-biblioref">European Court of Justice 2011年</a>)</span> 以来,性别已成为保险定价中的受保护属性)。模型从未将 <code>gender</code>(性别)作为输入变量。</p>
-<p>但 <code>vehicle engine size</code>(车辆发动机排量)和 <code>annual mileage</code>(年行驶里程)仍然保留在模型中,而这两者在训练数据中都与性别存在相关性。因此,这些变量可能成为性别的代理变量,这意味着仅仅移除性别变量本身,并不足以消除模型输出结果中与性别相关的差异。</p>
+<p>基于信用的保险评分是一个典型案例。美国保险公司自20世纪90年代初就开始使用这类评分,因为它们确实对理赔成本具有真实的预测能力。美国联邦贸易委员会(FTC)2007年的一项研究发现,这一看似中立、以财务状况为基础的评分,在实际中远非种族中立。超过25%的黑人消费者被归入评分最低、保费最高的等级,而白人消费者的这一比例仅为3% <span class="citation" data-cites="kiviat2019moral">(<a href="#ref-kiviat2019moral" role="doc-biblioref">Kiviat 2019年</a>)</span>。</p>
+<p>仅仅从模型中移除种族变量并不能解决这个问题。信用记录反映了长期存在的、更广泛的经济不平等格局,因此即便种族本身从未作为输入变量,它在统计上仍会持续追踪种族。澳大利亚人权委员会与精算师学会的指引恰恰指出了这一点。仅从数据集中移除受保护属性并不足够,因为其他数据仍可能成为该属性的代理变量 <span class="citation" data-cites="ahrc2022insurance">(<a href="#ref-ahrc2022insurance" role="doc-biblioref">Australian Human Rights Commission and Actuaries Institute 2022年</a>)</span>。</p>
+<p>这一发现引发了持续的监管反弹,超过17个美国州展开调查,国会举行了五次听证会。四个州彻底禁止了这一做法。其余各州则选择施加限制,例如强制披露,以及为与离婚、失业、突发医疗事件等有据可查的困境相关的负面信用记录设置豁免,同时仍然允许保留基础评分本身 <span class="citation" data-cites="kiviat2019moral">(<a href="#ref-kiviat2019moral" role="doc-biblioref">Kiviat 2019年</a>)</span>。一个在统计上有效、确实具有预测力的标准,仍然可能被判定为不正当。第八章将更深入地探讨这一案例。</p>
 </div>
 </div>
+<p>同样的紧张关系也出现在更上游,即保险公司最初收集哪些数据这一环节。保险公司越来越多地使用第三方数据产品(例如 Resonate),这些产品整合了家庭构成、教育水平、法院判决记录以及富裕程度等指标,还包括网页浏览行为和社交媒体足迹等数据。这些变量对保险公司的价值完全在于它们与预测目标之间的相关程度,而其中不少变量也与某个受保护属性高度相关,这与上文信用评分案例中的动态如出一辙,只是规模大得多 <span class="citation" data-cites="huang2026insurersdata">(<a href="#ref-huang2026insurersdata" role="doc-biblioref">Huang 2026年</a>)</span>。</p>
 <p>同样的结构在不同行业中反复出现。美国一款被广泛使用的医疗算法,以预测医疗支出而非预测病情严重程度来分配额外的护理管理资源;由于黑人患者在同等病情需求下,历史上产生的医疗支出更低,该算法系统性地未能将他们转介至额外护理 <span class="citation" data-cites="obermeyer2019dissecting">(<a href="#ref-obermeyer2019dissecting" role="doc-biblioref">Obermeyer 等 2019年</a>)</span>。亚马逊在发现其内部招聘工具会惩罚简历中出现“women’s”(女性)一词的求职者后,弃用了该工具,这一模式是从过去十年中以男性为主的简历数据中学习而来 <span class="citation" data-cites="dastin2018amazon">(<a href="#ref-dastin2018amazon" role="doc-biblioref">Dastin 2018年</a>)</span>。Apple Card 的信用额度算法引发了纽约州的监管调查,起因是有客户反映女性获得的额度远低于财务状况相近甚至更优的丈夫,不过调查最终认定该算法并未违反公平信贷相关法律 <span class="citation" data-cites="nydfs2021applecard">(<a href="#ref-nydfs2021applecard" role="doc-biblioref">New York State Department of Financial Services 2021年</a>)</span>。在中国,电商与出行平台对老客户或回头客收取比新客户更高的价格(即“大数据杀熟”)的做法一度相当普遍,以至于2022年的《互联网信息服务算法推荐管理规定》明确将其列为禁止行为 <span class="citation" data-cites="china_algo_recommendation_2022">(<a href="#ref-china_algo_recommendation_2022" role="doc-biblioref">国家互联网信息办公室 2022年</a>)</span>。</p>
 <p><strong>由此产生的问题:</strong></p>
 <ul>
@@ -939,9 +941,6 @@ Dastin, Jeffrey. 2018年. <em>Amazon scraps secret AI recruiting tool that showe
 <div id="ref-australia_national_ai_plan_2025" class="csl-entry" role="listitem">
 Department of Industry, Science and Resources (Australia). 2025年. <span>《National AI Plan》</span>. <a href="https://www.industry.gov.au/publications/national-ai-plan/introduction">https://www.industry.gov.au/publications/national-ai-plan/introduction</a>.
 </div>
-<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
-European Court of Justice. 2011年. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge des Consommateurs Test-Achats ASBL and Others v Conseil des ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
-</div>
 <div id="ref-euaiact2024" class="csl-entry" role="listitem">
 European Parliament and Council of the European Union. 2024年. <em>Regulation (EU) 2024/1689 Laying Down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng</a>.
 </div>
@@ -954,8 +953,14 @@ General Office of the State Council of the People’s Republic of China. 2026年
 <div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
 Huang, Fei. 2025年. <span>《Check your <span>AI</span>: a framework for its use in actuarial practice》</span>. <em>The Actuary</em>. <a href="https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice">https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice</a>.
 </div>
+<div id="ref-huang2026insurersdata" class="csl-entry" role="listitem">
+Huang, Fei. 2026年. <span>《Insurers have a lot of data about us. Where do they get it, and how do they use it?》</span> The Conversation, 八月. <a href="https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053">https://theconversation.com/insurers-have-a-lot-of-data-about-us-where-do-they-get-it-and-how-do-they-use-it-290053</a>.
+</div>
 <div id="ref-illinois_ai_video_interview_act" class="csl-entry" role="listitem">
 Illinois General Assembly. 2019年. <em>Artificial Intelligence Video Interview Act (820 ILCS 42)</em>. <a href="https://www.ilga.gov/Legislation/ILCS/Articles?ActID=4015&amp;ChapterID=68&amp;Print=True">https://www.ilga.gov/Legislation/ILCS/Articles?ActID=4015&amp;ChapterID=68&amp;Print=True</a>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019年. <span>《The moral limits of predictive practices: The case of credit-based insurance scores》</span>. <em>American Sociological Review</em> 84 (6): 1134～58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
 </div>
 <div id="ref-leek2015question" class="csl-entry" role="listitem">
 Leek, Jeffrey T, 和 Roger D Peng. 2015年. <span>《What is the question?》</span> <em>Science</em> 347 (6228): 1314～15.

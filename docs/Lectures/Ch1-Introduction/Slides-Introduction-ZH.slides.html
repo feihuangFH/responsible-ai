@@ -347,17 +347,17 @@
 <p><strong>示例:隐蔽的代理性歧视</strong></p>
 </div>
 <div class="callout-content">
-<p>一家车险公司构建了一个新的机器学习定价模型。团队为回应监管压力移除了 <code>gender</code>(性别)变量。模型从未看到该变量。</p>
-<p>但 <code>vehicle engine size</code>(车辆发动机排量)和 <code>annual mileage</code>(年行驶里程)仍然保留,而这两者在训练数据中都与性别相关,因此可能成为性别的隐形代理变量。</p>
+<p>美国保险公司自20世纪90年代初就开始使用基于信用的保险评分。该评分确实对理赔成本具有真实的预测能力。</p>
+<p>美国联邦贸易委员会(FTC)2007年的一项研究发现,这一评分远非种族中立。超过25%的黑人消费者被归入评分最低、保费最高的等级,而白人消费者的这一比例仅为3% <span class="citation" data-cites="kiviat2019moral">(<a href="#/下节课" role="doc-biblioref" onclick="">Kiviat 2019年</a>)</span>。</p>
 </div>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><strong>移除输入变量,并不等于移除其影响。</strong></p>
+<p><strong>仅仅移除种族变量并不能解决这个问题。信用记录本身已经在追踪种族。</strong></p>
 </div>
 <aside class="notes">
-<p>这种监管压力是真实存在的,而非假设:在欧盟,自欧洲法院2011年 Test-Achats 判决 <span class="citation" data-cites="ecj2011testachats">(<a href="#/下节课" role="doc-biblioref" onclick="">European Court of Justice 2011年</a>)</span> 以来,性别已成为保险定价中的受保护属性。</p>
+<p>澳大利亚人权委员会与精算师学会的指引恰恰指出了这一点:仅从数据集中移除受保护属性并不足够,因为其他数据仍可能成为该属性的代理变量 <span class="citation" data-cites="ahrc2022insurance">(<a href="#/下节课" role="doc-biblioref" onclick="">Australian Human Rights Commission and Actuaries Institute 2022年</a>)</span>。监管后续:超过17个美国州展开调查,国会举行了五次听证会,四个州彻底禁止了这一做法。其余各州则选择施加限制,例如披露要求和困境豁免。第八章将更深入地探讨这一案例。</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -494,7 +494,7 @@
 <p><strong>保险报价</strong></p>
 </div>
 <div class="callout-content">
-<p>如本章示例所示,发动机排量与年行驶里程可能成为性别与年龄的代理变量;职业或基于信用记录的评分可能成为社会经济地位或种族的代理变量。</p>
+<p>如本章示例所示,基于信用记录的评分可能成为种族的代理变量。发动机排量与年行驶里程也可能成为性别与年龄的代理变量,不过两者同时也携带真实的风险信号,这正是它们难以被简单剔除的原因。</p>
 </div>
 </div>
 </div>
@@ -1376,6 +1376,9 @@ AI Verify Foundation. 2023年. <span>《AI Verify Foundation》</span>. <a href=
 <div id="ref-angwin2016machine" class="csl-entry" role="listitem">
 Angwin, Julia, Jeff Larson, Surya Mattu, 和 Lauren Kirchner. 2016年. <span>《Machine Bias》</span>. <em>ProPublica</em>. <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing</a>.
 </div>
+<div id="ref-ahrc2022insurance" class="csl-entry" role="listitem">
+Australian Human Rights Commission and Actuaries Institute. 2022年. <em>Guidance Resource: Artificial Intelligence and Discrimination in Insurance Pricing and Underwriting</em>. <a href="https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance">https://humanrights.gov.au/resource-hub/by-resource-type/publications/technology-and-human-rights/guides/guidance-resource-ai-and-discrimination-insurance</a>.
+</div>
 <div id="ref-asic2024rep798" class="csl-entry" role="listitem">
 Australian Securities and Investments Commission. 2024年. <em>Report 798: Beware the Gap — Governance Arrangements in the Face of AI Innovation</em>. <a href="https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/">https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/</a>.
 </div>
@@ -1397,9 +1400,6 @@ Consumer Financial Protection Bureau. 2023年. <span>《Consumer Financial Prote
 <div id="ref-dastin2018amazon" class="csl-entry" role="listitem">
 Dastin, Jeffrey. 2018年. <em>Amazon scraps secret AI recruiting tool that showed bias against women</em>. Reuters. <a href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G">https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G</a>.
 </div>
-<div id="ref-ecj2011testachats" class="csl-entry" role="listitem">
-European Court of Justice. 2011年. <em>Judgment of the Court (Grand Chamber) of 1 March 2011, Association Belge des Consommateurs Test-Achats ASBL and Others v Conseil des ministres</em>. Case C-236/09. <a href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A62009CJ0236</a>.
-</div>
 <div id="ref-euaiact2024" class="csl-entry" role="listitem">
 European Parliament and Council of the European Union. 2024年. <em>Regulation (EU) 2024/1689 Laying Down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)</em>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng</a>.
 </div>
@@ -1411,6 +1411,9 @@ General Office of the State Council of the People’s Republic of China. 2026年
 </div>
 <div id="ref-huang2025checkyourai" class="csl-entry" role="listitem">
 Huang, Fei. 2025年. <span>《Check your <span>AI</span>: a framework for its use in actuarial practice》</span>. <em>The Actuary</em>. <a href="https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice">https://www.theactuary.com/features/2025/06/25/check-your-ai-framework-its-use-actuarial-practice</a>.
+</div>
+<div id="ref-kiviat2019moral" class="csl-entry" role="listitem">
+Kiviat, Barbara. 2019年. <span>《The moral limits of predictive practices: The case of credit-based insurance scores》</span>. <em>American Sociological Review</em> 84 (6): 1134～58. <a href="https://doi.org/10.1177/0003122419884917">https://doi.org/10.1177/0003122419884917</a>.
 </div>
 <div id="ref-leek2015question" class="csl-entry" role="listitem">
 Leek, Jeffrey T, 和 Roger D Peng. 2015年. <span>《What is the question?》</span> <em>Science</em> 347 (6228): 1314～15.
