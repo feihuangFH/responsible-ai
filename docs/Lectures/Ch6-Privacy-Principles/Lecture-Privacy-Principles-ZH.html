@@ -1760,6 +1760,13 @@ Westin, Alan F. 1967年. <em>Privacy and Freedom</em>. Atheneum.
 <div id="lang-toggle-container"></div>
 <script>
 (function () {
+  document.querySelectorAll(".quarto-title-meta-heading").forEach(function (el) {
+    if (el.textContent.trim() === "Author") { el.textContent = "Instructor"; }
+  });
+})();
+</script>
+<script>
+(function () {
   var path = window.location.pathname;
   if (/\/$/.test(path)) { path = path + "index.html"; }
   if (!/\.html$/.test(path)) return;
