@@ -182,12 +182,13 @@ Fei Huang, UNSW Sydney
 <li><a href="#/break-10-min" id="/toc-break-10-min"><em>Break — 10 min</em></a></li>
 <li><a href="#/part-4-shap-global-and-local" id="/toc-part-4-shap-global-and-local">Part 4 — SHAP: global and local</a></li>
 <li><a href="#/part-5-interactions" id="/toc-part-5-interactions">Part 5 — Interactions</a></li>
+<li><a href="#/part-6-stability-and-communication" id="/toc-part-6-stability-and-communication">Part 6 — Stability and communication</a></li>
 </ul>
 </nav>
 </section>
 <section id="todays-roadmap" class="slide level2 smaller center">
 <h2>Today’s roadmap</h2>
-<p>~2-hour session, hands-on, with five parts and five discussion breaks</p>
+<p>~2-hour session, hands-on, with six parts and five discussion breaks</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -222,7 +223,7 @@ Fei Huang, UNSW Sydney
 </tr>
 <tr class="odd">
 <td>1:55 – 2:10</td>
-<td>Interactions and summary</td>
+<td>Interactions, stability, and summary</td>
 </tr>
 </tbody>
 </table>
@@ -248,6 +249,7 @@ Fei Huang, UNSW Sydney
 <li>Use PDP and ALE to see predictor–prediction relationships</li>
 <li>Interpret SHAP values, globally and for one prediction</li>
 <li>Detect interactions with the H-statistic and SHAP interaction values</li>
+<li>Check that importance rankings are stable across refits, and match the summary to the audience</li>
 </ul>
 </section>
 <section>
@@ -600,6 +602,69 @@ Fei Huang, UNSW Sydney
 <h2>💬 Discuss (4 min)</h2>
 <p>If Age and Bonus interact strongly —</p>
 <p><strong>what’s wrong with explaining a policy’s premium using two separate, one-at-a-time SHAP contributions?</strong></p>
+</section></section>
+<section>
+<section id="part-6-stability-and-communication" class="title-slide slide level1 center">
+<h1>Part 6 — Stability and communication</h1>
+
+</section>
+<section id="would-a-different-fit-tell-the-same-story" class="slide level2 smaller center">
+<h2>Would a different fit tell the same story?</h2>
+<p>Refit the frequency model five times. Each refit uses 80% of the training policies, a new seed, and the same number of boosting rounds. Score each refit with permutation importance and SHAP.</p>
+
+<img data-src="img/stability-rank-ranges-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><div class="fragment">
+<p>Mean rank correlation across refits is <strong>0.99</strong> for both methods, and the two methods agree at <strong>0.97</strong>. The top five variables never move.</p>
+</div>
+<aside class="notes">
+<p>Dot is the median rank across the five refits, bar is the lowest to highest rank. Bonus, Age, Density, Group1, and Occupation fill the top five in every refit under both methods. Movement is at the bottom (Category, Value, Adind). Limits worth saying out loud: the refits share predictors, hyperparameters, and training population, so this covers seed and sampling variation only. A different model class, different tuning, or correlated predictors can reorder variables, and Fisher, Rudin, and Dominici (2019) study that wider question. Five refits can flag an unstable ranking but cannot put a confidence interval on one rank. There is no universal threshold for an acceptable correlation, so document the judgement with the result. Both measures here are computed on the frequency model, so the comparison between them is like for like.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-to-show-each-audience" class="slide level2 smaller center">
+<h2>What to show each audience</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 26%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Audience</th>
+<th>Show</th>
+<th>Avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Technical reviewer</strong></td>
+<td>Rankings from more than one method, PDP/ALE with caveats, interactions, stability</td>
+<td>A single ranking when methods or refits disagree</td>
+</tr>
+<tr class="even">
+<td><strong>Regulator</strong></td>
+<td>Global importance and main effects for every factor, flagged proxies, stability, limitations</td>
+<td>Treating explanations as proof of fairness <span class="citation" data-cites="slack2020fooling">(<a href="#/next-class" role="doc-biblioref" onclick="">Slack et al. 2020</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Affected individual</strong></td>
+<td>Local SHAP cut to the few largest drivers, in plain words, plus a what-if</td>
+<td>Raw SHAP values, model internals, wording that implies a driver causes their risk</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Keep the technical record complete.</strong> The plain-language version for the individual is a simplification of it.</p>
+</div>
 </section>
 <section id="summary" class="slide level2 center">
 <h2>Summary</h2>
@@ -607,6 +672,7 @@ Fei Huang, UNSW Sydney
 <li>Same workflow for any fitted tabular model, any domain</li>
 <li><strong>No single method tells the whole story.</strong> Built-in vs.&nbsp;permutation importance can disagree, and PDP vs.&nbsp;ALE can disagree under correlation</li>
 <li>Interaction diagnostics show where the additive, one-variable-at-a-time picture breaks down</li>
+<li>Check that rankings survive a refit before presenting them. Here the top five did, the bottom moved</li>
 <li>Explanations are for an audience. Match the summary to who’s asking</li>
 </ul>
 </section>
@@ -621,6 +687,7 @@ Fei Huang, UNSW Sydney
 <li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#/next-class" role="doc-biblioref" onclick="">2025</a>)</span> — every method used today, in depth</li>
 <li><span class="citation" data-cites="baeder2021iml">Baeder et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2021</a>)</span> — SOA report situating this toolkit in insurance practice</li>
 <li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#/next-class" role="doc-biblioref" onclick="">2019</a>)</span> — the case for interpretable-by-design over post-hoc explanation</li>
+<li><span class="citation" data-cites="fisher2019all">Fisher et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2019</a>)</span> — how a variable’s importance varies across equally accurate models</li>
 </ul>
 </section>
 <section id="next-class" class="slide level2 smaller scrollable">
@@ -638,6 +705,9 @@ Bordt, Sebastian, Michèle Finck, Eric Raidl, and Ulrike von Luxburg. 2022. <spa
 </div>
 <div id="ref-breiman2001random" class="csl-entry" role="listitem">
 Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1): 5–32.
+</div>
+<div id="ref-fisher2019all" class="csl-entry" role="listitem">
+Fisher, Aaron, Cynthia Rudin, and Francesca Dominici. 2019. <span>“All Models Are Wrong, but Many Are Useful: Learning a Variable’s Importance by Studying an Entire Class of Prediction Models Simultaneously.”</span> <em>Journal of Machine Learning Research</em> 20 (177): 1–81.
 </div>
 <div id="ref-friedman2008predictive" class="csl-entry" role="listitem">
 Friedman, Jerome H., and Bogdan E. Popescu. 2008. <span>“Predictive Learning via Rule Ensembles.”</span> <em>The Annals of Applied Statistics</em> 2 (3): 916–54.

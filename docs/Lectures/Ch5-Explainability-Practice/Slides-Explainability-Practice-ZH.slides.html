@@ -182,12 +182,13 @@
 <li><a href="#/休息10分钟" id="/toc-休息10分钟"><em>休息——10分钟</em></a></li>
 <li><a href="#/第四部分shap全局与局部" id="/toc-第四部分shap全局与局部">第四部分——SHAP:全局与局部</a></li>
 <li><a href="#/第五部分交互效应" id="/toc-第五部分交互效应">第五部分——交互效应</a></li>
+<li><a href="#/第六部分稳定性与沟通" id="/toc-第六部分稳定性与沟通">第六部分——稳定性与沟通</a></li>
 </ul>
 </nav>
 </section>
 <section id="今日安排" class="slide level2 smaller center">
 <h2>今日安排</h2>
-<p>约2小时课程,实操为主,五个部分,五次讨论环节</p>
+<p>约2小时课程,实操为主,六个部分,五次讨论环节</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -222,7 +223,7 @@
 </tr>
 <tr class="odd">
 <td>1:55 – 2:10</td>
-<td>交互效应与小结</td>
+<td>交互效应、稳定性与小结</td>
 </tr>
 </tbody>
 </table>
@@ -248,6 +249,7 @@
 <li>使用 PDP 和 ALE 观察预测变量与预测结果之间的关系</li>
 <li>从全局和单次预测两个层面解读 SHAP 值</li>
 <li>使用 H统计量和 SHAP 交互值检测交互效应</li>
+<li>检验重要性排序在多次重新拟合之间是否稳定,并根据受众调整摘要</li>
 </ul>
 </section>
 <section>
@@ -600,6 +602,69 @@
 <h2>💬 讨论(4分钟)</h2>
 <p>如果 Age 和 Bonus 存在强烈交互——</p>
 <p><strong>用两个独立的、逐一计算的 SHAP 贡献来解释一份保单的保费,问题出在哪里?</strong></p>
+</section></section>
+<section>
+<section id="第六部分稳定性与沟通" class="title-slide slide level1 center">
+<h1>第六部分——稳定性与沟通</h1>
+
+</section>
+<section id="换一次拟合故事还相同吗" class="slide level2 smaller center">
+<h2>换一次拟合,故事还相同吗?</h2>
+<p>将频率模型重新拟合五次。每次拟合都使用80%的训练保单、新的随机种子和相同的提升轮数。再用置换重要性和 SHAP 为每次拟合打分。</p>
+
+<img data-src="img/stability-rank-ranges-output-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><div class="fragment">
+<p>两种方法在各次重新拟合之间的平均秩相关系数均为 <strong>0.99</strong>,两种方法之间的一致程度为 <strong>0.97</strong>。排名前五的变量始终没有变动。</p>
+</div>
+<aside class="notes">
+<p>圆点是五次重新拟合中排名的中位数,横条覆盖从最高到最低的排名。无论哪种方法,Bonus、Age、Density、Group1 和 Occupation 在每次重新拟合中都占据前五位。变动出现在底部(Category、Value、Adind)。值得当面说明的局限:各次重新拟合使用相同的预测变量、超参数和训练总体,因此这项检验只涵盖随机种子和抽样带来的变动。不同的模型类别、不同的调参方式或相关的预测变量,都可能改变变量的先后顺序,Fisher、Rudin 和 Dominici (2019) 研究了这个更广泛的问题。五次重新拟合足以发现不稳定的排序,但无法为单个名次给出置信区间。并不存在通用的、可接受的相关系数门槛,因此应把这项判断与结果一起记录下来。这里两种度量都是在频率模型上计算的,因此二者之间的比较是同口径的。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="应向各类受众展示什么" class="slide level2 smaller center">
+<h2>应向各类受众展示什么</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>受众</th>
+<th>展示</th>
+<th>避免</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>技术审查人员</strong></td>
+<td>多种方法的排序、附带提示的 PDP/ALE、交互效应、稳定性</td>
+<td>在各方法或各次拟合结果不一致时只呈现单一排序</td>
+</tr>
+<tr class="even">
+<td><strong>监管机构</strong></td>
+<td>每个因子的全局重要性与主效应、被标记的代理变量、稳定性、局限</td>
+<td>把解释当作公平性的证明 <span class="citation" data-cites="slack2020fooling">(<a href="#/下节课" role="doc-biblioref" onclick="">Slack 等 2020年</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>受影响的个人</strong></td>
+<td>精简为几个最大驱动因素的局部 SHAP,用通俗语言表述,再加假设分析</td>
+<td>原始 SHAP 值、模型内部细节、暗示某个驱动因素导致其风险的措辞</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>保持技术记录完整。</strong> 提供给个人的通俗版本只是它的简化。</p>
+</div>
 </section>
 <section id="小结" class="slide level2 center">
 <h2>小结</h2>
@@ -607,6 +672,7 @@
 <li>同样的工作流程,适用于任何领域中已拟合的表格型模型</li>
 <li><strong>没有任何单一方法能讲述完整的故事。</strong> 内置重要性与置换重要性可能相互矛盾,PDP 与 ALE 在相关性存在时也可能出现分歧</li>
 <li>交互效应诊断展示了“逐一变量”的可加性图景在哪里失效</li>
+<li>呈现排序之前,先检验它能否经受重新拟合。这里排名前五的变量经受住了,底部则有变动</li>
 <li>解释是为受众服务的。应根据提问者调整摘要内容</li>
 </ul>
 </section>
@@ -621,6 +687,7 @@
 <li><span class="citation" data-cites="molnar2025iml">Molnar (<a href="#/下节课" role="doc-biblioref" onclick="">2025年</a>)</span> — 今天所用每一种方法的深入介绍</li>
 <li><span class="citation" data-cites="baeder2021iml">Baeder 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2021年</a>)</span> — 将本工具箱置于保险实务背景下的 SOA 报告</li>
 <li><span class="citation" data-cites="rudin2019stop">Rudin (<a href="#/下节课" role="doc-biblioref" onclick="">2019年</a>)</span> — 主张设计内生可解释性优于事后解释的论述</li>
+<li><span class="citation" data-cites="fisher2019all">Fisher 等 (<a href="#/下节课" role="doc-biblioref" onclick="">2019年</a>)</span> — 在预测效果同样好的模型之间,同一个变量的重要性如何变化</li>
 </ul>
 </section>
 <section id="下节课" class="slide level2 smaller scrollable">
@@ -638,6 +705,9 @@ Bordt, Sebastian, Michèle Finck, Eric Raidl, 和 Ulrike von Luxburg. 2022年. <
 </div>
 <div id="ref-breiman2001random" class="csl-entry" role="listitem">
 Breiman, Leo. 2001年. <span>《Random forests》</span>. <em>Machine Learning</em> 45 (1): 5～32.
+</div>
+<div id="ref-fisher2019all" class="csl-entry" role="listitem">
+Fisher, Aaron, Cynthia Rudin, 和 Francesca Dominici. 2019年. <span>《All Models are Wrong, but Many are Useful: Learning a Variable’s Importance by Studying an Entire Class of Prediction Models Simultaneously》</span>. <em>Journal of Machine Learning Research</em> 20 (177): 1～81.
 </div>
 <div id="ref-friedman2008predictive" class="csl-entry" role="listitem">
 Friedman, Jerome H., 和 Bogdan E. Popescu. 2008年. <span>《Predictive Learning via Rule Ensembles》</span>. <em>The Annals of Applied Statistics</em> 2 (3): 916～54.
