@@ -408,7 +408,7 @@ window.Quarto = {
 <section id="数据准备" class="level3">
 <h3 class="anchored" data-anchor-id="数据准备">数据准备</h3>
 <p>以下代码加载所需的包,并准备本案例研究通篇所使用的保险定价数据。</p>
-<div id="load-packages" class="cell" data-execution_count="1">
+<div id="load-packages" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>展示包的导入</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path                                <span class="co"># 与操作系统无关地处理 CSV 文件路径</span></span>
@@ -428,7 +428,7 @@ window.Quarto = {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shap                  <span class="co"># 为拟合好的 XGBoost 模型计算 Shapley 值(TreeSHAP)解释</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="global-options" class="cell" data-execution_count="2">
+<div id="global-options" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>展示全局设置</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DATA_PATH <span class="op">=</span> Path(<span class="st">"Case Study/pg15training.csv"</span>)</span>
@@ -445,7 +445,7 @@ window.Quarto = {
 </details>
 </div>
 <p>上述全局设置定义了本案例研究通篇所使用的随机种子和样本量。PDP、ALE、SHAP 和交互效应分析等若干种解释方法,都是在数据的子样本上计算的,以在保留主要解释结果的同时降低计算耗时。</p>
-<div id="load-prepare-data" class="cell" data-execution_count="3">
+<div id="load-prepare-data" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>展示数据准备代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_pg15training(path<span class="op">=</span>DATA_PATH):</span>
@@ -571,7 +571,7 @@ Age range: 18 to 75</code></pre>
 <section id="训练测试集划分" class="level4">
 <h4 class="anchored" data-anchor-id="训练测试集划分">训练—测试集划分</h4>
 <p>以下变量被用作预测变量:</p>
-<div id="define-predictors" class="cell" data-execution_count="4">
+<div id="define-predictors" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>展示预测变量列表</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [</span>
@@ -591,7 +591,7 @@ Age range: 18 to 75</code></pre>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="split-data" class="cell" data-execution_count="5">
+<div id="split-data" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>展示训练—测试集划分代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> train_test_split(</span>
@@ -606,7 +606,7 @@ Age range: 18 to 75</code></pre>
 </section>
 <section id="设计矩阵" class="level4">
 <h4 class="anchored" data-anchor-id="设计矩阵">设计矩阵</h4>
-<div id="create-design-matrices" class="cell" data-execution_count="6">
+<div id="create-design-matrices" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>展示设计矩阵代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_design_matrix(data, features<span class="op">=</span>features):</span>
@@ -654,7 +654,7 @@ Age range: 18 to 75</code></pre>
 <p>随后使用适合各自目标变量的标准性能度量,评估这些方法的预测性能。</p>
 <section id="xgboost-模型训练" class="level3">
 <h3 class="anchored" data-anchor-id="xgboost-模型训练">XGBoost 模型训练</h3>
-<div id="fit-frequency-model" class="cell" data-execution_count="7">
+<div id="fit-frequency-model" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>展示频率模型拟合代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>freq_params <span class="op">=</span> {</span>
@@ -704,7 +704,7 @@ Age range: 18 to 75</code></pre>
 Best test score: 0.37501327506782645</code></pre>
 </div>
 </div>
-<div id="fit-severity-model" class="cell" data-execution_count="8">
+<div id="fit-severity-model" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>展示严重程度模型拟合代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 严重程度只有对确实发生过理赔的保单才有意义。</span></span>
@@ -763,7 +763,7 @@ Best test score: 0.37501327506782645</code></pre>
 Best test score: 7.550736795946297</code></pre>
 </div>
 </div>
-<div id="fit-tweedie-model" class="cell" data-execution_count="9">
+<div id="fit-tweedie-model" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>展示 Tweedie 模型拟合代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tweedie_params <span class="op">=</span> {</span>
@@ -818,7 +818,7 @@ Best test score: 36.26058982831637</code></pre>
 </section>
 <section id="评估模型预测" class="level3">
 <h3 class="anchored" data-anchor-id="评估模型预测">评估模型预测</h3>
-<div id="cell-evaluate-models" class="cell" data-execution_count="10">
+<div id="cell-evaluate-models" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>展示模型评估代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rmse(actual, predicted):</span>
@@ -916,7 +916,7 @@ Best test score: 36.26058982831637</code></pre>
 </table>
 </div>
 </div>
-<div id="cell-severity-evaluation" class="cell" data-execution_count="11">
+<div id="cell-severity-evaluation" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>展示严重程度评估代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>severity_eval <span class="op">=</span> pd.DataFrame([</span>
@@ -963,7 +963,7 @@ Best test score: 36.26058982831637</code></pre>
 </table>
 </div>
 </div>
-<div id="cell-premium-evaluation" class="cell" data-execution_count="12">
+<div id="cell-premium-evaluation" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>展示纯保费评估代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>premium_eval <span class="op">=</span> pd.DataFrame([</span>
@@ -1051,7 +1051,7 @@ Best test score: 36.26058982831637</code></pre>
 </ul>
 <p>这些度量捕捉了特征使用情况的不同方面。例如,一个变量如果在树中被频繁使用,其权重可能较高;而一个变量即便使用频率较低,但只要一旦被选中就能带来较大改进,其增益也可能较高。</p>
 <p>在本案例研究中,我们基于<strong>增益</strong>展示特征重要性,因为相较于单纯统计某变量的使用次数,增益与模型拟合改进的关系更为直接。我们同时报告未分组重要性(基于编码后的模型特征)和分组重要性(将对应同一原始定价因子的哑变量汇总在一起)。</p>
-<div id="built-in-feature-importance" class="cell" data-execution_count="13">
+<div id="built-in-feature-importance" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>展示 XGBoost 特征重要性代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> group_feature_name(feature_name, original_features<span class="op">=</span>features):</span>
@@ -1185,7 +1185,7 @@ Best test score: 36.26058982831637</code></pre>
 </ol>
 <p>如果打乱某个变量会导致预测性能出现更大幅度的恶化,则认为该变量更为重要。在本案例研究中,恶化程度通过理赔次数预测的泊松偏差增幅来衡量。</p>
 <p>置换重要性的优势在于易于解读,且适用于许多不同的模型类别。然而,它可能受到预测变量之间相关性的影响。如果两个变量包含相似的信息,打乱其中一个变量的影响可能有限,因为模型仍可以使用与之相关的另一个变量。</p>
-<div id="permutation-feature-importance" class="cell" data-execution_count="14">
+<div id="permutation-feature-importance" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>展示置换特征重要性代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_deviance(actual, predicted):</span>
@@ -1511,7 +1511,7 @@ ICE_i(x_j).
 </div>
 </div>
 <p>以下辅助函数编写用于支持频率模型、严重程度模型和 Tweedie 模型。在接下来的示例中,我们将它们应用于 XGBoost 频率模型,考察 <strong>Age</strong> 和 <strong>Bonus</strong> 的主效应。</p>
-<div id="pdp-ale-helper-functions" class="cell" data-execution_count="15">
+<div id="pdp-ale-helper-functions" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>展示 PDP 与 ALE 辅助函数</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prediction_for_effect_plot(model, data, reference_columns, model_type):</span>
@@ -1748,7 +1748,7 @@ ICE_i(x_j).
 <section id="精选变量的-pdp-与-ale" class="level3">
 <h3 class="anchored" data-anchor-id="精选变量的-pdp-与-ale">精选变量的 PDP 与 ALE</h3>
 <p>我们将 PDP 和 ALE 应用于 <strong>Age</strong> 和 <strong>Bonus</strong>,这两个定价因子在本案例研究中被反复使用。PDP 曲线展示了各变量在不同取值下的平均预测年化理赔频率,而 ALE 曲线则展示了各变量的局部变化如何导致对平均预测结果的偏离。</p>
-<div id="cell-pdp-ale-age" class="cell" data-execution_count="16">
+<div id="cell-pdp-ale-age" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>展示 Age 的 PDP 与 ALE 图</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>age_pdp, age_ale <span class="op">=</span> plot_pdp_ale(</span>
@@ -1775,7 +1775,7 @@ ICE_i(x_j).
 <p><strong>Age</strong> 的 PDP 与 ALE 结果,揭示出驾驶员年龄与预测理赔频率之间存在强烈的非线性关系。</p>
 <p>两种方法均表明,非常年轻的驾驶员对应着显著更高的预测理赔频率。预测风险在大约18至30岁之间急剧下降,此后趋于相对稳定。</p>
 <p>PDP 曲线和 ALE 曲线高度一致,提示所估计的年龄效应是稳健的,并未受到年龄与其他预测变量之间相关性的强烈影响。这一结果也与精算预期相符,即年轻驾驶员通常表现出更高的理赔频率。</p>
-<div id="cell-pdp-ale-bonus" class="cell" data-execution_count="17">
+<div id="cell-pdp-ale-bonus" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>展示 Bonus 的 PDP 与 ALE 图</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bonus_pdp, bonus_ale <span class="op">=</span> plot_pdp_ale(</span>
@@ -1839,7 +1839,7 @@ ICE_i(x_j).
 <p>全局 SHAP 分析概括了各特征在测试集众多保单中对预测结果的贡献方式。以下代码首先针对一份测试观测值样本计算 SHAP 值,随后生成两幅全局摘要图。</p>
 <p>第一幅图将独热编码特征重新归组为原始定价变量,并依据其平均绝对 SHAP 值对其排序。这在思路上类似于特征重要性,但它基于的是每个变量对模型预测贡献的平均幅度。</p>
 <p>第二幅图是 SHAP 蜂群图。每个点代表一份保单和一个编码特征。横轴位置表示 SHAP 值。位于右侧的点提高模型输出,位于左侧的点则降低模型输出。颜色表示该特征的取值,使该图能够展示较大或较小的特征取值是否倾向于提高预测结果。</p>
-<div id="cell-shap-grouped-importance" class="cell" data-execution_count="18">
+<div id="cell-shap-grouped-importance" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>展示分组 SHAP 重要性代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 只保留最佳(提前停止时)那一轮迭代,因为原始的 tweedie_model 对象</span></span>
@@ -1958,7 +1958,7 @@ ICE_i(x_j).
 <p>分组 SHAP 重要性图表明,<strong>Bonus</strong>、<strong>Age</strong> 和 <strong>Density</strong> 是 Tweedie 模型中最具影响力的定价变量,其后是 <strong>Group1</strong> 以及若干人口统计与车辆特征变量。</p>
 <p>这一排序与前文所述的置换重要性分析大体一致,但两者来自不同的模型。置换重要性是在频率模型上计算的,而这里的 SHAP 分析使用的是 Tweedie 模型,因此这种一致只具有提示意义,并不是同口径的核对。本章末尾的稳定性一节,在同一个频率模型上比较了这两种方法。综合来看,这些结果提示这些变量不仅对预测性能贡献显著,对单次预测也有较大影响。</p>
 <p>尤其值得注意的是,<strong>Bonus</strong> 和 <strong>Age</strong> 相对较高的重要性,与 PDP 和 ALE 分析的结果相符,后者显示这些变量与预测纯保费之间存在强烈的非线性关系。</p>
-<div id="cell-shap-beeswarm" class="cell" data-execution_count="19">
+<div id="cell-shap-beeswarm" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>展示 SHAP 蜂群图代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>shap.plots.beeswarm(</span>
@@ -1989,7 +1989,7 @@ ICE_i(x_j).
 <p>在这一示例中,我们选取一份预测纯保费接近测试集预测结果第90百分位数的保单。这样做避免了只关注单一保费最高的保单(该保单可能是一个极端观测值),同时仍能提供一个预测保费相对较高的示例。</p>
 <p>瀑布图从基准模型输出开始,逐步加上各特征的 SHAP 贡献,直至达到所选保单的预测结果。以红色显示的特征提高预测结果,以蓝色显示的特征则降低预测结果。</p>
 <p>对于 Tweedie 模型,SHAP 值是在 XGBoost 内部使用的模型边际(对数)尺度上计算的。因此,瀑布图中显示的 <span class="math inline">E[f(X)]</span> 和 <span class="math inline">f(x)</span> 是以对数预测尺度、而非纯保费尺度表示的。对 <span class="math inline">f(x)</span> 取指数,即可还原出所选保单的预测纯保费。</p>
-<div id="shap-local" class="cell" data-execution_count="20">
+<div id="shap-local" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>展示局部 SHAP 解释代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>LOCAL_PREMIUM_QUANTILE <span class="op">=</span> <span class="fl">0.90</span></span>
@@ -2126,7 +2126,7 @@ ICE_i(x_j).
 </div>
 </div>
 <p>这一局部 SHAP 解释展示了这一特定保单的预测结果,是如何从基准预测出发逐步构建而成的。</p>
-<p>对于这份保单,最大的正向贡献来自 <strong>Age = 20</strong> 和 <strong>Density = 236.4</strong>,二者都大幅提高了预测纯保费。相比之下,<strong>Group1 = 5</strong> 和 <strong>Bonus = -10</strong> 则相对于基准降低了预测结果。</p>
+<p>对于这份保单,最大的正向贡献来自 <strong>Bonus = 110</strong>(对数尺度上为 +0.76),其次是 <strong>Density = 236.4</strong>(+0.26)和 <strong>Group1 = 14</strong>(+0.14)。最大的负向贡献来自 <strong>Age = 51</strong>(−0.44),它相对于基准降低了预测结果。</p>
 <p>因此,瀑布图通过量化每个特征对最终保费估计值的贡献,提供了对模型预测结果的直观分解。</p>
 <p>这一解释也与全局分析大体一致。例如,<strong>Age</strong>、<strong>Bonus</strong> 和 <strong>Density</strong> 在分组 SHAP 重要性图中被识别为高影响力变量,并在这一具体保单中也展现出最大的贡献之一。</p>
 <div class="callout callout-style-default callout-note callout-titled" title="解读 SHAP 尺度">
@@ -2158,7 +2158,7 @@ ICE_i(x_j).
 <p>为回答这一问题,我们进行了一项简单的局部假设分析。从所选保单出发,逐一修改每个预测变量,同时保持其余特征不变。由此产生的预测纯保费变化,提供了该预测结果对该变量的局部敏感性度量。</p>
 <p>这一分析与<strong>反事实解释</strong>的思路相关,后者寻找会产生显著不同预测结果的替代特征取值。但与正式的反事实方法不同,本分析并不试图寻找一种最优或最现实的变化组合。相反,它使用具有代表性的参照值,一次只改变一个变量,使结果易于解读,适合用于探索性分析。</p>
 <p>对于连续变量,参照值取样本中位数;对于分类变量,则替换为其最常见的类别。由此产生的预测保费变化,为哪些特征对所选保单影响最大提供了一个简单的指示。</p>
-<div id="cell-local-premium-impact" class="cell" data-execution_count="21">
+<div id="cell-local-premium-impact" class="cell" data-execution_count="22">
 <details class="code-fold">
 <summary>展示局部保费影响分析代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas.api.types <span class="im">import</span> CategoricalDtype</span>
@@ -2348,7 +2348,8 @@ ICE_i(x_j).
 </table>
 </div>
 </div>
-<p>结果表明,在这种逐一变量替换为参照值的情形下,<strong>Age</strong>、<strong>Group1</strong>、<strong>Bonus</strong> 和 <strong>Density</strong> 产生了最大幅度的预测保费变化。较年轻的年龄、较高的密度以及所观测到的 Bonus 水平,均对所选保单的预测保费有显著贡献。对于 <strong>Gender</strong> 和 <strong>Occupation</strong>,观测值与参照值相同,因此这一特定的假设比较没有产生变化。这不应被解读为这些变量在模型中没有效应的证据。上述结论与局部 SHAP 解释大体一致。</p>
+<p>结果表明,在这种逐一变量替换为参照值的情形下,<strong>Bonus</strong>、<strong>Density</strong> 和 <strong>Group1</strong> 产生了最大幅度的预测保费变化。将所观测到的 Bonus 水平 110 替换为样本中位数 −30,预测保费将从约 247 降至约 64。将所观测到的密度替换为中位数,预测保费将降至约 172,将 Group1 替换为其中位数,则降至约 218。</p>
+<p><strong>Age</strong> 几乎没有产生变化。将观测年龄 51 换成参照年龄 40,保费基本保持不变,但 SHAP 却赋予 Age 一个较大的负向贡献。这两种方法回答的是不同的问题。SHAP 将这份保单与整个业务组合的平均水平相比较,而假设分析则将它与某一个选定的参照值相比较。对于 <strong>Gender</strong>,观测值与参照值相同,因此这一比较没有产生变化。这不应被解读为 Gender 在模型中没有效应的证据。Bonus、Density 和 Group1 的结果与局部 SHAP 解释是一致的。</p>
 <div class="callout callout-style-default callout-note callout-titled" title="从假设分析到反事实解释">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2398,7 +2399,7 @@ ICE_i(x_j).
 <li>较大的值表明更强烈地偏离可加性。</li>
 </ul>
 <p>为将交互效应可视化,我们还展示了估计出的交互曲面。正值表示某些预测变量取值组合使预测结果高于仅凭可加效应所预期的水平,负值则表示使预测结果降低的组合。</p>
-<div id="interaction-helper-functions" class="cell" data-execution_count="22">
+<div id="interaction-helper-functions" class="cell" data-execution_count="23">
 <details class="code-fold">
 <summary>展示交互效应辅助函数</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_2d_pdp(</span>
@@ -2542,7 +2543,7 @@ ICE_i(x_j).
 <span id="cb27-139"><a href="#cb27-139" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="h-statistic-interactions" class="cell" data-execution_count="23">
+<div id="h-statistic-interactions" class="cell" data-execution_count="24">
 <details class="code-fold">
 <summary>展示 H统计量交互效应代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>interaction_pairs <span class="op">=</span> [</span>
@@ -2730,7 +2731,7 @@ PD_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}
 <p>SHAP 交互值扩展了 SHAP 解释,将预测结果分解为主效应与成对交互效应两部分。两个变量之间的交互贡献,衡量的是它们的联合效应与其各自贡献之和之间的差异程度。</p>
 <p>与提供交互强度全局度量的 H统计量不同,SHAP 交互值是针对单个观测值计算的。通过在众多观测值上汇总这些数值,可以将交互效应在整个数据中的变化情况可视化地呈现出来。</p>
 <p>在下图中,纵轴展示的是 Age 与 Bonus 之间的交互贡献。横轴代表 Age,颜色则表示 Bonus 的取值。较大的正向或负向交互值,提示 Age 的效应取决于 Bonus 水平。</p>
-<div id="cell-shap-interaction-plots" class="cell" data-execution_count="24">
+<div id="cell-shap-interaction-plots" class="cell" data-execution_count="25">
 <details class="code-fold">
 <summary>展示 SHAP 交互图代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>X_interaction <span class="op">=</span> X_test.sample(</span>
@@ -2830,7 +2831,7 @@ PD_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}
 <section id="跨多次重新拟合的稳定性" class="level3">
 <h3 class="anchored" data-anchor-id="跨多次重新拟合的稳定性">跨多次重新拟合的稳定性</h3>
 <p>每次重新拟合都随机抽取80%的训练保单,并使用不同的 XGBoost 随机种子。提升轮数保持为原模型通过提前停止所选定的数值,因此各次拟合之间的差异只来自随机种子和所抽取的样本行,而不来自调参程度的不同。排序之间的比较使用 Spearman 秩相关系数,它只取决于变量的先后顺序,而不取决于各重要性度量的单位。</p>
-<div id="cell-stability-refits" class="cell" data-execution_count="25">
+<div id="cell-stability-refits" class="cell" data-execution_count="26">
 <details class="code-fold">
 <summary>展示稳定性检验代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>N_REPLICATES <span class="op">=</span> <span class="dv">5</span>          <span class="co"># 重新拟合的次数;越多越好,这里取5次以控制运行时间</span></span>
@@ -2955,7 +2956,7 @@ PD_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}
 </div>
 </div>
 <p>汇总数字可能掩盖少数变量的变动,因此下图展示了每个变量在各次重新拟合中所取得的完整排名范围。圆点表示排名的中位数,横条覆盖从最高到最低的排名。</p>
-<div id="cell-stability-rank-ranges" class="cell" data-execution_count="26">
+<div id="cell-stability-rank-ranges" class="cell" data-execution_count="27">
 <details class="code-fold">
 <summary>展示排名范围图代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
@@ -5152,7 +5153,7 @@ Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 
 <span id="cb32-1590"><a href="#cb32-1590" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1591"><a href="#cb32-1591" aria-hidden="true" tabindex="-1"></a>这一局部 SHAP 解释展示了这一特定保单的预测结果,是如何从基准预测出发逐步构建而成的。</span>
 <span id="cb32-1592"><a href="#cb32-1592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1593"><a href="#cb32-1593" aria-hidden="true" tabindex="-1"></a>对于这份保单,最大的正向贡献来自 **Age = 20** 和 **Density = 236.4**,二者都大幅提高了预测纯保费。相比之下,**Group1 = 5** 和 **Bonus = -10** 则相对于基准降低了预测结果。</span>
+<span id="cb32-1593"><a href="#cb32-1593" aria-hidden="true" tabindex="-1"></a>对于这份保单,最大的正向贡献来自 **Bonus = 110**(对数尺度上为 +0.76),其次是 **Density = 236.4**(+0.26)和 **Group1 = 14**(+0.14)。最大的负向贡献来自 **Age = 51**(−0.44),它相对于基准降低了预测结果。</span>
 <span id="cb32-1594"><a href="#cb32-1594" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1595"><a href="#cb32-1595" aria-hidden="true" tabindex="-1"></a>因此,瀑布图通过量化每个特征对最终保费估计值的贡献,提供了对模型预测结果的直观分解。</span>
 <span id="cb32-1596"><a href="#cb32-1596" aria-hidden="true" tabindex="-1"></a></span>
@@ -5279,617 +5280,619 @@ Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 
 <span id="cb32-1719"><a href="#cb32-1719" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-1720"><a href="#cb32-1720" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1721"><a href="#cb32-1721" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1722"><a href="#cb32-1722" aria-hidden="true" tabindex="-1"></a>结果表明,在这种逐一变量替换为参照值的情形下,**Age**、**Group1**、**Bonus** 和 **Density** 产生了最大幅度的预测保费变化。较年轻的年龄、较高的密度以及所观测到的 Bonus 水平,均对所选保单的预测保费有显著贡献。对于 **Gender** 和 **Occupation**,观测值与参照值相同,因此这一特定的假设比较没有产生变化。这不应被解读为这些变量在模型中没有效应的证据。上述结论与局部 SHAP 解释大体一致。</span>
+<span id="cb32-1722"><a href="#cb32-1722" aria-hidden="true" tabindex="-1"></a>结果表明,在这种逐一变量替换为参照值的情形下,**Bonus**、**Density** 和 **Group1** 产生了最大幅度的预测保费变化。将所观测到的 Bonus 水平 110 替换为样本中位数 −30,预测保费将从约 247 降至约 64。将所观测到的密度替换为中位数,预测保费将降至约 172,将 Group1 替换为其中位数,则降至约 218。</span>
 <span id="cb32-1723"><a href="#cb32-1723" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1724"><a href="#cb32-1724" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="从假设分析到反事实解释"}</span>
+<span id="cb32-1724"><a href="#cb32-1724" aria-hidden="true" tabindex="-1"></a>**Age** 几乎没有产生变化。将观测年龄 51 换成参照年龄 40,保费基本保持不变,但 SHAP 却赋予 Age 一个较大的负向贡献。这两种方法回答的是不同的问题。SHAP 将这份保单与整个业务组合的平均水平相比较,而假设分析则将它与某一个选定的参照值相比较。对于 **Gender**,观测值与参照值相同,因此这一比较没有产生变化。这不应被解读为 Gender 在模型中没有效应的证据。Bonus、Density 和 Group1 的结果与局部 SHAP 解释是一致的。</span>
 <span id="cb32-1725"><a href="#cb32-1725" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1726"><a href="#cb32-1726" aria-hidden="true" tabindex="-1"></a>特征重要性度量识别的是哪些变量对模型重要,SHAP 解释帮助解释的是为什么会作出某一具体预测。相比之下,反事实解释关注的是一项预测结果*如何*能够被改变。</span>
+<span id="cb32-1726"><a href="#cb32-1726" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="从假设分析到反事实解释"}</span>
 <span id="cb32-1727"><a href="#cb32-1727" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1728"><a href="#cb32-1728" aria-hidden="true" tabindex="-1"></a>本分析一次只改变一个预测变量,同时保持其他特征不变。这提供了一种简单形式的**局部假设分析**,可以回答诸如以下的问题:</span>
+<span id="cb32-1728"><a href="#cb32-1728" aria-hidden="true" tabindex="-1"></a>特征重要性度量识别的是哪些变量对模型重要,SHAP 解释帮助解释的是为什么会作出某一具体预测。相比之下,反事实解释关注的是一项预测结果*如何*能够被改变。</span>
 <span id="cb32-1729"><a href="#cb32-1729" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1730"><a href="#cb32-1730" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *“如果这项特征有所不同,预测保费会如何变化?”*</span></span>
+<span id="cb32-1730"><a href="#cb32-1730" aria-hidden="true" tabindex="-1"></a>本分析一次只改变一个预测变量,同时保持其他特征不变。这提供了一种简单形式的**局部假设分析**,可以回答诸如以下的问题:</span>
 <span id="cb32-1731"><a href="#cb32-1731" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1732"><a href="#cb32-1732" aria-hidden="true" tabindex="-1"></a>这可以视为一种简单形式的反事实推理。正式的反事实解释在此基础上进一步扩展,寻找能够实现某一特定预测结果的变化。</span>
+<span id="cb32-1732"><a href="#cb32-1732" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *“如果这项特征有所不同,预测保费会如何变化?”*</span></span>
 <span id="cb32-1733"><a href="#cb32-1733" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1734"><a href="#cb32-1734" aria-hidden="true" tabindex="-1"></a>例如,如果一份保单的预测保费很高,一项反事实解释可能会找出一组保单特征的变化组合,使保费降至某一指定阈值以下。</span>
+<span id="cb32-1734"><a href="#cb32-1734" aria-hidden="true" tabindex="-1"></a>这可以视为一种简单形式的反事实推理。正式的反事实解释在此基础上进一步扩展,寻找能够实现某一特定预测结果的变化。</span>
 <span id="cb32-1735"><a href="#cb32-1735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1736"><a href="#cb32-1736" aria-hidden="true" tabindex="-1"></a>正式的反事实方法通常会:</span>
+<span id="cb32-1736"><a href="#cb32-1736" aria-hidden="true" tabindex="-1"></a>例如,如果一份保单的预测保费很高,一项反事实解释可能会找出一组保单特征的变化组合,使保费降至某一指定阈值以下。</span>
 <span id="cb32-1737"><a href="#cb32-1737" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1738"><a href="#cb32-1738" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>同时修改多个变量;</span>
-<span id="cb32-1739"><a href="#cb32-1739" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>寻找实现某一预期预测结果所需的最小变化;并且</span>
-<span id="cb32-1740"><a href="#cb32-1740" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>往往施加额外的约束条件,以确保所提出的变化是现实且可行的。</span>
-<span id="cb32-1741"><a href="#cb32-1741" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1742"><a href="#cb32-1742" aria-hidden="true" tabindex="-1"></a>因此,正式的反事实解释可以视为本案例研究中所展示的局部假设分析的一种自然延伸。</span>
+<span id="cb32-1738"><a href="#cb32-1738" aria-hidden="true" tabindex="-1"></a>正式的反事实方法通常会:</span>
+<span id="cb32-1739"><a href="#cb32-1739" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1740"><a href="#cb32-1740" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>同时修改多个变量;</span>
+<span id="cb32-1741"><a href="#cb32-1741" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>寻找实现某一预期预测结果所需的最小变化;并且</span>
+<span id="cb32-1742"><a href="#cb32-1742" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>往往施加额外的约束条件,以确保所提出的变化是现实且可行的。</span>
 <span id="cb32-1743"><a href="#cb32-1743" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1744"><a href="#cb32-1744" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-1744"><a href="#cb32-1744" aria-hidden="true" tabindex="-1"></a>因此,正式的反事实解释可以视为本案例研究中所展示的局部假设分析的一种自然延伸。</span>
 <span id="cb32-1745"><a href="#cb32-1745" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1746"><a href="#cb32-1746" aria-hidden="true" tabindex="-1"></a><span class="fu"># 理解交互效应</span></span>
+<span id="cb32-1746"><a href="#cb32-1746" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb32-1747"><a href="#cb32-1747" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1748"><a href="#cb32-1748" aria-hidden="true" tabindex="-1"></a>**本节回答的问题:** *一个变量的效应是否取决于另一个变量?这在哪些地方要紧?*</span>
+<span id="cb32-1748"><a href="#cb32-1748" aria-hidden="true" tabindex="-1"></a><span class="fu"># 理解交互效应</span></span>
 <span id="cb32-1749"><a href="#cb32-1749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1750"><a href="#cb32-1750" aria-hidden="true" tabindex="-1"></a>前文各节中的方法,都是独立地处理每个变量的效应。但机器学习模型往往会自动捕捉交互效应。年轻驾驶员的保费加成,可能因较高的 Bonus 等级而被放大,人口密度的效应也可能因车辆类别不同而有所差异。忽略交互效应,可能导致具有误导性的单变量摘要。本节介绍两种互补的方法:用于全局交互效应审查的 Friedman H统计量,以及用于观测值层面归因的 SHAP 交互值,以检测并量化这些组合效应。</span>
+<span id="cb32-1750"><a href="#cb32-1750" aria-hidden="true" tabindex="-1"></a>**本节回答的问题:** *一个变量的效应是否取决于另一个变量?这在哪些地方要紧?*</span>
 <span id="cb32-1751"><a href="#cb32-1751" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1752"><a href="#cb32-1752" aria-hidden="true" tabindex="-1"></a>当一个预测变量的效应取决于另一个预测变量的取值时,便产生了交互效应。在一个可加模型中,各预测变量的贡献相互独立,总预测结果可以通过将各个体效应相加得到。而基于树的机器学习模型,往往会自动捕捉复杂的交互效应。</span>
+<span id="cb32-1752"><a href="#cb32-1752" aria-hidden="true" tabindex="-1"></a>前文各节中的方法,都是独立地处理每个变量的效应。但机器学习模型往往会自动捕捉交互效应。年轻驾驶员的保费加成,可能因较高的 Bonus 等级而被放大,人口密度的效应也可能因车辆类别不同而有所差异。忽略交互效应,可能导致具有误导性的单变量摘要。本节介绍两种互补的方法:用于全局交互效应审查的 Friedman H统计量,以及用于观测值层面归因的 SHAP 交互值,以检测并量化这些组合效应。</span>
 <span id="cb32-1753"><a href="#cb32-1753" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1754"><a href="#cb32-1754" aria-hidden="true" tabindex="-1"></a>例如,年龄的影响在 Bonus 等级较高和较低的驾驶员之间可能有所不同,或人口密度的效应可能在不同的驾驶员群体间存在差异。当存在强交互效应时,两个变量的组合效应就不能简单地通过将它们各自的效应相加来解释。理解这些交互效应,能为理解复杂机器学习模型的行为提供额外的洞见。</span>
+<span id="cb32-1754"><a href="#cb32-1754" aria-hidden="true" tabindex="-1"></a>当一个预测变量的效应取决于另一个预测变量的取值时,便产生了交互效应。在一个可加模型中,各预测变量的贡献相互独立,总预测结果可以通过将各个体效应相加得到。而基于树的机器学习模型,往往会自动捕捉复杂的交互效应。</span>
 <span id="cb32-1755"><a href="#cb32-1755" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1756"><a href="#cb32-1756" aria-hidden="true" tabindex="-1"></a>在本节中,我们考虑两种互补的方法来研究交互效应:</span>
+<span id="cb32-1756"><a href="#cb32-1756" aria-hidden="true" tabindex="-1"></a>例如,年龄的影响在 Bonus 等级较高和较低的驾驶员之间可能有所不同,或人口密度的效应可能在不同的驾驶员群体间存在差异。当存在强交互效应时,两个变量的组合效应就不能简单地通过将它们各自的效应相加来解释。理解这些交互效应,能为理解复杂机器学习模型的行为提供额外的洞见。</span>
 <span id="cb32-1757"><a href="#cb32-1757" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1758"><a href="#cb32-1758" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Friedman H统计量**,衡量两个预测变量间非可加性交互的总体强度。</span>
-<span id="cb32-1759"><a href="#cb32-1759" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**SHAP 交互值**,将交互效应分配到单次预测结果上。</span>
-<span id="cb32-1760"><a href="#cb32-1760" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1761"><a href="#cb32-1761" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1762"><a href="#cb32-1762" aria-hidden="true" tabindex="-1"></a><span class="fu">## Friedman H统计量</span></span>
+<span id="cb32-1758"><a href="#cb32-1758" aria-hidden="true" tabindex="-1"></a>在本节中,我们考虑两种互补的方法来研究交互效应:</span>
+<span id="cb32-1759"><a href="#cb32-1759" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1760"><a href="#cb32-1760" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Friedman H统计量**,衡量两个预测变量间非可加性交互的总体强度。</span>
+<span id="cb32-1761"><a href="#cb32-1761" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**SHAP 交互值**,将交互效应分配到单次预测结果上。</span>
+<span id="cb32-1762"><a href="#cb32-1762" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1763"><a href="#cb32-1763" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1764"><a href="#cb32-1764" aria-hidden="true" tabindex="-1"></a>Friedman H统计量 <span class="co">[</span><span class="ot">@friedman2008predictive</span><span class="co">]</span> 衡量的是两个变量的联合效应偏离可加关系的程度。如果两个变量的效应完全可以通过将其各自效应相加来解释,则交互强度为零。</span>
+<span id="cb32-1764"><a href="#cb32-1764" aria-hidden="true" tabindex="-1"></a><span class="fu">## Friedman H统计量</span></span>
 <span id="cb32-1765"><a href="#cb32-1765" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1766"><a href="#cb32-1766" aria-hidden="true" tabindex="-1"></a>该方法基于二维部分依赖函数。两个预测变量的联合效应,与其各自效应的可加组合进行比较,余下的非可加成分即用于量化交互强度。</span>
+<span id="cb32-1766"><a href="#cb32-1766" aria-hidden="true" tabindex="-1"></a>Friedman H统计量 <span class="co">[</span><span class="ot">@friedman2008predictive</span><span class="co">]</span> 衡量的是两个变量的联合效应偏离可加关系的程度。如果两个变量的效应完全可以通过将其各自效应相加来解释,则交互强度为零。</span>
 <span id="cb32-1767"><a href="#cb32-1767" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1768"><a href="#cb32-1768" aria-hidden="true" tabindex="-1"></a>H统计量的取值范围在0到1之间:</span>
+<span id="cb32-1768"><a href="#cb32-1768" aria-hidden="true" tabindex="-1"></a>该方法基于二维部分依赖函数。两个预测变量的联合效应,与其各自效应的可加组合进行比较,余下的非可加成分即用于量化交互强度。</span>
 <span id="cb32-1769"><a href="#cb32-1769" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1770"><a href="#cb32-1770" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>接近0的值表明几乎没有交互的证据。</span>
-<span id="cb32-1771"><a href="#cb32-1771" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>较大的值表明更强烈地偏离可加性。</span>
-<span id="cb32-1772"><a href="#cb32-1772" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1773"><a href="#cb32-1773" aria-hidden="true" tabindex="-1"></a>为将交互效应可视化,我们还展示了估计出的交互曲面。正值表示某些预测变量取值组合使预测结果高于仅凭可加效应所预期的水平,负值则表示使预测结果降低的组合。</span>
+<span id="cb32-1770"><a href="#cb32-1770" aria-hidden="true" tabindex="-1"></a>H统计量的取值范围在0到1之间:</span>
+<span id="cb32-1771"><a href="#cb32-1771" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1772"><a href="#cb32-1772" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>接近0的值表明几乎没有交互的证据。</span>
+<span id="cb32-1773"><a href="#cb32-1773" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>较大的值表明更强烈地偏离可加性。</span>
 <span id="cb32-1774"><a href="#cb32-1774" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1775"><a href="#cb32-1775" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1778"><a href="#cb32-1778" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb32-1779"><a href="#cb32-1779" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: interaction-helper-functions</span></span>
-<span id="cb32-1780"><a href="#cb32-1780" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示交互效应辅助函数"</span></span>
-<span id="cb32-1781"><a href="#cb32-1781" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1782"><a href="#cb32-1782" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_2d_pdp(</span>
-<span id="cb32-1783"><a href="#cb32-1783" aria-hidden="true" tabindex="-1"></a>    model,</span>
-<span id="cb32-1784"><a href="#cb32-1784" aria-hidden="true" tabindex="-1"></a>    data,</span>
-<span id="cb32-1785"><a href="#cb32-1785" aria-hidden="true" tabindex="-1"></a>    var1,</span>
-<span id="cb32-1786"><a href="#cb32-1786" aria-hidden="true" tabindex="-1"></a>    var2,</span>
-<span id="cb32-1787"><a href="#cb32-1787" aria-hidden="true" tabindex="-1"></a>    reference_columns,</span>
-<span id="cb32-1788"><a href="#cb32-1788" aria-hidden="true" tabindex="-1"></a>    model_type<span class="op">=</span><span class="st">"tweedie"</span>,</span>
-<span id="cb32-1789"><a href="#cb32-1789" aria-hidden="true" tabindex="-1"></a>    sample_size<span class="op">=</span><span class="va">None</span></span>
-<span id="cb32-1790"><a href="#cb32-1790" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb32-1791"><a href="#cb32-1791" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sample_size <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> sample_size <span class="op">&lt;</span> <span class="bu">len</span>(data):</span>
-<span id="cb32-1792"><a href="#cb32-1792" aria-hidden="true" tabindex="-1"></a>        data_used <span class="op">=</span> data.sample(</span>
-<span id="cb32-1793"><a href="#cb32-1793" aria-hidden="true" tabindex="-1"></a>            sample_size,</span>
-<span id="cb32-1794"><a href="#cb32-1794" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span>RANDOM_STATE</span>
-<span id="cb32-1795"><a href="#cb32-1795" aria-hidden="true" tabindex="-1"></a>        ).copy()</span>
-<span id="cb32-1796"><a href="#cb32-1796" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb32-1797"><a href="#cb32-1797" aria-hidden="true" tabindex="-1"></a>        data_used <span class="op">=</span> data.copy()</span>
-<span id="cb32-1798"><a href="#cb32-1798" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1799"><a href="#cb32-1799" aria-hidden="true" tabindex="-1"></a>    grid1 <span class="op">=</span> effect_grid(var1, data_used, n_grid<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb32-1800"><a href="#cb32-1800" aria-hidden="true" tabindex="-1"></a>    grid2 <span class="op">=</span> effect_grid(var2, data_used, n_grid<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb32-1801"><a href="#cb32-1801" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1802"><a href="#cb32-1802" aria-hidden="true" tabindex="-1"></a>    surface <span class="op">=</span> np.zeros((<span class="bu">len</span>(grid1), <span class="bu">len</span>(grid2)))</span>
+<span id="cb32-1775"><a href="#cb32-1775" aria-hidden="true" tabindex="-1"></a>为将交互效应可视化,我们还展示了估计出的交互曲面。正值表示某些预测变量取值组合使预测结果高于仅凭可加效应所预期的水平,负值则表示使预测结果降低的组合。</span>
+<span id="cb32-1776"><a href="#cb32-1776" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1777"><a href="#cb32-1777" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1780"><a href="#cb32-1780" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb32-1781"><a href="#cb32-1781" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: interaction-helper-functions</span></span>
+<span id="cb32-1782"><a href="#cb32-1782" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示交互效应辅助函数"</span></span>
+<span id="cb32-1783"><a href="#cb32-1783" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1784"><a href="#cb32-1784" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_2d_pdp(</span>
+<span id="cb32-1785"><a href="#cb32-1785" aria-hidden="true" tabindex="-1"></a>    model,</span>
+<span id="cb32-1786"><a href="#cb32-1786" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb32-1787"><a href="#cb32-1787" aria-hidden="true" tabindex="-1"></a>    var1,</span>
+<span id="cb32-1788"><a href="#cb32-1788" aria-hidden="true" tabindex="-1"></a>    var2,</span>
+<span id="cb32-1789"><a href="#cb32-1789" aria-hidden="true" tabindex="-1"></a>    reference_columns,</span>
+<span id="cb32-1790"><a href="#cb32-1790" aria-hidden="true" tabindex="-1"></a>    model_type<span class="op">=</span><span class="st">"tweedie"</span>,</span>
+<span id="cb32-1791"><a href="#cb32-1791" aria-hidden="true" tabindex="-1"></a>    sample_size<span class="op">=</span><span class="va">None</span></span>
+<span id="cb32-1792"><a href="#cb32-1792" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb32-1793"><a href="#cb32-1793" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sample_size <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> sample_size <span class="op">&lt;</span> <span class="bu">len</span>(data):</span>
+<span id="cb32-1794"><a href="#cb32-1794" aria-hidden="true" tabindex="-1"></a>        data_used <span class="op">=</span> data.sample(</span>
+<span id="cb32-1795"><a href="#cb32-1795" aria-hidden="true" tabindex="-1"></a>            sample_size,</span>
+<span id="cb32-1796"><a href="#cb32-1796" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span>RANDOM_STATE</span>
+<span id="cb32-1797"><a href="#cb32-1797" aria-hidden="true" tabindex="-1"></a>        ).copy()</span>
+<span id="cb32-1798"><a href="#cb32-1798" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb32-1799"><a href="#cb32-1799" aria-hidden="true" tabindex="-1"></a>        data_used <span class="op">=</span> data.copy()</span>
+<span id="cb32-1800"><a href="#cb32-1800" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1801"><a href="#cb32-1801" aria-hidden="true" tabindex="-1"></a>    grid1 <span class="op">=</span> effect_grid(var1, data_used, n_grid<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb32-1802"><a href="#cb32-1802" aria-hidden="true" tabindex="-1"></a>    grid2 <span class="op">=</span> effect_grid(var2, data_used, n_grid<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb32-1803"><a href="#cb32-1803" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1804"><a href="#cb32-1804" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 在这两个变量各自网格取值的每一种组合上,计算模型的平均预测:</span></span>
-<span id="cb32-1805"><a href="#cb32-1805" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这是单变量 PDP 向二维的推广。</span></span>
-<span id="cb32-1806"><a href="#cb32-1806" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, value1 <span class="kw">in</span> <span class="bu">enumerate</span>(grid1):</span>
-<span id="cb32-1807"><a href="#cb32-1807" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, value2 <span class="kw">in</span> <span class="bu">enumerate</span>(grid2):</span>
-<span id="cb32-1808"><a href="#cb32-1808" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1809"><a href="#cb32-1809" aria-hidden="true" tabindex="-1"></a>            temp <span class="op">=</span> data_used.copy()</span>
+<span id="cb32-1804"><a href="#cb32-1804" aria-hidden="true" tabindex="-1"></a>    surface <span class="op">=</span> np.zeros((<span class="bu">len</span>(grid1), <span class="bu">len</span>(grid2)))</span>
+<span id="cb32-1805"><a href="#cb32-1805" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1806"><a href="#cb32-1806" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 在这两个变量各自网格取值的每一种组合上,计算模型的平均预测:</span></span>
+<span id="cb32-1807"><a href="#cb32-1807" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这是单变量 PDP 向二维的推广。</span></span>
+<span id="cb32-1808"><a href="#cb32-1808" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, value1 <span class="kw">in</span> <span class="bu">enumerate</span>(grid1):</span>
+<span id="cb32-1809"><a href="#cb32-1809" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, value2 <span class="kw">in</span> <span class="bu">enumerate</span>(grid2):</span>
 <span id="cb32-1810"><a href="#cb32-1810" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1811"><a href="#cb32-1811" aria-hidden="true" tabindex="-1"></a>            temp[var1] <span class="op">=</span> value1</span>
-<span id="cb32-1812"><a href="#cb32-1812" aria-hidden="true" tabindex="-1"></a>            temp[var2] <span class="op">=</span> value2</span>
-<span id="cb32-1813"><a href="#cb32-1813" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1814"><a href="#cb32-1814" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> prediction_for_effect_plot(</span>
-<span id="cb32-1815"><a href="#cb32-1815" aria-hidden="true" tabindex="-1"></a>                model,</span>
-<span id="cb32-1816"><a href="#cb32-1816" aria-hidden="true" tabindex="-1"></a>                temp,</span>
-<span id="cb32-1817"><a href="#cb32-1817" aria-hidden="true" tabindex="-1"></a>                reference_columns<span class="op">=</span>reference_columns,</span>
-<span id="cb32-1818"><a href="#cb32-1818" aria-hidden="true" tabindex="-1"></a>                model_type<span class="op">=</span>model_type</span>
-<span id="cb32-1819"><a href="#cb32-1819" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb32-1820"><a href="#cb32-1820" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1821"><a href="#cb32-1821" aria-hidden="true" tabindex="-1"></a>            surface[i, j] <span class="op">=</span> np.mean(pred)</span>
+<span id="cb32-1811"><a href="#cb32-1811" aria-hidden="true" tabindex="-1"></a>            temp <span class="op">=</span> data_used.copy()</span>
+<span id="cb32-1812"><a href="#cb32-1812" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1813"><a href="#cb32-1813" aria-hidden="true" tabindex="-1"></a>            temp[var1] <span class="op">=</span> value1</span>
+<span id="cb32-1814"><a href="#cb32-1814" aria-hidden="true" tabindex="-1"></a>            temp[var2] <span class="op">=</span> value2</span>
+<span id="cb32-1815"><a href="#cb32-1815" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1816"><a href="#cb32-1816" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> prediction_for_effect_plot(</span>
+<span id="cb32-1817"><a href="#cb32-1817" aria-hidden="true" tabindex="-1"></a>                model,</span>
+<span id="cb32-1818"><a href="#cb32-1818" aria-hidden="true" tabindex="-1"></a>                temp,</span>
+<span id="cb32-1819"><a href="#cb32-1819" aria-hidden="true" tabindex="-1"></a>                reference_columns<span class="op">=</span>reference_columns,</span>
+<span id="cb32-1820"><a href="#cb32-1820" aria-hidden="true" tabindex="-1"></a>                model_type<span class="op">=</span>model_type</span>
+<span id="cb32-1821"><a href="#cb32-1821" aria-hidden="true" tabindex="-1"></a>            )</span>
 <span id="cb32-1822"><a href="#cb32-1822" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1823"><a href="#cb32-1823" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> grid1, grid2, surface</span>
+<span id="cb32-1823"><a href="#cb32-1823" aria-hidden="true" tabindex="-1"></a>            surface[i, j] <span class="op">=</span> np.mean(pred)</span>
 <span id="cb32-1824"><a href="#cb32-1824" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1825"><a href="#cb32-1825" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1826"><a href="#cb32-1826" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_h_statistic(</span>
-<span id="cb32-1827"><a href="#cb32-1827" aria-hidden="true" tabindex="-1"></a>    model,</span>
-<span id="cb32-1828"><a href="#cb32-1828" aria-hidden="true" tabindex="-1"></a>    data,</span>
-<span id="cb32-1829"><a href="#cb32-1829" aria-hidden="true" tabindex="-1"></a>    var1,</span>
-<span id="cb32-1830"><a href="#cb32-1830" aria-hidden="true" tabindex="-1"></a>    var2,</span>
-<span id="cb32-1831"><a href="#cb32-1831" aria-hidden="true" tabindex="-1"></a>    reference_columns,</span>
-<span id="cb32-1832"><a href="#cb32-1832" aria-hidden="true" tabindex="-1"></a>    model_type<span class="op">=</span><span class="st">"tweedie"</span>,</span>
-<span id="cb32-1833"><a href="#cb32-1833" aria-hidden="true" tabindex="-1"></a>    sample_size<span class="op">=</span><span class="va">None</span></span>
-<span id="cb32-1834"><a href="#cb32-1834" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb32-1835"><a href="#cb32-1835" aria-hidden="true" tabindex="-1"></a>    grid1, grid2, pdp_2d <span class="op">=</span> compute_2d_pdp(</span>
-<span id="cb32-1836"><a href="#cb32-1836" aria-hidden="true" tabindex="-1"></a>        model,</span>
-<span id="cb32-1837"><a href="#cb32-1837" aria-hidden="true" tabindex="-1"></a>        data,</span>
-<span id="cb32-1838"><a href="#cb32-1838" aria-hidden="true" tabindex="-1"></a>        var1,</span>
-<span id="cb32-1839"><a href="#cb32-1839" aria-hidden="true" tabindex="-1"></a>        var2,</span>
-<span id="cb32-1840"><a href="#cb32-1840" aria-hidden="true" tabindex="-1"></a>        reference_columns,</span>
-<span id="cb32-1841"><a href="#cb32-1841" aria-hidden="true" tabindex="-1"></a>        model_type<span class="op">=</span>model_type,</span>
-<span id="cb32-1842"><a href="#cb32-1842" aria-hidden="true" tabindex="-1"></a>        sample_size<span class="op">=</span>sample_size</span>
-<span id="cb32-1843"><a href="#cb32-1843" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1844"><a href="#cb32-1844" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1845"><a href="#cb32-1845" aria-hidden="true" tabindex="-1"></a>    pdp_1 <span class="op">=</span> pdp_2d.mean(axis<span class="op">=</span><span class="dv">1</span>)   <span class="co"># 对 var2 取平均后还原出的 var1 自身一维 PDP</span></span>
-<span id="cb32-1846"><a href="#cb32-1846" aria-hidden="true" tabindex="-1"></a>    pdp_2 <span class="op">=</span> pdp_2d.mean(axis<span class="op">=</span><span class="dv">0</span>)   <span class="co"># 对 var1 取平均后还原出的 var2 自身一维 PDP</span></span>
-<span id="cb32-1847"><a href="#cb32-1847" aria-hidden="true" tabindex="-1"></a>    pdp_mean <span class="op">=</span> pdp_2d.mean()</span>
-<span id="cb32-1848"><a href="#cb32-1848" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1849"><a href="#cb32-1849" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 若这两个变量的效应完全是可加的(即不存在交互),联合曲面本应呈现的样子——</span></span>
-<span id="cb32-1850"><a href="#cb32-1850" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这正是 Friedman H 统计量的定义。</span></span>
-<span id="cb32-1851"><a href="#cb32-1851" aria-hidden="true" tabindex="-1"></a>    additive_surface <span class="op">=</span> (</span>
-<span id="cb32-1852"><a href="#cb32-1852" aria-hidden="true" tabindex="-1"></a>        pdp_1[:, <span class="va">None</span>]</span>
-<span id="cb32-1853"><a href="#cb32-1853" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> pdp_2[<span class="va">None</span>, :]</span>
-<span id="cb32-1854"><a href="#cb32-1854" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> pdp_mean</span>
-<span id="cb32-1855"><a href="#cb32-1855" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1856"><a href="#cb32-1856" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1857"><a href="#cb32-1857" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 联合曲面中无法用可加效应解释的剩余部分,即交互效应本身。</span></span>
-<span id="cb32-1858"><a href="#cb32-1858" aria-hidden="true" tabindex="-1"></a>    interaction_surface <span class="op">=</span> (</span>
-<span id="cb32-1859"><a href="#cb32-1859" aria-hidden="true" tabindex="-1"></a>        pdp_2d</span>
-<span id="cb32-1860"><a href="#cb32-1860" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> additive_surface</span>
-<span id="cb32-1861"><a href="#cb32-1861" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1862"><a href="#cb32-1862" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1863"><a href="#cb32-1863" aria-hidden="true" tabindex="-1"></a>    denominator <span class="op">=</span> np.var(pdp_2d)</span>
+<span id="cb32-1825"><a href="#cb32-1825" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> grid1, grid2, surface</span>
+<span id="cb32-1826"><a href="#cb32-1826" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1827"><a href="#cb32-1827" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1828"><a href="#cb32-1828" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_h_statistic(</span>
+<span id="cb32-1829"><a href="#cb32-1829" aria-hidden="true" tabindex="-1"></a>    model,</span>
+<span id="cb32-1830"><a href="#cb32-1830" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb32-1831"><a href="#cb32-1831" aria-hidden="true" tabindex="-1"></a>    var1,</span>
+<span id="cb32-1832"><a href="#cb32-1832" aria-hidden="true" tabindex="-1"></a>    var2,</span>
+<span id="cb32-1833"><a href="#cb32-1833" aria-hidden="true" tabindex="-1"></a>    reference_columns,</span>
+<span id="cb32-1834"><a href="#cb32-1834" aria-hidden="true" tabindex="-1"></a>    model_type<span class="op">=</span><span class="st">"tweedie"</span>,</span>
+<span id="cb32-1835"><a href="#cb32-1835" aria-hidden="true" tabindex="-1"></a>    sample_size<span class="op">=</span><span class="va">None</span></span>
+<span id="cb32-1836"><a href="#cb32-1836" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb32-1837"><a href="#cb32-1837" aria-hidden="true" tabindex="-1"></a>    grid1, grid2, pdp_2d <span class="op">=</span> compute_2d_pdp(</span>
+<span id="cb32-1838"><a href="#cb32-1838" aria-hidden="true" tabindex="-1"></a>        model,</span>
+<span id="cb32-1839"><a href="#cb32-1839" aria-hidden="true" tabindex="-1"></a>        data,</span>
+<span id="cb32-1840"><a href="#cb32-1840" aria-hidden="true" tabindex="-1"></a>        var1,</span>
+<span id="cb32-1841"><a href="#cb32-1841" aria-hidden="true" tabindex="-1"></a>        var2,</span>
+<span id="cb32-1842"><a href="#cb32-1842" aria-hidden="true" tabindex="-1"></a>        reference_columns,</span>
+<span id="cb32-1843"><a href="#cb32-1843" aria-hidden="true" tabindex="-1"></a>        model_type<span class="op">=</span>model_type,</span>
+<span id="cb32-1844"><a href="#cb32-1844" aria-hidden="true" tabindex="-1"></a>        sample_size<span class="op">=</span>sample_size</span>
+<span id="cb32-1845"><a href="#cb32-1845" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1846"><a href="#cb32-1846" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1847"><a href="#cb32-1847" aria-hidden="true" tabindex="-1"></a>    pdp_1 <span class="op">=</span> pdp_2d.mean(axis<span class="op">=</span><span class="dv">1</span>)   <span class="co"># 对 var2 取平均后还原出的 var1 自身一维 PDP</span></span>
+<span id="cb32-1848"><a href="#cb32-1848" aria-hidden="true" tabindex="-1"></a>    pdp_2 <span class="op">=</span> pdp_2d.mean(axis<span class="op">=</span><span class="dv">0</span>)   <span class="co"># 对 var1 取平均后还原出的 var2 自身一维 PDP</span></span>
+<span id="cb32-1849"><a href="#cb32-1849" aria-hidden="true" tabindex="-1"></a>    pdp_mean <span class="op">=</span> pdp_2d.mean()</span>
+<span id="cb32-1850"><a href="#cb32-1850" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1851"><a href="#cb32-1851" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 若这两个变量的效应完全是可加的(即不存在交互),联合曲面本应呈现的样子——</span></span>
+<span id="cb32-1852"><a href="#cb32-1852" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这正是 Friedman H 统计量的定义。</span></span>
+<span id="cb32-1853"><a href="#cb32-1853" aria-hidden="true" tabindex="-1"></a>    additive_surface <span class="op">=</span> (</span>
+<span id="cb32-1854"><a href="#cb32-1854" aria-hidden="true" tabindex="-1"></a>        pdp_1[:, <span class="va">None</span>]</span>
+<span id="cb32-1855"><a href="#cb32-1855" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> pdp_2[<span class="va">None</span>, :]</span>
+<span id="cb32-1856"><a href="#cb32-1856" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> pdp_mean</span>
+<span id="cb32-1857"><a href="#cb32-1857" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1858"><a href="#cb32-1858" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1859"><a href="#cb32-1859" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 联合曲面中无法用可加效应解释的剩余部分,即交互效应本身。</span></span>
+<span id="cb32-1860"><a href="#cb32-1860" aria-hidden="true" tabindex="-1"></a>    interaction_surface <span class="op">=</span> (</span>
+<span id="cb32-1861"><a href="#cb32-1861" aria-hidden="true" tabindex="-1"></a>        pdp_2d</span>
+<span id="cb32-1862"><a href="#cb32-1862" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> additive_surface</span>
+<span id="cb32-1863"><a href="#cb32-1863" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb32-1864"><a href="#cb32-1864" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1865"><a href="#cb32-1865" aria-hidden="true" tabindex="-1"></a>    <span class="co"># H = 交互效应在联合曲面方差中所占的比例;0 表示完全可加,</span></span>
-<span id="cb32-1866"><a href="#cb32-1866" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 数值越大表示交互效应越强。</span></span>
-<span id="cb32-1867"><a href="#cb32-1867" aria-hidden="true" tabindex="-1"></a>    h_value <span class="op">=</span> (</span>
-<span id="cb32-1868"><a href="#cb32-1868" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.0</span></span>
-<span id="cb32-1869"><a href="#cb32-1869" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> denominator <span class="op">&lt;=</span> <span class="dv">0</span></span>
-<span id="cb32-1870"><a href="#cb32-1870" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> np.sqrt(</span>
-<span id="cb32-1871"><a href="#cb32-1871" aria-hidden="true" tabindex="-1"></a>            np.var(interaction_surface)</span>
-<span id="cb32-1872"><a href="#cb32-1872" aria-hidden="true" tabindex="-1"></a>            <span class="op">/</span> denominator</span>
-<span id="cb32-1873"><a href="#cb32-1873" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb32-1874"><a href="#cb32-1874" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1875"><a href="#cb32-1875" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1876"><a href="#cb32-1876" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
-<span id="cb32-1877"><a href="#cb32-1877" aria-hidden="true" tabindex="-1"></a>        h_value,</span>
-<span id="cb32-1878"><a href="#cb32-1878" aria-hidden="true" tabindex="-1"></a>        grid1,</span>
-<span id="cb32-1879"><a href="#cb32-1879" aria-hidden="true" tabindex="-1"></a>        grid2,</span>
-<span id="cb32-1880"><a href="#cb32-1880" aria-hidden="true" tabindex="-1"></a>        pdp_2d,</span>
-<span id="cb32-1881"><a href="#cb32-1881" aria-hidden="true" tabindex="-1"></a>        interaction_surface</span>
-<span id="cb32-1882"><a href="#cb32-1882" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1883"><a href="#cb32-1883" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1884"><a href="#cb32-1884" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1885"><a href="#cb32-1885" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_interaction_surface(</span>
-<span id="cb32-1886"><a href="#cb32-1886" aria-hidden="true" tabindex="-1"></a>    grid1,</span>
-<span id="cb32-1887"><a href="#cb32-1887" aria-hidden="true" tabindex="-1"></a>    grid2,</span>
-<span id="cb32-1888"><a href="#cb32-1888" aria-hidden="true" tabindex="-1"></a>    surface,</span>
-<span id="cb32-1889"><a href="#cb32-1889" aria-hidden="true" tabindex="-1"></a>    var1,</span>
-<span id="cb32-1890"><a href="#cb32-1890" aria-hidden="true" tabindex="-1"></a>    var2,</span>
-<span id="cb32-1891"><a href="#cb32-1891" aria-hidden="true" tabindex="-1"></a>    colorbar_label<span class="op">=</span><span class="st">"Interaction component"</span></span>
-<span id="cb32-1892"><a href="#cb32-1892" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb32-1893"><a href="#cb32-1893" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb32-1894"><a href="#cb32-1894" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1895"><a href="#cb32-1895" aria-hidden="true" tabindex="-1"></a>    X_grid, Y_grid <span class="op">=</span> np.meshgrid(</span>
-<span id="cb32-1896"><a href="#cb32-1896" aria-hidden="true" tabindex="-1"></a>        grid1,</span>
-<span id="cb32-1897"><a href="#cb32-1897" aria-hidden="true" tabindex="-1"></a>        grid2</span>
-<span id="cb32-1898"><a href="#cb32-1898" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1899"><a href="#cb32-1899" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1900"><a href="#cb32-1900" aria-hidden="true" tabindex="-1"></a>    contour <span class="op">=</span> plt.contourf(</span>
-<span id="cb32-1901"><a href="#cb32-1901" aria-hidden="true" tabindex="-1"></a>        X_grid,</span>
-<span id="cb32-1902"><a href="#cb32-1902" aria-hidden="true" tabindex="-1"></a>        Y_grid,</span>
-<span id="cb32-1903"><a href="#cb32-1903" aria-hidden="true" tabindex="-1"></a>        surface.T,</span>
-<span id="cb32-1904"><a href="#cb32-1904" aria-hidden="true" tabindex="-1"></a>        levels<span class="op">=</span><span class="dv">15</span></span>
-<span id="cb32-1905"><a href="#cb32-1905" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1906"><a href="#cb32-1906" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1907"><a href="#cb32-1907" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(var1)</span>
-<span id="cb32-1908"><a href="#cb32-1908" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(var2)</span>
-<span id="cb32-1909"><a href="#cb32-1909" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1910"><a href="#cb32-1910" aria-hidden="true" tabindex="-1"></a>    plt.title(</span>
-<span id="cb32-1911"><a href="#cb32-1911" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Interaction surface: </span><span class="sc">{</span>var1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>var2<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb32-1912"><a href="#cb32-1912" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1913"><a href="#cb32-1913" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1914"><a href="#cb32-1914" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(</span>
-<span id="cb32-1915"><a href="#cb32-1915" aria-hidden="true" tabindex="-1"></a>        contour,</span>
-<span id="cb32-1916"><a href="#cb32-1916" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>colorbar_label</span>
-<span id="cb32-1917"><a href="#cb32-1917" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1918"><a href="#cb32-1918" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1919"><a href="#cb32-1919" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb32-1920"><a href="#cb32-1920" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb32-1921"><a href="#cb32-1921" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-1922"><a href="#cb32-1922" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1923"><a href="#cb32-1923" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1865"><a href="#cb32-1865" aria-hidden="true" tabindex="-1"></a>    denominator <span class="op">=</span> np.var(pdp_2d)</span>
+<span id="cb32-1866"><a href="#cb32-1866" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1867"><a href="#cb32-1867" aria-hidden="true" tabindex="-1"></a>    <span class="co"># H = 交互效应在联合曲面方差中所占的比例;0 表示完全可加,</span></span>
+<span id="cb32-1868"><a href="#cb32-1868" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 数值越大表示交互效应越强。</span></span>
+<span id="cb32-1869"><a href="#cb32-1869" aria-hidden="true" tabindex="-1"></a>    h_value <span class="op">=</span> (</span>
+<span id="cb32-1870"><a href="#cb32-1870" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.0</span></span>
+<span id="cb32-1871"><a href="#cb32-1871" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> denominator <span class="op">&lt;=</span> <span class="dv">0</span></span>
+<span id="cb32-1872"><a href="#cb32-1872" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> np.sqrt(</span>
+<span id="cb32-1873"><a href="#cb32-1873" aria-hidden="true" tabindex="-1"></a>            np.var(interaction_surface)</span>
+<span id="cb32-1874"><a href="#cb32-1874" aria-hidden="true" tabindex="-1"></a>            <span class="op">/</span> denominator</span>
+<span id="cb32-1875"><a href="#cb32-1875" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb32-1876"><a href="#cb32-1876" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1877"><a href="#cb32-1877" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1878"><a href="#cb32-1878" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb32-1879"><a href="#cb32-1879" aria-hidden="true" tabindex="-1"></a>        h_value,</span>
+<span id="cb32-1880"><a href="#cb32-1880" aria-hidden="true" tabindex="-1"></a>        grid1,</span>
+<span id="cb32-1881"><a href="#cb32-1881" aria-hidden="true" tabindex="-1"></a>        grid2,</span>
+<span id="cb32-1882"><a href="#cb32-1882" aria-hidden="true" tabindex="-1"></a>        pdp_2d,</span>
+<span id="cb32-1883"><a href="#cb32-1883" aria-hidden="true" tabindex="-1"></a>        interaction_surface</span>
+<span id="cb32-1884"><a href="#cb32-1884" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1885"><a href="#cb32-1885" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1886"><a href="#cb32-1886" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1887"><a href="#cb32-1887" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_interaction_surface(</span>
+<span id="cb32-1888"><a href="#cb32-1888" aria-hidden="true" tabindex="-1"></a>    grid1,</span>
+<span id="cb32-1889"><a href="#cb32-1889" aria-hidden="true" tabindex="-1"></a>    grid2,</span>
+<span id="cb32-1890"><a href="#cb32-1890" aria-hidden="true" tabindex="-1"></a>    surface,</span>
+<span id="cb32-1891"><a href="#cb32-1891" aria-hidden="true" tabindex="-1"></a>    var1,</span>
+<span id="cb32-1892"><a href="#cb32-1892" aria-hidden="true" tabindex="-1"></a>    var2,</span>
+<span id="cb32-1893"><a href="#cb32-1893" aria-hidden="true" tabindex="-1"></a>    colorbar_label<span class="op">=</span><span class="st">"Interaction component"</span></span>
+<span id="cb32-1894"><a href="#cb32-1894" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb32-1895"><a href="#cb32-1895" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb32-1896"><a href="#cb32-1896" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1897"><a href="#cb32-1897" aria-hidden="true" tabindex="-1"></a>    X_grid, Y_grid <span class="op">=</span> np.meshgrid(</span>
+<span id="cb32-1898"><a href="#cb32-1898" aria-hidden="true" tabindex="-1"></a>        grid1,</span>
+<span id="cb32-1899"><a href="#cb32-1899" aria-hidden="true" tabindex="-1"></a>        grid2</span>
+<span id="cb32-1900"><a href="#cb32-1900" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1901"><a href="#cb32-1901" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1902"><a href="#cb32-1902" aria-hidden="true" tabindex="-1"></a>    contour <span class="op">=</span> plt.contourf(</span>
+<span id="cb32-1903"><a href="#cb32-1903" aria-hidden="true" tabindex="-1"></a>        X_grid,</span>
+<span id="cb32-1904"><a href="#cb32-1904" aria-hidden="true" tabindex="-1"></a>        Y_grid,</span>
+<span id="cb32-1905"><a href="#cb32-1905" aria-hidden="true" tabindex="-1"></a>        surface.T,</span>
+<span id="cb32-1906"><a href="#cb32-1906" aria-hidden="true" tabindex="-1"></a>        levels<span class="op">=</span><span class="dv">15</span></span>
+<span id="cb32-1907"><a href="#cb32-1907" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1908"><a href="#cb32-1908" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1909"><a href="#cb32-1909" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(var1)</span>
+<span id="cb32-1910"><a href="#cb32-1910" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(var2)</span>
+<span id="cb32-1911"><a href="#cb32-1911" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1912"><a href="#cb32-1912" aria-hidden="true" tabindex="-1"></a>    plt.title(</span>
+<span id="cb32-1913"><a href="#cb32-1913" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Interaction surface: </span><span class="sc">{</span>var1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>var2<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb32-1914"><a href="#cb32-1914" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1915"><a href="#cb32-1915" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1916"><a href="#cb32-1916" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(</span>
+<span id="cb32-1917"><a href="#cb32-1917" aria-hidden="true" tabindex="-1"></a>        contour,</span>
+<span id="cb32-1918"><a href="#cb32-1918" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>colorbar_label</span>
+<span id="cb32-1919"><a href="#cb32-1919" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1920"><a href="#cb32-1920" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1921"><a href="#cb32-1921" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb32-1922"><a href="#cb32-1922" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb32-1923"><a href="#cb32-1923" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-1924"><a href="#cb32-1924" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1927"><a href="#cb32-1927" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb32-1928"><a href="#cb32-1928" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: h-statistic-interactions</span></span>
-<span id="cb32-1929"><a href="#cb32-1929" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示 H统计量交互效应代码"</span></span>
-<span id="cb32-1930"><a href="#cb32-1930" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1931"><a href="#cb32-1931" aria-hidden="true" tabindex="-1"></a>interaction_pairs <span class="op">=</span> [</span>
-<span id="cb32-1932"><a href="#cb32-1932" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Age"</span>, <span class="st">"Bonus"</span>),</span>
-<span id="cb32-1933"><a href="#cb32-1933" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Age"</span>, <span class="st">"Density"</span>),</span>
-<span id="cb32-1934"><a href="#cb32-1934" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Age"</span>, <span class="st">"Poldur"</span>),</span>
-<span id="cb32-1935"><a href="#cb32-1935" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Bonus"</span>, <span class="st">"Density"</span>),</span>
-<span id="cb32-1936"><a href="#cb32-1936" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Bonus"</span>, <span class="st">"Poldur"</span>),</span>
-<span id="cb32-1937"><a href="#cb32-1937" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Density"</span>, <span class="st">"Poldur"</span>)</span>
-<span id="cb32-1938"><a href="#cb32-1938" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb32-1939"><a href="#cb32-1939" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1940"><a href="#cb32-1940" aria-hidden="true" tabindex="-1"></a>h_results <span class="op">=</span> []</span>
+<span id="cb32-1925"><a href="#cb32-1925" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1926"><a href="#cb32-1926" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1929"><a href="#cb32-1929" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb32-1930"><a href="#cb32-1930" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: h-statistic-interactions</span></span>
+<span id="cb32-1931"><a href="#cb32-1931" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示 H统计量交互效应代码"</span></span>
+<span id="cb32-1932"><a href="#cb32-1932" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1933"><a href="#cb32-1933" aria-hidden="true" tabindex="-1"></a>interaction_pairs <span class="op">=</span> [</span>
+<span id="cb32-1934"><a href="#cb32-1934" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Age"</span>, <span class="st">"Bonus"</span>),</span>
+<span id="cb32-1935"><a href="#cb32-1935" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Age"</span>, <span class="st">"Density"</span>),</span>
+<span id="cb32-1936"><a href="#cb32-1936" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Age"</span>, <span class="st">"Poldur"</span>),</span>
+<span id="cb32-1937"><a href="#cb32-1937" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Bonus"</span>, <span class="st">"Density"</span>),</span>
+<span id="cb32-1938"><a href="#cb32-1938" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Bonus"</span>, <span class="st">"Poldur"</span>),</span>
+<span id="cb32-1939"><a href="#cb32-1939" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Density"</span>, <span class="st">"Poldur"</span>)</span>
+<span id="cb32-1940"><a href="#cb32-1940" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb32-1941"><a href="#cb32-1941" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1942"><a href="#cb32-1942" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var1, var2 <span class="kw">in</span> interaction_pairs:</span>
+<span id="cb32-1942"><a href="#cb32-1942" aria-hidden="true" tabindex="-1"></a>h_results <span class="op">=</span> []</span>
 <span id="cb32-1943"><a href="#cb32-1943" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1944"><a href="#cb32-1944" aria-hidden="true" tabindex="-1"></a>    (</span>
-<span id="cb32-1945"><a href="#cb32-1945" aria-hidden="true" tabindex="-1"></a>        h_value,</span>
-<span id="cb32-1946"><a href="#cb32-1946" aria-hidden="true" tabindex="-1"></a>        grid1,</span>
-<span id="cb32-1947"><a href="#cb32-1947" aria-hidden="true" tabindex="-1"></a>        grid2,</span>
-<span id="cb32-1948"><a href="#cb32-1948" aria-hidden="true" tabindex="-1"></a>        pdp_2d,</span>
-<span id="cb32-1949"><a href="#cb32-1949" aria-hidden="true" tabindex="-1"></a>        interaction_surface</span>
-<span id="cb32-1950"><a href="#cb32-1950" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">=</span> compute_h_statistic(</span>
-<span id="cb32-1951"><a href="#cb32-1951" aria-hidden="true" tabindex="-1"></a>        tweedie_model,</span>
-<span id="cb32-1952"><a href="#cb32-1952" aria-hidden="true" tabindex="-1"></a>        predictions,</span>
-<span id="cb32-1953"><a href="#cb32-1953" aria-hidden="true" tabindex="-1"></a>        var1,</span>
-<span id="cb32-1954"><a href="#cb32-1954" aria-hidden="true" tabindex="-1"></a>        var2,</span>
-<span id="cb32-1955"><a href="#cb32-1955" aria-hidden="true" tabindex="-1"></a>        X_train.columns,</span>
-<span id="cb32-1956"><a href="#cb32-1956" aria-hidden="true" tabindex="-1"></a>        model_type<span class="op">=</span><span class="st">"tweedie"</span>,</span>
-<span id="cb32-1957"><a href="#cb32-1957" aria-hidden="true" tabindex="-1"></a>        sample_size<span class="op">=</span>INTERACTION_SAMPLE_SIZE</span>
-<span id="cb32-1958"><a href="#cb32-1958" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1959"><a href="#cb32-1959" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1960"><a href="#cb32-1960" aria-hidden="true" tabindex="-1"></a>    h_results.append({</span>
-<span id="cb32-1961"><a href="#cb32-1961" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Variable 1"</span>: var1,</span>
-<span id="cb32-1962"><a href="#cb32-1962" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Variable 2"</span>: var2,</span>
-<span id="cb32-1963"><a href="#cb32-1963" aria-hidden="true" tabindex="-1"></a>        <span class="st">"H-statistic"</span>: <span class="bu">round</span>(h_value, <span class="dv">4</span>)</span>
-<span id="cb32-1964"><a href="#cb32-1964" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb32-1965"><a href="#cb32-1965" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1966"><a href="#cb32-1966" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 只展示最便于解释的一组交互曲面</span></span>
-<span id="cb32-1967"><a href="#cb32-1967" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (var1, var2) <span class="op">==</span> (<span class="st">"Age"</span>, <span class="st">"Bonus"</span>):</span>
-<span id="cb32-1968"><a href="#cb32-1968" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1969"><a href="#cb32-1969" aria-hidden="true" tabindex="-1"></a>        plot_interaction_surface(</span>
-<span id="cb32-1970"><a href="#cb32-1970" aria-hidden="true" tabindex="-1"></a>            grid1,</span>
-<span id="cb32-1971"><a href="#cb32-1971" aria-hidden="true" tabindex="-1"></a>            grid2,</span>
-<span id="cb32-1972"><a href="#cb32-1972" aria-hidden="true" tabindex="-1"></a>            interaction_surface,</span>
-<span id="cb32-1973"><a href="#cb32-1973" aria-hidden="true" tabindex="-1"></a>            var1,</span>
-<span id="cb32-1974"><a href="#cb32-1974" aria-hidden="true" tabindex="-1"></a>            var2,</span>
-<span id="cb32-1975"><a href="#cb32-1975" aria-hidden="true" tabindex="-1"></a>            colorbar_label<span class="op">=</span><span class="st">"Non-additive interaction component"</span></span>
-<span id="cb32-1976"><a href="#cb32-1976" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb32-1977"><a href="#cb32-1977" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1978"><a href="#cb32-1978" aria-hidden="true" tabindex="-1"></a>h_results <span class="op">=</span> (</span>
-<span id="cb32-1979"><a href="#cb32-1979" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame(h_results)</span>
-<span id="cb32-1980"><a href="#cb32-1980" aria-hidden="true" tabindex="-1"></a>    .sort_values(</span>
-<span id="cb32-1981"><a href="#cb32-1981" aria-hidden="true" tabindex="-1"></a>        <span class="st">"H-statistic"</span>,</span>
-<span id="cb32-1982"><a href="#cb32-1982" aria-hidden="true" tabindex="-1"></a>        ascending<span class="op">=</span><span class="va">False</span></span>
-<span id="cb32-1983"><a href="#cb32-1983" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-1984"><a href="#cb32-1984" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb32-1985"><a href="#cb32-1985" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-1986"><a href="#cb32-1986" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1987"><a href="#cb32-1987" aria-hidden="true" tabindex="-1"></a>h_results.style.hide(axis<span class="op">=</span><span class="st">"index"</span>)</span>
-<span id="cb32-1988"><a href="#cb32-1988" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-1989"><a href="#cb32-1989" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1990"><a href="#cb32-1990" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1991"><a href="#cb32-1991" aria-hidden="true" tabindex="-1"></a>H统计量概括了某项交互效应的总体强度,而交互曲面则展示了该交互效应发生的位置。</span>
+<span id="cb32-1944"><a href="#cb32-1944" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var1, var2 <span class="kw">in</span> interaction_pairs:</span>
+<span id="cb32-1945"><a href="#cb32-1945" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1946"><a href="#cb32-1946" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb32-1947"><a href="#cb32-1947" aria-hidden="true" tabindex="-1"></a>        h_value,</span>
+<span id="cb32-1948"><a href="#cb32-1948" aria-hidden="true" tabindex="-1"></a>        grid1,</span>
+<span id="cb32-1949"><a href="#cb32-1949" aria-hidden="true" tabindex="-1"></a>        grid2,</span>
+<span id="cb32-1950"><a href="#cb32-1950" aria-hidden="true" tabindex="-1"></a>        pdp_2d,</span>
+<span id="cb32-1951"><a href="#cb32-1951" aria-hidden="true" tabindex="-1"></a>        interaction_surface</span>
+<span id="cb32-1952"><a href="#cb32-1952" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">=</span> compute_h_statistic(</span>
+<span id="cb32-1953"><a href="#cb32-1953" aria-hidden="true" tabindex="-1"></a>        tweedie_model,</span>
+<span id="cb32-1954"><a href="#cb32-1954" aria-hidden="true" tabindex="-1"></a>        predictions,</span>
+<span id="cb32-1955"><a href="#cb32-1955" aria-hidden="true" tabindex="-1"></a>        var1,</span>
+<span id="cb32-1956"><a href="#cb32-1956" aria-hidden="true" tabindex="-1"></a>        var2,</span>
+<span id="cb32-1957"><a href="#cb32-1957" aria-hidden="true" tabindex="-1"></a>        X_train.columns,</span>
+<span id="cb32-1958"><a href="#cb32-1958" aria-hidden="true" tabindex="-1"></a>        model_type<span class="op">=</span><span class="st">"tweedie"</span>,</span>
+<span id="cb32-1959"><a href="#cb32-1959" aria-hidden="true" tabindex="-1"></a>        sample_size<span class="op">=</span>INTERACTION_SAMPLE_SIZE</span>
+<span id="cb32-1960"><a href="#cb32-1960" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1961"><a href="#cb32-1961" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1962"><a href="#cb32-1962" aria-hidden="true" tabindex="-1"></a>    h_results.append({</span>
+<span id="cb32-1963"><a href="#cb32-1963" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Variable 1"</span>: var1,</span>
+<span id="cb32-1964"><a href="#cb32-1964" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Variable 2"</span>: var2,</span>
+<span id="cb32-1965"><a href="#cb32-1965" aria-hidden="true" tabindex="-1"></a>        <span class="st">"H-statistic"</span>: <span class="bu">round</span>(h_value, <span class="dv">4</span>)</span>
+<span id="cb32-1966"><a href="#cb32-1966" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb32-1967"><a href="#cb32-1967" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1968"><a href="#cb32-1968" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 只展示最便于解释的一组交互曲面</span></span>
+<span id="cb32-1969"><a href="#cb32-1969" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (var1, var2) <span class="op">==</span> (<span class="st">"Age"</span>, <span class="st">"Bonus"</span>):</span>
+<span id="cb32-1970"><a href="#cb32-1970" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1971"><a href="#cb32-1971" aria-hidden="true" tabindex="-1"></a>        plot_interaction_surface(</span>
+<span id="cb32-1972"><a href="#cb32-1972" aria-hidden="true" tabindex="-1"></a>            grid1,</span>
+<span id="cb32-1973"><a href="#cb32-1973" aria-hidden="true" tabindex="-1"></a>            grid2,</span>
+<span id="cb32-1974"><a href="#cb32-1974" aria-hidden="true" tabindex="-1"></a>            interaction_surface,</span>
+<span id="cb32-1975"><a href="#cb32-1975" aria-hidden="true" tabindex="-1"></a>            var1,</span>
+<span id="cb32-1976"><a href="#cb32-1976" aria-hidden="true" tabindex="-1"></a>            var2,</span>
+<span id="cb32-1977"><a href="#cb32-1977" aria-hidden="true" tabindex="-1"></a>            colorbar_label<span class="op">=</span><span class="st">"Non-additive interaction component"</span></span>
+<span id="cb32-1978"><a href="#cb32-1978" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb32-1979"><a href="#cb32-1979" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1980"><a href="#cb32-1980" aria-hidden="true" tabindex="-1"></a>h_results <span class="op">=</span> (</span>
+<span id="cb32-1981"><a href="#cb32-1981" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame(h_results)</span>
+<span id="cb32-1982"><a href="#cb32-1982" aria-hidden="true" tabindex="-1"></a>    .sort_values(</span>
+<span id="cb32-1983"><a href="#cb32-1983" aria-hidden="true" tabindex="-1"></a>        <span class="st">"H-statistic"</span>,</span>
+<span id="cb32-1984"><a href="#cb32-1984" aria-hidden="true" tabindex="-1"></a>        ascending<span class="op">=</span><span class="va">False</span></span>
+<span id="cb32-1985"><a href="#cb32-1985" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-1986"><a href="#cb32-1986" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-1987"><a href="#cb32-1987" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-1988"><a href="#cb32-1988" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1989"><a href="#cb32-1989" aria-hidden="true" tabindex="-1"></a>h_results.style.hide(axis<span class="op">=</span><span class="st">"index"</span>)</span>
+<span id="cb32-1990"><a href="#cb32-1990" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-1991"><a href="#cb32-1991" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1992"><a href="#cb32-1992" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1993"><a href="#cb32-1993" aria-hidden="true" tabindex="-1"></a>H统计量表明,最强的交互效应出现在 Age 和 Density 之间,其次是 Bonus 和 Density,而 Age 和 Bonus 之间的交互相对较弱。尽管如此,这些结果表明 Tweedie 模型中确实存在有意义的非可加效应。</span>
+<span id="cb32-1993"><a href="#cb32-1993" aria-hidden="true" tabindex="-1"></a>H统计量概括了某项交互效应的总体强度,而交互曲面则展示了该交互效应发生的位置。</span>
 <span id="cb32-1994"><a href="#cb32-1994" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1995"><a href="#cb32-1995" aria-hidden="true" tabindex="-1"></a>Age 与 Bonus 的交互曲面展示了该交互效应在预测变量空间中的变化情况。大多数区域呈现出相对较小的交互效应,尽管某些年龄和 Bonus 的组合会产生高于或低于可加模型预期的预测结果。这表明,年龄的效应在一定程度上取决于驾驶员的 Bonus 等级。</span>
+<span id="cb32-1995"><a href="#cb32-1995" aria-hidden="true" tabindex="-1"></a>H统计量表明,最强的交互效应出现在 Age 和 Density 之间,其次是 Bonus 和 Density,而 Age 和 Bonus 之间的交互相对较弱。尽管如此,这些结果表明 Tweedie 模型中确实存在有意义的非可加效应。</span>
 <span id="cb32-1996"><a href="#cb32-1996" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1997"><a href="#cb32-1997" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1998"><a href="#cb32-1998" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="H统计量与 PDP 的关系"}</span>
+<span id="cb32-1997"><a href="#cb32-1997" aria-hidden="true" tabindex="-1"></a>Age 与 Bonus 的交互曲面展示了该交互效应在预测变量空间中的变化情况。大多数区域呈现出相对较小的交互效应,尽管某些年龄和 Bonus 的组合会产生高于或低于可加模型预期的预测结果。这表明,年龄的效应在一定程度上取决于驾驶员的 Bonus 等级。</span>
+<span id="cb32-1998"><a href="#cb32-1998" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1999"><a href="#cb32-1999" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2000"><a href="#cb32-2000" aria-hidden="true" tabindex="-1"></a>对于预测变量 $x_j$,一维部分依赖函数为</span>
+<span id="cb32-2000"><a href="#cb32-2000" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="H统计量与 PDP 的关系"}</span>
 <span id="cb32-2001"><a href="#cb32-2001" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2002"><a href="#cb32-2002" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2003"><a href="#cb32-2003" aria-hidden="true" tabindex="-1"></a>PD_j(x_j)</span>
-<span id="cb32-2004"><a href="#cb32-2004" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb32-2005"><a href="#cb32-2005" aria-hidden="true" tabindex="-1"></a>E_{X_{-j}}</span>
-<span id="cb32-2006"><a href="#cb32-2006" aria-hidden="true" tabindex="-1"></a>\left[</span>
-<span id="cb32-2007"><a href="#cb32-2007" aria-hidden="true" tabindex="-1"></a>f(x_j, X_{-j})</span>
-<span id="cb32-2008"><a href="#cb32-2008" aria-hidden="true" tabindex="-1"></a>\right],</span>
-<span id="cb32-2009"><a href="#cb32-2009" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2010"><a href="#cb32-2010" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2011"><a href="#cb32-2011" aria-hidden="true" tabindex="-1"></a>它表示通过固定 $x_j$、并对其余所有预测变量取平均所得到的平均模型预测结果。</span>
+<span id="cb32-2002"><a href="#cb32-2002" aria-hidden="true" tabindex="-1"></a>对于预测变量 $x_j$,一维部分依赖函数为</span>
+<span id="cb32-2003"><a href="#cb32-2003" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2004"><a href="#cb32-2004" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb32-2005"><a href="#cb32-2005" aria-hidden="true" tabindex="-1"></a>PD_j(x_j)</span>
+<span id="cb32-2006"><a href="#cb32-2006" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb32-2007"><a href="#cb32-2007" aria-hidden="true" tabindex="-1"></a>E_{X_{-j}}</span>
+<span id="cb32-2008"><a href="#cb32-2008" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb32-2009"><a href="#cb32-2009" aria-hidden="true" tabindex="-1"></a>f(x_j, X_{-j})</span>
+<span id="cb32-2010"><a href="#cb32-2010" aria-hidden="true" tabindex="-1"></a>\right],</span>
+<span id="cb32-2011"><a href="#cb32-2011" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb32-2012"><a href="#cb32-2012" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2013"><a href="#cb32-2013" aria-hidden="true" tabindex="-1"></a>类似地,变量 $x_j$ 和 $x_k$ 的二维部分依赖函数为</span>
+<span id="cb32-2013"><a href="#cb32-2013" aria-hidden="true" tabindex="-1"></a>它表示通过固定 $x_j$、并对其余所有预测变量取平均所得到的平均模型预测结果。</span>
 <span id="cb32-2014"><a href="#cb32-2014" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2015"><a href="#cb32-2015" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2016"><a href="#cb32-2016" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x_j,x_k)</span>
-<span id="cb32-2017"><a href="#cb32-2017" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb32-2018"><a href="#cb32-2018" aria-hidden="true" tabindex="-1"></a>E_{X_{-(j,k)}}</span>
-<span id="cb32-2019"><a href="#cb32-2019" aria-hidden="true" tabindex="-1"></a>\left[</span>
-<span id="cb32-2020"><a href="#cb32-2020" aria-hidden="true" tabindex="-1"></a>f(x_j, x_k, X_{-(j,k)})</span>
-<span id="cb32-2021"><a href="#cb32-2021" aria-hidden="true" tabindex="-1"></a>\right].</span>
-<span id="cb32-2022"><a href="#cb32-2022" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2023"><a href="#cb32-2023" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2024"><a href="#cb32-2024" aria-hidden="true" tabindex="-1"></a>按照 @friedman2008predictive 的做法,假定这些部分依赖函数已经过居中处理,使其平均值为零。在 $x_j$ 与 $x_k$ 之间不存在交互的可加模型下,</span>
+<span id="cb32-2015"><a href="#cb32-2015" aria-hidden="true" tabindex="-1"></a>类似地,变量 $x_j$ 和 $x_k$ 的二维部分依赖函数为</span>
+<span id="cb32-2016"><a href="#cb32-2016" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2017"><a href="#cb32-2017" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb32-2018"><a href="#cb32-2018" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x_j,x_k)</span>
+<span id="cb32-2019"><a href="#cb32-2019" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb32-2020"><a href="#cb32-2020" aria-hidden="true" tabindex="-1"></a>E_{X_{-(j,k)}}</span>
+<span id="cb32-2021"><a href="#cb32-2021" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb32-2022"><a href="#cb32-2022" aria-hidden="true" tabindex="-1"></a>f(x_j, x_k, X_{-(j,k)})</span>
+<span id="cb32-2023"><a href="#cb32-2023" aria-hidden="true" tabindex="-1"></a>\right].</span>
+<span id="cb32-2024"><a href="#cb32-2024" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb32-2025"><a href="#cb32-2025" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2026"><a href="#cb32-2026" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2027"><a href="#cb32-2027" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x_j,x_k)</span>
-<span id="cb32-2028"><a href="#cb32-2028" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb32-2029"><a href="#cb32-2029" aria-hidden="true" tabindex="-1"></a>PD_j(x_j)</span>
-<span id="cb32-2030"><a href="#cb32-2030" aria-hidden="true" tabindex="-1"></a>+</span>
-<span id="cb32-2031"><a href="#cb32-2031" aria-hidden="true" tabindex="-1"></a>PD_k(x_k).</span>
-<span id="cb32-2032"><a href="#cb32-2032" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2033"><a href="#cb32-2033" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2034"><a href="#cb32-2034" aria-hidden="true" tabindex="-1"></a>因此,任何对这一可加关系的偏离,都可以解读为一种交互效应:</span>
+<span id="cb32-2026"><a href="#cb32-2026" aria-hidden="true" tabindex="-1"></a>按照 @friedman2008predictive 的做法,假定这些部分依赖函数已经过居中处理,使其平均值为零。在 $x_j$ 与 $x_k$ 之间不存在交互的可加模型下,</span>
+<span id="cb32-2027"><a href="#cb32-2027" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2028"><a href="#cb32-2028" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb32-2029"><a href="#cb32-2029" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x_j,x_k)</span>
+<span id="cb32-2030"><a href="#cb32-2030" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb32-2031"><a href="#cb32-2031" aria-hidden="true" tabindex="-1"></a>PD_j(x_j)</span>
+<span id="cb32-2032"><a href="#cb32-2032" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb32-2033"><a href="#cb32-2033" aria-hidden="true" tabindex="-1"></a>PD_k(x_k).</span>
+<span id="cb32-2034"><a href="#cb32-2034" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb32-2035"><a href="#cb32-2035" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2036"><a href="#cb32-2036" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2037"><a href="#cb32-2037" aria-hidden="true" tabindex="-1"></a>I_{jk}(x_j,x_k)</span>
-<span id="cb32-2038"><a href="#cb32-2038" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb32-2039"><a href="#cb32-2039" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x_j,x_k)</span>
-<span id="cb32-2040"><a href="#cb32-2040" aria-hidden="true" tabindex="-1"></a>-</span>
-<span id="cb32-2041"><a href="#cb32-2041" aria-hidden="true" tabindex="-1"></a>PD_j(x_j)</span>
+<span id="cb32-2036"><a href="#cb32-2036" aria-hidden="true" tabindex="-1"></a>因此,任何对这一可加关系的偏离,都可以解读为一种交互效应:</span>
+<span id="cb32-2037"><a href="#cb32-2037" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2038"><a href="#cb32-2038" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb32-2039"><a href="#cb32-2039" aria-hidden="true" tabindex="-1"></a>I_{jk}(x_j,x_k)</span>
+<span id="cb32-2040"><a href="#cb32-2040" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb32-2041"><a href="#cb32-2041" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x_j,x_k)</span>
 <span id="cb32-2042"><a href="#cb32-2042" aria-hidden="true" tabindex="-1"></a>-</span>
-<span id="cb32-2043"><a href="#cb32-2043" aria-hidden="true" tabindex="-1"></a>PD_k(x_k),</span>
-<span id="cb32-2044"><a href="#cb32-2044" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2045"><a href="#cb32-2045" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2046"><a href="#cb32-2046" aria-hidden="true" tabindex="-1"></a>其中 $I_{jk}(x_j,x_k)$ 表示联合效应中的非可加成分。</span>
+<span id="cb32-2043"><a href="#cb32-2043" aria-hidden="true" tabindex="-1"></a>PD_j(x_j)</span>
+<span id="cb32-2044"><a href="#cb32-2044" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb32-2045"><a href="#cb32-2045" aria-hidden="true" tabindex="-1"></a>PD_k(x_k),</span>
+<span id="cb32-2046"><a href="#cb32-2046" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb32-2047"><a href="#cb32-2047" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2048"><a href="#cb32-2048" aria-hidden="true" tabindex="-1"></a>上文展示的交互曲面将这一交互成分可视化地呈现出来。Friedman H统计量通过比较交互效应的平方与二维部分依赖函数的总体变异,概括了其总体幅度:</span>
+<span id="cb32-2048"><a href="#cb32-2048" aria-hidden="true" tabindex="-1"></a>其中 $I_{jk}(x_j,x_k)$ 表示联合效应中的非可加成分。</span>
 <span id="cb32-2049"><a href="#cb32-2049" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2050"><a href="#cb32-2050" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2051"><a href="#cb32-2051" aria-hidden="true" tabindex="-1"></a>H_{jk}^{2}</span>
-<span id="cb32-2052"><a href="#cb32-2052" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb32-2053"><a href="#cb32-2053" aria-hidden="true" tabindex="-1"></a>\frac{</span>
-<span id="cb32-2054"><a href="#cb32-2054" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{n}</span>
-<span id="cb32-2055"><a href="#cb32-2055" aria-hidden="true" tabindex="-1"></a>I_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}</span>
-<span id="cb32-2056"><a href="#cb32-2056" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb32-2057"><a href="#cb32-2057" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb32-2058"><a href="#cb32-2058" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{n}</span>
-<span id="cb32-2059"><a href="#cb32-2059" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}</span>
-<span id="cb32-2060"><a href="#cb32-2060" aria-hidden="true" tabindex="-1"></a>}.</span>
-<span id="cb32-2061"><a href="#cb32-2061" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb32-2062"><a href="#cb32-2062" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2063"><a href="#cb32-2063" aria-hidden="true" tabindex="-1"></a>接近零的取值表明近似可加的关系,而较大的取值则提示两个变量之间存在更强的交互效应。</span>
+<span id="cb32-2050"><a href="#cb32-2050" aria-hidden="true" tabindex="-1"></a>上文展示的交互曲面将这一交互成分可视化地呈现出来。Friedman H统计量通过比较交互效应的平方与二维部分依赖函数的总体变异,概括了其总体幅度:</span>
+<span id="cb32-2051"><a href="#cb32-2051" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2052"><a href="#cb32-2052" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb32-2053"><a href="#cb32-2053" aria-hidden="true" tabindex="-1"></a>H_{jk}^{2}</span>
+<span id="cb32-2054"><a href="#cb32-2054" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb32-2055"><a href="#cb32-2055" aria-hidden="true" tabindex="-1"></a>\frac{</span>
+<span id="cb32-2056"><a href="#cb32-2056" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{n}</span>
+<span id="cb32-2057"><a href="#cb32-2057" aria-hidden="true" tabindex="-1"></a>I_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}</span>
+<span id="cb32-2058"><a href="#cb32-2058" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-2059"><a href="#cb32-2059" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb32-2060"><a href="#cb32-2060" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{n}</span>
+<span id="cb32-2061"><a href="#cb32-2061" aria-hidden="true" tabindex="-1"></a>PD_{jk}(x^{(i)}_{j},x^{(i)}_{k})^{2}</span>
+<span id="cb32-2062"><a href="#cb32-2062" aria-hidden="true" tabindex="-1"></a>}.</span>
+<span id="cb32-2063"><a href="#cb32-2063" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb32-2064"><a href="#cb32-2064" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2065"><a href="#cb32-2065" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-2065"><a href="#cb32-2065" aria-hidden="true" tabindex="-1"></a>接近零的取值表明近似可加的关系,而较大的取值则提示两个变量之间存在更强的交互效应。</span>
 <span id="cb32-2066"><a href="#cb32-2066" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2067"><a href="#cb32-2067" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2068"><a href="#cb32-2068" aria-hidden="true" tabindex="-1"></a><span class="fu">## SHAP 交互值</span></span>
+<span id="cb32-2067"><a href="#cb32-2067" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-2068"><a href="#cb32-2068" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-2069"><a href="#cb32-2069" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2070"><a href="#cb32-2070" aria-hidden="true" tabindex="-1"></a>SHAP 交互值扩展了 SHAP 解释,将预测结果分解为主效应与成对交互效应两部分。两个变量之间的交互贡献,衡量的是它们的联合效应与其各自贡献之和之间的差异程度。</span>
+<span id="cb32-2070"><a href="#cb32-2070" aria-hidden="true" tabindex="-1"></a><span class="fu">## SHAP 交互值</span></span>
 <span id="cb32-2071"><a href="#cb32-2071" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2072"><a href="#cb32-2072" aria-hidden="true" tabindex="-1"></a>与提供交互强度全局度量的 H统计量不同,SHAP 交互值是针对单个观测值计算的。通过在众多观测值上汇总这些数值,可以将交互效应在整个数据中的变化情况可视化地呈现出来。</span>
+<span id="cb32-2072"><a href="#cb32-2072" aria-hidden="true" tabindex="-1"></a>SHAP 交互值扩展了 SHAP 解释,将预测结果分解为主效应与成对交互效应两部分。两个变量之间的交互贡献,衡量的是它们的联合效应与其各自贡献之和之间的差异程度。</span>
 <span id="cb32-2073"><a href="#cb32-2073" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2074"><a href="#cb32-2074" aria-hidden="true" tabindex="-1"></a>在下图中,纵轴展示的是 Age 与 Bonus 之间的交互贡献。横轴代表 Age,颜色则表示 Bonus 的取值。较大的正向或负向交互值,提示 Age 的效应取决于 Bonus 水平。</span>
+<span id="cb32-2074"><a href="#cb32-2074" aria-hidden="true" tabindex="-1"></a>与提供交互强度全局度量的 H统计量不同,SHAP 交互值是针对单个观测值计算的。通过在众多观测值上汇总这些数值,可以将交互效应在整个数据中的变化情况可视化地呈现出来。</span>
 <span id="cb32-2075"><a href="#cb32-2075" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2076"><a href="#cb32-2076" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2079"><a href="#cb32-2079" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb32-2080"><a href="#cb32-2080" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: shap-interaction-plots</span></span>
-<span id="cb32-2081"><a href="#cb32-2081" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示 SHAP 交互图代码"</span></span>
-<span id="cb32-2082"><a href="#cb32-2082" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2083"><a href="#cb32-2083" aria-hidden="true" tabindex="-1"></a>X_interaction <span class="op">=</span> X_test.sample(</span>
-<span id="cb32-2084"><a href="#cb32-2084" aria-hidden="true" tabindex="-1"></a>    <span class="bu">min</span>(SHAP_INTERACTION_SAMPLE_SIZE, <span class="bu">len</span>(X_test)),</span>
-<span id="cb32-2085"><a href="#cb32-2085" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span>RANDOM_STATE</span>
-<span id="cb32-2086"><a href="#cb32-2086" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-2087"><a href="#cb32-2087" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2088"><a href="#cb32-2088" aria-hidden="true" tabindex="-1"></a>data_interaction <span class="op">=</span> predictions.loc[X_interaction.index].copy()</span>
+<span id="cb32-2076"><a href="#cb32-2076" aria-hidden="true" tabindex="-1"></a>在下图中,纵轴展示的是 Age 与 Bonus 之间的交互贡献。横轴代表 Age,颜色则表示 Bonus 的取值。较大的正向或负向交互值,提示 Age 的效应取决于 Bonus 水平。</span>
+<span id="cb32-2077"><a href="#cb32-2077" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2078"><a href="#cb32-2078" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2081"><a href="#cb32-2081" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb32-2082"><a href="#cb32-2082" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: shap-interaction-plots</span></span>
+<span id="cb32-2083"><a href="#cb32-2083" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示 SHAP 交互图代码"</span></span>
+<span id="cb32-2084"><a href="#cb32-2084" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2085"><a href="#cb32-2085" aria-hidden="true" tabindex="-1"></a>X_interaction <span class="op">=</span> X_test.sample(</span>
+<span id="cb32-2086"><a href="#cb32-2086" aria-hidden="true" tabindex="-1"></a>    <span class="bu">min</span>(SHAP_INTERACTION_SAMPLE_SIZE, <span class="bu">len</span>(X_test)),</span>
+<span id="cb32-2087"><a href="#cb32-2087" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span>RANDOM_STATE</span>
+<span id="cb32-2088"><a href="#cb32-2088" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb32-2089"><a href="#cb32-2089" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2090"><a href="#cb32-2090" aria-hidden="true" tabindex="-1"></a>dmatrix_interaction <span class="op">=</span> xgb.DMatrix(</span>
-<span id="cb32-2091"><a href="#cb32-2091" aria-hidden="true" tabindex="-1"></a>    X_interaction,</span>
-<span id="cb32-2092"><a href="#cb32-2092" aria-hidden="true" tabindex="-1"></a>    base_margin<span class="op">=</span>np.log(</span>
-<span id="cb32-2093"><a href="#cb32-2093" aria-hidden="true" tabindex="-1"></a>        test.loc[X_interaction.index, <span class="st">"Exposure"</span>].to_numpy()</span>
-<span id="cb32-2094"><a href="#cb32-2094" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2095"><a href="#cb32-2095" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-2096"><a href="#cb32-2096" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2097"><a href="#cb32-2097" aria-hidden="true" tabindex="-1"></a><span class="co"># 每条观测返回一个交互矩阵(特征 × 特征),给出每一对编码后列之间的</span></span>
-<span id="cb32-2098"><a href="#cb32-2098" aria-hidden="true" tabindex="-1"></a><span class="co"># 成对 SHAP 交互值,而不只是我们最终绘制的那一对。</span></span>
-<span id="cb32-2099"><a href="#cb32-2099" aria-hidden="true" tabindex="-1"></a>interaction_values <span class="op">=</span> shap_explainer_tweedie.shap_interaction_values(</span>
-<span id="cb32-2100"><a href="#cb32-2100" aria-hidden="true" tabindex="-1"></a>    dmatrix_interaction</span>
-<span id="cb32-2101"><a href="#cb32-2101" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-2102"><a href="#cb32-2102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2103"><a href="#cb32-2103" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">isinstance</span>(interaction_values, <span class="bu">list</span>):</span>
-<span id="cb32-2104"><a href="#cb32-2104" aria-hidden="true" tabindex="-1"></a>    interaction_values <span class="op">=</span> interaction_values[<span class="dv">0</span>]   <span class="co"># 部分 SHAP 版本会将数组包装在一个列表中</span></span>
-<span id="cb32-2105"><a href="#cb32-2105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2106"><a href="#cb32-2106" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> <span class="bu">list</span>(X_interaction.columns)</span>
+<span id="cb32-2090"><a href="#cb32-2090" aria-hidden="true" tabindex="-1"></a>data_interaction <span class="op">=</span> predictions.loc[X_interaction.index].copy()</span>
+<span id="cb32-2091"><a href="#cb32-2091" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2092"><a href="#cb32-2092" aria-hidden="true" tabindex="-1"></a>dmatrix_interaction <span class="op">=</span> xgb.DMatrix(</span>
+<span id="cb32-2093"><a href="#cb32-2093" aria-hidden="true" tabindex="-1"></a>    X_interaction,</span>
+<span id="cb32-2094"><a href="#cb32-2094" aria-hidden="true" tabindex="-1"></a>    base_margin<span class="op">=</span>np.log(</span>
+<span id="cb32-2095"><a href="#cb32-2095" aria-hidden="true" tabindex="-1"></a>        test.loc[X_interaction.index, <span class="st">"Exposure"</span>].to_numpy()</span>
+<span id="cb32-2096"><a href="#cb32-2096" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2097"><a href="#cb32-2097" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-2098"><a href="#cb32-2098" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2099"><a href="#cb32-2099" aria-hidden="true" tabindex="-1"></a><span class="co"># 每条观测返回一个交互矩阵(特征 × 特征),给出每一对编码后列之间的</span></span>
+<span id="cb32-2100"><a href="#cb32-2100" aria-hidden="true" tabindex="-1"></a><span class="co"># 成对 SHAP 交互值,而不只是我们最终绘制的那一对。</span></span>
+<span id="cb32-2101"><a href="#cb32-2101" aria-hidden="true" tabindex="-1"></a>interaction_values <span class="op">=</span> shap_explainer_tweedie.shap_interaction_values(</span>
+<span id="cb32-2102"><a href="#cb32-2102" aria-hidden="true" tabindex="-1"></a>    dmatrix_interaction</span>
+<span id="cb32-2103"><a href="#cb32-2103" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-2104"><a href="#cb32-2104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2105"><a href="#cb32-2105" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">isinstance</span>(interaction_values, <span class="bu">list</span>):</span>
+<span id="cb32-2106"><a href="#cb32-2106" aria-hidden="true" tabindex="-1"></a>    interaction_values <span class="op">=</span> interaction_values[<span class="dv">0</span>]   <span class="co"># 部分 SHAP 版本会将数组包装在一个列表中</span></span>
 <span id="cb32-2107"><a href="#cb32-2107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2108"><a href="#cb32-2108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2109"><a href="#cb32-2109" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_grouped_shap_interaction(var1, var2):</span>
-<span id="cb32-2110"><a href="#cb32-2110" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 找出属于这两个定价变量各自的全部独热哑变量列。</span></span>
-<span id="cb32-2111"><a href="#cb32-2111" aria-hidden="true" tabindex="-1"></a>    cols1 <span class="op">=</span> [</span>
-<span id="cb32-2112"><a href="#cb32-2112" aria-hidden="true" tabindex="-1"></a>        col <span class="cf">for</span> col <span class="kw">in</span> feature_names</span>
-<span id="cb32-2113"><a href="#cb32-2113" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> group_feature_name(col, features) <span class="op">==</span> var1</span>
-<span id="cb32-2114"><a href="#cb32-2114" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb32-2115"><a href="#cb32-2115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2116"><a href="#cb32-2116" aria-hidden="true" tabindex="-1"></a>    cols2 <span class="op">=</span> [</span>
-<span id="cb32-2117"><a href="#cb32-2117" aria-hidden="true" tabindex="-1"></a>        col <span class="cf">for</span> col <span class="kw">in</span> feature_names</span>
-<span id="cb32-2118"><a href="#cb32-2118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> group_feature_name(col, features) <span class="op">==</span> var2</span>
-<span id="cb32-2119"><a href="#cb32-2119" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb32-2120"><a href="#cb32-2120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2121"><a href="#cb32-2121" aria-hidden="true" tabindex="-1"></a>    idx1 <span class="op">=</span> [feature_names.index(col) <span class="cf">for</span> col <span class="kw">in</span> cols1]</span>
-<span id="cb32-2122"><a href="#cb32-2122" aria-hidden="true" tabindex="-1"></a>    idx2 <span class="op">=</span> [feature_names.index(col) <span class="cf">for</span> col <span class="kw">in</span> cols2]</span>
-<span id="cb32-2123"><a href="#cb32-2123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2124"><a href="#cb32-2124" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 将所有哑变量配对组合上的交互值加总,</span></span>
-<span id="cb32-2125"><a href="#cb32-2125" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 还原出这两个原始变量在每份保单上的单一交互数值。</span></span>
-<span id="cb32-2126"><a href="#cb32-2126" aria-hidden="true" tabindex="-1"></a>    pair_interaction <span class="op">=</span> (</span>
-<span id="cb32-2127"><a href="#cb32-2127" aria-hidden="true" tabindex="-1"></a>        interaction_values[:, idx1, :]</span>
-<span id="cb32-2128"><a href="#cb32-2128" aria-hidden="true" tabindex="-1"></a>        [:, :, idx2]</span>
-<span id="cb32-2129"><a href="#cb32-2129" aria-hidden="true" tabindex="-1"></a>        .<span class="bu">sum</span>(axis<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb32-2130"><a href="#cb32-2130" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2131"><a href="#cb32-2131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2132"><a href="#cb32-2132" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb32-2108"><a href="#cb32-2108" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> <span class="bu">list</span>(X_interaction.columns)</span>
+<span id="cb32-2109"><a href="#cb32-2109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2110"><a href="#cb32-2110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2111"><a href="#cb32-2111" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_grouped_shap_interaction(var1, var2):</span>
+<span id="cb32-2112"><a href="#cb32-2112" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 找出属于这两个定价变量各自的全部独热哑变量列。</span></span>
+<span id="cb32-2113"><a href="#cb32-2113" aria-hidden="true" tabindex="-1"></a>    cols1 <span class="op">=</span> [</span>
+<span id="cb32-2114"><a href="#cb32-2114" aria-hidden="true" tabindex="-1"></a>        col <span class="cf">for</span> col <span class="kw">in</span> feature_names</span>
+<span id="cb32-2115"><a href="#cb32-2115" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> group_feature_name(col, features) <span class="op">==</span> var1</span>
+<span id="cb32-2116"><a href="#cb32-2116" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb32-2117"><a href="#cb32-2117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2118"><a href="#cb32-2118" aria-hidden="true" tabindex="-1"></a>    cols2 <span class="op">=</span> [</span>
+<span id="cb32-2119"><a href="#cb32-2119" aria-hidden="true" tabindex="-1"></a>        col <span class="cf">for</span> col <span class="kw">in</span> feature_names</span>
+<span id="cb32-2120"><a href="#cb32-2120" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> group_feature_name(col, features) <span class="op">==</span> var2</span>
+<span id="cb32-2121"><a href="#cb32-2121" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb32-2122"><a href="#cb32-2122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2123"><a href="#cb32-2123" aria-hidden="true" tabindex="-1"></a>    idx1 <span class="op">=</span> [feature_names.index(col) <span class="cf">for</span> col <span class="kw">in</span> cols1]</span>
+<span id="cb32-2124"><a href="#cb32-2124" aria-hidden="true" tabindex="-1"></a>    idx2 <span class="op">=</span> [feature_names.index(col) <span class="cf">for</span> col <span class="kw">in</span> cols2]</span>
+<span id="cb32-2125"><a href="#cb32-2125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2126"><a href="#cb32-2126" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 将所有哑变量配对组合上的交互值加总,</span></span>
+<span id="cb32-2127"><a href="#cb32-2127" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 还原出这两个原始变量在每份保单上的单一交互数值。</span></span>
+<span id="cb32-2128"><a href="#cb32-2128" aria-hidden="true" tabindex="-1"></a>    pair_interaction <span class="op">=</span> (</span>
+<span id="cb32-2129"><a href="#cb32-2129" aria-hidden="true" tabindex="-1"></a>        interaction_values[:, idx1, :]</span>
+<span id="cb32-2130"><a href="#cb32-2130" aria-hidden="true" tabindex="-1"></a>        [:, :, idx2]</span>
+<span id="cb32-2131"><a href="#cb32-2131" aria-hidden="true" tabindex="-1"></a>        .<span class="bu">sum</span>(axis<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb32-2132"><a href="#cb32-2132" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb32-2133"><a href="#cb32-2133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2134"><a href="#cb32-2134" aria-hidden="true" tabindex="-1"></a>    scatter <span class="op">=</span> plt.scatter(</span>
-<span id="cb32-2135"><a href="#cb32-2135" aria-hidden="true" tabindex="-1"></a>        data_interaction[var1],</span>
-<span id="cb32-2136"><a href="#cb32-2136" aria-hidden="true" tabindex="-1"></a>        pair_interaction,</span>
-<span id="cb32-2137"><a href="#cb32-2137" aria-hidden="true" tabindex="-1"></a>        c<span class="op">=</span>data_interaction[var2],</span>
-<span id="cb32-2138"><a href="#cb32-2138" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.55</span></span>
-<span id="cb32-2139"><a href="#cb32-2139" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2140"><a href="#cb32-2140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2141"><a href="#cb32-2141" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(var1)</span>
-<span id="cb32-2142"><a href="#cb32-2142" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="ss">f"SHAP interaction: </span><span class="sc">{</span>var1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>var2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb32-2143"><a href="#cb32-2143" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Tweedie model: SHAP interaction for </span><span class="sc">{</span>var1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>var2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb32-2144"><a href="#cb32-2144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2145"><a href="#cb32-2145" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(</span>
-<span id="cb32-2146"><a href="#cb32-2146" aria-hidden="true" tabindex="-1"></a>        scatter,</span>
-<span id="cb32-2147"><a href="#cb32-2147" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>var2</span>
-<span id="cb32-2148"><a href="#cb32-2148" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2149"><a href="#cb32-2149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2150"><a href="#cb32-2150" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb32-2151"><a href="#cb32-2151" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb32-2152"><a href="#cb32-2152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2153"><a href="#cb32-2153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2154"><a href="#cb32-2154" aria-hidden="true" tabindex="-1"></a>plot_grouped_shap_interaction(</span>
-<span id="cb32-2155"><a href="#cb32-2155" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>,</span>
-<span id="cb32-2156"><a href="#cb32-2156" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bonus"</span></span>
-<span id="cb32-2157"><a href="#cb32-2157" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-2158"><a href="#cb32-2158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-2159"><a href="#cb32-2159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2160"><a href="#cb32-2160" aria-hidden="true" tabindex="-1"></a>SHAP 交互图提供了 Age 与 Bonus 之间交互效应在观测值层面的视角。每个点代表一份保单。横轴展示 Age,纵轴展示 Age 与 Bonus 之间的 SHAP 交互贡献,颜色则表示 Bonus 的取值。</span>
+<span id="cb32-2134"><a href="#cb32-2134" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb32-2135"><a href="#cb32-2135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2136"><a href="#cb32-2136" aria-hidden="true" tabindex="-1"></a>    scatter <span class="op">=</span> plt.scatter(</span>
+<span id="cb32-2137"><a href="#cb32-2137" aria-hidden="true" tabindex="-1"></a>        data_interaction[var1],</span>
+<span id="cb32-2138"><a href="#cb32-2138" aria-hidden="true" tabindex="-1"></a>        pair_interaction,</span>
+<span id="cb32-2139"><a href="#cb32-2139" aria-hidden="true" tabindex="-1"></a>        c<span class="op">=</span>data_interaction[var2],</span>
+<span id="cb32-2140"><a href="#cb32-2140" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.55</span></span>
+<span id="cb32-2141"><a href="#cb32-2141" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2142"><a href="#cb32-2142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2143"><a href="#cb32-2143" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(var1)</span>
+<span id="cb32-2144"><a href="#cb32-2144" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="ss">f"SHAP interaction: </span><span class="sc">{</span>var1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>var2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-2145"><a href="#cb32-2145" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Tweedie model: SHAP interaction for </span><span class="sc">{</span>var1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>var2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-2146"><a href="#cb32-2146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2147"><a href="#cb32-2147" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(</span>
+<span id="cb32-2148"><a href="#cb32-2148" aria-hidden="true" tabindex="-1"></a>        scatter,</span>
+<span id="cb32-2149"><a href="#cb32-2149" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>var2</span>
+<span id="cb32-2150"><a href="#cb32-2150" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2151"><a href="#cb32-2151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2152"><a href="#cb32-2152" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb32-2153"><a href="#cb32-2153" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb32-2154"><a href="#cb32-2154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2155"><a href="#cb32-2155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2156"><a href="#cb32-2156" aria-hidden="true" tabindex="-1"></a>plot_grouped_shap_interaction(</span>
+<span id="cb32-2157"><a href="#cb32-2157" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>,</span>
+<span id="cb32-2158"><a href="#cb32-2158" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bonus"</span></span>
+<span id="cb32-2159"><a href="#cb32-2159" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-2160"><a href="#cb32-2160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-2161"><a href="#cb32-2161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2162"><a href="#cb32-2162" aria-hidden="true" tabindex="-1"></a>大多数交互值都集中在接近零的位置,提示对许多保单而言,交互效应总体较为温和。然而,部分观测值表现出更大的正向或负向交互贡献,表明 Age 的效应会随 Bonus 水平的不同而有所变化。</span>
+<span id="cb32-2162"><a href="#cb32-2162" aria-hidden="true" tabindex="-1"></a>SHAP 交互图提供了 Age 与 Bonus 之间交互效应在观测值层面的视角。每个点代表一份保单。横轴展示 Age,纵轴展示 Age 与 Bonus 之间的 SHAP 交互贡献,颜色则表示 Bonus 的取值。</span>
 <span id="cb32-2163"><a href="#cb32-2163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2164"><a href="#cb32-2164" aria-hidden="true" tabindex="-1"></a>未出现单一清晰趋势,也提示这一交互效应在整个业务组合中是异质的。这与 Age 和 Bonus 所获得的中等 H统计量相一致,表明二者之间的交互确实存在,但并非模型中最强的交互效应之一。</span>
+<span id="cb32-2164"><a href="#cb32-2164" aria-hidden="true" tabindex="-1"></a>大多数交互值都集中在接近零的位置,提示对许多保单而言,交互效应总体较为温和。然而,部分观测值表现出更大的正向或负向交互贡献,表明 Age 的效应会随 Bonus 水平的不同而有所变化。</span>
 <span id="cb32-2165"><a href="#cb32-2165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2166"><a href="#cb32-2166" aria-hidden="true" tabindex="-1"></a><span class="fu"># 验证稳定性并沟通结果</span></span>
+<span id="cb32-2166"><a href="#cb32-2166" aria-hidden="true" tabindex="-1"></a>未出现单一清晰趋势,也提示这一交互效应在整个业务组合中是异质的。这与 Age 和 Bonus 所获得的中等 H统计量相一致,表明二者之间的交互确实存在,但并非模型中最强的交互效应之一。</span>
 <span id="cb32-2167"><a href="#cb32-2167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2168"><a href="#cb32-2168" aria-hidden="true" tabindex="-1"></a>**本节回答的问题:** *换一次同样合理的拟合,故事是否依然相同?应当向各类受众展示什么?*</span>
+<span id="cb32-2168"><a href="#cb32-2168" aria-hidden="true" tabindex="-1"></a><span class="fu"># 验证稳定性并沟通结果</span></span>
 <span id="cb32-2169"><a href="#cb32-2169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2170"><a href="#cb32-2170" aria-hidden="true" tabindex="-1"></a>本章中的每一项解释,描述的都是某一个已拟合的模型。而这个模型只是一个含有随机成分的过程中的一次抽样结果。XGBoost 在构建每棵树时会对行和列进行抽样,因此换一个随机种子,或者换一组略有不同的训练保单,就会得到另一个拟合出来的、精度相近的模型。如果重新拟合后故事发生了变化,那么这个故事有一部分只是拟合过程的偶然产物,不应被当作关于整个业务组合的发现来呈现。</span>
+<span id="cb32-2170"><a href="#cb32-2170" aria-hidden="true" tabindex="-1"></a>**本节回答的问题:** *换一次同样合理的拟合,故事是否依然相同?应当向各类受众展示什么?*</span>
 <span id="cb32-2171"><a href="#cb32-2171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2172"><a href="#cb32-2172" aria-hidden="true" tabindex="-1"></a>本节针对两种全局重要性度量运行这项检验。它多次重新拟合频率模型,用置换重要性和 SHAP 分别为每次拟合的结果打分,再比较由此得到的排序。两种度量都是在同一个频率模型上计算的,因此二者之间的比较是同口径的。</span>
+<span id="cb32-2172"><a href="#cb32-2172" aria-hidden="true" tabindex="-1"></a>本章中的每一项解释,描述的都是某一个已拟合的模型。而这个模型只是一个含有随机成分的过程中的一次抽样结果。XGBoost 在构建每棵树时会对行和列进行抽样,因此换一个随机种子,或者换一组略有不同的训练保单,就会得到另一个拟合出来的、精度相近的模型。如果重新拟合后故事发生了变化,那么这个故事有一部分只是拟合过程的偶然产物,不应被当作关于整个业务组合的发现来呈现。</span>
 <span id="cb32-2173"><a href="#cb32-2173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2174"><a href="#cb32-2174" aria-hidden="true" tabindex="-1"></a><span class="fu">## 跨多次重新拟合的稳定性</span></span>
+<span id="cb32-2174"><a href="#cb32-2174" aria-hidden="true" tabindex="-1"></a>本节针对两种全局重要性度量运行这项检验。它多次重新拟合频率模型,用置换重要性和 SHAP 分别为每次拟合的结果打分,再比较由此得到的排序。两种度量都是在同一个频率模型上计算的,因此二者之间的比较是同口径的。</span>
 <span id="cb32-2175"><a href="#cb32-2175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2176"><a href="#cb32-2176" aria-hidden="true" tabindex="-1"></a>每次重新拟合都随机抽取80%的训练保单,并使用不同的 XGBoost 随机种子。提升轮数保持为原模型通过提前停止所选定的数值,因此各次拟合之间的差异只来自随机种子和所抽取的样本行,而不来自调参程度的不同。排序之间的比较使用 Spearman 秩相关系数,它只取决于变量的先后顺序,而不取决于各重要性度量的单位。</span>
+<span id="cb32-2176"><a href="#cb32-2176" aria-hidden="true" tabindex="-1"></a><span class="fu">## 跨多次重新拟合的稳定性</span></span>
 <span id="cb32-2177"><a href="#cb32-2177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2180"><a href="#cb32-2180" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb32-2181"><a href="#cb32-2181" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: stability-refits</span></span>
-<span id="cb32-2182"><a href="#cb32-2182" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示稳定性检验代码"</span></span>
-<span id="cb32-2183"><a href="#cb32-2183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2184"><a href="#cb32-2184" aria-hidden="true" tabindex="-1"></a>N_REPLICATES <span class="op">=</span> <span class="dv">5</span>          <span class="co"># 重新拟合的次数;越多越好,这里取5次以控制运行时间</span></span>
-<span id="cb32-2185"><a href="#cb32-2185" aria-hidden="true" tabindex="-1"></a>STAB_SHAP_SAMPLE <span class="op">=</span> <span class="dv">3000</span>   <span class="co"># 每次重新拟合都使用同一批待解释的样本行</span></span>
-<span id="cb32-2186"><a href="#cb32-2186" aria-hidden="true" tabindex="-1"></a>STAB_PFI_REPEATS <span class="op">=</span> <span class="dv">3</span>      <span class="co"># 每次重新拟合内部的置换重复次数</span></span>
-<span id="cb32-2187"><a href="#cb32-2187" aria-hidden="true" tabindex="-1"></a>STAB_PFI_SAMPLE <span class="op">=</span> <span class="dv">10000</span>   <span class="co"># 用于计算置换重要性的测试集保单数,以节省时间</span></span>
-<span id="cb32-2188"><a href="#cb32-2188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2189"><a href="#cb32-2189" aria-hidden="true" tabindex="-1"></a><span class="co"># 每次重新拟合都沿用原模型通过提前停止所选定的提升轮数,</span></span>
-<span id="cb32-2190"><a href="#cb32-2190" aria-hidden="true" tabindex="-1"></a><span class="co"># 因此各次拟合之间的差异只来自随机种子和所抽取的训练样本行,</span></span>
-<span id="cb32-2191"><a href="#cb32-2191" aria-hidden="true" tabindex="-1"></a><span class="co"># 而不来自调参程度的不同。</span></span>
-<span id="cb32-2192"><a href="#cb32-2192" aria-hidden="true" tabindex="-1"></a>n_rounds <span class="op">=</span> freq_model.best_iteration <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb32-2193"><a href="#cb32-2193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2194"><a href="#cb32-2194" aria-hidden="true" tabindex="-1"></a>X_stab <span class="op">=</span> X_test.sample(STAB_SHAP_SAMPLE, random_state<span class="op">=</span>RANDOM_STATE)</span>
-<span id="cb32-2195"><a href="#cb32-2195" aria-hidden="true" tabindex="-1"></a>pfi_data <span class="op">=</span> predictions.sample(STAB_PFI_SAMPLE, random_state<span class="op">=</span>RANDOM_STATE)</span>
-<span id="cb32-2196"><a href="#cb32-2196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2197"><a href="#cb32-2197" aria-hidden="true" tabindex="-1"></a>pfi_runs, shap_runs <span class="op">=</span> {}, {}</span>
+<span id="cb32-2178"><a href="#cb32-2178" aria-hidden="true" tabindex="-1"></a>每次重新拟合都随机抽取80%的训练保单,并使用不同的 XGBoost 随机种子。提升轮数保持为原模型通过提前停止所选定的数值,因此各次拟合之间的差异只来自随机种子和所抽取的样本行,而不来自调参程度的不同。排序之间的比较使用 Spearman 秩相关系数,它只取决于变量的先后顺序,而不取决于各重要性度量的单位。</span>
+<span id="cb32-2179"><a href="#cb32-2179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2182"><a href="#cb32-2182" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb32-2183"><a href="#cb32-2183" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: stability-refits</span></span>
+<span id="cb32-2184"><a href="#cb32-2184" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示稳定性检验代码"</span></span>
+<span id="cb32-2185"><a href="#cb32-2185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2186"><a href="#cb32-2186" aria-hidden="true" tabindex="-1"></a>N_REPLICATES <span class="op">=</span> <span class="dv">5</span>          <span class="co"># 重新拟合的次数;越多越好,这里取5次以控制运行时间</span></span>
+<span id="cb32-2187"><a href="#cb32-2187" aria-hidden="true" tabindex="-1"></a>STAB_SHAP_SAMPLE <span class="op">=</span> <span class="dv">3000</span>   <span class="co"># 每次重新拟合都使用同一批待解释的样本行</span></span>
+<span id="cb32-2188"><a href="#cb32-2188" aria-hidden="true" tabindex="-1"></a>STAB_PFI_REPEATS <span class="op">=</span> <span class="dv">3</span>      <span class="co"># 每次重新拟合内部的置换重复次数</span></span>
+<span id="cb32-2189"><a href="#cb32-2189" aria-hidden="true" tabindex="-1"></a>STAB_PFI_SAMPLE <span class="op">=</span> <span class="dv">10000</span>   <span class="co"># 用于计算置换重要性的测试集保单数,以节省时间</span></span>
+<span id="cb32-2190"><a href="#cb32-2190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2191"><a href="#cb32-2191" aria-hidden="true" tabindex="-1"></a><span class="co"># 每次重新拟合都沿用原模型通过提前停止所选定的提升轮数,</span></span>
+<span id="cb32-2192"><a href="#cb32-2192" aria-hidden="true" tabindex="-1"></a><span class="co"># 因此各次拟合之间的差异只来自随机种子和所抽取的训练样本行,</span></span>
+<span id="cb32-2193"><a href="#cb32-2193" aria-hidden="true" tabindex="-1"></a><span class="co"># 而不来自调参程度的不同。</span></span>
+<span id="cb32-2194"><a href="#cb32-2194" aria-hidden="true" tabindex="-1"></a>n_rounds <span class="op">=</span> freq_model.best_iteration <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb32-2195"><a href="#cb32-2195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2196"><a href="#cb32-2196" aria-hidden="true" tabindex="-1"></a>X_stab <span class="op">=</span> X_test.sample(STAB_SHAP_SAMPLE, random_state<span class="op">=</span>RANDOM_STATE)</span>
+<span id="cb32-2197"><a href="#cb32-2197" aria-hidden="true" tabindex="-1"></a>pfi_data <span class="op">=</span> predictions.sample(STAB_PFI_SAMPLE, random_state<span class="op">=</span>RANDOM_STATE)</span>
 <span id="cb32-2198"><a href="#cb32-2198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2199"><a href="#cb32-2199" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(N_REPLICATES):</span>
-<span id="cb32-2200"><a href="#cb32-2200" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="dv">1000</span> <span class="op">+</span> r</span>
-<span id="cb32-2201"><a href="#cb32-2201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2202"><a href="#cb32-2202" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 随机抽取80%的训练保单,再用不同的 XGBoost 随机种子重新拟合。</span></span>
-<span id="cb32-2203"><a href="#cb32-2203" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这混合了两类变动来源:模型看到了哪些保单,</span></span>
-<span id="cb32-2204"><a href="#cb32-2204" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 以及提升算法内部对行和列的抽样。</span></span>
-<span id="cb32-2205"><a href="#cb32-2205" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> train.sample(frac<span class="op">=</span><span class="fl">0.8</span>, random_state<span class="op">=</span>seed).index</span>
-<span id="cb32-2206"><a href="#cb32-2206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2207"><a href="#cb32-2207" aria-hidden="true" tabindex="-1"></a>    dtrain_r <span class="op">=</span> xgb.DMatrix(</span>
-<span id="cb32-2208"><a href="#cb32-2208" aria-hidden="true" tabindex="-1"></a>        X_train.loc[rows],</span>
-<span id="cb32-2209"><a href="#cb32-2209" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>train.loc[rows, <span class="st">"ClaimNb"</span>],</span>
-<span id="cb32-2210"><a href="#cb32-2210" aria-hidden="true" tabindex="-1"></a>        base_margin<span class="op">=</span>np.log(train.loc[rows, <span class="st">"Exposure"</span>])</span>
-<span id="cb32-2211"><a href="#cb32-2211" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2212"><a href="#cb32-2212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2213"><a href="#cb32-2213" aria-hidden="true" tabindex="-1"></a>    model_r <span class="op">=</span> xgb.train(</span>
-<span id="cb32-2214"><a href="#cb32-2214" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{<span class="op">**</span>freq_params, <span class="st">"seed"</span>: seed},</span>
-<span id="cb32-2215"><a href="#cb32-2215" aria-hidden="true" tabindex="-1"></a>        dtrain<span class="op">=</span>dtrain_r,</span>
-<span id="cb32-2216"><a href="#cb32-2216" aria-hidden="true" tabindex="-1"></a>        num_boost_round<span class="op">=</span>n_rounds</span>
-<span id="cb32-2217"><a href="#cb32-2217" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2218"><a href="#cb32-2218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2219"><a href="#cb32-2219" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 置换重要性,计算方式与前文一致。</span></span>
-<span id="cb32-2220"><a href="#cb32-2220" aria-hidden="true" tabindex="-1"></a>    pfi_r <span class="op">=</span> permutation_importance_frequency(</span>
-<span id="cb32-2221"><a href="#cb32-2221" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span>model_r,</span>
-<span id="cb32-2222"><a href="#cb32-2222" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>pfi_data,</span>
-<span id="cb32-2223"><a href="#cb32-2223" aria-hidden="true" tabindex="-1"></a>        variables<span class="op">=</span>features,</span>
-<span id="cb32-2224"><a href="#cb32-2224" aria-hidden="true" tabindex="-1"></a>        reference_columns<span class="op">=</span>X_train.columns,</span>
-<span id="cb32-2225"><a href="#cb32-2225" aria-hidden="true" tabindex="-1"></a>        n_repeats<span class="op">=</span>STAB_PFI_REPEATS,</span>
-<span id="cb32-2226"><a href="#cb32-2226" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span>seed</span>
-<span id="cb32-2227"><a href="#cb32-2227" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2228"><a href="#cb32-2228" aria-hidden="true" tabindex="-1"></a>    pfi_runs[<span class="ss">f"Refit </span><span class="sc">{</span>r <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>] <span class="op">=</span> pfi_r.set_index(<span class="st">"Variable"</span>)[<span class="st">"Importance"</span>]</span>
-<span id="cb32-2229"><a href="#cb32-2229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2230"><a href="#cb32-2230" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 平均绝对 SHAP 值,并加总回原始的定价因子。</span></span>
-<span id="cb32-2231"><a href="#cb32-2231" aria-hidden="true" tabindex="-1"></a>    shap_r <span class="op">=</span> shap.TreeExplainer(model_r)(</span>
-<span id="cb32-2232"><a href="#cb32-2232" aria-hidden="true" tabindex="-1"></a>        xgb.DMatrix(</span>
-<span id="cb32-2233"><a href="#cb32-2233" aria-hidden="true" tabindex="-1"></a>            X_stab,</span>
-<span id="cb32-2234"><a href="#cb32-2234" aria-hidden="true" tabindex="-1"></a>            base_margin<span class="op">=</span>np.log(test.loc[X_stab.index, <span class="st">"Exposure"</span>].to_numpy())</span>
-<span id="cb32-2235"><a href="#cb32-2235" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb32-2236"><a href="#cb32-2236" aria-hidden="true" tabindex="-1"></a>        check_additivity<span class="op">=</span><span class="va">False</span></span>
-<span id="cb32-2237"><a href="#cb32-2237" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2238"><a href="#cb32-2238" aria-hidden="true" tabindex="-1"></a>    shap_by_factor <span class="op">=</span> (</span>
-<span id="cb32-2239"><a href="#cb32-2239" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame(shap_r.values, columns<span class="op">=</span>X_stab.columns)</span>
-<span id="cb32-2240"><a href="#cb32-2240" aria-hidden="true" tabindex="-1"></a>        .T.groupby(<span class="kw">lambda</span> col: group_feature_name(col, features)).<span class="bu">sum</span>().T</span>
-<span id="cb32-2241"><a href="#cb32-2241" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-2242"><a href="#cb32-2242" aria-hidden="true" tabindex="-1"></a>    shap_runs[<span class="ss">f"Refit </span><span class="sc">{</span>r <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>] <span class="op">=</span> shap_by_factor.<span class="bu">abs</span>().mean()</span>
-<span id="cb32-2243"><a href="#cb32-2243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2244"><a href="#cb32-2244" aria-hidden="true" tabindex="-1"></a>pfi_stab <span class="op">=</span> pd.DataFrame(pfi_runs).loc[features]</span>
-<span id="cb32-2245"><a href="#cb32-2245" aria-hidden="true" tabindex="-1"></a>shap_stab <span class="op">=</span> pd.DataFrame(shap_runs).loc[features]</span>
-<span id="cb32-2246"><a href="#cb32-2246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2247"><a href="#cb32-2247" aria-hidden="true" tabindex="-1"></a><span class="co"># 排名1 = 最重要。秩相关比较的是顺序而非原始得分,</span></span>
-<span id="cb32-2248"><a href="#cb32-2248" aria-hidden="true" tabindex="-1"></a><span class="co"># 因此不受两种方法所用单位不同的影响。</span></span>
-<span id="cb32-2249"><a href="#cb32-2249" aria-hidden="true" tabindex="-1"></a>pfi_rank <span class="op">=</span> pfi_stab.rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb32-2250"><a href="#cb32-2250" aria-hidden="true" tabindex="-1"></a>shap_rank <span class="op">=</span> shap_stab.rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb32-2251"><a href="#cb32-2251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2252"><a href="#cb32-2252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2253"><a href="#cb32-2253" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean_pairwise_spearman(rank_table):</span>
-<span id="cb32-2254"><a href="#cb32-2254" aria-hidden="true" tabindex="-1"></a>    corr <span class="op">=</span> rank_table.corr(method<span class="op">=</span><span class="st">"spearman"</span>).to_numpy()</span>
-<span id="cb32-2255"><a href="#cb32-2255" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> corr[np.triu_indices_from(corr, k<span class="op">=</span><span class="dv">1</span>)].mean()</span>
-<span id="cb32-2256"><a href="#cb32-2256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2257"><a href="#cb32-2257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2258"><a href="#cb32-2258" aria-hidden="true" tabindex="-1"></a>cross_method <span class="op">=</span> [</span>
-<span id="cb32-2259"><a href="#cb32-2259" aria-hidden="true" tabindex="-1"></a>    pfi_rank[c].corr(shap_rank[c], method<span class="op">=</span><span class="st">"spearman"</span>) <span class="cf">for</span> c <span class="kw">in</span> pfi_rank.columns</span>
-<span id="cb32-2260"><a href="#cb32-2260" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb32-2261"><a href="#cb32-2261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2262"><a href="#cb32-2262" aria-hidden="true" tabindex="-1"></a>stability_summary <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb32-2263"><a href="#cb32-2263" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Comparison"</span>: [</span>
-<span id="cb32-2264"><a href="#cb32-2264" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PFI across refits"</span>,</span>
-<span id="cb32-2265"><a href="#cb32-2265" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SHAP across refits"</span>,</span>
-<span id="cb32-2266"><a href="#cb32-2266" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PFI vs SHAP, within a refit"</span>,</span>
-<span id="cb32-2267"><a href="#cb32-2267" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb32-2268"><a href="#cb32-2268" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean Spearman rank correlation"</span>: [</span>
-<span id="cb32-2269"><a href="#cb32-2269" aria-hidden="true" tabindex="-1"></a>        mean_pairwise_spearman(pfi_rank),</span>
-<span id="cb32-2270"><a href="#cb32-2270" aria-hidden="true" tabindex="-1"></a>        mean_pairwise_spearman(shap_rank),</span>
-<span id="cb32-2271"><a href="#cb32-2271" aria-hidden="true" tabindex="-1"></a>        np.mean(cross_method),</span>
-<span id="cb32-2272"><a href="#cb32-2272" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb32-2273"><a href="#cb32-2273" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb32-2274"><a href="#cb32-2274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2275"><a href="#cb32-2275" aria-hidden="true" tabindex="-1"></a>stability_summary.<span class="bu">round</span>(<span class="dv">3</span>).style.hide(axis<span class="op">=</span><span class="st">"index"</span>)</span>
-<span id="cb32-2276"><a href="#cb32-2276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-2277"><a href="#cb32-2277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2278"><a href="#cb32-2278" aria-hidden="true" tabindex="-1"></a>汇总数字可能掩盖少数变量的变动,因此下图展示了每个变量在各次重新拟合中所取得的完整排名范围。圆点表示排名的中位数,横条覆盖从最高到最低的排名。</span>
+<span id="cb32-2199"><a href="#cb32-2199" aria-hidden="true" tabindex="-1"></a>pfi_runs, shap_runs <span class="op">=</span> {}, {}</span>
+<span id="cb32-2200"><a href="#cb32-2200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2201"><a href="#cb32-2201" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(N_REPLICATES):</span>
+<span id="cb32-2202"><a href="#cb32-2202" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="dv">1000</span> <span class="op">+</span> r</span>
+<span id="cb32-2203"><a href="#cb32-2203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2204"><a href="#cb32-2204" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 随机抽取80%的训练保单,再用不同的 XGBoost 随机种子重新拟合。</span></span>
+<span id="cb32-2205"><a href="#cb32-2205" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这混合了两类变动来源:模型看到了哪些保单,</span></span>
+<span id="cb32-2206"><a href="#cb32-2206" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 以及提升算法内部对行和列的抽样。</span></span>
+<span id="cb32-2207"><a href="#cb32-2207" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> train.sample(frac<span class="op">=</span><span class="fl">0.8</span>, random_state<span class="op">=</span>seed).index</span>
+<span id="cb32-2208"><a href="#cb32-2208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2209"><a href="#cb32-2209" aria-hidden="true" tabindex="-1"></a>    dtrain_r <span class="op">=</span> xgb.DMatrix(</span>
+<span id="cb32-2210"><a href="#cb32-2210" aria-hidden="true" tabindex="-1"></a>        X_train.loc[rows],</span>
+<span id="cb32-2211"><a href="#cb32-2211" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>train.loc[rows, <span class="st">"ClaimNb"</span>],</span>
+<span id="cb32-2212"><a href="#cb32-2212" aria-hidden="true" tabindex="-1"></a>        base_margin<span class="op">=</span>np.log(train.loc[rows, <span class="st">"Exposure"</span>])</span>
+<span id="cb32-2213"><a href="#cb32-2213" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2214"><a href="#cb32-2214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2215"><a href="#cb32-2215" aria-hidden="true" tabindex="-1"></a>    model_r <span class="op">=</span> xgb.train(</span>
+<span id="cb32-2216"><a href="#cb32-2216" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{<span class="op">**</span>freq_params, <span class="st">"seed"</span>: seed},</span>
+<span id="cb32-2217"><a href="#cb32-2217" aria-hidden="true" tabindex="-1"></a>        dtrain<span class="op">=</span>dtrain_r,</span>
+<span id="cb32-2218"><a href="#cb32-2218" aria-hidden="true" tabindex="-1"></a>        num_boost_round<span class="op">=</span>n_rounds</span>
+<span id="cb32-2219"><a href="#cb32-2219" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2220"><a href="#cb32-2220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2221"><a href="#cb32-2221" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 置换重要性,计算方式与前文一致。</span></span>
+<span id="cb32-2222"><a href="#cb32-2222" aria-hidden="true" tabindex="-1"></a>    pfi_r <span class="op">=</span> permutation_importance_frequency(</span>
+<span id="cb32-2223"><a href="#cb32-2223" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span>model_r,</span>
+<span id="cb32-2224"><a href="#cb32-2224" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>pfi_data,</span>
+<span id="cb32-2225"><a href="#cb32-2225" aria-hidden="true" tabindex="-1"></a>        variables<span class="op">=</span>features,</span>
+<span id="cb32-2226"><a href="#cb32-2226" aria-hidden="true" tabindex="-1"></a>        reference_columns<span class="op">=</span>X_train.columns,</span>
+<span id="cb32-2227"><a href="#cb32-2227" aria-hidden="true" tabindex="-1"></a>        n_repeats<span class="op">=</span>STAB_PFI_REPEATS,</span>
+<span id="cb32-2228"><a href="#cb32-2228" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span>seed</span>
+<span id="cb32-2229"><a href="#cb32-2229" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2230"><a href="#cb32-2230" aria-hidden="true" tabindex="-1"></a>    pfi_runs[<span class="ss">f"Refit </span><span class="sc">{</span>r <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>] <span class="op">=</span> pfi_r.set_index(<span class="st">"Variable"</span>)[<span class="st">"Importance"</span>]</span>
+<span id="cb32-2231"><a href="#cb32-2231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2232"><a href="#cb32-2232" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 平均绝对 SHAP 值,并加总回原始的定价因子。</span></span>
+<span id="cb32-2233"><a href="#cb32-2233" aria-hidden="true" tabindex="-1"></a>    shap_r <span class="op">=</span> shap.TreeExplainer(model_r)(</span>
+<span id="cb32-2234"><a href="#cb32-2234" aria-hidden="true" tabindex="-1"></a>        xgb.DMatrix(</span>
+<span id="cb32-2235"><a href="#cb32-2235" aria-hidden="true" tabindex="-1"></a>            X_stab,</span>
+<span id="cb32-2236"><a href="#cb32-2236" aria-hidden="true" tabindex="-1"></a>            base_margin<span class="op">=</span>np.log(test.loc[X_stab.index, <span class="st">"Exposure"</span>].to_numpy())</span>
+<span id="cb32-2237"><a href="#cb32-2237" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb32-2238"><a href="#cb32-2238" aria-hidden="true" tabindex="-1"></a>        check_additivity<span class="op">=</span><span class="va">False</span></span>
+<span id="cb32-2239"><a href="#cb32-2239" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2240"><a href="#cb32-2240" aria-hidden="true" tabindex="-1"></a>    shap_by_factor <span class="op">=</span> (</span>
+<span id="cb32-2241"><a href="#cb32-2241" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame(shap_r.values, columns<span class="op">=</span>X_stab.columns)</span>
+<span id="cb32-2242"><a href="#cb32-2242" aria-hidden="true" tabindex="-1"></a>        .T.groupby(<span class="kw">lambda</span> col: group_feature_name(col, features)).<span class="bu">sum</span>().T</span>
+<span id="cb32-2243"><a href="#cb32-2243" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-2244"><a href="#cb32-2244" aria-hidden="true" tabindex="-1"></a>    shap_runs[<span class="ss">f"Refit </span><span class="sc">{</span>r <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>] <span class="op">=</span> shap_by_factor.<span class="bu">abs</span>().mean()</span>
+<span id="cb32-2245"><a href="#cb32-2245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2246"><a href="#cb32-2246" aria-hidden="true" tabindex="-1"></a>pfi_stab <span class="op">=</span> pd.DataFrame(pfi_runs).loc[features]</span>
+<span id="cb32-2247"><a href="#cb32-2247" aria-hidden="true" tabindex="-1"></a>shap_stab <span class="op">=</span> pd.DataFrame(shap_runs).loc[features]</span>
+<span id="cb32-2248"><a href="#cb32-2248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2249"><a href="#cb32-2249" aria-hidden="true" tabindex="-1"></a><span class="co"># 排名1 = 最重要。秩相关比较的是顺序而非原始得分,</span></span>
+<span id="cb32-2250"><a href="#cb32-2250" aria-hidden="true" tabindex="-1"></a><span class="co"># 因此不受两种方法所用单位不同的影响。</span></span>
+<span id="cb32-2251"><a href="#cb32-2251" aria-hidden="true" tabindex="-1"></a>pfi_rank <span class="op">=</span> pfi_stab.rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb32-2252"><a href="#cb32-2252" aria-hidden="true" tabindex="-1"></a>shap_rank <span class="op">=</span> shap_stab.rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb32-2253"><a href="#cb32-2253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2254"><a href="#cb32-2254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2255"><a href="#cb32-2255" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean_pairwise_spearman(rank_table):</span>
+<span id="cb32-2256"><a href="#cb32-2256" aria-hidden="true" tabindex="-1"></a>    corr <span class="op">=</span> rank_table.corr(method<span class="op">=</span><span class="st">"spearman"</span>).to_numpy()</span>
+<span id="cb32-2257"><a href="#cb32-2257" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> corr[np.triu_indices_from(corr, k<span class="op">=</span><span class="dv">1</span>)].mean()</span>
+<span id="cb32-2258"><a href="#cb32-2258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2259"><a href="#cb32-2259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2260"><a href="#cb32-2260" aria-hidden="true" tabindex="-1"></a>cross_method <span class="op">=</span> [</span>
+<span id="cb32-2261"><a href="#cb32-2261" aria-hidden="true" tabindex="-1"></a>    pfi_rank[c].corr(shap_rank[c], method<span class="op">=</span><span class="st">"spearman"</span>) <span class="cf">for</span> c <span class="kw">in</span> pfi_rank.columns</span>
+<span id="cb32-2262"><a href="#cb32-2262" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb32-2263"><a href="#cb32-2263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2264"><a href="#cb32-2264" aria-hidden="true" tabindex="-1"></a>stability_summary <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb32-2265"><a href="#cb32-2265" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Comparison"</span>: [</span>
+<span id="cb32-2266"><a href="#cb32-2266" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PFI across refits"</span>,</span>
+<span id="cb32-2267"><a href="#cb32-2267" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SHAP across refits"</span>,</span>
+<span id="cb32-2268"><a href="#cb32-2268" aria-hidden="true" tabindex="-1"></a>        <span class="st">"PFI vs SHAP, within a refit"</span>,</span>
+<span id="cb32-2269"><a href="#cb32-2269" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb32-2270"><a href="#cb32-2270" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean Spearman rank correlation"</span>: [</span>
+<span id="cb32-2271"><a href="#cb32-2271" aria-hidden="true" tabindex="-1"></a>        mean_pairwise_spearman(pfi_rank),</span>
+<span id="cb32-2272"><a href="#cb32-2272" aria-hidden="true" tabindex="-1"></a>        mean_pairwise_spearman(shap_rank),</span>
+<span id="cb32-2273"><a href="#cb32-2273" aria-hidden="true" tabindex="-1"></a>        np.mean(cross_method),</span>
+<span id="cb32-2274"><a href="#cb32-2274" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb32-2275"><a href="#cb32-2275" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb32-2276"><a href="#cb32-2276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2277"><a href="#cb32-2277" aria-hidden="true" tabindex="-1"></a>stability_summary.<span class="bu">round</span>(<span class="dv">3</span>).style.hide(axis<span class="op">=</span><span class="st">"index"</span>)</span>
+<span id="cb32-2278"><a href="#cb32-2278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-2279"><a href="#cb32-2279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2282"><a href="#cb32-2282" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb32-2283"><a href="#cb32-2283" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: stability-rank-ranges</span></span>
-<span id="cb32-2284"><a href="#cb32-2284" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示排名范围图代码"</span></span>
-<span id="cb32-2285"><a href="#cb32-2285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2286"><a href="#cb32-2286" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb32-2287"><a href="#cb32-2287" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> shap_rank.median(axis<span class="op">=</span><span class="dv">1</span>).sort_values().index   <span class="co"># 最重要的排在最上方</span></span>
-<span id="cb32-2288"><a href="#cb32-2288" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.arange(<span class="bu">len</span>(order))</span>
-<span id="cb32-2289"><a href="#cb32-2289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2290"><a href="#cb32-2290" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, ranks, title <span class="kw">in</span> [</span>
-<span id="cb32-2291"><a href="#cb32-2291" aria-hidden="true" tabindex="-1"></a>    (axes[<span class="dv">0</span>], pfi_rank, <span class="st">"Permutation importance"</span>),</span>
-<span id="cb32-2292"><a href="#cb32-2292" aria-hidden="true" tabindex="-1"></a>    (axes[<span class="dv">1</span>], shap_rank, <span class="st">"Mean absolute SHAP"</span>),</span>
-<span id="cb32-2293"><a href="#cb32-2293" aria-hidden="true" tabindex="-1"></a>]:</span>
-<span id="cb32-2294"><a href="#cb32-2294" aria-hidden="true" tabindex="-1"></a>    ranks <span class="op">=</span> ranks.loc[order]</span>
-<span id="cb32-2295"><a href="#cb32-2295" aria-hidden="true" tabindex="-1"></a>    ax.hlines(y, ranks.<span class="bu">min</span>(axis<span class="op">=</span><span class="dv">1</span>), ranks.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>), linewidth<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">0.35</span>)</span>
-<span id="cb32-2296"><a href="#cb32-2296" aria-hidden="true" tabindex="-1"></a>    ax.scatter(ranks.median(axis<span class="op">=</span><span class="dv">1</span>), y, zorder<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb32-2297"><a href="#cb32-2297" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks(y)</span>
-<span id="cb32-2298"><a href="#cb32-2298" aria-hidden="true" tabindex="-1"></a>    ax.set_yticklabels(order)</span>
-<span id="cb32-2299"><a href="#cb32-2299" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="fl">0.5</span>, <span class="bu">len</span>(order) <span class="op">+</span> <span class="fl">0.5</span>)</span>
-<span id="cb32-2300"><a href="#cb32-2300" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Rank across refits (1 = most important)"</span>)</span>
-<span id="cb32-2301"><a href="#cb32-2301" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
-<span id="cb32-2302"><a href="#cb32-2302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2303"><a href="#cb32-2303" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].invert_yaxis()</span>
-<span id="cb32-2304"><a href="#cb32-2304" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb32-2305"><a href="#cb32-2305" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb32-2306"><a href="#cb32-2306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-2307"><a href="#cb32-2307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2308"><a href="#cb32-2308" aria-hidden="true" tabindex="-1"></a>排序是稳定的。在每种方法内部,各次重新拟合之间的平均秩相关系数都高于0.98,而在每次重新拟合内,两种方法之间的一致程度约为0.97。无论采用哪种方法,Bonus、Age、Density、Group1 和 Occupation 在每次重新拟合中都占据前五位,其中只有 Density 和 Group1 这一对互换了位置。变动集中在排名表的底部。Category、Value 和 Adind 在第11至13位之间互换位置,而一些排名居中的变量,例如 Gender 和 SubGroup2,只变动一个名次。</span>
+<span id="cb32-2280"><a href="#cb32-2280" aria-hidden="true" tabindex="-1"></a>汇总数字可能掩盖少数变量的变动,因此下图展示了每个变量在各次重新拟合中所取得的完整排名范围。圆点表示排名的中位数,横条覆盖从最高到最低的排名。</span>
+<span id="cb32-2281"><a href="#cb32-2281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2284"><a href="#cb32-2284" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb32-2285"><a href="#cb32-2285" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: stability-rank-ranges</span></span>
+<span id="cb32-2286"><a href="#cb32-2286" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "展示排名范围图代码"</span></span>
+<span id="cb32-2287"><a href="#cb32-2287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2288"><a href="#cb32-2288" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-2289"><a href="#cb32-2289" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> shap_rank.median(axis<span class="op">=</span><span class="dv">1</span>).sort_values().index   <span class="co"># 最重要的排在最上方</span></span>
+<span id="cb32-2290"><a href="#cb32-2290" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.arange(<span class="bu">len</span>(order))</span>
+<span id="cb32-2291"><a href="#cb32-2291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2292"><a href="#cb32-2292" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, ranks, title <span class="kw">in</span> [</span>
+<span id="cb32-2293"><a href="#cb32-2293" aria-hidden="true" tabindex="-1"></a>    (axes[<span class="dv">0</span>], pfi_rank, <span class="st">"Permutation importance"</span>),</span>
+<span id="cb32-2294"><a href="#cb32-2294" aria-hidden="true" tabindex="-1"></a>    (axes[<span class="dv">1</span>], shap_rank, <span class="st">"Mean absolute SHAP"</span>),</span>
+<span id="cb32-2295"><a href="#cb32-2295" aria-hidden="true" tabindex="-1"></a>]:</span>
+<span id="cb32-2296"><a href="#cb32-2296" aria-hidden="true" tabindex="-1"></a>    ranks <span class="op">=</span> ranks.loc[order]</span>
+<span id="cb32-2297"><a href="#cb32-2297" aria-hidden="true" tabindex="-1"></a>    ax.hlines(y, ranks.<span class="bu">min</span>(axis<span class="op">=</span><span class="dv">1</span>), ranks.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>), linewidth<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">0.35</span>)</span>
+<span id="cb32-2298"><a href="#cb32-2298" aria-hidden="true" tabindex="-1"></a>    ax.scatter(ranks.median(axis<span class="op">=</span><span class="dv">1</span>), y, zorder<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb32-2299"><a href="#cb32-2299" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks(y)</span>
+<span id="cb32-2300"><a href="#cb32-2300" aria-hidden="true" tabindex="-1"></a>    ax.set_yticklabels(order)</span>
+<span id="cb32-2301"><a href="#cb32-2301" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="fl">0.5</span>, <span class="bu">len</span>(order) <span class="op">+</span> <span class="fl">0.5</span>)</span>
+<span id="cb32-2302"><a href="#cb32-2302" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Rank across refits (1 = most important)"</span>)</span>
+<span id="cb32-2303"><a href="#cb32-2303" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
+<span id="cb32-2304"><a href="#cb32-2304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2305"><a href="#cb32-2305" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].invert_yaxis()</span>
+<span id="cb32-2306"><a href="#cb32-2306" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb32-2307"><a href="#cb32-2307" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb32-2308"><a href="#cb32-2308" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-2309"><a href="#cb32-2309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2310"><a href="#cb32-2310" aria-hidden="true" tabindex="-1"></a>这是一个令人满意的结果,但它也有局限。各次重新拟合使用的预测变量、超参数和训练总体都相同,因此这项检验只涵盖抽样和随机种子带来的变动。它没有涵盖不同的模型类别、不同的调参方式,或重新构造的特征集,而在预测变量相关时,这些因素中的任何一个都可能改变变量的先后顺序。@fisher2019all 研究了这个更广泛的问题,并表明在预测效果同样好的多个模型之间,同一个变量的重要性可以相差很大。五次重新拟合足以发现不稳定的排序,但不足以为任何单个名次给出置信区间,而且并不存在一个通用的、可接受的秩相关系数门槛。怎样才算稳定是一项判断,应当与结果一起记录下来。</span>
+<span id="cb32-2310"><a href="#cb32-2310" aria-hidden="true" tabindex="-1"></a>排序是稳定的。在每种方法内部,各次重新拟合之间的平均秩相关系数都高于0.98,而在每次重新拟合内,两种方法之间的一致程度约为0.97。无论采用哪种方法,Bonus、Age、Density、Group1 和 Occupation 在每次重新拟合中都占据前五位,其中只有 Density 和 Group1 这一对互换了位置。变动集中在排名表的底部。Category、Value 和 Adind 在第11至13位之间互换位置,而一些排名居中的变量,例如 Gender 和 SubGroup2,只变动一个名次。</span>
 <span id="cb32-2311"><a href="#cb32-2311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2312"><a href="#cb32-2312" aria-hidden="true" tabindex="-1"></a>如果排名靠前的变量发生了变动,正确的做法是报告排名的范围,而不是只报告原模型得到的那一个排序,并寻找在彼此之间分摊贡献的相关预测变量。</span>
+<span id="cb32-2312"><a href="#cb32-2312" aria-hidden="true" tabindex="-1"></a>这是一个令人满意的结果,但它也有局限。各次重新拟合使用的预测变量、超参数和训练总体都相同,因此这项检验只涵盖抽样和随机种子带来的变动。它没有涵盖不同的模型类别、不同的调参方式,或重新构造的特征集,而在预测变量相关时,这些因素中的任何一个都可能改变变量的先后顺序。@fisher2019all 研究了这个更广泛的问题,并表明在预测效果同样好的多个模型之间,同一个变量的重要性可以相差很大。五次重新拟合足以发现不稳定的排序,但不足以为任何单个名次给出置信区间,而且并不存在一个通用的、可接受的秩相关系数门槛。怎样才算稳定是一项判断,应当与结果一起记录下来。</span>
 <span id="cb32-2313"><a href="#cb32-2313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2314"><a href="#cb32-2314" aria-hidden="true" tabindex="-1"></a><span class="fu">## 应向各类受众展示什么</span></span>
+<span id="cb32-2314"><a href="#cb32-2314" aria-hidden="true" tabindex="-1"></a>如果排名靠前的变量发生了变动,正确的做法是报告排名的范围,而不是只报告原模型得到的那一个排序,并寻找在彼此之间分摊贡献的相关预测变量。</span>
 <span id="cb32-2315"><a href="#cb32-2315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2316"><a href="#cb32-2316" aria-hidden="true" tabindex="-1"></a>最后一步是沟通。同一个已拟合的模型要支撑三类不同的对话,每类受众需要的是本章所产出内容中的不同部分。</span>
+<span id="cb32-2316"><a href="#cb32-2316" aria-hidden="true" tabindex="-1"></a><span class="fu">## 应向各类受众展示什么</span></span>
 <span id="cb32-2317"><a href="#cb32-2317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2318"><a href="#cb32-2318" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 受众 <span class="pp">|</span> 需要作出的判断 <span class="pp">|</span> 应展示的内容 <span class="pp">|</span> 应避免的做法 <span class="pp">|</span></span>
-<span id="cb32-2319"><a href="#cb32-2319" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|----------------|--------------|--------------|</span></span>
-<span id="cb32-2320"><a href="#cb32-2320" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 技术审查人员 <span class="pp">|</span> 模型及其解释是否可以依赖 <span class="pp">|</span> 来自多种方法的重要性排序、附带相关预测变量提示的 PDP 和 ALE、交互效应诊断,以及上文的稳定性结果 <span class="pp">|</span> 在各方法或各次拟合结果不一致时,只呈现单一的排序 <span class="pp">|</span></span>
-<span id="cb32-2321"><a href="#cb32-2321" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 监管机构 <span class="pp">|</span> 模型是否依赖了不应使用的变量,以及保险公司能否说明原因 <span class="pp">|</span> 每个定价因子的全局重要性和主效应、任何被标记为可能的代理变量、稳定性结果,以及有据可查的局限 <span class="pp">|</span> 把解释当作公平性的证明。解释可能被操纵 <span class="co">[</span><span class="ot">@slack2020fooling</span><span class="co">]</span>,并且不能替代第二章和第三章中的公平性检验 <span class="pp">|</span></span>
-<span id="cb32-2322"><a href="#cb32-2322" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 受影响的个人 <span class="pp">|</span> 自己的保费为何是这个数额,以及自己可以改变什么 <span class="pp">|</span> 将针对其保单的局部 SHAP 瀑布图精简为几个最大的驱动因素,并用通俗语言表述,再加上针对其可以采取行动的因素的假设分析 <span class="pp">|</span> 原始的 SHAP 值、模型内部细节,或暗示某个驱动因素导致其风险的措辞 <span class="pp">|</span></span>
-<span id="cb32-2323"><a href="#cb32-2323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2324"><a href="#cb32-2324" aria-hidden="true" tabindex="-1"></a>技术记录必须保持完整,因为提供给个人的通俗版本只是它的简化。如果向保单持有人作出的解释把 Bonus 和 Age 列为主要驱动因素,那么技术档案就应当表明,这两个变量同样位居全局排序的前列,并且这些排序是稳定的。</span>
+<span id="cb32-2318"><a href="#cb32-2318" aria-hidden="true" tabindex="-1"></a>最后一步是沟通。同一个已拟合的模型要支撑三类不同的对话,每类受众需要的是本章所产出内容中的不同部分。</span>
+<span id="cb32-2319"><a href="#cb32-2319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2320"><a href="#cb32-2320" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 受众 <span class="pp">|</span> 需要作出的判断 <span class="pp">|</span> 应展示的内容 <span class="pp">|</span> 应避免的做法 <span class="pp">|</span></span>
+<span id="cb32-2321"><a href="#cb32-2321" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|----------------|--------------|--------------|</span></span>
+<span id="cb32-2322"><a href="#cb32-2322" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 技术审查人员 <span class="pp">|</span> 模型及其解释是否可以依赖 <span class="pp">|</span> 来自多种方法的重要性排序、附带相关预测变量提示的 PDP 和 ALE、交互效应诊断,以及上文的稳定性结果 <span class="pp">|</span> 在各方法或各次拟合结果不一致时,只呈现单一的排序 <span class="pp">|</span></span>
+<span id="cb32-2323"><a href="#cb32-2323" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 监管机构 <span class="pp">|</span> 模型是否依赖了不应使用的变量,以及保险公司能否说明原因 <span class="pp">|</span> 每个定价因子的全局重要性和主效应、任何被标记为可能的代理变量、稳定性结果,以及有据可查的局限 <span class="pp">|</span> 把解释当作公平性的证明。解释可能被操纵 <span class="co">[</span><span class="ot">@slack2020fooling</span><span class="co">]</span>,并且不能替代第二章和第三章中的公平性检验 <span class="pp">|</span></span>
+<span id="cb32-2324"><a href="#cb32-2324" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 受影响的个人 <span class="pp">|</span> 自己的保费为何是这个数额,以及自己可以改变什么 <span class="pp">|</span> 将针对其保单的局部 SHAP 瀑布图精简为几个最大的驱动因素,并用通俗语言表述,再加上针对其可以采取行动的因素的假设分析 <span class="pp">|</span> 原始的 SHAP 值、模型内部细节,或暗示某个驱动因素导致其风险的措辞 <span class="pp">|</span></span>
 <span id="cb32-2325"><a href="#cb32-2325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2326"><a href="#cb32-2326" aria-hidden="true" tabindex="-1"></a><span class="fu"># 小结</span></span>
+<span id="cb32-2326"><a href="#cb32-2326" aria-hidden="true" tabindex="-1"></a>技术记录必须保持完整,因为提供给个人的通俗版本只是它的简化。如果向保单持有人作出的解释把 Bonus 和 Age 列为主要驱动因素,那么技术档案就应当表明,这两个变量同样位居全局排序的前列,并且这些排序是稳定的。</span>
 <span id="cb32-2327"><a href="#cb32-2327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2328"><a href="#cb32-2328" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>同样的工作流程(拟合一个准确的模型、检查全局重要性、检查主效应、检查单次预测、检查交互效应、验证并沟通),适用于任何已拟合的表格型模型,而不仅限于本章所使用的 XGBoost 定价模型。</span>
-<span id="cb32-2329"><a href="#cb32-2329" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>没有任何单一方法能够讲述完整的故事。内置重要性与置换重要性可能相互矛盾,PDP 与 ALE 在预测变量相关时可能出现分歧,全局 SHAP 重要性也可能掩盖异质性的局部行为。</span>
-<span id="cb32-2330"><a href="#cb32-2330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>交互效应诊断工具(H统计量、SHAP 交互值)揭示了 PDP/ALE 和全局 SHAP 中“逐一变量”的可加性图景在何处失效。</span>
-<span id="cb32-2331"><a href="#cb32-2331" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>重要性排序在呈现之前,应当检验其在多次重新拟合之间是否稳定。在本案例研究中,排名前五的变量在每次重新拟合中都保持了各自的位置,而排名表的底部则有几个名次的变动。</span>
-<span id="cb32-2332"><a href="#cb32-2332" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>解释是为受众服务的。技术审查人员、监管机构和受影响的个人,需要针对同一个已拟合模型的不同摘要。</span>
-<span id="cb32-2333"><a href="#cb32-2333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2334"><a href="#cb32-2334" aria-hidden="true" tabindex="-1"></a><span class="fu"># 推荐阅读</span></span>
+<span id="cb32-2328"><a href="#cb32-2328" aria-hidden="true" tabindex="-1"></a><span class="fu"># 小结</span></span>
+<span id="cb32-2329"><a href="#cb32-2329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2330"><a href="#cb32-2330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>同样的工作流程(拟合一个准确的模型、检查全局重要性、检查主效应、检查单次预测、检查交互效应、验证并沟通),适用于任何已拟合的表格型模型,而不仅限于本章所使用的 XGBoost 定价模型。</span>
+<span id="cb32-2331"><a href="#cb32-2331" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>没有任何单一方法能够讲述完整的故事。内置重要性与置换重要性可能相互矛盾,PDP 与 ALE 在预测变量相关时可能出现分歧,全局 SHAP 重要性也可能掩盖异质性的局部行为。</span>
+<span id="cb32-2332"><a href="#cb32-2332" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>交互效应诊断工具(H统计量、SHAP 交互值)揭示了 PDP/ALE 和全局 SHAP 中“逐一变量”的可加性图景在何处失效。</span>
+<span id="cb32-2333"><a href="#cb32-2333" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>重要性排序在呈现之前,应当检验其在多次重新拟合之间是否稳定。在本案例研究中,排名前五的变量在每次重新拟合中都保持了各自的位置,而排名表的底部则有几个名次的变动。</span>
+<span id="cb32-2334"><a href="#cb32-2334" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>解释是为受众服务的。技术审查人员、监管机构和受影响的个人,需要针对同一个已拟合模型的不同摘要。</span>
 <span id="cb32-2335"><a href="#cb32-2335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2336"><a href="#cb32-2336" aria-hidden="true" tabindex="-1"></a>**延伸阅读**</span>
+<span id="cb32-2336"><a href="#cb32-2336" aria-hidden="true" tabindex="-1"></a><span class="fu"># 推荐阅读</span></span>
 <span id="cb32-2337"><a href="#cb32-2337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-2338"><a href="#cb32-2338" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@molnar2025iml — 本章所使用的每一种方法(置换重要性、PDP、ALE、SHAP、H统计量)的综合参考资料,并非专属于保险领域。</span>
-<span id="cb32-2339"><a href="#cb32-2339" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@baeder2021iml — 将本工具集置于保险定价实务背景下的 SOA 报告。</span>
-<span id="cb32-2340"><a href="#cb32-2340" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@naic2025modelreview — 关于模型审查与文档记录的监管期望。</span>
-<span id="cb32-2341"><a href="#cb32-2341" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@ribeiro2016should — LIME,一种本讲座未涵盖的、作为 SHAP 替代方案的局部代理模型方法。</span>
-<span id="cb32-2342"><a href="#cb32-2342" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@fisher2019all — 在预测效果同样好的多个模型之间,同一个变量的重要性如何变化,这是本章稳定性检验的更广泛版本。</span>
+<span id="cb32-2338"><a href="#cb32-2338" aria-hidden="true" tabindex="-1"></a>**延伸阅读**</span>
+<span id="cb32-2339"><a href="#cb32-2339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2340"><a href="#cb32-2340" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@molnar2025iml — 本章所使用的每一种方法(置换重要性、PDP、ALE、SHAP、H统计量)的综合参考资料,并非专属于保险领域。</span>
+<span id="cb32-2341"><a href="#cb32-2341" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@baeder2021iml — 将本工具集置于保险定价实务背景下的 SOA 报告。</span>
+<span id="cb32-2342"><a href="#cb32-2342" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@naic2025modelreview — 关于模型审查与文档记录的监管期望。</span>
+<span id="cb32-2343"><a href="#cb32-2343" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@ribeiro2016should — LIME,一种本讲座未涵盖的、作为 SHAP 替代方案的局部代理模型方法。</span>
+<span id="cb32-2344"><a href="#cb32-2344" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@fisher2019all — 在预测效果同样好的多个模型之间,同一个变量的重要性如何变化,这是本章稳定性检验的更广泛版本。</span>
 </code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
