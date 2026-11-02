@@ -963,7 +963,7 @@ window.Quarto = {
 <figcaption>五种模型设计(M0、MU、MDP、MCDP、MC)在法国车险数据上的准确性—公平性权衡取舍,每种设计均分别以 GLM 和 XGBoost 拟合。横轴为均方根误差(数值越低表示越准确)。纵轴为差异性影响比率(1 表示各群体间完全均等)。虚线标出了五分之四原则通常所允许的 0.8–1.25 容忍区间。来源:<span class="citation" data-cites="xin2024antidiscrimination">Xin 和 Huang (<a href="#ref-xin2024antidiscrimination" role="doc-biblioref">2024年</a>)</span>。</figcaption>
 </figure>
 </div>
-<p>M0 直接使用受保护属性,是图中最准确的模型,但也是偏离五分之四容忍区间最远的模型。MDP 和 MCDP 将差异性影响比率拉回接近1的水平,而 RMSE 的上升幅度很小。MCDP 与 MC 则将该比率略微压低至1以下,即便如此,相较于 M0 而言,准确性上的代价依然很小。同样值得注意的是,在这一特定数据集上,MU(无意识公平)恰好落在五分之四容忍区间之内。这是该数据集特定代理变量结构所带来的特征,而非一种普遍性的保证。这正是本章前文将 FTU 视为必要但不充分条件的原因所在。</p>
+<p>M0 直接使用受保护属性,是图中最准确的模型,但也是偏离五分之四容忍区间最远的模型。MDP 和 MCDP 将差异性影响比率拉回接近1的水平,而 RMSE 的上升幅度很小。MCDP 与 MC 则将该比率略微压低至1以下,即便如此,相较于 M0 而言,准确性上的代价依然很小。在这一特定数据集上,MU(无意识公平)恰好落在五分之四容忍区间之内。这是该数据集特定代理变量结构所带来的特征,而非一种普遍性的保证。这正是本章前文将 FTU 视为必要但不充分条件的原因所在。</p>
 <p>这种模式(以有限的准确性代价换取显著的公平性提升)在其他领域中也反复出现。<span class="citation" data-cites="rodolfa2021negligible">Rodolfa 等 (<a href="#ref-rodolfa2021negligible" role="doc-biblioref">2021年</a>)</span> 在教育、心理健康、刑事司法和住房安全等领域中都发现了这一点,<span class="citation" data-cites="hardt2016equality">Hardt 等 (<a href="#ref-hardt2016equality" role="doc-biblioref">2016年</a>)</span> 在信用评分中也发现了类似的模式。<span class="citation" data-cites="mehrabi2021survey">Mehrabi 等 (<a href="#ref-mehrabi2021survey" role="doc-biblioref">2021年</a>)</span> 对更广泛的证据进行了综述。公平性的代价比通常设想的要小,但并非为零,严格的人口统计学均等性会带来更大程度上、相当于结果层面逆向选择的风险敞口。这是一项<strong>商业决策</strong>,但它是可以被量化的。</p>
 </section>
 </section>

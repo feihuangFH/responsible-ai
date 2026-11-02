@@ -1957,7 +1957,7 @@ ICE_i(x_j).
 </div>
 <p>分组 SHAP 重要性图表明,<strong>Bonus</strong>、<strong>Age</strong> 和 <strong>Density</strong> 是 Tweedie 模型中最具影响力的定价变量,其后是 <strong>Group1</strong> 以及若干人口统计与车辆特征变量。</p>
 <p>这一排序与前文所述的置换重要性分析大体一致,但两者来自不同的模型。置换重要性是在频率模型上计算的,而这里的 SHAP 分析使用的是 Tweedie 模型,因此这种一致只具有提示意义,并不是同口径的核对。本章末尾的稳定性一节,在同一个频率模型上比较了这两种方法。综合来看,这些结果提示这些变量不仅对预测性能贡献显著,对单次预测也有较大影响。</p>
-<p>尤其值得注意的是,<strong>Bonus</strong> 和 <strong>Age</strong> 相对较高的重要性,与 PDP 和 ALE 分析的结果相符,后者显示这些变量与预测纯保费之间存在强烈的非线性关系。</p>
+<p><strong>Bonus</strong> 和 <strong>Age</strong> 相对较高的重要性,与 PDP 和 ALE 分析的结果相符,后者显示这些变量与预测纯保费之间存在强烈的非线性关系。</p>
 <div id="cell-shap-beeswarm" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>展示 SHAP 蜂群图代码</summary>
@@ -5030,7 +5030,7 @@ Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, 和 Himabindu Lakkaraju. 
 <span id="cb32-1463"><a href="#cb32-1463" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1464"><a href="#cb32-1464" aria-hidden="true" tabindex="-1"></a>这一排序与前文所述的置换重要性分析大体一致,但两者来自不同的模型。置换重要性是在频率模型上计算的,而这里的 SHAP 分析使用的是 Tweedie 模型,因此这种一致只具有提示意义,并不是同口径的核对。本章末尾的稳定性一节,在同一个频率模型上比较了这两种方法。综合来看,这些结果提示这些变量不仅对预测性能贡献显著,对单次预测也有较大影响。</span>
 <span id="cb32-1465"><a href="#cb32-1465" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1466"><a href="#cb32-1466" aria-hidden="true" tabindex="-1"></a>尤其值得注意的是,**Bonus** 和 **Age** 相对较高的重要性,与 PDP 和 ALE 分析的结果相符,后者显示这些变量与预测纯保费之间存在强烈的非线性关系。</span>
+<span id="cb32-1466"><a href="#cb32-1466" aria-hidden="true" tabindex="-1"></a>**Bonus** 和 **Age** 相对较高的重要性,与 PDP 和 ALE 分析的结果相符,后者显示这些变量与预测纯保费之间存在强烈的非线性关系。</span>
 <span id="cb32-1467"><a href="#cb32-1467" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1468"><a href="#cb32-1468" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1469"><a href="#cb32-1469" aria-hidden="true" tabindex="-1"></a></span>

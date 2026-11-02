@@ -1279,7 +1279,7 @@ Fei Huang, UNSW Sydney
 <p><span class="citation" data-cites="huang2026beyond">Huang et al. (<a href="#/next-class" role="doc-biblioref" onclick="">2026</a>)</span>’s counterfactual audit:</p>
 <ul>
 <li><strong>1,388</strong> real vehicle insurance claims (accident image, vehicle metadata, optionally an AI-generated narrative)</li>
-<li><strong>4</strong> gender conditions: Male, Female, Non-binary, Not Specified, not just the conventional Male/Female binary</li>
+<li><strong>4</strong> gender conditions: Male, Female, Non-binary, Not Specified</li>
 <li><strong>2 × 2</strong> further conditions: claimant’s name present/absent, narrative present/absent</li>
 <li><strong>6 LLMs</strong>: GPT-5, GPT-4o, Gemini 2.5 Pro, Gemini 3 Flash, Claude 4 Sonnet, Claude 4.5 Sonnet</li>
 <li><strong>3 outcomes</strong> per claim: predicted claim amount, eligibility, damage severity</li>
@@ -1331,8 +1331,8 @@ Fei Huang, UNSW Sydney
 <p><strong>Options grounded in the paper and this chapter</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Change the prompt, not just the model.</strong> GPT-4o’s bias pattern flips depending on whether the claimant’s name is present. Stripping the name (and other demographic-adjacent free text) from the prompt before the claim reaches the model is the LLM analogue of <strong>FTU</strong>, removing an input the model doesn’t need to do its job.</p>
-<p><strong>Switch models, if procurement allows it.</strong> Three of the six models tested show no significant disparity under any condition. Model choice is itself a fairness lever, not just a technical one, provided switching doesn’t trade away needed capability.</p>
+<p><strong>Change the prompt.</strong> GPT-4o’s bias pattern flips depending on whether the claimant’s name is present. Stripping the name (and other demographic-adjacent free text) from the prompt before the claim reaches the model is the LLM analogue of <strong>FTU</strong>, removing an input the model doesn’t need to do its job.</p>
+<p><strong>Switch models, if procurement allows it.</strong> Three of the six models tested show no significant disparity under any condition. Model choice is itself a fairness lever, provided switching doesn’t trade away needed capability.</p>
 <p><strong>Audit is not a one-off gate.</strong> GPT-5 fixed most of GPT-4o’s disparities, but that isn’t guaranteed for every update. <strong>Every model version change should trigger a new, multiplicity-aware audit</strong> (multiple gender categories, multiple prompt configurations), not a one-time sign-off at procurement.</p>
 </div>
 </div>

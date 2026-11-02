@@ -471,7 +471,7 @@ Note
 <h2 class="anchored" data-anchor-id="goals-of-explainability">Goals of explainability</h2>
 <section id="three-goals-of-explainability" class="level3">
 <h3 class="anchored" data-anchor-id="three-goals-of-explainability">Three goals of explainability</h3>
-<p>Explainability serves several distinct purposes, not just one <span class="citation" data-cites="rudin2022interpretable">(<a href="#ref-rudin2022interpretable" role="doc-biblioref">Rudin et al. 2022</a>)</span>:</p>
+<p>Explainability serves several distinct purposes <span class="citation" data-cites="rudin2022interpretable">(<a href="#ref-rudin2022interpretable" role="doc-biblioref">Rudin et al. 2022</a>)</span>:</p>
 <p><strong>1. Improving the model</strong></p>
 <p>Explainability helps identify when models learn unintended patterns. A model can have strong test-set accuracy while relying on non-causal features, for example using background snow in a photo to classify wolves vs dogs. In insurance, this might mean using a proxy variable (a feature that indirectly stands in for another) for a protected attribute (a legally protected personal characteristic, such as race or gender, that a model should not rely on) without detection.</p>
 <p><strong>2. Justifying predictions</strong></p>
@@ -481,7 +481,7 @@ Note
 </section>
 <section id="characteristics-of-good-explanations" class="level3">
 <h3 class="anchored" data-anchor-id="characteristics-of-good-explanations">Characteristics of good explanations</h3>
-<p>Research on how people actually process explanations, not just what is technically correct, identifies what makes them effective <span class="citation" data-cites="miller2019explanation">(<a href="#ref-miller2019explanation" role="doc-biblioref">Miller 2019</a>)</span>:</p>
+<p>Research on how people actually process explanations identifies what makes them effective <span class="citation" data-cites="miller2019explanation">(<a href="#ref-miller2019explanation" role="doc-biblioref">Miller 2019</a>)</span>:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 47%">
@@ -952,7 +952,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The two weaknesses above are not just textbook caveats. <span class="citation" data-cites="xin2025pdppitfalls">Xin et al. (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025</a>)</span> show they can be deliberately exploited. Their adversarial framework leaves a black-box model’s predictions untouched on the real, densely-observed region of the data, but substitutes a separately chosen, non-discriminatory output whenever an input falls in the sparse “extrapolation” region that PDP’s averaging step actually depends on. Because that region is rarely or never observed in practice, almost none of the model’s real-world predictions change, yet the resulting PD plot for the manipulated feature can be engineered to look essentially flat.</p>
+<p>Both weaknesses can be deliberately exploited, as <span class="citation" data-cites="xin2025pdppitfalls">Xin et al. (<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">2025</a>)</span> show. Their adversarial framework leaves a black-box model’s predictions untouched on the real, densely-observed region of the data, but substitutes a separately chosen, non-discriminatory output whenever an input falls in the sparse “extrapolation” region that PDP’s averaging step actually depends on. Because that region is rarely or never observed in practice, almost none of the model’s real-world predictions change, yet the resulting PD plot for the manipulated feature can be engineered to look flat.</p>
 <p>Applied to real motor insurance claims data and to the COMPAS recidivism dataset, the attack produced PD plots for a protected or proxy variable (age, race) that showed no visible disparity, while the underlying model’s predictions, and its discriminatory behaviour, were preserved almost entirely, with over 95% accuracy retained relative to the original model’s outputs. This directly undermines the “the protected-attribute PD plot looks flat, so the model is fine” check used elsewhere in this course. ICE curves, correlation checks between features, and ALE plots (above) make the manipulation harder to construct convincingly, but none of them make it impossible. Treat a flat PD plot as one input to a fairness review, not as proof of one.</p>
 </div>
 </div>
@@ -1217,7 +1217,7 @@ Note
 </section>
 <section id="regulatory-expectations" class="level3">
 <h3 class="anchored" data-anchor-id="regulatory-expectations">Regulatory expectations</h3>
-<p>Explainability is increasingly a regulatory requirement, not just good practice:</p>
+<p>Explainability is increasingly a regulatory requirement:</p>
 <ul>
 <li><strong>EU AI Act</strong> (2024–): high-risk AI systems, including credit scoring, employment screening, and life and health insurance risk assessment and pricing, must provide explanations to affected individuals</li>
 <li><strong>GDPR Article 22</strong>: automated decisions must be explainable and contestable</li>
@@ -1235,7 +1235,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <a href="https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25_0.pdf">NAIC Regulatory Review of Predictive Models</a> white paper, which US state insurance regulators use when reviewing rating models, originally focused on GLMs. Its tree-based-model appendix extends the same review framework to random forests and gradient-boosted models, and explicitly asks insurers to submit variable-importance plots and interpretability plots, including PDPs, ALE plots, and Shapley plots, with at least one plot per model variable, “accompanied by commentary on why the visualized relationship is reasonable for variables of concern.” This is a concrete example of the methods introduced in this chapter being used as practical regulatory evidence, not just classroom exercises, which also means the PD-plot vulnerability described above is not a hypothetical concern for this industry. It targets precisely the review evidence regulators ask insurers to submit <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin et al. 2025</a>)</span>.</p>
+<p>The <a href="https://content.naic.org/sites/default/files/inline-files/NAIC%20Model%20Review%20Manual__%20adopted%20by%20CASTF%2011.04.25_0.pdf">NAIC Regulatory Review of Predictive Models</a> white paper, which US state insurance regulators use when reviewing rating models, originally focused on GLMs. Its tree-based-model appendix extends the same review framework to random forests and gradient-boosted models, and explicitly asks insurers to submit variable-importance plots and interpretability plots, including PDPs, ALE plots, and Shapley plots, with at least one plot per model variable, “accompanied by commentary on why the visualized relationship is reasonable for variables of concern.” This is a concrete example of the methods introduced in this chapter being used as practical regulatory evidence, which also means the PD-plot vulnerability described above is not a hypothetical concern for this industry. It targets precisely the review evidence regulators ask insurers to submit <span class="citation" data-cites="xin2025pdppitfalls">(<a href="#ref-xin2025pdppitfalls" role="doc-biblioref">Xin et al. 2025</a>)</span>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Regulatory evidence: ASIC's transparency review">
@@ -1248,10 +1248,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Requiring an explanation on paper does not guarantee one in practice. A 2026 review by Australia’s securities and investments regulator, ASIC, examined the quote and renewal documents of five motor vehicle insurers and found that none explained the key factors that affected the calculation of the premium, or why the premium had changed from the previous year <span class="citation" data-cites="asic2026rep838">(<a href="#ref-asic2026rep838" role="doc-biblioref">Australian Securities and Investments Commission 2026</a>)</span>. This is the compliance gap the methods in this chapter exist to close: a right to an explanation of automated pricing is only meaningful if insurers actually surface <em>which</em> factors moved the price and <em>why</em>, not just that a model produced a number <span class="citation" data-cites="huang2026insurersdata">(<a href="#ref-huang2026insurersdata" role="doc-biblioref">Huang 2026</a>)</span>.</p>
+<p>Requiring an explanation on paper does not guarantee one in practice. A 2026 review by Australia’s securities and investments regulator, ASIC, examined the quote and renewal documents of five motor vehicle insurers and found that none explained the key factors that affected the calculation of the premium, or why the premium had changed from the previous year <span class="citation" data-cites="asic2026rep838">(<a href="#ref-asic2026rep838" role="doc-biblioref">Australian Securities and Investments Commission 2026</a>)</span>. This is the compliance gap the methods in this chapter exist to close: a right to an explanation of automated pricing requires insurers to surface <em>which</em> factors moved the price and <em>why</em> <span class="citation" data-cites="huang2026insurersdata">(<a href="#ref-huang2026insurersdata" role="doc-biblioref">Huang 2026</a>)</span>.</p>
 </div>
 </div>
-<p>Explainability is not just good practice. It is becoming a compliance obligation across domains.</p>
+<p>Explainability is becoming a compliance obligation across domains.</p>
 </section>
 <section id="explainability-for-large-language-models" class="level3">
 <h3 class="anchored" data-anchor-id="explainability-for-large-language-models">Explainability for large language models</h3>

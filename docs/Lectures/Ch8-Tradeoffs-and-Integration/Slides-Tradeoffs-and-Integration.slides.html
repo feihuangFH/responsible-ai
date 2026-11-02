@@ -319,7 +319,7 @@ Fei Huang, UNSW Sydney
 <ul>
 <li>Since the early 1990s, US car insurers have priced policies partly on <strong>credit-based insurance scores</strong>, a textbook case of actuarial fairness: charge people by their true expected cost</li>
 <li>The scores are genuinely predictive. The practice still triggered sustained regulatory pushback: investigations in 17+ states, 5 congressional hearings, dozens of restricting state laws <span class="citation" data-cites="kiviat2019moral">(<a href="#/thank-you" role="doc-biblioref" onclick="">Kiviat 2019</a>)</span></li>
-<li>Regulators’ objection: prediction alone doesn’t settle who <em>deserves</em> to pay more. They demanded to know <em>why</em> scores predicted claims, not just <em>that</em> they did</li>
+<li>Regulators’ objection: prediction alone doesn’t settle who <em>deserves</em> to pay more. They demanded to know <em>why</em> scores predicted claims</li>
 <li>Most states now require insurers to disregard specific negative credit events tied to documented hardship: divorce, job loss, a medical emergency (“extraordinary life circumstances” exemptions)</li>
 <li>A 2007 FTC report found over 25% of Black consumers fell in the lowest score decile vs.&nbsp;3% of white consumers. Scores still predicted claims <em>within</em> each group, satisfying actuarial fairness on its own terms</li>
 <li><strong>Outcome</strong>: 4 US states ban the practice outright. Every other state instead imposes constraints (disclosure, exemptions, restricted factors) while still permitting it</li>
@@ -353,7 +353,7 @@ Fei Huang, UNSW Sydney
 <p>Now you can answer more rigorously:</p>
 <ul>
 <li><strong>Ch. 2</strong>: FTU-fair, maybe. DP- or CDP-fair, probably not.</li>
-<li><strong>Ch. 3</strong>: Fit MCDP or MC. Audit with a pre-committed TOST (shows compliance, not just failure to detect a violation).</li>
+<li><strong>Ch. 3</strong>: Fit MCDP or MC. Audit with a pre-committed TOST (positive evidence of compliance).</li>
 <li><strong>Ch. 4–5</strong>: Use SHAP to find what’s driving the residual disparity, and check for interactions.</li>
 <li><strong>Ch. 6–7</strong>: Assess re-identification risk in the data. Consider whether differential privacy or synthetic data belongs in the pipeline.</li>
 </ul>
@@ -605,7 +605,7 @@ Fei Huang, UNSW Sydney
 </tr>
 <tr class="even">
 <td>4. Validation</td>
-<td>What audit protocol <em>proves</em>, not just fails to disprove, fairness?</td>
+<td>What audit protocol <em>proves</em> fairness?</td>
 <td>2, 3</td>
 </tr>
 <tr class="odd">
@@ -621,7 +621,7 @@ Fei Huang, UNSW Sydney
 </tbody>
 </table>
 <aside class="notes">
-<p>Sample answers, let the class attempt each first. 1: a false positive lands on one distressed claimant, a false negative on the whole pool via future premiums, different costs, different people, different timing, not a symmetric accuracy question. 2: check whether past investigation patterns encode human bias the model would inherit, and extract only the structured features the model needs from narrative text rather than feeding in the full free text. 3: equalised false-positive rates (separation, Ch 2) fits better than equalised investigation rates, an MCDP-style design enforces it without destroying genuine signal. 4: a pre-registered TOST equivalence test gives positive evidence, not just failure to detect a difference. 5: a specific SHAP-based reason plus a real human-reviewed appeal, not a generic notice. 6: a flag-rate spike relative to the training-period baseline, checked against whether it reflects genuine new fraud or a legitimate claims surge (e.g.&nbsp;after a hailstorm).</p>
+<p>Sample answers, let the class attempt each first. 1: a false positive lands on one distressed claimant, a false negative on the whole pool via future premiums, different costs, different people, different timing, not a symmetric accuracy question. 2: check whether past investigation patterns encode human bias the model would inherit, and extract only the structured features the model needs from narrative text rather than feeding in the full free text. 3: equalised false-positive rates (separation, Ch 2) fits better than equalised investigation rates, an MCDP-style design enforces it without destroying genuine signal. 4: a pre-registered TOST equivalence test gives positive evidence of compliance. 5: a specific SHAP-based reason plus a real human-reviewed appeal, not a generic notice. 6: a flag-rate spike relative to the training-period baseline, checked against whether it reflects genuine new fraud or a legitimate claims surge (e.g.&nbsp;after a hailstorm).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -640,13 +640,13 @@ Fei Huang, UNSW Sydney
 <ul>
 <li>Does a stricter fraud model (fewer real frauds paid, more genuine claims delayed) justify itself? Who decides, on what evidence?</li>
 <li>Does minimising claim data for privacy remove exactly the detail the fraud model needs? Is there a Ch 6/7 technique that reduces this cost instead of just accepting it?</li>
-<li>More accurate but less explainable, or less accurate but more transparent, given the explanation is owed to one claimant, not just a regulator?</li>
+<li>More accurate but less explainable, or less accurate but more transparent, given the explanation is owed to one claimant and to regulators?</li>
 </ul>
 <div class="fragment">
 <p><strong>There is no answer key.</strong> You should leave with a defensible position on each question, and an honest account of which trade-offs you resolved versus only acknowledged.</p>
 </div>
 <aside class="notes">
-<p>Sample answers. Trade-off 1: this is a policy decision, not a modelling one, quantify the cost and benefit and present it to an accountable decision-maker rather than resolving it unilaterally. Trade-off 2: Ch 7 offers a middle path, generalise the more identifying fields but keep a derived feature (e.g.&nbsp;a timeline-inconsistency score) computed once, then discard the raw narrative. Trade-off 3: because the explanation is owed to an individual, not just a regulator, a gradient-boosted model with TreeSHAP delivers both strong detection and a genuine per-claimant explanation, a simpler scorecard trades away accuracy for an explanation-simplicity gain SHAP mostly already closes.</p>
+<p>Sample answers. Trade-off 1: this is a policy decision, not a modelling one, quantify the cost and benefit and present it to an accountable decision-maker rather than resolving it unilaterally. Trade-off 2: Ch 7 offers a middle path, generalise the more identifying fields but keep a derived feature (e.g.&nbsp;a timeline-inconsistency score) computed once, then discard the raw narrative. Trade-off 3: because the explanation is owed to an individual and to regulators, a gradient-boosted model with TreeSHAP delivers both strong detection and a genuine per-claimant explanation, a simpler scorecard trades away accuracy for an explanation-simplicity gain SHAP mostly already closes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -674,7 +674,7 @@ Fei Huang, UNSW Sydney
 <p>A model card is a short, standard document summarising a model for anyone auditing, inheriting, or approving it.</p>
 <p>Purpose · Data · Fairness criterion · Performance · Fairness audit · Explainability summaries · Privacy assessment · Limitations · Owner and reviewer</p>
 <div class="fragment">
-<p><strong>Documentation is what makes a governance claim checkable</strong>, not just asserted.</p>
+<p><strong>Documentation is what makes a governance claim checkable.</strong></p>
 </div>
 </section>
 <section id="six-governance-practices" class="slide level2 smaller center">
