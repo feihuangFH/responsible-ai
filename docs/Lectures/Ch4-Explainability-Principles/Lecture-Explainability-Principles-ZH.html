@@ -905,7 +905,7 @@ window.Quarto = {
 </section>
 <section id="取平均在哪里会误导你" class="level3">
 <h3 class="anchored" data-anchor-id="取平均在哪里会误导你">取平均在哪里会误导你</h3>
-<p>主要有两项假设会造成问题。PDP 假定<strong>特征相互独立</strong>:当特征相关时,它可能外推到数据中很少或从未出现过的组合,而这一外推区域恰恰是该图最不可信的部分。而由于 PDP 本质上是一种平均,它也可能<strong>掩盖异质性效应</strong>:如果效应在不同子群体间存在差异,甚至对不同个体而言方向相反,平均值可能看起来很平坦或具有误导性,即便实际上没有任何一个个体真正经历过这一”平均效应”。除此之外,PDP 一次只能处理一到两个特征,且不显示特征的分布情况,这容易导致对图中稀疏区域的效应过度解读。</p>
+<p>主要有两项假设会造成问题。PDP 假定<strong>特征相互独立</strong>:当特征相关时,它可能外推到数据中很少或从未出现过的组合,而这一外推区域恰恰是该图最不可信的部分。而由于 PDP 是一种平均,它也可能<strong>掩盖异质性效应</strong>:如果效应在不同子群体间存在差异,甚至对不同个体而言方向相反,平均值可能看起来很平坦或具有误导性,即便实际上没有任何一个个体真正经历过这一”平均效应”。除此之外,PDP 一次只能处理一到两个特征,且不显示特征的分布情况,这容易导致对图中稀疏区域的效应过度解读。</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -916,7 +916,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>个体条件期望(ICE)</strong> 曲线 <span class="citation" data-cites="goldstein2015peeking">(<a href="#ref-goldstein2015peeking" role="doc-biblioref">Goldstein 等 2015年</a>)</span> 用于解决”掩盖异质性效应”这一局限。PDP 本质上是许多条 ICE 曲线的平均值,每条 ICE 曲线对应一个观测样本,展示的是在保持该样本其他所有特征不变的情况下,预测结果如何随所关注特征的取值变化而变化。将 ICE 曲线叠加在 PDP 之上,可以揭示这一平均效应是否具有代表性,还是掩盖了方向相反、在平均后相互抵消的子群体效应。ICE 曲线同样假定特征相互独立,因此当特征相关时,它与 PDP 一样容易出现同样的外推问题。</p>
+<p><strong>个体条件期望(ICE)</strong> 曲线 <span class="citation" data-cites="goldstein2015peeking">(<a href="#ref-goldstein2015peeking" role="doc-biblioref">Goldstein 等 2015年</a>)</span> 用于解决”掩盖异质性效应”这一局限。PDP 是许多条 ICE 曲线的平均值,每条 ICE 曲线对应一个观测样本,展示的是在保持该样本其他所有特征不变的情况下,预测结果如何随所关注特征的取值变化而变化。将 ICE 曲线叠加在 PDP 之上,可以揭示这一平均效应是否具有代表性,还是掩盖了方向相反、在平均后相互抵消的子群体效应。ICE 曲线同样假定特征相互独立,因此当特征相关时,它与 PDP 一样容易出现同样的外推问题。</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">

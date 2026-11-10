@@ -336,7 +336,7 @@ window.Quarto = {
 <p>2016年,ProPublica 的调查报道 <em>Machine Bias</em> 对美国法院所使用的再犯风险评估工具 COMPAS 进行了审视 <span class="citation" data-cites="angwin2016machine">(<a href="#ref-angwin2016machine" role="doc-biblioref">Angwin 等 2016年</a>)</span>。在两年内<strong>未</strong>再犯的被告人中,黑人被告被标记为“高风险”的比例,几乎是白人被告的两倍。该工具的供应商则反驳称,COMPAS 具有良好的<strong>校准性</strong>:在获得相同风险评分的被告人中,不同种族之间的再犯率相近。</p>
 </div>
 </div>
-<p>双方的说法都有其依据,而这恰恰正是问题所在。ProPublica 的批评本质上是一种<strong>分离性</strong>论证(各群体间错误率相等),而供应商的辩护本质上是一种<strong>充分性</strong>论证(各群体间校准性相等)<span class="citation" data-cites="chouldechova2017fair">(<a href="#ref-chouldechova2017fair" role="doc-biblioref">Chouldechova 2017年</a>)</span>。一个工具完全可能满足其中一项准则,却违反另一项,而优先选择哪一项准则,并非事后才需要解决的建模细节问题,它正是本章要展开讨论的核心问题。</p>
+<p>双方的说法都有其依据,而这恰恰正是问题所在。ProPublica 的批评是一种<strong>分离性</strong>论证(各群体间错误率相等),而供应商的辩护是一种<strong>充分性</strong>论证(各群体间校准性相等)<span class="citation" data-cites="chouldechova2017fair">(<a href="#ref-chouldechova2017fair" role="doc-biblioref">Chouldechova 2017年</a>)</span>。一个工具完全可能满足其中一项准则,却违反另一项,而优先选择哪一项准则,并非事后才需要解决的建模细节问题,它正是本章要展开讨论的核心问题。</p>
 <p>这种分歧并非COMPAS数据所特有的巧合。只要两个群体的再犯率、违约率或理赔率存在真实的差异,同时满足分离性与充分性在数学上就几乎不可能,除非是少数特殊情形。本章后文的“准则之间的不相容性”一节将对此给出精确说明。</p>
 <p><strong>公平性是否已经实现?</strong></p>
 <p>这没有单一的“是”或“否”答案。答案取决于你使用上文两项准则中的哪一项,分离性还是充分性,来检验这个模型。</p>
@@ -610,7 +610,7 @@ window.Quarto = {
 </section>
 <section id="准则之间的不相容性" class="level3">
 <h3 class="anchored" data-anchor-id="准则之间的不相容性">准则之间的不相容性</h3>
-<p>同时实现个体公平性与群体公平性,往往是<strong>不可能</strong>的 <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination mehrabi2021survey">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck 等 2026年</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin 和 Huang 2024年</a>; <a href="#ref-mehrabi2021survey" role="doc-biblioref">Mehrabi 等 2021年</a>)</span>。这是一个更一般性结论的特例:除了少数特殊情形外,当各群体的基准率不同时,没有任何分类器能够同时满足校准性与各群体间错误率的均衡 <span class="citation" data-cites="kleinberg2017inherent">(<a href="#ref-kleinberg2017inherent" role="doc-biblioref">Kleinberg 等 2017年</a>)</span>。这正是本章开头 COMPAS 案例中的张力所在。ProPublica 的批评本质上是一种分离性论证,而供应商的辩护本质上是一种充分性论证。两者各自成立,但由于不同种族的再犯基准率不同,二者无法同时被满足。</p>
+<p>同时实现个体公平性与群体公平性,往往是<strong>不可能</strong>的 <span class="citation" data-cites="krafcheck2026fairnessmetrics xin2024antidiscrimination mehrabi2021survey">(<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">Krafcheck 等 2026年</a>; <a href="#ref-xin2024antidiscrimination" role="doc-biblioref">Xin 和 Huang 2024年</a>; <a href="#ref-mehrabi2021survey" role="doc-biblioref">Mehrabi 等 2021年</a>)</span>。这是一个更一般性结论的特例:除了少数特殊情形外,当各群体的基准率不同时,没有任何分类器能够同时满足校准性与各群体间错误率的均衡 <span class="citation" data-cites="kleinberg2017inherent">(<a href="#ref-kleinberg2017inherent" role="doc-biblioref">Kleinberg 等 2017年</a>)</span>。这正是本章开头 COMPAS 案例中的张力所在。ProPublica 的批评是一种分离性论证,而供应商的辩护是一种充分性论证。两者各自成立,但由于不同种族的再犯基准率不同,二者无法同时被满足。</p>
 <div class="callout callout-style-default callout-note callout-titled" title="为何基准率差异会导致这一权衡取舍">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
