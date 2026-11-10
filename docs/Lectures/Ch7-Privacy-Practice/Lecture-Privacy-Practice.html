@@ -1225,7 +1225,7 @@ Note
 </table>
 </div>
 </div>
-<p><strong>Reading the result.</strong> Recoding BonusGroup before suppression reduces or eliminates the suppression rate, because the rarest equivalence classes no longer exist. The trade-off shifts: instead of losing individual records’ values, all records in the rarer tiers are grouped together and lose the distinction between them. Which is acceptable depends on the downstream use — a reinsurer building a pricing model cares about BonusGroup granularity, so recoding may be less harmful than suppression if the merged tier is small. A privacy officer cares about residual risk, which is similar either way once <span class="math inline">k</span> is met.</p>
+<p><strong>Reading the result.</strong> Recoding BonusGroup before suppression reduces or eliminates the suppression rate, because the rarest equivalence classes no longer exist. The trade-off shifts: instead of losing individual records’ values, all records in the rarer tiers are grouped together and lose the distinction between them. Which is acceptable depends on the downstream use. A reinsurer building a pricing model cares about BonusGroup granularity, so recoding may be less harmful than suppression if the merged tier is small. A privacy officer cares about residual risk, which is similar either way once <span class="math inline">k</span> is met.</p>
 <p>This is the generalisation choice that underpins the DataLab’s “combining categories” treatment: merge first, suppress only what remains.</p>
 <div class="callout callout-style-default callout-caution callout-titled" title="Group check-in — k-anonymity results">
 <div class="callout-header d-flex align-content-center">
@@ -1551,7 +1551,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A single DP release consumes privacy budget <span class="math inline">\varepsilon</span>. Releasing <span class="math inline">k</span> independent statistics from the same dataset costs <span class="math inline">k\varepsilon</span> in total under basic composition — the privacy guarantee weakens with every additional query. This matters in practice: a vendor who receives monthly claim frequency updates is not receiving one release at <span class="math inline">\varepsilon = 1</span>; after twelve months they have received twelve releases, for a total budget of <span class="math inline">\varepsilon = 12</span> on the same underlying population.</p>
+<p>A single DP release consumes privacy budget <span class="math inline">\varepsilon</span>. Releasing <span class="math inline">k</span> independent statistics from the same dataset costs <span class="math inline">k\varepsilon</span> in total under basic composition. The privacy guarantee weakens with every additional query. A vendor who receives monthly claim frequency updates is not receiving one release at <span class="math inline">\varepsilon = 1</span>. After twelve months they have received twelve releases, for a total budget of <span class="math inline">\varepsilon = 12</span> on the same underlying population.</p>
 <p>Two mitigations are common in production:</p>
 <ul>
 <li><strong>Budget caps.</strong> Fix a total budget for a dataset (say <span class="math inline">\varepsilon_{\text{total}} = 5</span>) and refuse further releases once it is exhausted, or add a fresh cohort to the population.</li>
@@ -2001,7 +2001,7 @@ Important
 <ol type="1">
 <li><strong>k-Anonymise</strong> the dataset to remove the most identifying records.</li>
 <li><strong>Release DP statistics</strong> from the k-anonymised result. Because rare, identifying records are already gone or suppressed, the global sensitivity of statistics computed on this dataset is lower: no single record can shift the mean by as much.</li>
-<li><strong>Evaluate synthetic data</strong> only on the k-anonymised version if the goal is record-level sharing — the synthesis model never sees the suppressed values.</li>
+<li><strong>Evaluate synthetic data</strong> only on the k-anonymised version if the goal is record-level sharing. The synthesis model never sees the suppressed values.</li>
 </ol>
 <p>The code below demonstrates step 2: computing a DP mean on the k-anonymised dataset from earlier, and comparing the accuracy to the same DP mean on the full data.</p>
 <div class="cell">
@@ -2065,7 +2065,7 @@ Important
 </table>
 </div>
 </div>
-<p><strong>Reading the result.</strong> Sensitivity is lower on the k-anonymised dataset because there are slightly fewer records (the suppressed ones are <code>NA</code> and excluded from the mean). The difference is small here — 6.9% suppression shifts sensitivity only marginally — but the principle scales: a dataset where k-anonymity has removed 30–40% of records would show a meaningful reduction in DP noise for the same <span class="math inline">\varepsilon</span>. Layering is most valuable when k-anonymity is applied aggressively (high <span class="math inline">k</span>) or when the population has many rare subgroups that drive up sensitivity.</p>
+<p><strong>Reading the result.</strong> Sensitivity is lower on the k-anonymised dataset because there are slightly fewer records (the suppressed ones are <code>NA</code> and excluded from the mean). The difference is small here: 6.9% suppression shifts sensitivity only marginally. A dataset where k-anonymity has removed 30–40% of records would show a meaningful reduction in DP noise for the same <span class="math inline">\varepsilon</span>. Layering is most valuable when k-anonymity is applied aggressively (high <span class="math inline">k</span>) or when the population has many rare subgroups that drive up sensitivity.</p>
 </section>
 </section>
 <section id="lifecycle-controls" class="level2">
@@ -3303,7 +3303,7 @@ Templ, Matthias. 2017. <em>Statistical Disclosure Control for Microdata: Methods
 <span id="cb34-492"><a href="#cb34-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>)</span>
 <span id="cb34-493"><a href="#cb34-493" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-494"><a href="#cb34-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-495"><a href="#cb34-495" aria-hidden="true" tabindex="-1"></a>**Reading the result.** Recoding BonusGroup before suppression reduces or eliminates the suppression rate, because the rarest equivalence classes no longer exist. The trade-off shifts: instead of losing individual records' values, all records in the rarer tiers are grouped together and lose the distinction between them. Which is acceptable depends on the downstream use — a reinsurer building a pricing model cares about BonusGroup granularity, so recoding may be less harmful than suppression if the merged tier is small. A privacy officer cares about residual risk, which is similar either way once $k$ is met.</span>
+<span id="cb34-495"><a href="#cb34-495" aria-hidden="true" tabindex="-1"></a>**Reading the result.** Recoding BonusGroup before suppression reduces or eliminates the suppression rate, because the rarest equivalence classes no longer exist. The trade-off shifts: instead of losing individual records' values, all records in the rarer tiers are grouped together and lose the distinction between them. Which is acceptable depends on the downstream use. A reinsurer building a pricing model cares about BonusGroup granularity, so recoding may be less harmful than suppression if the merged tier is small. A privacy officer cares about residual risk, which is similar either way once $k$ is met.</span>
 <span id="cb34-496"><a href="#cb34-496" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-497"><a href="#cb34-497" aria-hidden="true" tabindex="-1"></a>This is the generalisation choice that underpins the DataLab's "combining categories" treatment: merge first, suppress only what remains.</span>
 <span id="cb34-498"><a href="#cb34-498" aria-hidden="true" tabindex="-1"></a></span>
@@ -3492,7 +3492,7 @@ Templ, Matthias. 2017. <em>Statistical Disclosure Control for Microdata: Methods
 <span id="cb34-681"><a href="#cb34-681" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
 <span id="cb34-682"><a href="#cb34-682" aria-hidden="true" tabindex="-1"></a><span class="fu">## Composition: budget accumulates across releases</span></span>
 <span id="cb34-683"><a href="#cb34-683" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-684"><a href="#cb34-684" aria-hidden="true" tabindex="-1"></a>A single DP release consumes privacy budget $\varepsilon$. Releasing $k$ independent statistics from the same dataset costs $k\varepsilon$ in total under basic composition — the privacy guarantee weakens with every additional query. This matters in practice: a vendor who receives monthly claim frequency updates is not receiving one release at $\varepsilon = 1$; after twelve months they have received twelve releases, for a total budget of $\varepsilon = 12$ on the same underlying population.</span>
+<span id="cb34-684"><a href="#cb34-684" aria-hidden="true" tabindex="-1"></a>A single DP release consumes privacy budget $\varepsilon$. Releasing $k$ independent statistics from the same dataset costs $k\varepsilon$ in total under basic composition. The privacy guarantee weakens with every additional query. A vendor who receives monthly claim frequency updates is not receiving one release at $\varepsilon = 1$. After twelve months they have received twelve releases, for a total budget of $\varepsilon = 12$ on the same underlying population.</span>
 <span id="cb34-685"><a href="#cb34-685" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-686"><a href="#cb34-686" aria-hidden="true" tabindex="-1"></a>Two mitigations are common in production:</span>
 <span id="cb34-687"><a href="#cb34-687" aria-hidden="true" tabindex="-1"></a></span>
@@ -3807,7 +3807,7 @@ Templ, Matthias. 2017. <em>Statistical Disclosure Control for Microdata: Methods
 <span id="cb34-996"><a href="#cb34-996" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-997"><a href="#cb34-997" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**k-Anonymise** the dataset to remove the most identifying records.</span>
 <span id="cb34-998"><a href="#cb34-998" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Release DP statistics** from the k-anonymised result. Because rare, identifying records are already gone or suppressed, the global sensitivity of statistics computed on this dataset is lower: no single record can shift the mean by as much.</span>
-<span id="cb34-999"><a href="#cb34-999" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Evaluate synthetic data** only on the k-anonymised version if the goal is record-level sharing — the synthesis model never sees the suppressed values.</span>
+<span id="cb34-999"><a href="#cb34-999" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Evaluate synthetic data** only on the k-anonymised version if the goal is record-level sharing. The synthesis model never sees the suppressed values.</span>
 <span id="cb34-1000"><a href="#cb34-1000" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-1001"><a href="#cb34-1001" aria-hidden="true" tabindex="-1"></a>The code below demonstrates step 2: computing a DP mean on the k-anonymised dataset from earlier, and comparing the accuracy to the same DP mean on the full data.</span>
 <span id="cb34-1002"><a href="#cb34-1002" aria-hidden="true" tabindex="-1"></a></span>
@@ -3846,7 +3846,7 @@ Templ, Matthias. 2017. <em>Statistical Disclosure Control for Microdata: Methods
 <span id="cb34-1035"><a href="#cb34-1035" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>)</span>
 <span id="cb34-1036"><a href="#cb34-1036" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-1037"><a href="#cb34-1037" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-1038"><a href="#cb34-1038" aria-hidden="true" tabindex="-1"></a>**Reading the result.** Sensitivity is lower on the k-anonymised dataset because there are slightly fewer records (the suppressed ones are <span class="in">`NA`</span> and excluded from the mean). The difference is small here — 6.9% suppression shifts sensitivity only marginally — but the principle scales: a dataset where k-anonymity has removed 30–40% of records would show a meaningful reduction in DP noise for the same $\varepsilon$. Layering is most valuable when k-anonymity is applied aggressively (high $k$) or when the population has many rare subgroups that drive up sensitivity.</span>
+<span id="cb34-1038"><a href="#cb34-1038" aria-hidden="true" tabindex="-1"></a>**Reading the result.** Sensitivity is lower on the k-anonymised dataset because there are slightly fewer records (the suppressed ones are <span class="in">`NA`</span> and excluded from the mean). The difference is small here: 6.9% suppression shifts sensitivity only marginally. A dataset where k-anonymity has removed 30–40% of records would show a meaningful reduction in DP noise for the same $\varepsilon$. Layering is most valuable when k-anonymity is applied aggressively (high $k$) or when the population has many rare subgroups that drive up sensitivity.</span>
 <span id="cb34-1039"><a href="#cb34-1039" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-1040"><a href="#cb34-1040" aria-hidden="true" tabindex="-1"></a><span class="fu"># Lifecycle controls</span></span>
 <span id="cb34-1041"><a href="#cb34-1041" aria-hidden="true" tabindex="-1"></a></span>
