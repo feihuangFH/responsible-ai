@@ -302,7 +302,7 @@ Fei Huang, UNSW Sydney
 <p>This is not a coincidence of the COMPAS data. Whenever two groups reoffend, default, or claim at genuinely different rates, satisfying both sides at once becomes mathematically near-impossible, as this chapter makes precise later.</p>
 </div>
 <aside class="notes">
-<p>Both sides had a defensible claim, and that is exactly the problem. ProPublica’s critique was a separation-style argument, equal error rates across groups, and the vendor’s defence was a sufficiency-style argument, equal calibration across groups <span class="citation" data-cites="chouldechova2017fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Chouldechova 2017</a>)</span>. A tool can satisfy one and violate the other, and choosing which to prioritise is the central question this chapter works through, not a modelling detail to resolve after the fact.</p>
+<p>Both sides had a defensible claim, and that is exactly the problem. ProPublica’s critique was a separation-style argument, equal error rates across groups, and the vendor’s defence was a sufficiency-style argument, equal calibration across groups <span class="citation" data-cites="chouldechova2017fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Chouldechova 2017</a>)</span>. A tool can satisfy one and violate the other, and choosing which to prioritise is the central question this chapter works through.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -719,7 +719,7 @@ Fei Huang, UNSW Sydney
 <li>COMPAS: two-year reoffense rate was 51% for Black defendants, 39% for White defendants <span class="citation" data-cites="chouldechova2017fair">(<a href="#/next-class" role="doc-biblioref" onclick="">Chouldechova 2017</a>)</span>, so <span class="math inline">p_0 \neq p_1</span></li>
 </ul>
 <div class="fragment">
-<p><strong>Equally reliable “high risk” flags in both groups, but different reoffense rates, mean different false positive rates. That’s algebra, not evidence of biased predictions.</strong></p>
+<p><strong>Equally reliable “high risk” flags in both groups, but different reoffense rates, mean different false positive rates. That is algebra.</strong></p>
 </div>
 <aside class="notes">
 <p>Except at the two degenerate extremes, a perfect classifier where FPR = FNR = 0, or one that ignores the data entirely, separation and sufficiency cannot both hold once base rates differ. Worth walking through slowly: PPV is what sufficiency/calibration asks to be equal. Holding FPR and FNR fixed (that’s separation) turns PPV into a function of the base rate alone, so equal PPV across groups collapses to requiring equal base rates, which COMPAS does not have.</p>
@@ -1006,7 +1006,7 @@ Fei Huang, UNSW Sydney
 </tbody>
 </table>
 <div class="fragment">
-<p><strong>The right stage depends on the criterion chosen in Step 1, not what’s easiest to implement.</strong> MDP/MCDP/MC are this course’s <em>named</em> examples per stage. The same criterion could in principle be reached by a different route <span class="citation" data-cites="barocas2023fairml">(<a href="#/next-class" role="doc-biblioref" onclick="">Barocas et al. 2023</a>, ch.&nbsp;3)</span>.</p>
+<p><strong>The right stage depends on the criterion chosen in Step 1.</strong> MDP/MCDP/MC are this course’s <em>named</em> examples per stage. The same criterion could in principle be reached by a different route <span class="citation" data-cites="barocas2023fairml">(<a href="#/next-class" role="doc-biblioref" onclick="">Barocas et al. 2023</a>, ch.&nbsp;3)</span>.</p>
 </div>
 </section>
 <section id="the-five-model-designs" class="slide level2 center">
@@ -1230,7 +1230,7 @@ Fei Huang, UNSW Sydney
 <ul>
 <li>Pre-commits its test, tolerance, control variables <em>before</em> looking at the data</li>
 <li>Uses <strong>equivalence testing (TOST)</strong>, not a conventional significance test</li>
-<li>Puts the burden of proof on the organisation, not the regulator</li>
+<li>Puts the burden of proof on the organisation</li>
 </ul>
 <aside class="notes">
 <p>TOST (two one-sided tests) checks whether a difference is small enough to fall within an acceptable range, rather than testing whether it differs from zero the way a standard significance test does.</p>
