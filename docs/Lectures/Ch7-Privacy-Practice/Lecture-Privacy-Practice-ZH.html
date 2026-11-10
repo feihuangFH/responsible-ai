@@ -310,8 +310,7 @@ window.Quarto = {
   <li><a href="#拉普拉斯机制" id="toc-拉普拉斯机制" class="nav-link" data-scroll-target="#拉普拉斯机制">拉普拉斯机制</a></li>
   <li><a href="#车险数据集上的差分隐私统计量" id="toc-车险数据集上的差分隐私统计量" class="nav-link" data-scroll-target="#车险数据集上的差分隐私统计量">车险数据集上的差分隐私统计量</a></li>
   <li><a href="#隐私效用权衡取舍的可视化" id="toc-隐私效用权衡取舍的可视化" class="nav-link" data-scroll-target="#隐私效用权衡取舍的可视化">隐私—效用权衡取舍的可视化</a></li>
-  <li><a href="#解读-epsilon-的权衡取舍" id="toc-解读-epsilon-的权衡取舍" class="nav-link" data-scroll-target="#解读-epsilon-的权衡取舍">解读 epsilon 的权衡取舍</a></li>
-  <li><a href="#按性别划分的差分隐私理赔率" id="toc-按性别划分的差分隐私理赔率" class="nav-link" data-scroll-target="#按性别划分的差分隐私理赔率">按性别划分的差分隐私理赔率</a></li>
+  <li><a href="#稀有子群体的差分隐私统计量" id="toc-稀有子群体的差分隐私统计量" class="nav-link" data-scroll-target="#稀有子群体的差分隐私统计量">稀有子群体的差分隐私统计量</a></li>
   </ul></li>
   <li><a href="#合成数据" id="toc-合成数据" class="nav-link" data-scroll-target="#合成数据">合成数据</a>
   <ul class="collapse">
@@ -1239,121 +1238,69 @@ r_k = \frac{1}{f_k}.
 </div>
 <p><strong>解读这张图。</strong> 在每一个 <span class="math inline">\varepsilon</span> 取值下,整体业务组合的箱型图都紧贴零偏差,在这一尺度上薄得几乎看不见,与上表的结论一致。小型子群体的箱型图讲述的是另一个故事:在 <span class="math inline">\varepsilon = 0.1</span> 时,单次发布可能偏离真实均值两年以上,只有当 <span class="math inline">\varepsilon</span> 达到5或10时,箱体才收窄到一年以内的精度。两种情形所用的机制和隐私预算完全相同,唯一的差别是 <span class="math inline">n</span>,相差约200倍。这正是为什么整体业务组合层面的统计量用差分隐私加以保护几乎是免费的,而同样的 <span class="math inline">\varepsilon</span> 应用于一个精细的细分,例如单一邮编、某个罕见人口统计组合、一个小型分支机构,却可能带来真实的失真。这也是为什么2018年美国人口普查重构攻击(第六章)在最小的公布地理单元(人口普查区块)上最难防御,而非在州或全国层面。</p>
 </section>
-<section id="解读-epsilon-的权衡取舍" class="level3">
-<h3 class="anchored" data-anchor-id="解读-epsilon-的权衡取舍">解读 epsilon 的权衡取舍</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 31%">
-<col style="width: 31%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>ε</th>
-<th>加入平均年龄的噪声(整体业务组合)</th>
-<th>加入平均年龄的噪声(小型子群体,n=487)</th>
-<th>实践解读</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.1</td>
-<td>可忽略不计</td>
-<td>非常大(可达数年之差)</td>
-<td>隐私性强,不适用于小群体统计量,但适用于整体业务组合层面</td>
-</tr>
-<tr class="even">
-<td>0.5</td>
-<td>可忽略不计</td>
-<td>大</td>
-<td>用于精细化报告仍有风险</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>可忽略不计</td>
-<td>适中</td>
-<td>常见的默认设置,部分监管框架采用</td>
-</tr>
-<tr class="even">
-<td>5</td>
-<td>可忽略不计</td>
-<td>小</td>
-<td>即便对中等偏小的群体也可接受</td>
-</tr>
-<tr class="odd">
-<td>10</td>
-<td>可忽略不计</td>
-<td>非常小</td>
-<td>隐私性弱,接近未受扰动的输出</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-注记
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>当 <span class="math inline">n = 100{,}000</span> 条记录时,平均年龄这一统计量的敏感度为 <span class="math inline">(100-18)/100{,}000 \approx 0.0008</span>,因此<strong>大型数据集使差分隐私变得更加实用</strong>:即便在 <span class="math inline">\varepsilon = 0.1</span> 时,整体业务组合层面的噪声也可忽略不计。但正如上文 <span class="math inline">n = 487</span> 的子群体所示,一旦 <span class="math inline">n</span> 较小,同样的保证就会带来真实的精度损失。因此,选择 <span class="math inline">\varepsilon</span> 与决定发布结果允许多精细,二者无法分开考虑。</p>
-</div>
-</div>
-</section>
-<section id="按性别划分的差分隐私理赔率" class="level3">
-<h3 class="anchored" data-anchor-id="按性别划分的差分隐私理赔率">按性别划分的差分隐私理赔率</h3>
-<p>我们同样可以用差分隐私发布群体层面的统计量,这与公平性报告相关。此处的男性和女性保单持有人都是大群体(各有数万条记录),因此按照上文已建立的规律,可以预期 DP 列会保持接近真实比率,而不会像 <code>n = 487</code> 的那个子群体那样出现大幅波动:</p>
+<section id="稀有子群体的差分隐私统计量" class="level3">
+<h3 class="anchored" data-anchor-id="稀有子群体的差分隐私统计量">稀有子群体的差分隐私统计量</h3>
+<p>对整体业务组合发布的统计量,同样可以对稀有子群体发布,代码完全相同、<span class="math inline">\varepsilon</span> 取值也相同。差别仅在于 <span class="math inline">n</span>。</p>
 <details class="code-fold">
 <summary>代码</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Female/Male are large subgroups (tens of thousands each), unlike the n=487</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># example above, so DP noise should again be small relative to the true rate</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>gender_dp <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>), <span class="cf">function</span>(g) {</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Gender <span class="sc">==</span> g) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(HasClaim)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> g,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">length</span>(x),</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">True claim rate</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">4</span>),</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">DP claim rate (ε=1)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">dp_proportion</span>(x, <span class="cf">function</span>(v) v <span class="sc">==</span> <span class="dv">1</span>, <span class="at">epsilon =</span> <span class="dv">1</span>), <span class="dv">4</span>),</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">DP claim rate (ε=5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">dp_proportion</span>(x, <span class="cf">function</span>(v) v <span class="sc">==</span> <span class="dv">1</span>, <span class="at">epsilon =</span> <span class="dv">5</span>), <span class="dv">4</span>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>gender_dp <span class="sc">%&gt;%</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"DP claim rate by gender — protecting group-level statistics"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rare_dp <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(epsilons, <span class="cf">function</span>(eps) {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  dp_val <span class="ot">&lt;-</span> <span class="fu">dp_mean</span>(rare_group<span class="sc">$</span>Age, <span class="at">lower =</span> <span class="dv">18</span>, <span class="at">upper =</span> <span class="dv">100</span>, <span class="at">epsilon =</span> eps)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">epsilon         =</span> eps,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">True mean age</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(true_mean_rare, <span class="dv">2</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">DP mean age</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(dp_val, <span class="dv">2</span>),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Deviation</span><span class="st">`</span>     <span class="ot">=</span> <span class="fu">round</span>(dp_val <span class="sc">-</span> true_mean_rare, <span class="dv">2</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>rare_dp <span class="sc">%&gt;%</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"稀有子群体的差分隐私平均年龄（男性、66岁及以上、豪华车型；n = 487）"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <table class="table caption-top">
-<caption>DP claim rate by gender <u>protecting group-level statistics</u></caption>
+<caption><u><u><u><u><u><u><u><u><u><u><u><u><u><u><u><u><u><u>66<u><u><u><u><u><u><u><u><u><u>n = 487<u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Gender</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">True claim rate</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">DP claim rate (ε=1)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">DP claim rate (ε=5)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">epsilon</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">True mean age</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">DP mean age</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Deviation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Female</td>
-<td style="text-align: right;">36568</td>
-<td style="text-align: right;">0.1070</td>
-<td style="text-align: right;">0.1070</td>
-<td style="text-align: right;">0.1070</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">70.48</td>
+<td style="text-align: right;">69.48</td>
+<td style="text-align: right;">-1.01</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Male</td>
-<td style="text-align: right;">63432</td>
-<td style="text-align: right;">0.1315</td>
-<td style="text-align: right;">0.1315</td>
-<td style="text-align: right;">0.1315</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">70.48</td>
+<td style="text-align: right;">70.02</td>
+<td style="text-align: right;">-0.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">70.48</td>
+<td style="text-align: right;">70.51</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">70.48</td>
+<td style="text-align: right;">70.50</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.0</td>
+<td style="text-align: right;">70.48</td>
+<td style="text-align: right;">70.39</td>
+<td style="text-align: right;">-0.10</td>
 </tr>
 </tbody>
 </table>
-<p>正如预期,两列 DP 结果都保持接近真实比率:男性和女性都是足够大的子群体,即便 <span class="math inline">\varepsilon = 1</span> 也只会加入很小的噪声。如果监管机构要求按更精细的类别(例如按邮编划分的理赔率)进行同样的分解,就会落入与上文小型子群体相同的小 <span class="math inline">n</span>、高噪声区间,可能需要更大的 <span class="math inline">\varepsilon</span>、更粗的地理粒度,或者改用 k-匿名性、合成数据等其他技术。</p>
+<p><strong>解读这张表。</strong> 与上方整体业务组合的表不同,此处的差分隐私平均年龄在 <span class="math inline">\varepsilon = 0.1</span> 和 <span class="math inline">\varepsilon = 0.5</span> 时出现了明显波动。当 <span class="math inline">n = 487</span> 时,敏感度为 <span class="math inline">(100-18)/487 \approx 0.168</span>,约是全业务组合敏感度的200倍。此处的偏差幅度与上图中小型子群体的箱型图相吻合。每次重新渲染本文档,偏差列都会产生不同的数值,因为噪声是随机抽取的。这种随机性本身就说明了问题所在:一个反复接收该子群体统计量的监管机构,在每次发布时都面临这种波动。</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1522,32 +1469,32 @@ r_k = \frac{1}{f_k}.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Mean age</td>
-<td style="text-align: left;">41.39</td>
+<td style="text-align: left;">41.04</td>
 <td style="text-align: left;">41.34</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">SD age</td>
-<td style="text-align: left;">14.4</td>
+<td style="text-align: left;">14.17</td>
 <td style="text-align: left;">14.3</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Claim frequency (% policies with claim)</td>
-<td style="text-align: left;">11.7%</td>
+<td style="text-align: left;">12.1%</td>
 <td style="text-align: left;">12.2%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Mean claim amount (given claim)</td>
-<td style="text-align: left;">834</td>
+<td style="text-align: left;">874</td>
 <td style="text-align: left;">871</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">% Female</td>
-<td style="text-align: left;">36.1%</td>
+<td style="text-align: left;">37.0%</td>
 <td style="text-align: left;">36.2%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Median vehicle value</td>
-<td style="text-align: left;">14668</td>
+<td style="text-align: left;">14575</td>
 <td style="text-align: left;">14722</td>
 </tr>
 <tr class="odd">
@@ -1606,33 +1553,33 @@ r_k = \frac{1}{f_k}.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Age</td>
-<td style="text-align: right;">-0.0274</td>
+<td style="text-align: right;">-0.0290</td>
 <td style="text-align: right;">-0.0238</td>
-<td style="text-align: right;">0.0036</td>
+<td style="text-align: right;">0.0052</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">GenderMale</td>
-<td style="text-align: right;">0.4041</td>
+<td style="text-align: right;">0.3060</td>
 <td style="text-align: right;">0.3276</td>
-<td style="text-align: right;">-0.0766</td>
+<td style="text-align: right;">0.0216</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">log1p(Density)</td>
-<td style="text-align: right;">0.4153</td>
+<td style="text-align: right;">0.5409</td>
 <td style="text-align: right;">0.4086</td>
-<td style="text-align: right;">-0.0067</td>
+<td style="text-align: right;">-0.1323</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">log1p(Value)</td>
-<td style="text-align: right;">0.1492</td>
+<td style="text-align: right;">0.0566</td>
 <td style="text-align: right;">0.0632</td>
-<td style="text-align: right;">-0.0861</td>
+<td style="text-align: right;">0.0066</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Bonus</td>
-<td style="text-align: right;">0.0113</td>
+<td style="text-align: right;">0.0110</td>
 <td style="text-align: right;">0.0107</td>
-<td style="text-align: right;">-0.0006</td>
+<td style="text-align: right;">-0.0003</td>
 </tr>
 </tbody>
 </table>
@@ -1680,11 +1627,11 @@ r_k = \frac{1}{f_k}.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Real data</td>
-<td style="text-align: right;">0.728</td>
+<td style="text-align: right;">0.7315</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Synthetic data</td>
-<td style="text-align: right;">0.729</td>
+<td style="text-align: right;">0.7318</td>
 </tr>
 </tbody>
 </table>
@@ -3009,453 +2956,436 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
 <span id="cb32-502"><a href="#cb32-502" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-503"><a href="#cb32-503" aria-hidden="true" tabindex="-1"></a>**解读这张图。** 在每一个 $\varepsilon$ 取值下,整体业务组合的箱型图都紧贴零偏差,在这一尺度上薄得几乎看不见,与上表的结论一致。小型子群体的箱型图讲述的是另一个故事:在 $\varepsilon = 0.1$ 时,单次发布可能偏离真实均值两年以上,只有当 $\varepsilon$ 达到5或10时,箱体才收窄到一年以内的精度。两种情形所用的机制和隐私预算完全相同,唯一的差别是 $n$,相差约200倍。这正是为什么整体业务组合层面的统计量用差分隐私加以保护几乎是免费的,而同样的 $\varepsilon$ 应用于一个精细的细分,例如单一邮编、某个罕见人口统计组合、一个小型分支机构,却可能带来真实的失真。这也是为什么2018年美国人口普查重构攻击(第六章)在最小的公布地理单元(人口普查区块)上最难防御,而非在州或全国层面。</span>
 <span id="cb32-504"><a href="#cb32-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-505"><a href="#cb32-505" aria-hidden="true" tabindex="-1"></a><span class="fu">## 解读 epsilon 的权衡取舍</span></span>
+<span id="cb32-505"><a href="#cb32-505" aria-hidden="true" tabindex="-1"></a><span class="fu">## 稀有子群体的差分隐私统计量</span></span>
 <span id="cb32-506"><a href="#cb32-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-507"><a href="#cb32-507" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ε <span class="pp">|</span> 加入平均年龄的噪声(整体业务组合) <span class="pp">|</span> 加入平均年龄的噪声(小型子群体,n=487) <span class="pp">|</span> 实践解读 <span class="pp">|</span></span>
-<span id="cb32-508"><a href="#cb32-508" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|------------------------|------------------------|--------------------------|</span></span>
-<span id="cb32-509"><a href="#cb32-509" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0.1 <span class="pp">|</span> 可忽略不计 <span class="pp">|</span> 非常大(可达数年之差) <span class="pp">|</span> 隐私性强,不适用于小群体统计量,但适用于整体业务组合层面 <span class="pp">|</span></span>
-<span id="cb32-510"><a href="#cb32-510" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0.5 <span class="pp">|</span> 可忽略不计 <span class="pp">|</span> 大 <span class="pp">|</span> 用于精细化报告仍有风险 <span class="pp">|</span></span>
-<span id="cb32-511"><a href="#cb32-511" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 可忽略不计 <span class="pp">|</span> 适中 <span class="pp">|</span> 常见的默认设置,部分监管框架采用 <span class="pp">|</span></span>
-<span id="cb32-512"><a href="#cb32-512" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 可忽略不计 <span class="pp">|</span> 小 <span class="pp">|</span> 即便对中等偏小的群体也可接受 <span class="pp">|</span></span>
-<span id="cb32-513"><a href="#cb32-513" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> 可忽略不计 <span class="pp">|</span> 非常小 <span class="pp">|</span> 隐私性弱,接近未受扰动的输出 <span class="pp">|</span></span>
-<span id="cb32-514"><a href="#cb32-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-515"><a href="#cb32-515" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb32-516"><a href="#cb32-516" aria-hidden="true" tabindex="-1"></a>当 $n = 100{,}000$ 条记录时,平均年龄这一统计量的敏感度为 $(100-18)/100{,}000 \approx 0.0008$,因此**大型数据集使差分隐私变得更加实用**:即便在 $\varepsilon = 0.1$ 时,整体业务组合层面的噪声也可忽略不计。但正如上文 $n = 487$ 的子群体所示,一旦 $n$ 较小,同样的保证就会带来真实的精度损失。因此,选择 $\varepsilon$ 与决定发布结果允许多精细,二者无法分开考虑。</span>
-<span id="cb32-517"><a href="#cb32-517" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb32-518"><a href="#cb32-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-519"><a href="#cb32-519" aria-hidden="true" tabindex="-1"></a><span class="fu">## 按性别划分的差分隐私理赔率</span></span>
-<span id="cb32-520"><a href="#cb32-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-521"><a href="#cb32-521" aria-hidden="true" tabindex="-1"></a>我们同样可以用差分隐私发布群体层面的统计量,这与公平性报告相关。此处的男性和女性保单持有人都是大群体(各有数万条记录),因此按照上文已建立的规律,可以预期 DP 列会保持接近真实比率,而不会像 <span class="in">`n = 487`</span> 的那个子群体那样出现大幅波动:</span>
-<span id="cb32-522"><a href="#cb32-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-523"><a href="#cb32-523" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dp-gender}</span></span>
-<span id="cb32-524"><a href="#cb32-524" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
-<span id="cb32-525"><a href="#cb32-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-526"><a href="#cb32-526" aria-hidden="true" tabindex="-1"></a><span class="co"># Female/Male are large subgroups (tens of thousands each), unlike the n=487</span></span>
-<span id="cb32-527"><a href="#cb32-527" aria-hidden="true" tabindex="-1"></a><span class="co"># example above, so DP noise should again be small relative to the true rate</span></span>
-<span id="cb32-528"><a href="#cb32-528" aria-hidden="true" tabindex="-1"></a>gender_dp <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>), <span class="cf">function</span>(g) {</span>
-<span id="cb32-529"><a href="#cb32-529" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Gender <span class="sc">==</span> g) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(HasClaim)</span>
-<span id="cb32-530"><a href="#cb32-530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb32-531"><a href="#cb32-531" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> g,</span>
-<span id="cb32-532"><a href="#cb32-532" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">length</span>(x),</span>
-<span id="cb32-533"><a href="#cb32-533" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">True claim rate</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">4</span>),</span>
-<span id="cb32-534"><a href="#cb32-534" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">DP claim rate (ε=1)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">dp_proportion</span>(x, <span class="cf">function</span>(v) v <span class="sc">==</span> <span class="dv">1</span>, <span class="at">epsilon =</span> <span class="dv">1</span>), <span class="dv">4</span>),</span>
-<span id="cb32-535"><a href="#cb32-535" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">DP claim rate (ε=5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">dp_proportion</span>(x, <span class="cf">function</span>(v) v <span class="sc">==</span> <span class="dv">1</span>, <span class="at">epsilon =</span> <span class="dv">5</span>), <span class="dv">4</span>)</span>
-<span id="cb32-536"><a href="#cb32-536" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-537"><a href="#cb32-537" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb32-507"><a href="#cb32-507" aria-hidden="true" tabindex="-1"></a>对整体业务组合发布的统计量,同样可以对稀有子群体发布,代码完全相同、$\varepsilon$ 取值也相同。差别仅在于 $n$。</span>
+<span id="cb32-508"><a href="#cb32-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-509"><a href="#cb32-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dp-rare-table}</span></span>
+<span id="cb32-510"><a href="#cb32-510" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb32-511"><a href="#cb32-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-512"><a href="#cb32-512" aria-hidden="true" tabindex="-1"></a>rare_dp <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(epsilons, <span class="cf">function</span>(eps) {</span>
+<span id="cb32-513"><a href="#cb32-513" aria-hidden="true" tabindex="-1"></a>  dp_val <span class="ot">&lt;-</span> <span class="fu">dp_mean</span>(rare_group<span class="sc">$</span>Age, <span class="at">lower =</span> <span class="dv">18</span>, <span class="at">upper =</span> <span class="dv">100</span>, <span class="at">epsilon =</span> eps)</span>
+<span id="cb32-514"><a href="#cb32-514" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb32-515"><a href="#cb32-515" aria-hidden="true" tabindex="-1"></a>    <span class="at">epsilon         =</span> eps,</span>
+<span id="cb32-516"><a href="#cb32-516" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">True mean age</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(true_mean_rare, <span class="dv">2</span>),</span>
+<span id="cb32-517"><a href="#cb32-517" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">DP mean age</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(dp_val, <span class="dv">2</span>),</span>
+<span id="cb32-518"><a href="#cb32-518" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Deviation</span><span class="st">`</span>     <span class="ot">=</span> <span class="fu">round</span>(dp_val <span class="sc">-</span> true_mean_rare, <span class="dv">2</span>)</span>
+<span id="cb32-519"><a href="#cb32-519" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-520"><a href="#cb32-520" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb32-521"><a href="#cb32-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-522"><a href="#cb32-522" aria-hidden="true" tabindex="-1"></a>rare_dp <span class="sc">%&gt;%</span></span>
+<span id="cb32-523"><a href="#cb32-523" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"稀有子群体的差分隐私平均年龄（男性、66岁及以上、豪华车型；n = 487）"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-524"><a href="#cb32-524" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>)</span>
+<span id="cb32-525"><a href="#cb32-525" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-526"><a href="#cb32-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-527"><a href="#cb32-527" aria-hidden="true" tabindex="-1"></a>**解读这张表。** 与上方整体业务组合的表不同,此处的差分隐私平均年龄在 $\varepsilon = 0.1$ 和 $\varepsilon = 0.5$ 时出现了明显波动。当 $n = 487$ 时,敏感度为 $(100-18)/487 \approx 0.168$,约是全业务组合敏感度的200倍。此处的偏差幅度与上图中小型子群体的箱型图相吻合。每次重新渲染本文档,偏差列都会产生不同的数值,因为噪声是随机抽取的。这种随机性本身就说明了问题所在:一个反复接收该子群体统计量的监管机构,在每次发布时都面临这种波动。</span>
+<span id="cb32-528"><a href="#cb32-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-529"><a href="#cb32-529" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb32-530"><a href="#cb32-530" aria-hidden="true" tabindex="-1"></a>单次差分隐私发布会消耗隐私预算 ε。如果从同一数据集发布多项统计量,隐私预算必须加以**组合**。连续的发布会使风险成倍累积。对于 $k$ 次各消耗 $\varepsilon$ 的独立查询,总预算为 $k\varepsilon$(基础组合方式)。更精细的核算方法(如 Rényi 差分隐私)则能给出更紧的边界。</span>
+<span id="cb32-531"><a href="#cb32-531" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-532"><a href="#cb32-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-533"><a href="#cb32-533" aria-hidden="true" tabindex="-1"></a><span class="fu"># 合成数据</span></span>
+<span id="cb32-534"><a href="#cb32-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-535"><a href="#cb32-535" aria-hidden="true" tabindex="-1"></a><span class="fu">## 使用 `synthpop` 生成合成保险数据</span></span>
+<span id="cb32-536"><a href="#cb32-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-537"><a href="#cb32-537" aria-hidden="true" tabindex="-1"></a><span class="in">`synthpop`</span> <span class="co">[</span><span class="ot">@nowok2016synthpop</span><span class="co">]</span> 通过拟合一系列条件模型(逐一变量地进行、并以此前已合成的变量为条件),生成**合成数据**(在统计意义上与真实数据相似、但不对应任何真实个体实际记录的人工记录)。默认情况下,它使用 CART(分类与回归树,一种通过反复依据其他变量将数据划分为不同群组来预测每个变量的方法)。</span>
 <span id="cb32-538"><a href="#cb32-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-539"><a href="#cb32-539" aria-hidden="true" tabindex="-1"></a>gender_dp <span class="sc">%&gt;%</span></span>
-<span id="cb32-540"><a href="#cb32-540" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"DP claim rate by gender — protecting group-level statistics"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-541"><a href="#cb32-541" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span>
-<span id="cb32-542"><a href="#cb32-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-543"><a href="#cb32-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-544"><a href="#cb32-544" aria-hidden="true" tabindex="-1"></a>正如预期,两列 DP 结果都保持接近真实比率:男性和女性都是足够大的子群体,即便 $\varepsilon = 1$ 也只会加入很小的噪声。如果监管机构要求按更精细的类别(例如按邮编划分的理赔率)进行同样的分解,就会落入与上文小型子群体相同的小 $n$、高噪声区间,可能需要更大的 $\varepsilon$、更粗的地理粒度,或者改用 k-匿名性、合成数据等其他技术。</span>
-<span id="cb32-545"><a href="#cb32-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-546"><a href="#cb32-546" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb32-547"><a href="#cb32-547" aria-hidden="true" tabindex="-1"></a>单次差分隐私发布会消耗隐私预算 ε。如果从同一数据集发布多项统计量,隐私预算必须加以**组合**。连续的发布会使风险成倍累积。对于 $k$ 次各消耗 $\varepsilon$ 的独立查询,总预算为 $k\varepsilon$(基础组合方式)。更精细的核算方法(如 Rényi 差分隐私)则能给出更紧的边界。</span>
-<span id="cb32-548"><a href="#cb32-548" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb32-549"><a href="#cb32-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-550"><a href="#cb32-550" aria-hidden="true" tabindex="-1"></a><span class="fu"># 合成数据</span></span>
-<span id="cb32-551"><a href="#cb32-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-552"><a href="#cb32-552" aria-hidden="true" tabindex="-1"></a><span class="fu">## 使用 `synthpop` 生成合成保险数据</span></span>
-<span id="cb32-553"><a href="#cb32-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-554"><a href="#cb32-554" aria-hidden="true" tabindex="-1"></a><span class="in">`synthpop`</span> <span class="co">[</span><span class="ot">@nowok2016synthpop</span><span class="co">]</span> 通过拟合一系列条件模型(逐一变量地进行、并以此前已合成的变量为条件),生成**合成数据**(在统计意义上与真实数据相似、但不对应任何真实个体实际记录的人工记录)。默认情况下,它使用 CART(分类与回归树,一种通过反复依据其他变量将数据划分为不同群组来预测每个变量的方法)。</span>
-<span id="cb32-555"><a href="#cb32-555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-556"><a href="#cb32-556" aria-hidden="true" tabindex="-1"></a>**合成数据的理想属性。** 评判合成数据生成器通常依据三项属性,这三者并不会自动同步提升 <span class="co">[</span><span class="ot">@jordon2022synthetic</span><span class="co">]</span>:</span>
-<span id="cb32-557"><a href="#cb32-557" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-558"><a href="#cb32-558" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**保真度**:合成数据的分布,在边际意义上(每个变量单独而言)以及联合意义上(变量之间的相互关系),与真实数据的分布有多接近。下文的边际分布检验与汇总统计量检验直接检验这一点。</span>
-<span id="cb32-559"><a href="#cb32-559" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**效用**:合成数据是否真正支持其原本要服务的下游任务,而不只是看起来相似。系数一致性检验,以及更直接的以合成数据训练、以真实数据检验(TSTR)检验,检验的正是这一点。</span>
-<span id="cb32-560"><a href="#cb32-560" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**隐私性**:发布这份合成数据,是否会泄露关于具体真实个体的信息。下文的最近邻距离检验检验的是这一点,不过完整的隐私评估还需要成员推断与属性推断检验,详见下文进一步讨论。</span>
-<span id="cb32-561"><a href="#cb32-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-562"><a href="#cb32-562" aria-hidden="true" tabindex="-1"></a>这三项属性彼此之间存在权衡。一个记住了训练数据的生成器,会在保真度和效用上得分完美,却完全无法满足隐私性。反之,一个加入了过多噪声或正则化、以至于任何真实记录都无法被推断出来的生成器,隐私性表现良好,但保真度和效用都会很差。下文按照数据托管方通常需要满足这些要求的顺序,依次检验这三项属性:先保真度,再效用,最后隐私性——一份连基本相似度都达不到的合成数据集,并不值得再进一步检验。</span>
+<span id="cb32-539"><a href="#cb32-539" aria-hidden="true" tabindex="-1"></a>**合成数据的理想属性。** 评判合成数据生成器通常依据三项属性,这三者并不会自动同步提升 <span class="co">[</span><span class="ot">@jordon2022synthetic</span><span class="co">]</span>:</span>
+<span id="cb32-540"><a href="#cb32-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-541"><a href="#cb32-541" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**保真度**:合成数据的分布,在边际意义上(每个变量单独而言)以及联合意义上(变量之间的相互关系),与真实数据的分布有多接近。下文的边际分布检验与汇总统计量检验直接检验这一点。</span>
+<span id="cb32-542"><a href="#cb32-542" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**效用**:合成数据是否真正支持其原本要服务的下游任务,而不只是看起来相似。系数一致性检验,以及更直接的以合成数据训练、以真实数据检验(TSTR)检验,检验的正是这一点。</span>
+<span id="cb32-543"><a href="#cb32-543" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**隐私性**:发布这份合成数据,是否会泄露关于具体真实个体的信息。下文的最近邻距离检验检验的是这一点,不过完整的隐私评估还需要成员推断与属性推断检验,详见下文进一步讨论。</span>
+<span id="cb32-544"><a href="#cb32-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-545"><a href="#cb32-545" aria-hidden="true" tabindex="-1"></a>这三项属性彼此之间存在权衡。一个记住了训练数据的生成器,会在保真度和效用上得分完美,却完全无法满足隐私性。反之,一个加入了过多噪声或正则化、以至于任何真实记录都无法被推断出来的生成器,隐私性表现良好,但保真度和效用都会很差。下文按照数据托管方通常需要满足这些要求的顺序,依次检验这三项属性:先保真度,再效用,最后隐私性——一份连基本相似度都达不到的合成数据集,并不值得再进一步检验。</span>
+<span id="cb32-546"><a href="#cb32-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-547"><a href="#cb32-547" aria-hidden="true" tabindex="-1"></a>我们对车险业务组合的一个工作子集进行合成,并留出一部分 <span class="in">`synthpop`</span> 从未见过的**真实**记录。这部分留出集在下文的保真度检验中并不需要用到,但对于后面检验一个在合成数据上训练的模型是否仍适用于全新的真实记录而言,则至关重要。</span>
+<span id="cb32-548"><a href="#cb32-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-549"><a href="#cb32-549" aria-hidden="true" tabindex="-1"></a><span class="in">```{r synthpop-gen}</span></span>
+<span id="cb32-550"><a href="#cb32-550" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb32-551"><a href="#cb32-551" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "准备合成数据集"</span></span>
+<span id="cb32-552"><a href="#cb32-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-553"><a href="#cb32-553" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the raw (not banded) variables here, since synthesis should reproduce</span></span>
+<span id="cb32-554"><a href="#cb32-554" aria-hidden="true" tabindex="-1"></a><span class="co"># realistic continuous values, not the coarser bands used for k-anonymity</span></span>
+<span id="cb32-555"><a href="#cb32-555" aria-hidden="true" tabindex="-1"></a>df_synth_pool <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb32-556"><a href="#cb32-556" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, Age, Group1, Bonus, Density, Value,</span>
+<span id="cb32-557"><a href="#cb32-557" aria-hidden="true" tabindex="-1"></a>         Numtppd, Indtppd) <span class="sc">%&gt;%</span></span>
+<span id="cb32-558"><a href="#cb32-558" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-559"><a href="#cb32-559" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group1 =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Group1)),  <span class="co"># factor -&gt; numeric for the CART models</span></span>
+<span id="cb32-560"><a href="#cb32-560" aria-hidden="true" tabindex="-1"></a>    <span class="at">Bonus  =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Bonus))</span>
+<span id="cb32-561"><a href="#cb32-561" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-562"><a href="#cb32-562" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10000</span>)   <span class="co"># 10k records for speed; full dataset works too</span></span>
 <span id="cb32-563"><a href="#cb32-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-564"><a href="#cb32-564" aria-hidden="true" tabindex="-1"></a>我们对车险业务组合的一个工作子集进行合成,并留出一部分 <span class="in">`synthpop`</span> 从未见过的**真实**记录。这部分留出集在下文的保真度检验中并不需要用到,但对于后面检验一个在合成数据上训练的模型是否仍适用于全新的真实记录而言,则至关重要。</span>
-<span id="cb32-565"><a href="#cb32-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-566"><a href="#cb32-566" aria-hidden="true" tabindex="-1"></a><span class="in">```{r synthpop-gen}</span></span>
-<span id="cb32-567"><a href="#cb32-567" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb32-568"><a href="#cb32-568" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "准备合成数据集"</span></span>
-<span id="cb32-569"><a href="#cb32-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-570"><a href="#cb32-570" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the raw (not banded) variables here, since synthesis should reproduce</span></span>
-<span id="cb32-571"><a href="#cb32-571" aria-hidden="true" tabindex="-1"></a><span class="co"># realistic continuous values, not the coarser bands used for k-anonymity</span></span>
-<span id="cb32-572"><a href="#cb32-572" aria-hidden="true" tabindex="-1"></a>df_synth_pool <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
-<span id="cb32-573"><a href="#cb32-573" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, Age, Group1, Bonus, Density, Value,</span>
-<span id="cb32-574"><a href="#cb32-574" aria-hidden="true" tabindex="-1"></a>         Numtppd, Indtppd) <span class="sc">%&gt;%</span></span>
-<span id="cb32-575"><a href="#cb32-575" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb32-576"><a href="#cb32-576" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group1 =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Group1)),  <span class="co"># factor -&gt; numeric for the CART models</span></span>
-<span id="cb32-577"><a href="#cb32-577" aria-hidden="true" tabindex="-1"></a>    <span class="at">Bonus  =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(Bonus))</span>
-<span id="cb32-578"><a href="#cb32-578" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb32-579"><a href="#cb32-579" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10000</span>)   <span class="co"># 10k records for speed; full dataset works too</span></span>
-<span id="cb32-580"><a href="#cb32-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-581"><a href="#cb32-581" aria-hidden="true" tabindex="-1"></a><span class="co"># Hold out 2,000 real records that synthpop will never see. df_synth_input</span></span>
-<span id="cb32-582"><a href="#cb32-582" aria-hidden="true" tabindex="-1"></a><span class="co"># (8,000 records) is what gets synthesised; df_real_holdout is kept aside</span></span>
-<span id="cb32-583"><a href="#cb32-583" aria-hidden="true" tabindex="-1"></a><span class="co"># purely to test generalisation to unseen real data later (TSTR, below)</span></span>
-<span id="cb32-584"><a href="#cb32-584" aria-hidden="true" tabindex="-1"></a>holdout_idx     <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(df_synth_pool), <span class="dv">2000</span>)</span>
-<span id="cb32-585"><a href="#cb32-585" aria-hidden="true" tabindex="-1"></a>df_real_holdout <span class="ot">&lt;-</span> df_synth_pool[holdout_idx, ]</span>
-<span id="cb32-586"><a href="#cb32-586" aria-hidden="true" tabindex="-1"></a>df_synth_input  <span class="ot">&lt;-</span> df_synth_pool[<span class="sc">-</span>holdout_idx, ]</span>
-<span id="cb32-587"><a href="#cb32-587" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-588"><a href="#cb32-588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-589"><a href="#cb32-589" aria-hidden="true" tabindex="-1"></a><span class="in">```{r synthpop-run}</span></span>
-<span id="cb32-590"><a href="#cb32-590" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb32-591"><a href="#cb32-591" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb32-592"><a href="#cb32-592" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "运行 synthpop 合成"</span></span>
-<span id="cb32-593"><a href="#cb32-593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-594"><a href="#cb32-594" aria-hidden="true" tabindex="-1"></a><span class="co"># syn() fits one CART model per column (each conditioned on the columns</span></span>
-<span id="cb32-595"><a href="#cb32-595" aria-hidden="true" tabindex="-1"></a><span class="co"># already synthesised before it) and then samples a synthetic value from</span></span>
-<span id="cb32-596"><a href="#cb32-596" aria-hidden="true" tabindex="-1"></a><span class="co"># each fitted model, rather than copying any real record</span></span>
-<span id="cb32-597"><a href="#cb32-597" aria-hidden="true" tabindex="-1"></a>syn_out <span class="ot">&lt;-</span> <span class="fu">syn</span>(</span>
-<span id="cb32-598"><a href="#cb32-598" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> df_synth_input,</span>
-<span id="cb32-599"><a href="#cb32-599" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed       =</span> <span class="dv">42</span>,</span>
-<span id="cb32-600"><a href="#cb32-600" aria-hidden="true" tabindex="-1"></a>  <span class="at">m          =</span> <span class="dv">1</span>,            <span class="co"># generate one synthetic dataset (not multiple)</span></span>
-<span id="cb32-601"><a href="#cb32-601" aria-hidden="true" tabindex="-1"></a>  <span class="at">method     =</span> <span class="st">"cart"</span>,</span>
-<span id="cb32-602"><a href="#cb32-602" aria-hidden="true" tabindex="-1"></a>  <span class="at">print.flag =</span> <span class="cn">FALSE</span></span>
+<span id="cb32-564"><a href="#cb32-564" aria-hidden="true" tabindex="-1"></a><span class="co"># Hold out 2,000 real records that synthpop will never see. df_synth_input</span></span>
+<span id="cb32-565"><a href="#cb32-565" aria-hidden="true" tabindex="-1"></a><span class="co"># (8,000 records) is what gets synthesised; df_real_holdout is kept aside</span></span>
+<span id="cb32-566"><a href="#cb32-566" aria-hidden="true" tabindex="-1"></a><span class="co"># purely to test generalisation to unseen real data later (TSTR, below)</span></span>
+<span id="cb32-567"><a href="#cb32-567" aria-hidden="true" tabindex="-1"></a>holdout_idx     <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(df_synth_pool), <span class="dv">2000</span>)</span>
+<span id="cb32-568"><a href="#cb32-568" aria-hidden="true" tabindex="-1"></a>df_real_holdout <span class="ot">&lt;-</span> df_synth_pool[holdout_idx, ]</span>
+<span id="cb32-569"><a href="#cb32-569" aria-hidden="true" tabindex="-1"></a>df_synth_input  <span class="ot">&lt;-</span> df_synth_pool[<span class="sc">-</span>holdout_idx, ]</span>
+<span id="cb32-570"><a href="#cb32-570" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-571"><a href="#cb32-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-572"><a href="#cb32-572" aria-hidden="true" tabindex="-1"></a><span class="in">```{r synthpop-run}</span></span>
+<span id="cb32-573"><a href="#cb32-573" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb32-574"><a href="#cb32-574" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb32-575"><a href="#cb32-575" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "运行 synthpop 合成"</span></span>
+<span id="cb32-576"><a href="#cb32-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-577"><a href="#cb32-577" aria-hidden="true" tabindex="-1"></a><span class="co"># syn() fits one CART model per column (each conditioned on the columns</span></span>
+<span id="cb32-578"><a href="#cb32-578" aria-hidden="true" tabindex="-1"></a><span class="co"># already synthesised before it) and then samples a synthetic value from</span></span>
+<span id="cb32-579"><a href="#cb32-579" aria-hidden="true" tabindex="-1"></a><span class="co"># each fitted model, rather than copying any real record</span></span>
+<span id="cb32-580"><a href="#cb32-580" aria-hidden="true" tabindex="-1"></a>syn_out <span class="ot">&lt;-</span> <span class="fu">syn</span>(</span>
+<span id="cb32-581"><a href="#cb32-581" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> df_synth_input,</span>
+<span id="cb32-582"><a href="#cb32-582" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed       =</span> <span class="dv">42</span>,</span>
+<span id="cb32-583"><a href="#cb32-583" aria-hidden="true" tabindex="-1"></a>  <span class="at">m          =</span> <span class="dv">1</span>,            <span class="co"># generate one synthetic dataset (not multiple)</span></span>
+<span id="cb32-584"><a href="#cb32-584" aria-hidden="true" tabindex="-1"></a>  <span class="at">method     =</span> <span class="st">"cart"</span>,</span>
+<span id="cb32-585"><a href="#cb32-585" aria-hidden="true" tabindex="-1"></a>  <span class="at">print.flag =</span> <span class="cn">FALSE</span></span>
+<span id="cb32-586"><a href="#cb32-586" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-587"><a href="#cb32-587" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-588"><a href="#cb32-588" aria-hidden="true" tabindex="-1"></a>syn_df <span class="ot">&lt;-</span> syn_out<span class="sc">$</span>syn   <span class="co"># the synthetic dataset itself</span></span>
+<span id="cb32-589"><a href="#cb32-589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-590"><a href="#cb32-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-591"><a href="#cb32-591" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估保真度:边际分布</span></span>
+<span id="cb32-592"><a href="#cb32-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-593"><a href="#cb32-593" aria-hidden="true" tabindex="-1"></a>合成数据的边际分布与真实数据是否匹配?<span class="in">`Age`</span>(年龄)按原始尺度绘制,而 <span class="in">`Density`</span>(车辆停放地区的人口密度)和 <span class="in">`Value`</span>(车辆价值)则按 **log(1 + x)** 尺度绘制。这两个变量都存在严重的右偏:大多数保单持有人居住在中低密度地区、驾驶中等价位的车辆,但密集城区和豪华车构成了一条远远拖出主体分布之外的长尾。若按原始尺度绘制密度图,几乎所有记录都会被压缩成零附近的一根细尖峰,分布中段和尾部的信息几乎完全不可见,任何真正重要的真实数据与合成数据之间的差异,也都会被淹没在这根尖峰之中。**`log1p()`** 变换,即 $\log(1 + x)$ 而非普通的 $\log(x)$,能够压缩这条长尾,同时在 $x = 0$ 处依然有定义(普通的 $\log(0)$ 为 $-\infty$),这一点在本例中很重要,因为部分记录的 <span class="in">`Density`</span> 或 <span class="in">`Value`</span> 取值为零或接近零。</span>
+<span id="cb32-594"><a href="#cb32-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-595"><a href="#cb32-595" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fidelity-marginals}</span></span>
+<span id="cb32-596"><a href="#cb32-596" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "边际分布:真实数据与合成数据的比较。"</span></span>
+<span id="cb32-597"><a href="#cb32-597" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb32-598"><a href="#cb32-598" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb32-599"><a href="#cb32-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-600"><a href="#cb32-600" aria-hidden="true" tabindex="-1"></a>compare_dfs <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb32-601"><a href="#cb32-601" aria-hidden="true" tabindex="-1"></a>  df_synth_input <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Source =</span> <span class="st">"Real"</span>),</span>
+<span id="cb32-602"><a href="#cb32-602" aria-hidden="true" tabindex="-1"></a>  syn_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Source =</span> <span class="st">"Synthetic"</span>)</span>
 <span id="cb32-603"><a href="#cb32-603" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb32-604"><a href="#cb32-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-605"><a href="#cb32-605" aria-hidden="true" tabindex="-1"></a>syn_df <span class="ot">&lt;-</span> syn_out<span class="sc">$</span>syn   <span class="co"># the synthetic dataset itself</span></span>
-<span id="cb32-606"><a href="#cb32-606" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-607"><a href="#cb32-607" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-608"><a href="#cb32-608" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估保真度:边际分布</span></span>
-<span id="cb32-609"><a href="#cb32-609" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-610"><a href="#cb32-610" aria-hidden="true" tabindex="-1"></a>合成数据的边际分布与真实数据是否匹配?<span class="in">`Age`</span>(年龄)按原始尺度绘制,而 <span class="in">`Density`</span>(车辆停放地区的人口密度)和 <span class="in">`Value`</span>(车辆价值)则按 **log(1 + x)** 尺度绘制。这两个变量都存在严重的右偏:大多数保单持有人居住在中低密度地区、驾驶中等价位的车辆,但密集城区和豪华车构成了一条远远拖出主体分布之外的长尾。若按原始尺度绘制密度图,几乎所有记录都会被压缩成零附近的一根细尖峰,分布中段和尾部的信息几乎完全不可见,任何真正重要的真实数据与合成数据之间的差异,也都会被淹没在这根尖峰之中。**`log1p()`** 变换,即 $\log(1 + x)$ 而非普通的 $\log(x)$,能够压缩这条长尾,同时在 $x = 0$ 处依然有定义(普通的 $\log(0)$ 为 $-\infty$),这一点在本例中很重要,因为部分记录的 <span class="in">`Density`</span> 或 <span class="in">`Value`</span> 取值为零或接近零。</span>
-<span id="cb32-611"><a href="#cb32-611" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-612"><a href="#cb32-612" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fidelity-marginals}</span></span>
-<span id="cb32-613"><a href="#cb32-613" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "边际分布:真实数据与合成数据的比较。"</span></span>
-<span id="cb32-614"><a href="#cb32-614" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb32-615"><a href="#cb32-615" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb32-616"><a href="#cb32-616" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-617"><a href="#cb32-617" aria-hidden="true" tabindex="-1"></a>compare_dfs <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb32-618"><a href="#cb32-618" aria-hidden="true" tabindex="-1"></a>  df_synth_input <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Source =</span> <span class="st">"Real"</span>),</span>
-<span id="cb32-619"><a href="#cb32-619" aria-hidden="true" tabindex="-1"></a>  syn_df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Source =</span> <span class="st">"Synthetic"</span>)</span>
-<span id="cb32-620"><a href="#cb32-620" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-605"><a href="#cb32-605" aria-hidden="true" tabindex="-1"></a><span class="co"># Age is roughly symmetric, so the raw scale already shows the distribution clearly</span></span>
+<span id="cb32-606"><a href="#cb32-606" aria-hidden="true" tabindex="-1"></a>p_age <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(compare_dfs, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">fill =</span> Source, <span class="at">colour =</span> Source)) <span class="sc">+</span></span>
+<span id="cb32-607"><a href="#cb32-607" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb32-608"><a href="#cb32-608" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
+<span id="cb32-609"><a href="#cb32-609" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
+<span id="cb32-610"><a href="#cb32-610" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb32-611"><a href="#cb32-611" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb32-612"><a href="#cb32-612" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-613"><a href="#cb32-613" aria-hidden="true" tabindex="-1"></a><span class="co"># Density is right-skewed (a long tail of dense-urban locations), so log1p()</span></span>
+<span id="cb32-614"><a href="#cb32-614" aria-hidden="true" tabindex="-1"></a><span class="co"># spreads out the bulk of the data instead of compressing it into a spike near zero</span></span>
+<span id="cb32-615"><a href="#cb32-615" aria-hidden="true" tabindex="-1"></a>p_density <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(compare_dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log1p</span>(Density), <span class="at">fill =</span> Source, <span class="at">colour =</span> Source)) <span class="sc">+</span></span>
+<span id="cb32-616"><a href="#cb32-616" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb32-617"><a href="#cb32-617" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
+<span id="cb32-618"><a href="#cb32-618" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
+<span id="cb32-619"><a href="#cb32-619" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log(1 + Density)"</span>, <span class="at">x =</span> <span class="st">"log(1 + Density)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb32-620"><a href="#cb32-620" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
 <span id="cb32-621"><a href="#cb32-621" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-622"><a href="#cb32-622" aria-hidden="true" tabindex="-1"></a><span class="co"># Age is roughly symmetric, so the raw scale already shows the distribution clearly</span></span>
-<span id="cb32-623"><a href="#cb32-623" aria-hidden="true" tabindex="-1"></a>p_age <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(compare_dfs, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">fill =</span> Source, <span class="at">colour =</span> Source)) <span class="sc">+</span></span>
+<span id="cb32-622"><a href="#cb32-622" aria-hidden="true" tabindex="-1"></a><span class="co"># Vehicle value is right-skewed the same way (a long tail of luxury vehicles)</span></span>
+<span id="cb32-623"><a href="#cb32-623" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(compare_dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log1p</span>(Value), <span class="at">fill =</span> Source, <span class="at">colour =</span> Source)) <span class="sc">+</span></span>
 <span id="cb32-624"><a href="#cb32-624" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb32-625"><a href="#cb32-625" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
 <span id="cb32-626"><a href="#cb32-626" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
-<span id="cb32-627"><a href="#cb32-627" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age"</span>, <span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb32-627"><a href="#cb32-627" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log(1 + Vehicle value)"</span>, <span class="at">x =</span> <span class="st">"log(1 + Value)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
 <span id="cb32-628"><a href="#cb32-628" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
 <span id="cb32-629"><a href="#cb32-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-630"><a href="#cb32-630" aria-hidden="true" tabindex="-1"></a><span class="co"># Density is right-skewed (a long tail of dense-urban locations), so log1p()</span></span>
-<span id="cb32-631"><a href="#cb32-631" aria-hidden="true" tabindex="-1"></a><span class="co"># spreads out the bulk of the data instead of compressing it into a spike near zero</span></span>
-<span id="cb32-632"><a href="#cb32-632" aria-hidden="true" tabindex="-1"></a>p_density <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(compare_dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log1p</span>(Density), <span class="at">fill =</span> Source, <span class="at">colour =</span> Source)) <span class="sc">+</span></span>
-<span id="cb32-633"><a href="#cb32-633" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb32-634"><a href="#cb32-634" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
-<span id="cb32-635"><a href="#cb32-635" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
-<span id="cb32-636"><a href="#cb32-636" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log(1 + Density)"</span>, <span class="at">x =</span> <span class="st">"log(1 + Density)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb32-637"><a href="#cb32-637" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb32-638"><a href="#cb32-638" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-639"><a href="#cb32-639" aria-hidden="true" tabindex="-1"></a><span class="co"># Vehicle value is right-skewed the same way (a long tail of luxury vehicles)</span></span>
-<span id="cb32-640"><a href="#cb32-640" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(compare_dfs, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log1p</span>(Value), <span class="at">fill =</span> Source, <span class="at">colour =</span> Source)) <span class="sc">+</span></span>
-<span id="cb32-641"><a href="#cb32-641" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb32-642"><a href="#cb32-642" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
-<span id="cb32-643"><a href="#cb32-643" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Real"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"Synthetic"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>)) <span class="sc">+</span></span>
-<span id="cb32-644"><a href="#cb32-644" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log(1 + Vehicle value)"</span>, <span class="at">x =</span> <span class="st">"log(1 + Value)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb32-645"><a href="#cb32-645" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb32-646"><a href="#cb32-646" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-647"><a href="#cb32-647" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(p_age, p_density, p_value, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">common.legend =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb32-648"><a href="#cb32-648" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-649"><a href="#cb32-649" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-650"><a href="#cb32-650" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估保真度:汇总统计量</span></span>
-<span id="cb32-651"><a href="#cb32-651" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-652"><a href="#cb32-652" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fidelity-stats}</span></span>
-<span id="cb32-653"><a href="#cb32-653" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
-<span id="cb32-654"><a href="#cb32-654" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-655"><a href="#cb32-655" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare a handful of summary statistics side by side, real vs synthetic;</span></span>
-<span id="cb32-656"><a href="#cb32-656" aria-hidden="true" tabindex="-1"></a><span class="co"># close agreement here is a second, more targeted fidelity check than the</span></span>
-<span id="cb32-657"><a href="#cb32-657" aria-hidden="true" tabindex="-1"></a><span class="co"># full marginal-distribution plots above</span></span>
-<span id="cb32-658"><a href="#cb32-658" aria-hidden="true" tabindex="-1"></a>fidelity_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb32-659"><a href="#cb32-659" aria-hidden="true" tabindex="-1"></a>  <span class="at">Statistic =</span> <span class="fu">c</span>(</span>
-<span id="cb32-660"><a href="#cb32-660" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean age"</span>, <span class="st">"SD age"</span>,</span>
-<span id="cb32-661"><a href="#cb32-661" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Claim frequency (% policies with claim)"</span>,</span>
-<span id="cb32-662"><a href="#cb32-662" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean claim amount (given claim)"</span>,</span>
-<span id="cb32-663"><a href="#cb32-663" aria-hidden="true" tabindex="-1"></a>    <span class="st">"% Female"</span>,</span>
-<span id="cb32-664"><a href="#cb32-664" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Median vehicle value"</span>,</span>
-<span id="cb32-665"><a href="#cb32-665" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean density"</span></span>
-<span id="cb32-666"><a href="#cb32-666" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb32-667"><a href="#cb32-667" aria-hidden="true" tabindex="-1"></a>  <span class="at">Real =</span> <span class="fu">c</span>(</span>
-<span id="cb32-668"><a href="#cb32-668" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
-<span id="cb32-669"><a href="#cb32-669" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">sd</span>(df_synth_input<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
-<span id="cb32-670"><a href="#cb32-670" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
-<span id="cb32-671"><a href="#cb32-671" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Indtppd[df_synth_input<span class="sc">$</span>Indtppd <span class="sc">&gt;</span> <span class="dv">0</span>]), <span class="dv">0</span>),</span>
-<span id="cb32-672"><a href="#cb32-672" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Female"</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
-<span id="cb32-673"><a href="#cb32-673" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">median</span>(df_synth_input<span class="sc">$</span>Value), <span class="dv">0</span>),</span>
-<span id="cb32-674"><a href="#cb32-674" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Density), <span class="dv">0</span>)</span>
-<span id="cb32-675"><a href="#cb32-675" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb32-676"><a href="#cb32-676" aria-hidden="true" tabindex="-1"></a>  <span class="at">Synthetic =</span> <span class="fu">c</span>(</span>
-<span id="cb32-677"><a href="#cb32-677" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
-<span id="cb32-678"><a href="#cb32-678" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">sd</span>(syn_df<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
-<span id="cb32-679"><a href="#cb32-679" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
-<span id="cb32-680"><a href="#cb32-680" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Indtppd[syn_df<span class="sc">$</span>Indtppd <span class="sc">&gt;</span> <span class="dv">0</span>]), <span class="dv">0</span>),</span>
-<span id="cb32-681"><a href="#cb32-681" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Female"</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
-<span id="cb32-682"><a href="#cb32-682" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">median</span>(syn_df<span class="sc">$</span>Value), <span class="dv">0</span>),</span>
-<span id="cb32-683"><a href="#cb32-683" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Density), <span class="dv">0</span>)</span>
-<span id="cb32-684"><a href="#cb32-684" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-685"><a href="#cb32-685" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-686"><a href="#cb32-686" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-687"><a href="#cb32-687" aria-hidden="true" tabindex="-1"></a>fidelity_table <span class="sc">%&gt;%</span></span>
-<span id="cb32-688"><a href="#cb32-688" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Fidelity check: real vs synthetic data statistics"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-689"><a href="#cb32-689" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span>
-<span id="cb32-690"><a href="#cb32-690" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-691"><a href="#cb32-691" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-692"><a href="#cb32-692" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估保真度:模型系数</span></span>
-<span id="cb32-693"><a href="#cb32-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-694"><a href="#cb32-694" aria-hidden="true" tabindex="-1"></a>另一项保真度检验是,一个在合成数据上训练的模型,能否恢复出与一个在真实数据上训练的模型相近的拟合关系。这直接比较模型系数,而非留出数据上的预测性能,后者将在下一节直接检验。</span>
-<span id="cb32-695"><a href="#cb32-695" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-696"><a href="#cb32-696" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fidelity-model}</span></span>
-<span id="cb32-697"><a href="#cb32-697" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb32-698"><a href="#cb32-698" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "训练并比较真实数据与合成数据上的 GLM"</span></span>
-<span id="cb32-699"><a href="#cb32-699" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
-<span id="cb32-700"><a href="#cb32-700" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-701"><a href="#cb32-701" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)  <span class="co"># for glm.nb if needed</span></span>
-<span id="cb32-702"><a href="#cb32-702" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-703"><a href="#cb32-703" aria-hidden="true" tabindex="-1"></a><span class="co"># Same claim-frequency GLM specification fit twice, once on each dataset;</span></span>
-<span id="cb32-704"><a href="#cb32-704" aria-hidden="true" tabindex="-1"></a><span class="co"># Density and Value are log1p()-transformed for the same right-skew reason</span></span>
-<span id="cb32-705"><a href="#cb32-705" aria-hidden="true" tabindex="-1"></a><span class="co"># discussed above, this time as GLM predictors rather than plot axes</span></span>
-<span id="cb32-706"><a href="#cb32-706" aria-hidden="true" tabindex="-1"></a>fit_claim_model <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
-<span id="cb32-707"><a href="#cb32-707" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(</span>
-<span id="cb32-708"><a href="#cb32-708" aria-hidden="true" tabindex="-1"></a>    (Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">~</span> Age <span class="sc">+</span> Gender <span class="sc">+</span> <span class="fu">log1p</span>(Density) <span class="sc">+</span> <span class="fu">log1p</span>(Value) <span class="sc">+</span> Bonus,</span>
-<span id="cb32-709"><a href="#cb32-709" aria-hidden="true" tabindex="-1"></a>    <span class="at">family  =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
-<span id="cb32-710"><a href="#cb32-710" aria-hidden="true" tabindex="-1"></a>    <span class="at">data    =</span> df</span>
-<span id="cb32-711"><a href="#cb32-711" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-712"><a href="#cb32-712" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb32-713"><a href="#cb32-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-714"><a href="#cb32-714" aria-hidden="true" tabindex="-1"></a>model_real <span class="ot">&lt;-</span> <span class="fu">fit_claim_model</span>(df_synth_input)</span>
-<span id="cb32-715"><a href="#cb32-715" aria-hidden="true" tabindex="-1"></a>model_syn  <span class="ot">&lt;-</span> <span class="fu">fit_claim_model</span>(syn_df)</span>
+<span id="cb32-630"><a href="#cb32-630" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(p_age, p_density, p_value, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">common.legend =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb32-631"><a href="#cb32-631" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-632"><a href="#cb32-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-633"><a href="#cb32-633" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估保真度:汇总统计量</span></span>
+<span id="cb32-634"><a href="#cb32-634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-635"><a href="#cb32-635" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fidelity-stats}</span></span>
+<span id="cb32-636"><a href="#cb32-636" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb32-637"><a href="#cb32-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-638"><a href="#cb32-638" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare a handful of summary statistics side by side, real vs synthetic;</span></span>
+<span id="cb32-639"><a href="#cb32-639" aria-hidden="true" tabindex="-1"></a><span class="co"># close agreement here is a second, more targeted fidelity check than the</span></span>
+<span id="cb32-640"><a href="#cb32-640" aria-hidden="true" tabindex="-1"></a><span class="co"># full marginal-distribution plots above</span></span>
+<span id="cb32-641"><a href="#cb32-641" aria-hidden="true" tabindex="-1"></a>fidelity_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb32-642"><a href="#cb32-642" aria-hidden="true" tabindex="-1"></a>  <span class="at">Statistic =</span> <span class="fu">c</span>(</span>
+<span id="cb32-643"><a href="#cb32-643" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean age"</span>, <span class="st">"SD age"</span>,</span>
+<span id="cb32-644"><a href="#cb32-644" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Claim frequency (% policies with claim)"</span>,</span>
+<span id="cb32-645"><a href="#cb32-645" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean claim amount (given claim)"</span>,</span>
+<span id="cb32-646"><a href="#cb32-646" aria-hidden="true" tabindex="-1"></a>    <span class="st">"% Female"</span>,</span>
+<span id="cb32-647"><a href="#cb32-647" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Median vehicle value"</span>,</span>
+<span id="cb32-648"><a href="#cb32-648" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean density"</span></span>
+<span id="cb32-649"><a href="#cb32-649" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb32-650"><a href="#cb32-650" aria-hidden="true" tabindex="-1"></a>  <span class="at">Real =</span> <span class="fu">c</span>(</span>
+<span id="cb32-651"><a href="#cb32-651" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
+<span id="cb32-652"><a href="#cb32-652" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">sd</span>(df_synth_input<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
+<span id="cb32-653"><a href="#cb32-653" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
+<span id="cb32-654"><a href="#cb32-654" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Indtppd[df_synth_input<span class="sc">$</span>Indtppd <span class="sc">&gt;</span> <span class="dv">0</span>]), <span class="dv">0</span>),</span>
+<span id="cb32-655"><a href="#cb32-655" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Female"</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
+<span id="cb32-656"><a href="#cb32-656" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">median</span>(df_synth_input<span class="sc">$</span>Value), <span class="dv">0</span>),</span>
+<span id="cb32-657"><a href="#cb32-657" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(df_synth_input<span class="sc">$</span>Density), <span class="dv">0</span>)</span>
+<span id="cb32-658"><a href="#cb32-658" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb32-659"><a href="#cb32-659" aria-hidden="true" tabindex="-1"></a>  <span class="at">Synthetic =</span> <span class="fu">c</span>(</span>
+<span id="cb32-660"><a href="#cb32-660" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
+<span id="cb32-661"><a href="#cb32-661" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">sd</span>(syn_df<span class="sc">$</span>Age), <span class="dv">2</span>),</span>
+<span id="cb32-662"><a href="#cb32-662" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
+<span id="cb32-663"><a href="#cb32-663" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Indtppd[syn_df<span class="sc">$</span>Indtppd <span class="sc">&gt;</span> <span class="dv">0</span>]), <span class="dv">0</span>),</span>
+<span id="cb32-664"><a href="#cb32-664" aria-hidden="true" tabindex="-1"></a>    <span class="fu">percent</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">"Female"</span>), <span class="at">accuracy =</span> <span class="fl">0.1</span>),</span>
+<span id="cb32-665"><a href="#cb32-665" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">median</span>(syn_df<span class="sc">$</span>Value), <span class="dv">0</span>),</span>
+<span id="cb32-666"><a href="#cb32-666" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">mean</span>(syn_df<span class="sc">$</span>Density), <span class="dv">0</span>)</span>
+<span id="cb32-667"><a href="#cb32-667" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-668"><a href="#cb32-668" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-669"><a href="#cb32-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-670"><a href="#cb32-670" aria-hidden="true" tabindex="-1"></a>fidelity_table <span class="sc">%&gt;%</span></span>
+<span id="cb32-671"><a href="#cb32-671" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Fidelity check: real vs synthetic data statistics"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-672"><a href="#cb32-672" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span>
+<span id="cb32-673"><a href="#cb32-673" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-674"><a href="#cb32-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-675"><a href="#cb32-675" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估保真度:模型系数</span></span>
+<span id="cb32-676"><a href="#cb32-676" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-677"><a href="#cb32-677" aria-hidden="true" tabindex="-1"></a>另一项保真度检验是,一个在合成数据上训练的模型,能否恢复出与一个在真实数据上训练的模型相近的拟合关系。这直接比较模型系数,而非留出数据上的预测性能,后者将在下一节直接检验。</span>
+<span id="cb32-678"><a href="#cb32-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-679"><a href="#cb32-679" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fidelity-model}</span></span>
+<span id="cb32-680"><a href="#cb32-680" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb32-681"><a href="#cb32-681" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "训练并比较真实数据与合成数据上的 GLM"</span></span>
+<span id="cb32-682"><a href="#cb32-682" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb32-683"><a href="#cb32-683" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-684"><a href="#cb32-684" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)  <span class="co"># for glm.nb if needed</span></span>
+<span id="cb32-685"><a href="#cb32-685" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-686"><a href="#cb32-686" aria-hidden="true" tabindex="-1"></a><span class="co"># Same claim-frequency GLM specification fit twice, once on each dataset;</span></span>
+<span id="cb32-687"><a href="#cb32-687" aria-hidden="true" tabindex="-1"></a><span class="co"># Density and Value are log1p()-transformed for the same right-skew reason</span></span>
+<span id="cb32-688"><a href="#cb32-688" aria-hidden="true" tabindex="-1"></a><span class="co"># discussed above, this time as GLM predictors rather than plot axes</span></span>
+<span id="cb32-689"><a href="#cb32-689" aria-hidden="true" tabindex="-1"></a>fit_claim_model <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb32-690"><a href="#cb32-690" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(</span>
+<span id="cb32-691"><a href="#cb32-691" aria-hidden="true" tabindex="-1"></a>    (Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">~</span> Age <span class="sc">+</span> Gender <span class="sc">+</span> <span class="fu">log1p</span>(Density) <span class="sc">+</span> <span class="fu">log1p</span>(Value) <span class="sc">+</span> Bonus,</span>
+<span id="cb32-692"><a href="#cb32-692" aria-hidden="true" tabindex="-1"></a>    <span class="at">family  =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb32-693"><a href="#cb32-693" aria-hidden="true" tabindex="-1"></a>    <span class="at">data    =</span> df</span>
+<span id="cb32-694"><a href="#cb32-694" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-695"><a href="#cb32-695" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-696"><a href="#cb32-696" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-697"><a href="#cb32-697" aria-hidden="true" tabindex="-1"></a>model_real <span class="ot">&lt;-</span> <span class="fu">fit_claim_model</span>(df_synth_input)</span>
+<span id="cb32-698"><a href="#cb32-698" aria-hidden="true" tabindex="-1"></a>model_syn  <span class="ot">&lt;-</span> <span class="fu">fit_claim_model</span>(syn_df)</span>
+<span id="cb32-699"><a href="#cb32-699" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-700"><a href="#cb32-700" aria-hidden="true" tabindex="-1"></a><span class="co"># If synthesis preserved the real relationships well, these coefficients</span></span>
+<span id="cb32-701"><a href="#cb32-701" aria-hidden="true" tabindex="-1"></a><span class="co"># should be close, not just the marginal distributions from earlier</span></span>
+<span id="cb32-702"><a href="#cb32-702" aria-hidden="true" tabindex="-1"></a>coef_comparison <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb32-703"><a href="#cb32-703" aria-hidden="true" tabindex="-1"></a>  <span class="at">Coefficient =</span> <span class="fu">names</span>(<span class="fu">coef</span>(model_real)),</span>
+<span id="cb32-704"><a href="#cb32-704" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Real data</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">coef</span>(model_real), <span class="dv">4</span>),</span>
+<span id="cb32-705"><a href="#cb32-705" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Synthetic data</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">coef</span>(model_syn), <span class="dv">4</span>),</span>
+<span id="cb32-706"><a href="#cb32-706" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Difference</span><span class="st">`</span>     <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">coef</span>(model_syn) <span class="sc">-</span> <span class="fu">coef</span>(model_real), <span class="dv">4</span>)</span>
+<span id="cb32-707"><a href="#cb32-707" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-708"><a href="#cb32-708" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Coefficient <span class="sc">!=</span> <span class="st">"(Intercept)"</span>)</span>
+<span id="cb32-709"><a href="#cb32-709" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-710"><a href="#cb32-710" aria-hidden="true" tabindex="-1"></a>coef_comparison <span class="sc">%&gt;%</span></span>
+<span id="cb32-711"><a href="#cb32-711" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Logistic regression coefficients: real vs synthetic data"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-712"><a href="#cb32-712" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>)</span>
+<span id="cb32-713"><a href="#cb32-713" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-714"><a href="#cb32-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-715"><a href="#cb32-715" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估效用:以合成数据训练、以真实数据检验(TSTR)</span></span>
 <span id="cb32-716"><a href="#cb32-716" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-717"><a href="#cb32-717" aria-hidden="true" tabindex="-1"></a><span class="co"># If synthesis preserved the real relationships well, these coefficients</span></span>
-<span id="cb32-718"><a href="#cb32-718" aria-hidden="true" tabindex="-1"></a><span class="co"># should be close, not just the marginal distributions from earlier</span></span>
-<span id="cb32-719"><a href="#cb32-719" aria-hidden="true" tabindex="-1"></a>coef_comparison <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb32-720"><a href="#cb32-720" aria-hidden="true" tabindex="-1"></a>  <span class="at">Coefficient =</span> <span class="fu">names</span>(<span class="fu">coef</span>(model_real)),</span>
-<span id="cb32-721"><a href="#cb32-721" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Real data</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">coef</span>(model_real), <span class="dv">4</span>),</span>
-<span id="cb32-722"><a href="#cb32-722" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Synthetic data</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">coef</span>(model_syn), <span class="dv">4</span>),</span>
-<span id="cb32-723"><a href="#cb32-723" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Difference</span><span class="st">`</span>     <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">coef</span>(model_syn) <span class="sc">-</span> <span class="fu">coef</span>(model_real), <span class="dv">4</span>)</span>
-<span id="cb32-724"><a href="#cb32-724" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-725"><a href="#cb32-725" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Coefficient <span class="sc">!=</span> <span class="st">"(Intercept)"</span>)</span>
-<span id="cb32-726"><a href="#cb32-726" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-727"><a href="#cb32-727" aria-hidden="true" tabindex="-1"></a>coef_comparison <span class="sc">%&gt;%</span></span>
-<span id="cb32-728"><a href="#cb32-728" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Logistic regression coefficients: real vs synthetic data"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-729"><a href="#cb32-729" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>)</span>
-<span id="cb32-730"><a href="#cb32-730" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-717"><a href="#cb32-717" aria-hidden="true" tabindex="-1"></a>系数一致性检验的是合成数据是否*在外观上近似*真实数据,并未回答数据使用者真正关心的问题:如果用这份合成数据来构建一个生产模型,它在真实的、未来的记录上表现如何?检验这一点的标准方法是**以合成数据训练、以真实数据检验(TSTR)**:在合成数据上训练一个模型,然后在合成过程从未见过的真实记录上评估它,此处即为前文留出的2,000条 <span class="in">`df_real_holdout`</span> 记录。我们将其与自然基准进行比较:同一个模型在真实训练数据上拟合,并在同一份真实留出集上评估。</span>
+<span id="cb32-718"><a href="#cb32-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-719"><a href="#cb32-719" aria-hidden="true" tabindex="-1"></a><span class="in">```{r tstr}</span></span>
+<span id="cb32-720"><a href="#cb32-720" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb32-721"><a href="#cb32-721" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-722"><a href="#cb32-722" aria-hidden="true" tabindex="-1"></a><span class="co"># Area under the ROC curve (AUC), computed from ranks rather than a package:</span></span>
+<span id="cb32-723"><a href="#cb32-723" aria-hidden="true" tabindex="-1"></a><span class="co"># AUC = P(a random positive scores higher than a random negative), which the</span></span>
+<span id="cb32-724"><a href="#cb32-724" aria-hidden="true" tabindex="-1"></a><span class="co"># sum of ranks among the positive cases estimates directly (Mann-Whitney U).</span></span>
+<span id="cb32-725"><a href="#cb32-725" aria-hidden="true" tabindex="-1"></a>auc_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(pred, actual) {</span>
+<span id="cb32-726"><a href="#cb32-726" aria-hidden="true" tabindex="-1"></a>  n1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(actual <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb32-727"><a href="#cb32-727" aria-hidden="true" tabindex="-1"></a>  n0 <span class="ot">&lt;-</span> <span class="fu">sum</span>(actual <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb32-728"><a href="#cb32-728" aria-hidden="true" tabindex="-1"></a>  r  <span class="ot">&lt;-</span> <span class="fu">rank</span>(pred)</span>
+<span id="cb32-729"><a href="#cb32-729" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">sum</span>(r[actual <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> n1 <span class="sc">*</span> (n1 <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">/</span> (n1 <span class="sc">*</span> n0)</span>
+<span id="cb32-730"><a href="#cb32-730" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb32-731"><a href="#cb32-731" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-732"><a href="#cb32-732" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估效用:以合成数据训练、以真实数据检验(TSTR)</span></span>
+<span id="cb32-732"><a href="#cb32-732" aria-hidden="true" tabindex="-1"></a>holdout_actual <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df_real_holdout<span class="sc">$</span>Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
 <span id="cb32-733"><a href="#cb32-733" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-734"><a href="#cb32-734" aria-hidden="true" tabindex="-1"></a>系数一致性检验的是合成数据是否*在外观上近似*真实数据,并未回答数据使用者真正关心的问题:如果用这份合成数据来构建一个生产模型,它在真实的、未来的记录上表现如何?检验这一点的标准方法是**以合成数据训练、以真实数据检验(TSTR)**:在合成数据上训练一个模型,然后在合成过程从未见过的真实记录上评估它,此处即为前文留出的2,000条 <span class="in">`df_real_holdout`</span> 记录。我们将其与自然基准进行比较:同一个模型在真实训练数据上拟合,并在同一份真实留出集上评估。</span>
-<span id="cb32-735"><a href="#cb32-735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-736"><a href="#cb32-736" aria-hidden="true" tabindex="-1"></a><span class="in">```{r tstr}</span></span>
-<span id="cb32-737"><a href="#cb32-737" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb32-734"><a href="#cb32-734" aria-hidden="true" tabindex="-1"></a><span class="co"># Same two models fitted above (model_real on real data, model_syn on</span></span>
+<span id="cb32-735"><a href="#cb32-735" aria-hidden="true" tabindex="-1"></a><span class="co"># synthetic data), now scored on real records neither model was trained on</span></span>
+<span id="cb32-736"><a href="#cb32-736" aria-hidden="true" tabindex="-1"></a>pred_from_real_model <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_real, <span class="at">newdata =</span> df_real_holdout, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb32-737"><a href="#cb32-737" aria-hidden="true" tabindex="-1"></a>pred_from_syn_model  <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_syn,  <span class="at">newdata =</span> df_real_holdout, <span class="at">type =</span> <span class="st">"response"</span>)</span>
 <span id="cb32-738"><a href="#cb32-738" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-739"><a href="#cb32-739" aria-hidden="true" tabindex="-1"></a><span class="co"># Area under the ROC curve (AUC), computed from ranks rather than a package:</span></span>
-<span id="cb32-740"><a href="#cb32-740" aria-hidden="true" tabindex="-1"></a><span class="co"># AUC = P(a random positive scores higher than a random negative), which the</span></span>
-<span id="cb32-741"><a href="#cb32-741" aria-hidden="true" tabindex="-1"></a><span class="co"># sum of ranks among the positive cases estimates directly (Mann-Whitney U).</span></span>
-<span id="cb32-742"><a href="#cb32-742" aria-hidden="true" tabindex="-1"></a>auc_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(pred, actual) {</span>
-<span id="cb32-743"><a href="#cb32-743" aria-hidden="true" tabindex="-1"></a>  n1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(actual <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb32-744"><a href="#cb32-744" aria-hidden="true" tabindex="-1"></a>  n0 <span class="ot">&lt;-</span> <span class="fu">sum</span>(actual <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb32-745"><a href="#cb32-745" aria-hidden="true" tabindex="-1"></a>  r  <span class="ot">&lt;-</span> <span class="fu">rank</span>(pred)</span>
-<span id="cb32-746"><a href="#cb32-746" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">sum</span>(r[actual <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span> n1 <span class="sc">*</span> (n1 <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">/</span> (n1 <span class="sc">*</span> n0)</span>
-<span id="cb32-747"><a href="#cb32-747" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb32-748"><a href="#cb32-748" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-749"><a href="#cb32-749" aria-hidden="true" tabindex="-1"></a>holdout_actual <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df_real_holdout<span class="sc">$</span>Numtppd <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb32-750"><a href="#cb32-750" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-751"><a href="#cb32-751" aria-hidden="true" tabindex="-1"></a><span class="co"># Same two models fitted above (model_real on real data, model_syn on</span></span>
-<span id="cb32-752"><a href="#cb32-752" aria-hidden="true" tabindex="-1"></a><span class="co"># synthetic data), now scored on real records neither model was trained on</span></span>
-<span id="cb32-753"><a href="#cb32-753" aria-hidden="true" tabindex="-1"></a>pred_from_real_model <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_real, <span class="at">newdata =</span> df_real_holdout, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb32-754"><a href="#cb32-754" aria-hidden="true" tabindex="-1"></a>pred_from_syn_model  <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_syn,  <span class="at">newdata =</span> df_real_holdout, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb32-739"><a href="#cb32-739" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb32-740"><a href="#cb32-740" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Model trained on</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Real data"</span>, <span class="st">"Synthetic data"</span>),</span>
+<span id="cb32-741"><a href="#cb32-741" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">AUC on real holdout</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb32-742"><a href="#cb32-742" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">auc_manual</span>(pred_from_real_model, holdout_actual), <span class="dv">4</span>),</span>
+<span id="cb32-743"><a href="#cb32-743" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">auc_manual</span>(pred_from_syn_model,  holdout_actual), <span class="dv">4</span>)</span>
+<span id="cb32-744"><a href="#cb32-744" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-745"><a href="#cb32-745" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-746"><a href="#cb32-746" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Train-synthetic-test-real (TSTR): predictive performance on 2,000 held-out real records"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-747"><a href="#cb32-747" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span>
+<span id="cb32-748"><a href="#cb32-748" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-749"><a href="#cb32-749" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-750"><a href="#cb32-750" aria-hidden="true" tabindex="-1"></a>**解读这张表。** 两行都是在完全相同的真实留出记录上评分的,因此这是对两种训练数据来源实际能带来什么效果的公平比较。此处两个 AUC 分别为0.728(真实数据)和0.729(合成数据),差距可以忽略不计,甚至方向相反:完全基于合成数据构建的模型,在真实的未来业务上的表现,与基于真实数据(即合成数据本应保护的那份数据)构建的模型几乎一样好。这比单纯的系数一致性更有说服力,因为它直接检验了下游使用者真正会做的事情,而非仅仅是较大差距会说明的问题,即上文的系数一致性可能过于乐观:平均意义上接近的系数,并不能保证模型在需要泛化到从未见过的记录时也具有相近的预测性能。</span>
+<span id="cb32-751"><a href="#cb32-751" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-752"><a href="#cb32-752" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估隐私性:最近邻距离</span></span>
+<span id="cb32-753"><a href="#cb32-753" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-754"><a href="#cb32-754" aria-hidden="true" tabindex="-1"></a>一个逐字复制真实记录的合成数据集,不提供任何隐私保护。**最近邻距离比**(NNDR)衡量的是合成记录与真实记录的接近程度:</span>
 <span id="cb32-755"><a href="#cb32-755" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-756"><a href="#cb32-756" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb32-757"><a href="#cb32-757" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Model trained on</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Real data"</span>, <span class="st">"Synthetic data"</span>),</span>
-<span id="cb32-758"><a href="#cb32-758" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">AUC on real holdout</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb32-759"><a href="#cb32-759" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">auc_manual</span>(pred_from_real_model, holdout_actual), <span class="dv">4</span>),</span>
-<span id="cb32-760"><a href="#cb32-760" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">auc_manual</span>(pred_from_syn_model,  holdout_actual), <span class="dv">4</span>)</span>
-<span id="cb32-761"><a href="#cb32-761" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-762"><a href="#cb32-762" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-763"><a href="#cb32-763" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Train-synthetic-test-real (TSTR): predictive performance on 2,000 held-out real records"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-764"><a href="#cb32-764" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span>
-<span id="cb32-765"><a href="#cb32-765" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-766"><a href="#cb32-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-767"><a href="#cb32-767" aria-hidden="true" tabindex="-1"></a>**解读这张表。** 两行都是在完全相同的真实留出记录上评分的,因此这是对两种训练数据来源实际能带来什么效果的公平比较。此处两个 AUC 分别为0.728(真实数据)和0.729(合成数据),差距可以忽略不计,甚至方向相反:完全基于合成数据构建的模型,在真实的未来业务上的表现,与基于真实数据(即合成数据本应保护的那份数据)构建的模型几乎一样好。这比单纯的系数一致性更有说服力,因为它直接检验了下游使用者真正会做的事情,而非仅仅是较大差距会说明的问题,即上文的系数一致性可能过于乐观:平均意义上接近的系数,并不能保证模型在需要泛化到从未见过的记录时也具有相近的预测性能。</span>
+<span id="cb32-756"><a href="#cb32-756" aria-hidden="true" tabindex="-1"></a>$$\text{NNDR} = \frac{d(\text{合成记录}_i, \text{最近真实记录})}{d(\text{合成记录}_i, \text{次近真实记录})}$$</span>
+<span id="cb32-757"><a href="#cb32-757" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-758"><a href="#cb32-758" aria-hidden="true" tabindex="-1"></a>NNDR 接近1,意味着最近的真实记录并不比次近的真实记录更近,因此该合成记录并非一次复制。NNDR 接近0,则提示存在记忆现象。</span>
+<span id="cb32-759"><a href="#cb32-759" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-760"><a href="#cb32-760" aria-hidden="true" tabindex="-1"></a>**为什么是比值,而不是直接看到最近真实记录的距离。** 仅凭原始距离来判断是有误导性的,因为它没有考虑局部密度。在数据密集的区域(常见的 <span class="in">`Age`</span>、<span class="in">`Density`</span>、<span class="in">`Value`</span> 组合),*任何*一个附近的点,包括一条完全没有复制任何内容的合成记录,都会自然地与某条真实记录距离很近,原因仅仅是那一区域的真实记录本就密集。这并不是泄露,只是几何特性使然。除以*次*近真实记录的距离,正是为了消除这一影响:在密集区域中,最近和次近的真实记录彼此都很近、距离也大致相当,因此比值会保持在接近1的水平——这说明该合成点并未可疑地依附于某一条具体记录,它只是恰好落在分布中较为密集的一部分,这本就是预期之中的。反之,如果一条合成记录实际上是对某一条具体真实记录的近似复制,它到最近邻的距离会趋近于零,而到次近邻的距离仍保持在该区域正常的尺度上,于是比值就会趋近于0。这正是那种“并非只是附近有数据,而是发生了某种具体情况”的、经过密度归一化处理后的信号。</span>
+<span id="cb32-761"><a href="#cb32-761" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-762"><a href="#cb32-762" aria-hidden="true" tabindex="-1"></a>不过,NNDR 终归是一项范围狭窄的检验:它只检验距离计算中所包含的具体数值列(下文为 <span class="in">`Age`</span>、<span class="in">`Density`</span>、<span class="in">`Value`</span>,不包括分类列)上是否存在精确或近似精确的几何邻近关系。它无法说明**成员推断**(攻击者能否在不存在任何单条合成记录可疑接近的情况下,例如借助汇总统计特征,判断某个具体真实个体是否曾出现在训练数据中?)或**属性推断**(攻击者能否在没有任何记录级匹配的情况下,仅凭整体合成数据推断出某人的某个敏感属性?)。它是针对“记忆现象”这一种特定失效模式的、廉价而有用的初步诊断工具,而非像差分隐私的数学边界那样的隐私保证。</span>
+<span id="cb32-763"><a href="#cb32-763" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-764"><a href="#cb32-764" aria-hidden="true" tabindex="-1"></a><span class="in">```{r privacy-nndr}</span></span>
+<span id="cb32-765"><a href="#cb32-765" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "最近邻距离比的分布。数值接近1表明合成数据并未复制真实记录。"</span></span>
+<span id="cb32-766"><a href="#cb32-766" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 7</span></span>
+<span id="cb32-767"><a href="#cb32-767" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
 <span id="cb32-768"><a href="#cb32-768" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-769"><a href="#cb32-769" aria-hidden="true" tabindex="-1"></a><span class="fu">## 评估隐私性:最近邻距离</span></span>
-<span id="cb32-770"><a href="#cb32-770" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-771"><a href="#cb32-771" aria-hidden="true" tabindex="-1"></a>一个逐字复制真实记录的合成数据集,不提供任何隐私保护。**最近邻距离比**(NNDR)衡量的是合成记录与真实记录的接近程度:</span>
-<span id="cb32-772"><a href="#cb32-772" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-773"><a href="#cb32-773" aria-hidden="true" tabindex="-1"></a>$$\text{NNDR} = \frac{d(\text{合成记录}_i, \text{最近真实记录})}{d(\text{合成记录}_i, \text{次近真实记录})}$$</span>
-<span id="cb32-774"><a href="#cb32-774" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-775"><a href="#cb32-775" aria-hidden="true" tabindex="-1"></a>NNDR 接近1,意味着最近的真实记录并不比次近的真实记录更近,因此该合成记录并非一次复制。NNDR 接近0,则提示存在记忆现象。</span>
+<span id="cb32-769"><a href="#cb32-769" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise numeric columns for distance computation</span></span>
+<span id="cb32-770"><a href="#cb32-770" aria-hidden="true" tabindex="-1"></a>num_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"Density"</span>, <span class="st">"Value"</span>)</span>
+<span id="cb32-771"><a href="#cb32-771" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-772"><a href="#cb32-772" aria-hidden="true" tabindex="-1"></a>real_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(df_synth_input[, num_cols])</span>
+<span id="cb32-773"><a href="#cb32-773" aria-hidden="true" tabindex="-1"></a>syn_scaled  <span class="ot">&lt;-</span> <span class="fu">scale</span>(syn_df[, num_cols],</span>
+<span id="cb32-774"><a href="#cb32-774" aria-hidden="true" tabindex="-1"></a>                     <span class="at">center =</span> <span class="fu">attr</span>(real_scaled, <span class="st">"scaled:center"</span>),</span>
+<span id="cb32-775"><a href="#cb32-775" aria-hidden="true" tabindex="-1"></a>                     <span class="at">scale  =</span> <span class="fu">attr</span>(real_scaled, <span class="st">"scaled:scale"</span>))</span>
 <span id="cb32-776"><a href="#cb32-776" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-777"><a href="#cb32-777" aria-hidden="true" tabindex="-1"></a>**为什么是比值,而不是直接看到最近真实记录的距离。** 仅凭原始距离来判断是有误导性的,因为它没有考虑局部密度。在数据密集的区域(常见的 <span class="in">`Age`</span>、<span class="in">`Density`</span>、<span class="in">`Value`</span> 组合),*任何*一个附近的点,包括一条完全没有复制任何内容的合成记录,都会自然地与某条真实记录距离很近,原因仅仅是那一区域的真实记录本就密集。这并不是泄露,只是几何特性使然。除以*次*近真实记录的距离,正是为了消除这一影响:在密集区域中,最近和次近的真实记录彼此都很近、距离也大致相当,因此比值会保持在接近1的水平——这说明该合成点并未可疑地依附于某一条具体记录,它只是恰好落在分布中较为密集的一部分,这本就是预期之中的。反之,如果一条合成记录实际上是对某一条具体真实记录的近似复制,它到最近邻的距离会趋近于零,而到次近邻的距离仍保持在该区域正常的尺度上,于是比值就会趋近于0。这正是那种“并非只是附近有数据,而是发生了某种具体情况”的、经过密度归一化处理后的信号。</span>
-<span id="cb32-778"><a href="#cb32-778" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-779"><a href="#cb32-779" aria-hidden="true" tabindex="-1"></a>不过,NNDR 终归是一项范围狭窄的检验:它只检验距离计算中所包含的具体数值列(下文为 <span class="in">`Age`</span>、<span class="in">`Density`</span>、<span class="in">`Value`</span>,不包括分类列)上是否存在精确或近似精确的几何邻近关系。它无法说明**成员推断**(攻击者能否在不存在任何单条合成记录可疑接近的情况下,例如借助汇总统计特征,判断某个具体真实个体是否曾出现在训练数据中?)或**属性推断**(攻击者能否在没有任何记录级匹配的情况下,仅凭整体合成数据推断出某人的某个敏感属性?)。它是针对“记忆现象”这一种特定失效模式的、廉价而有用的初步诊断工具,而非像差分隐私的数学边界那样的隐私保证。</span>
+<span id="cb32-777"><a href="#cb32-777" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 500 synthetic records for speed</span></span>
+<span id="cb32-778"><a href="#cb32-778" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(syn_scaled), <span class="dv">500</span>)</span>
+<span id="cb32-779"><a href="#cb32-779" aria-hidden="true" tabindex="-1"></a>syn_sample <span class="ot">&lt;-</span> syn_scaled[idx, ]</span>
 <span id="cb32-780"><a href="#cb32-780" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-781"><a href="#cb32-781" aria-hidden="true" tabindex="-1"></a><span class="in">```{r privacy-nndr}</span></span>
-<span id="cb32-782"><a href="#cb32-782" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "最近邻距离比的分布。数值接近1表明合成数据并未复制真实记录。"</span></span>
-<span id="cb32-783"><a href="#cb32-783" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 7</span></span>
-<span id="cb32-784"><a href="#cb32-784" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb32-785"><a href="#cb32-785" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-786"><a href="#cb32-786" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise numeric columns for distance computation</span></span>
-<span id="cb32-787"><a href="#cb32-787" aria-hidden="true" tabindex="-1"></a>num_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"Density"</span>, <span class="st">"Value"</span>)</span>
-<span id="cb32-788"><a href="#cb32-788" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-789"><a href="#cb32-789" aria-hidden="true" tabindex="-1"></a>real_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(df_synth_input[, num_cols])</span>
-<span id="cb32-790"><a href="#cb32-790" aria-hidden="true" tabindex="-1"></a>syn_scaled  <span class="ot">&lt;-</span> <span class="fu">scale</span>(syn_df[, num_cols],</span>
-<span id="cb32-791"><a href="#cb32-791" aria-hidden="true" tabindex="-1"></a>                     <span class="at">center =</span> <span class="fu">attr</span>(real_scaled, <span class="st">"scaled:center"</span>),</span>
-<span id="cb32-792"><a href="#cb32-792" aria-hidden="true" tabindex="-1"></a>                     <span class="at">scale  =</span> <span class="fu">attr</span>(real_scaled, <span class="st">"scaled:scale"</span>))</span>
-<span id="cb32-793"><a href="#cb32-793" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-794"><a href="#cb32-794" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 500 synthetic records for speed</span></span>
-<span id="cb32-795"><a href="#cb32-795" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(syn_scaled), <span class="dv">500</span>)</span>
-<span id="cb32-796"><a href="#cb32-796" aria-hidden="true" tabindex="-1"></a>syn_sample <span class="ot">&lt;-</span> syn_scaled[idx, ]</span>
-<span id="cb32-797"><a href="#cb32-797" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-798"><a href="#cb32-798" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute distances to real data</span></span>
-<span id="cb32-799"><a href="#cb32-799" aria-hidden="true" tabindex="-1"></a>dist_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">dist</span>(<span class="fu">rbind</span>(syn_sample, real_scaled)))[</span>
-<span id="cb32-800"><a href="#cb32-800" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seq_len</span>(<span class="fu">nrow</span>(syn_sample)),</span>
-<span id="cb32-801"><a href="#cb32-801" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">nrow</span>(syn_sample) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">nrow</span>(syn_sample) <span class="sc">+</span> <span class="fu">nrow</span>(real_scaled))</span>
-<span id="cb32-802"><a href="#cb32-802" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb32-781"><a href="#cb32-781" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute distances to real data</span></span>
+<span id="cb32-782"><a href="#cb32-782" aria-hidden="true" tabindex="-1"></a>dist_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">dist</span>(<span class="fu">rbind</span>(syn_sample, real_scaled)))[</span>
+<span id="cb32-783"><a href="#cb32-783" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seq_len</span>(<span class="fu">nrow</span>(syn_sample)),</span>
+<span id="cb32-784"><a href="#cb32-784" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">nrow</span>(syn_sample) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">nrow</span>(syn_sample) <span class="sc">+</span> <span class="fu">nrow</span>(real_scaled))</span>
+<span id="cb32-785"><a href="#cb32-785" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb32-786"><a href="#cb32-786" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-787"><a href="#cb32-787" aria-hidden="true" tabindex="-1"></a>nn1 <span class="ot">&lt;-</span> <span class="fu">apply</span>(dist_mat, <span class="dv">1</span>, <span class="cf">function</span>(d) <span class="fu">sort</span>(d)[<span class="dv">1</span>])</span>
+<span id="cb32-788"><a href="#cb32-788" aria-hidden="true" tabindex="-1"></a>nn2 <span class="ot">&lt;-</span> <span class="fu">apply</span>(dist_mat, <span class="dv">1</span>, <span class="cf">function</span>(d) <span class="fu">sort</span>(d)[<span class="dv">2</span>])</span>
+<span id="cb32-789"><a href="#cb32-789" aria-hidden="true" tabindex="-1"></a>nndr <span class="ot">&lt;-</span> nn1 <span class="sc">/</span> nn2</span>
+<span id="cb32-790"><a href="#cb32-790" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-791"><a href="#cb32-791" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">nndr =</span> nndr), <span class="fu">aes</span>(<span class="at">x =</span> nndr)) <span class="sc">+</span></span>
+<span id="cb32-792"><a href="#cb32-792" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">"#FF9800"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb32-793"><a href="#cb32-793" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb32-794"><a href="#cb32-794" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.98</span>, <span class="at">y =</span> <span class="cn">Inf</span>, <span class="at">label =</span> <span class="st">"NNDR = 1</span><span class="sc">\n</span><span class="st">(not a copy)"</span>,</span>
+<span id="cb32-795"><a href="#cb32-795" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="fl">1.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb32-796"><a href="#cb32-796" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nearest-neighbour distance ratio"</span>,</span>
+<span id="cb32-797"><a href="#cb32-797" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb32-798"><a href="#cb32-798" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Privacy check: nearest-neighbour distance ratio"</span>) <span class="sc">+</span></span>
+<span id="cb32-799"><a href="#cb32-799" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb32-800"><a href="#cb32-800" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-801"><a href="#cb32-801" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-802"><a href="#cb32-802" aria-hidden="true" tabindex="-1"></a><span class="fu">## 解读 NNDR 图</span></span>
 <span id="cb32-803"><a href="#cb32-803" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-804"><a href="#cb32-804" aria-hidden="true" tabindex="-1"></a>nn1 <span class="ot">&lt;-</span> <span class="fu">apply</span>(dist_mat, <span class="dv">1</span>, <span class="cf">function</span>(d) <span class="fu">sort</span>(d)[<span class="dv">1</span>])</span>
-<span id="cb32-805"><a href="#cb32-805" aria-hidden="true" tabindex="-1"></a>nn2 <span class="ot">&lt;-</span> <span class="fu">apply</span>(dist_mat, <span class="dv">1</span>, <span class="cf">function</span>(d) <span class="fu">sort</span>(d)[<span class="dv">2</span>])</span>
-<span id="cb32-806"><a href="#cb32-806" aria-hidden="true" tabindex="-1"></a>nndr <span class="ot">&lt;-</span> nn1 <span class="sc">/</span> nn2</span>
+<span id="cb32-804"><a href="#cb32-804" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>大多数合成记录的 NNDR 接近1。最近和次近的真实记录大致等距。**合成数据并未复制真实记录。**</span>
+<span id="cb32-805"><a href="#cb32-805" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在 NNDR = 0 附近确实出现了一个尖峰:在抽样的500条合成记录中,约有4%(20条)在 <span class="in">`Age`</span>、<span class="in">`Density`</span> 和 <span class="in">`Value`</span> 三个变量上,与某一条真实记录的距离恰好为零。这并非完整记录的记忆现象。<span class="in">`synthpop`</span> 的 CART 方法是从其拟合树中匹配叶节点内*实际观测到的取值*中抽取每一个数值,而非做平滑或加入噪声,因此一条合成记录的 <span class="in">`Age`</span>/<span class="in">`Density`</span>/<span class="in">`Value`</span> 组合,有可能恰好与某一条具体真实记录的组合完全一致,尤其是因为该数据集中 <span class="in">`Density`</span> 在8,000条记录中只有471个不同取值。检查这些完全匹配的案例可以看到,分类变量(<span class="in">`Group1`</span>、<span class="in">`Bonus`</span>)以及理赔结果,通常仍与该合成记录的数值最近邻真实记录不同,因此整条记录并非复制,但在看似连续、实则基数有限的变量上出现完全匹配,正是下文提到的成员推断检验所要捕捉的那类残余风险。</span>
+<span id="cb32-806"><a href="#cb32-806" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>由于 CART 在 <span class="in">`minbucket`</span> &gt; 1 时会在每个叶节点引入随机性,使用 CART 的 <span class="in">`synthpop`</span> 通常能取得良好的 NNDR 表现。</span>
 <span id="cb32-807"><a href="#cb32-807" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-808"><a href="#cb32-808" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">nndr =</span> nndr), <span class="fu">aes</span>(<span class="at">x =</span> nndr)) <span class="sc">+</span></span>
-<span id="cb32-809"><a href="#cb32-809" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">"#FF9800"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb32-810"><a href="#cb32-810" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb32-811"><a href="#cb32-811" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.98</span>, <span class="at">y =</span> <span class="cn">Inf</span>, <span class="at">label =</span> <span class="st">"NNDR = 1</span><span class="sc">\n</span><span class="st">(not a copy)"</span>,</span>
-<span id="cb32-812"><a href="#cb32-812" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="fl">1.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
-<span id="cb32-813"><a href="#cb32-813" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nearest-neighbour distance ratio"</span>,</span>
-<span id="cb32-814"><a href="#cb32-814" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb32-815"><a href="#cb32-815" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Privacy check: nearest-neighbour distance ratio"</span>) <span class="sc">+</span></span>
-<span id="cb32-816"><a href="#cb32-816" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb32-817"><a href="#cb32-817" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-808"><a href="#cb32-808" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb32-809"><a href="#cb32-809" aria-hidden="true" tabindex="-1"></a>数值列上的 NNDR 只是其中一项检验。一次完整的隐私评估,还应检验**成员推断**(攻击者能否判断某条给定记录是否曾在训练数据中?)和**属性推断**(攻击者能否推断出某个敏感变量?)。完整的评估框架请参见 @jordon2022synthetic。</span>
+<span id="cb32-810"><a href="#cb32-810" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-811"><a href="#cb32-811" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-812"><a href="#cb32-812" aria-hidden="true" tabindex="-1"></a><span class="fu"># 生命周期管控</span></span>
+<span id="cb32-813"><a href="#cb32-813" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-814"><a href="#cb32-814" aria-hidden="true" tabindex="-1"></a><span class="fu">## 综合运用:按阶段划分的管控措施</span></span>
+<span id="cb32-815"><a href="#cb32-815" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-816"><a href="#cb32-816" aria-hidden="true" tabindex="-1"></a><span class="in">```{r controls-table}</span></span>
+<span id="cb32-817"><a href="#cb32-817" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
 <span id="cb32-818"><a href="#cb32-818" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-819"><a href="#cb32-819" aria-hidden="true" tabindex="-1"></a><span class="fu">## 解读 NNDR 图</span></span>
-<span id="cb32-820"><a href="#cb32-820" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-821"><a href="#cb32-821" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>大多数合成记录的 NNDR 接近1。最近和次近的真实记录大致等距。**合成数据并未复制真实记录。**</span>
-<span id="cb32-822"><a href="#cb32-822" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在 NNDR = 0 附近确实出现了一个尖峰:在抽样的500条合成记录中,约有4%(20条)在 <span class="in">`Age`</span>、<span class="in">`Density`</span> 和 <span class="in">`Value`</span> 三个变量上,与某一条真实记录的距离恰好为零。这并非完整记录的记忆现象。<span class="in">`synthpop`</span> 的 CART 方法是从其拟合树中匹配叶节点内*实际观测到的取值*中抽取每一个数值,而非做平滑或加入噪声,因此一条合成记录的 <span class="in">`Age`</span>/<span class="in">`Density`</span>/<span class="in">`Value`</span> 组合,有可能恰好与某一条具体真实记录的组合完全一致,尤其是因为该数据集中 <span class="in">`Density`</span> 在8,000条记录中只有471个不同取值。检查这些完全匹配的案例可以看到,分类变量(<span class="in">`Group1`</span>、<span class="in">`Bonus`</span>)以及理赔结果,通常仍与该合成记录的数值最近邻真实记录不同,因此整条记录并非复制,但在看似连续、实则基数有限的变量上出现完全匹配,正是下文提到的成员推断检验所要捕捉的那类残余风险。</span>
-<span id="cb32-823"><a href="#cb32-823" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>由于 CART 在 <span class="in">`minbucket`</span> &gt; 1 时会在每个叶节点引入随机性,使用 CART 的 <span class="in">`synthpop`</span> 通常能取得良好的 NNDR 表现。</span>
-<span id="cb32-824"><a href="#cb32-824" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-825"><a href="#cb32-825" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb32-826"><a href="#cb32-826" aria-hidden="true" tabindex="-1"></a>数值列上的 NNDR 只是其中一项检验。一次完整的隐私评估,还应检验**成员推断**(攻击者能否判断某条给定记录是否曾在训练数据中?)和**属性推断**(攻击者能否推断出某个敏感变量?)。完整的评估框架请参见 @jordon2022synthetic。</span>
-<span id="cb32-827"><a href="#cb32-827" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb32-828"><a href="#cb32-828" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-829"><a href="#cb32-829" aria-hidden="true" tabindex="-1"></a><span class="fu"># 生命周期管控</span></span>
-<span id="cb32-830"><a href="#cb32-830" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-831"><a href="#cb32-831" aria-hidden="true" tabindex="-1"></a><span class="fu">## 综合运用:按阶段划分的管控措施</span></span>
-<span id="cb32-832"><a href="#cb32-832" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-833"><a href="#cb32-833" aria-hidden="true" tabindex="-1"></a><span class="in">```{r controls-table}</span></span>
-<span id="cb32-834"><a href="#cb32-834" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
-<span id="cb32-835"><a href="#cb32-835" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-836"><a href="#cb32-836" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference table, not derived from the analysis above: maps each stage of</span></span>
-<span id="cb32-837"><a href="#cb32-837" aria-hidden="true" tabindex="-1"></a><span class="co"># the data lifecycle to the controls and regulatory hooks (APP/GDPR) that apply</span></span>
-<span id="cb32-838"><a href="#cb32-838" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb32-839"><a href="#cb32-839" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Stage</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Collection"</span>, <span class="st">"Storage"</span>, <span class="st">"Analytics / modelling"</span>,</span>
-<span id="cb32-840"><a href="#cb32-840" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Output / sharing"</span>, <span class="st">"Retention / deletion"</span>),</span>
-<span id="cb32-841"><a href="#cb32-841" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Key controls</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb32-842"><a href="#cb32-842" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Collect minimum necessary; document legal basis; notify individuals (APP 3, 5; GDPR Art 5–6)"</span>,</span>
-<span id="cb32-843"><a href="#cb32-843" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pseudonymise identifiers; encrypt at rest; role-based access; audit logs (APP 11; GDPR Art 25)"</span>,</span>
-<span id="cb32-844"><a href="#cb32-844" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Purpose limitation; k-anonymise or apply DP before analyst access; synthetic data for dev/test (APP 6; GDPR Art 5)"</span>,</span>
-<span id="cb32-845"><a href="#cb32-845" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Aggregate statistics only; DP noise on releases; data sharing agreements; vendor due diligence (APP 8; GDPR Art 28)"</span>,</span>
-<span id="cb32-846"><a href="#cb32-846" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Automated deletion at end of retention period; secure disposal; document destruction (APP 11; GDPR Art 5)"</span></span>
-<span id="cb32-847"><a href="#cb32-847" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-848"><a href="#cb32-848" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-849"><a href="#cb32-849" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Privacy controls by data lifecycle stage"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-850"><a href="#cb32-850" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-851"><a href="#cb32-851" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"8em"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-852"><a href="#cb32-852" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">"30em"</span>)</span>
-<span id="cb32-853"><a href="#cb32-853" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-854"><a href="#cb32-854" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-855"><a href="#cb32-855" aria-hidden="true" tabindex="-1"></a><span class="fu">## 选择合适的技术</span></span>
-<span id="cb32-856"><a href="#cb32-856" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-857"><a href="#cb32-857" aria-hidden="true" tabindex="-1"></a><span class="in">```{r technique-choice}</span></span>
-<span id="cb32-858"><a href="#cb32-858" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
-<span id="cb32-859"><a href="#cb32-859" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-860"><a href="#cb32-860" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference table summarising when to reach for each PET covered in this lecture</span></span>
-<span id="cb32-861"><a href="#cb32-861" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb32-862"><a href="#cb32-862" aria-hidden="true" tabindex="-1"></a>  <span class="at">Technique =</span> <span class="fu">c</span>(<span class="st">"Pseudonymisation"</span>, <span class="st">"k-Anonymity"</span>, <span class="st">"Differential privacy"</span>, <span class="st">"Synthetic data"</span>),</span>
-<span id="cb32-863"><a href="#cb32-863" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Best for</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb32-864"><a href="#cb32-864" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Separating identifiers from analytics data within the organisation"</span>,</span>
-<span id="cb32-865"><a href="#cb32-865" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Publishing tabular statistics or micro-data with few quasi-identifiers"</span>,</span>
-<span id="cb32-866"><a href="#cb32-866" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Releasing aggregate statistics or training models on sensitive datasets"</span>,</span>
-<span id="cb32-867"><a href="#cb32-867" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sharing realistic datasets externally; testing pipelines; rare-event augmentation"</span></span>
-<span id="cb32-868"><a href="#cb32-868" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb32-869"><a href="#cb32-869" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Main limitation</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb32-870"><a href="#cb32-870" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Does not protect against re-identification if the key file is compromised"</span>,</span>
-<span id="cb32-871"><a href="#cb32-871" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Breaks down with many quasi-identifiers or continuous variables"</span>,</span>
-<span id="cb32-872"><a href="#cb32-872" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Requires careful calibration of ε; reduces utility; composition across queries"</span>,</span>
-<span id="cb32-873"><a href="#cb32-873" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fidelity may be poor for rare subgroups; requires privacy evaluation"</span></span>
-<span id="cb32-874"><a href="#cb32-874" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb32-875"><a href="#cb32-875" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-876"><a href="#cb32-876" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Privacy technique selection guide"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-877"><a href="#cb32-877" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-878"><a href="#cb32-878" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"8em"</span>)</span>
-<span id="cb32-879"><a href="#cb32-879" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb32-880"><a href="#cb32-880" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-881"><a href="#cb32-881" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="案例研究揭晓:回答开篇提出的三个问题"}</span>
-<span id="cb32-882"><a href="#cb32-882" aria-hidden="true" tabindex="-1"></a>**问题一:哪一位接收方可以被正当地提供 k-匿名化数据?再保险公司所掌握的部分背景信息,是否会改变你的答案?**</span>
+<span id="cb32-819"><a href="#cb32-819" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference table, not derived from the analysis above: maps each stage of</span></span>
+<span id="cb32-820"><a href="#cb32-820" aria-hidden="true" tabindex="-1"></a><span class="co"># the data lifecycle to the controls and regulatory hooks (APP/GDPR) that apply</span></span>
+<span id="cb32-821"><a href="#cb32-821" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb32-822"><a href="#cb32-822" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Stage</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Collection"</span>, <span class="st">"Storage"</span>, <span class="st">"Analytics / modelling"</span>,</span>
+<span id="cb32-823"><a href="#cb32-823" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Output / sharing"</span>, <span class="st">"Retention / deletion"</span>),</span>
+<span id="cb32-824"><a href="#cb32-824" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Key controls</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb32-825"><a href="#cb32-825" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Collect minimum necessary; document legal basis; notify individuals (APP 3, 5; GDPR Art 5–6)"</span>,</span>
+<span id="cb32-826"><a href="#cb32-826" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pseudonymise identifiers; encrypt at rest; role-based access; audit logs (APP 11; GDPR Art 25)"</span>,</span>
+<span id="cb32-827"><a href="#cb32-827" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Purpose limitation; k-anonymise or apply DP before analyst access; synthetic data for dev/test (APP 6; GDPR Art 5)"</span>,</span>
+<span id="cb32-828"><a href="#cb32-828" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Aggregate statistics only; DP noise on releases; data sharing agreements; vendor due diligence (APP 8; GDPR Art 28)"</span>,</span>
+<span id="cb32-829"><a href="#cb32-829" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Automated deletion at end of retention period; secure disposal; document destruction (APP 11; GDPR Art 5)"</span></span>
+<span id="cb32-830"><a href="#cb32-830" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-831"><a href="#cb32-831" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-832"><a href="#cb32-832" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Privacy controls by data lifecycle stage"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-833"><a href="#cb32-833" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-834"><a href="#cb32-834" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"8em"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-835"><a href="#cb32-835" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">"30em"</span>)</span>
+<span id="cb32-836"><a href="#cb32-836" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-837"><a href="#cb32-837" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-838"><a href="#cb32-838" aria-hidden="true" tabindex="-1"></a><span class="fu">## 选择合适的技术</span></span>
+<span id="cb32-839"><a href="#cb32-839" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-840"><a href="#cb32-840" aria-hidden="true" tabindex="-1"></a><span class="in">```{r technique-choice}</span></span>
+<span id="cb32-841"><a href="#cb32-841" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb32-842"><a href="#cb32-842" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-843"><a href="#cb32-843" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference table summarising when to reach for each PET covered in this lecture</span></span>
+<span id="cb32-844"><a href="#cb32-844" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb32-845"><a href="#cb32-845" aria-hidden="true" tabindex="-1"></a>  <span class="at">Technique =</span> <span class="fu">c</span>(<span class="st">"Pseudonymisation"</span>, <span class="st">"k-Anonymity"</span>, <span class="st">"Differential privacy"</span>, <span class="st">"Synthetic data"</span>),</span>
+<span id="cb32-846"><a href="#cb32-846" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Best for</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb32-847"><a href="#cb32-847" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Separating identifiers from analytics data within the organisation"</span>,</span>
+<span id="cb32-848"><a href="#cb32-848" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Publishing tabular statistics or micro-data with few quasi-identifiers"</span>,</span>
+<span id="cb32-849"><a href="#cb32-849" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Releasing aggregate statistics or training models on sensitive datasets"</span>,</span>
+<span id="cb32-850"><a href="#cb32-850" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sharing realistic datasets externally; testing pipelines; rare-event augmentation"</span></span>
+<span id="cb32-851"><a href="#cb32-851" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb32-852"><a href="#cb32-852" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Main limitation</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb32-853"><a href="#cb32-853" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Does not protect against re-identification if the key file is compromised"</span>,</span>
+<span id="cb32-854"><a href="#cb32-854" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Breaks down with many quasi-identifiers or continuous variables"</span>,</span>
+<span id="cb32-855"><a href="#cb32-855" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Requires careful calibration of ε; reduces utility; composition across queries"</span>,</span>
+<span id="cb32-856"><a href="#cb32-856" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fidelity may be poor for rare subgroups; requires privacy evaluation"</span></span>
+<span id="cb32-857"><a href="#cb32-857" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-858"><a href="#cb32-858" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-859"><a href="#cb32-859" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Privacy technique selection guide"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-860"><a href="#cb32-860" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-861"><a href="#cb32-861" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"8em"</span>)</span>
+<span id="cb32-862"><a href="#cb32-862" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-863"><a href="#cb32-863" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-864"><a href="#cb32-864" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="案例研究揭晓:回答开篇提出的三个问题"}</span>
+<span id="cb32-865"><a href="#cb32-865" aria-hidden="true" tabindex="-1"></a>**问题一:哪一位接收方可以被正当地提供 k-匿名化数据?再保险公司所掌握的部分背景信息,是否会改变你的答案?**</span>
+<span id="cb32-866"><a href="#cb32-866" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-867"><a href="#cb32-867" aria-hidden="true" tabindex="-1"></a>可以说,三者都不适合——但这并非因为 k-匿名性本身有缺陷,而是因为对这三份具体的申请而言,它都不是恰当的工具。再保险公司需要真实感的记录级数据来构建独立模型,而 k-匿名性只会降低这类数据的质量,而非提供它;内部团队根本不需要一份被降质处理过的文件;供应商则完全不需要任何文件。而在 k-匿名性原本可能适用的情形下,背景知识确实会改变答案:本章自己在 $k=50$ 下的结果表明,<span class="in">`Gender`</span>(性别)、<span class="in">`AgeGroup`</span>(年龄组)、<span class="in">`DensityGroup`</span>(密度组)——恰恰是一家在往年分保合约中接触过部分保单持有人的再保险公司,最有可能已经掌握的变量——完全未受抑制的影响,因此“隐藏在 $k$ 个他人之中”这一论证,对这一特定接收方而言,要比对一个毫无背景知识的外部者弱得多。</span>
+<span id="cb32-868"><a href="#cb32-868" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-869"><a href="#cb32-869" aria-hidden="true" tabindex="-1"></a>**问题二:定价团队需要真实感(而非真实)的数据,这是否意味着必须使用合成数据,还是存在更简单的答案?**</span>
+<span id="cb32-870"><a href="#cb32-870" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-871"><a href="#cb32-871" aria-hidden="true" tabindex="-1"></a>更简单的答案是:根本不需要任何隐私增强技术,只需要治理措施。定价团队身处内部,已经受保密义务约束,且无论用什么数据训练,其模型最终都会针对生产环境中的真实数据进行验证。将合成的精力花在一个并不需要它、且从组织内部已有数据中也得不到任何额外隐私收益的接收方身上,是一种用错了地方的努力。下文生命周期管控表中“分析/建模”一行所列的用途限制与基于角色的访问控制,才是相称的管控措施。</span>
+<span id="cb32-872"><a href="#cb32-872" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-873"><a href="#cb32-873" aria-hidden="true" tabindex="-1"></a>**问题三:供应商只需要汇总统计量,这是否排除了本章三种技术中的两种?**</span>
+<span id="cb32-874"><a href="#cb32-874" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-875"><a href="#cb32-875" aria-hidden="true" tabindex="-1"></a>是的。k-匿名性和合成数据都是为保护*文件*而生,而供应商从未收到过文件。这样一来,**差分隐私**就成了三种技术中唯一相关的选择,本章自己的结果也表明,在这一业务组合的规模下,强隐私性(较小的 $\varepsilon$)对于一个业务组合层面的统计量而言,几乎不会带来任何准确性代价,只要监管机构日后不要求按更小的子群体进行更精细的分解。</span>
+<span id="cb32-876"><a href="#cb32-876" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-877"><a href="#cb32-877" aria-hidden="true" tabindex="-1"></a>**简而言之:** 再保险公司适用合成数据(TSTR:AUC 0.728 对 0.729,仍需受限于前文提到的成员推断这一附加检验),内部团队仅需治理措施,供应商适用差分隐私。三位接收方,三种不同的工具,而非用同一种技术一概而论。</span>
+<span id="cb32-878"><a href="#cb32-878" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-879"><a href="#cb32-879" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-880"><a href="#cb32-880" aria-hidden="true" tabindex="-1"></a><span class="fu">## 课堂活动:数据共享委员会</span></span>
+<span id="cb32-881"><a href="#cb32-881" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-882"><a href="#cb32-882" aria-hidden="true" tabindex="-1"></a>案例研究已产出具体数字。现在将其付诸应用。</span>
 <span id="cb32-883"><a href="#cb32-883" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-884"><a href="#cb32-884" aria-hidden="true" tabindex="-1"></a>可以说,三者都不适合——但这并非因为 k-匿名性本身有缺陷,而是因为对这三份具体的申请而言,它都不是恰当的工具。再保险公司需要真实感的记录级数据来构建独立模型,而 k-匿名性只会降低这类数据的质量,而非提供它;内部团队根本不需要一份被降质处理过的文件;供应商则完全不需要任何文件。而在 k-匿名性原本可能适用的情形下,背景知识确实会改变答案:本章自己在 $k=50$ 下的结果表明,<span class="in">`Gender`</span>(性别)、<span class="in">`AgeGroup`</span>(年龄组)、<span class="in">`DensityGroup`</span>(密度组)——恰恰是一家在往年分保合约中接触过部分保单持有人的再保险公司,最有可能已经掌握的变量——完全未受抑制的影响,因此“隐藏在 $k$ 个他人之中”这一论证,对这一特定接收方而言,要比对一个毫无背景知识的外部者弱得多。</span>
+<span id="cb32-884"><a href="#cb32-884" aria-hidden="true" tabindex="-1"></a>**情境。** 保险公司正在审议三项数据共享申请:</span>
 <span id="cb32-885"><a href="#cb32-885" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-886"><a href="#cb32-886" aria-hidden="true" tabindex="-1"></a>**问题二:定价团队需要真实感(而非真实)的数据,这是否意味着必须使用合成数据,还是存在更简单的答案?**</span>
-<span id="cb32-887"><a href="#cb32-887" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-888"><a href="#cb32-888" aria-hidden="true" tabindex="-1"></a>更简单的答案是:根本不需要任何隐私增强技术,只需要治理措施。定价团队身处内部,已经受保密义务约束,且无论用什么数据训练,其模型最终都会针对生产环境中的真实数据进行验证。将合成的精力花在一个并不需要它、且从组织内部已有数据中也得不到任何额外隐私收益的接收方身上,是一种用错了地方的努力。下文生命周期管控表中“分析/建模”一行所列的用途限制与基于角色的访问控制,才是相称的管控措施。</span>
+<span id="cb32-886"><a href="#cb32-886" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**申请A** — 向再保险公司共享记录级数据集,用于构建独立定价模型。</span>
+<span id="cb32-887"><a href="#cb32-887" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**申请B** — 允许内部定价团队训练新模型。</span>
+<span id="cb32-888"><a href="#cb32-888" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**申请C** — 向外部供应商发布业务组合层面的平均赔款频率,用于基准比较。</span>
 <span id="cb32-889"><a href="#cb32-889" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-890"><a href="#cb32-890" aria-hidden="true" tabindex="-1"></a>**问题三:供应商只需要汇总统计量,这是否排除了本章三种技术中的两种?**</span>
+<span id="cb32-890"><a href="#cb32-890" aria-hidden="true" tabindex="-1"></a>**角色分配。** 分成四组,每组担任一个角色,并利用案例研究结果就每项申请提出具体立场。</span>
 <span id="cb32-891"><a href="#cb32-891" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-892"><a href="#cb32-892" aria-hidden="true" tabindex="-1"></a>是的。k-匿名性和合成数据都是为保护*文件*而生,而供应商从未收到过文件。这样一来,**差分隐私**就成了三种技术中唯一相关的选择,本章自己的结果也表明,在这一业务组合的规模下,强隐私性(较小的 $\varepsilon$)对于一个业务组合层面的统计量而言,几乎不会带来任何准确性代价,只要监管机构日后不要求按更小的子群体进行更精细的分解。</span>
-<span id="cb32-893"><a href="#cb32-893" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-894"><a href="#cb32-894" aria-hidden="true" tabindex="-1"></a>**简而言之:** 再保险公司适用合成数据(TSTR:AUC 0.728 对 0.729,仍需受限于前文提到的成员推断这一附加检验),内部团队仅需治理措施,供应商适用差分隐私。三位接收方,三种不同的工具,而非用同一种技术一概而论。</span>
-<span id="cb32-895"><a href="#cb32-895" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb32-896"><a href="#cb32-896" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-897"><a href="#cb32-897" aria-hidden="true" tabindex="-1"></a><span class="fu">## 课堂活动:数据共享委员会</span></span>
+<span id="cb32-892"><a href="#cb32-892" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 角色 <span class="pp">|</span> 核心关切 <span class="pp">|</span></span>
+<span id="cb32-893"><a href="#cb32-893" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb32-894"><a href="#cb32-894" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **保险公司精算师** <span class="pp">|</span> 模型效用 — TSTR AUC、系数一致性、不同 $\varepsilon$ 下的差分隐私准确性 <span class="pp">|</span></span>
+<span id="cb32-895"><a href="#cb32-895" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **监管机构** <span class="pp">|</span> 隐私保证 — 重新识别风险、NNDR 分布、$\varepsilon$ 预算 <span class="pp">|</span></span>
+<span id="cb32-896"><a href="#cb32-896" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **再保险公司** <span class="pp">|</span> 数据真实性 — 合成记录是否足以支撑独立建模? <span class="pp">|</span></span>
+<span id="cb32-897"><a href="#cb32-897" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **客户权益代表** <span class="pp">|</span> 数据最小化与用途限制 — 此类使用是否已获得同意? <span class="pp">|</span></span>
 <span id="cb32-898"><a href="#cb32-898" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-899"><a href="#cb32-899" aria-hidden="true" tabindex="-1"></a>案例研究已产出具体数字。现在将其付诸应用。</span>
+<span id="cb32-899"><a href="#cb32-899" aria-hidden="true" tabindex="-1"></a>**可用数据。** 每组的论点至少需引用以下两项结果:</span>
 <span id="cb32-900"><a href="#cb32-900" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-901"><a href="#cb32-901" aria-hidden="true" tabindex="-1"></a>**情境。** 保险公司正在审议三项数据共享申请:</span>
-<span id="cb32-902"><a href="#cb32-902" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-903"><a href="#cb32-903" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**申请A** — 向再保险公司共享记录级数据集,用于构建独立定价模型。</span>
-<span id="cb32-904"><a href="#cb32-904" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**申请B** — 允许内部定价团队训练新模型。</span>
-<span id="cb32-905"><a href="#cb32-905" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**申请C** — 向外部供应商发布业务组合层面的平均赔款频率,用于基准比较。</span>
-<span id="cb32-906"><a href="#cb32-906" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-907"><a href="#cb32-907" aria-hidden="true" tabindex="-1"></a>**角色分配。** 分成四组,每组担任一个角色,并利用案例研究结果就每项申请提出具体立场。</span>
-<span id="cb32-908"><a href="#cb32-908" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-909"><a href="#cb32-909" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 角色 <span class="pp">|</span> 核心关切 <span class="pp">|</span></span>
-<span id="cb32-910"><a href="#cb32-910" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb32-911"><a href="#cb32-911" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **保险公司精算师** <span class="pp">|</span> 模型效用 — TSTR AUC、系数一致性、不同 $\varepsilon$ 下的差分隐私准确性 <span class="pp">|</span></span>
-<span id="cb32-912"><a href="#cb32-912" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **监管机构** <span class="pp">|</span> 隐私保证 — 重新识别风险、NNDR 分布、$\varepsilon$ 预算 <span class="pp">|</span></span>
-<span id="cb32-913"><a href="#cb32-913" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **再保险公司** <span class="pp">|</span> 数据真实性 — 合成记录是否足以支撑独立建模? <span class="pp">|</span></span>
-<span id="cb32-914"><a href="#cb32-914" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **客户权益代表** <span class="pp">|</span> 数据最小化与用途限制 — 此类使用是否已获得同意? <span class="pp">|</span></span>
+<span id="cb32-901"><a href="#cb32-901" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>k=50 时的 k-匿名性:抑制率、哪些准标识符受到影响、哪些未受影响。</span>
+<span id="cb32-902"><a href="#cb32-902" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>差分隐私:$\varepsilon \in <span class="sc">\{</span>0.1,\, 1,\, 10<span class="sc">\}</span>$ 时 <span class="in">`dp_mean`</span> 相对真实均值的准确性。</span>
+<span id="cb32-903"><a href="#cb32-903" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>合成数据:TSTR AUC(真实 0.728 对比合成 0.729);NNDR 分布,其中约 4% 的合成记录在连续变量上与某条真实记录的距离为零。</span>
+<span id="cb32-904"><a href="#cb32-904" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>案例研究对每项申请的结论(见上方标注框)。</span>
+<span id="cb32-905"><a href="#cb32-905" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-906"><a href="#cb32-906" aria-hidden="true" tabindex="-1"></a>**活动流程。**</span>
+<span id="cb32-907"><a href="#cb32-907" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-908"><a href="#cb32-908" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**(10分钟)** 各组准备两分钟立场陈述。对每项申请表明明确态度:批准、附条件批准或拒绝。每个立场均需以数据为依据。</span>
+<span id="cb32-909"><a href="#cb32-909" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**(15分钟)** 各组依次陈述。每组陈述结束后,由另一组就结果提出一个具体问题。</span>
+<span id="cb32-910"><a href="#cb32-910" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**(10分钟)** 全班投票。就每项申请表决结果及所采用的技术(如有),并与案例研究的结论进行比较 — 哪些地方意见一致,哪些地方存在分歧?</span>
+<span id="cb32-911"><a href="#cb32-911" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-912"><a href="#cb32-912" aria-hidden="true" tabindex="-1"></a>**讨论问题。** 案例研究建议:再保险公司适用合成数据,内部团队仅需治理措施,供应商适用差分隐私。哪个角色最难接受这一结论?需要什么条件才能改变其立场?</span>
+<span id="cb32-913"><a href="#cb32-913" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-914"><a href="#cb32-914" aria-hidden="true" tabindex="-1"></a><span class="fu"># 小结</span></span>
 <span id="cb32-915"><a href="#cb32-915" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-916"><a href="#cb32-916" aria-hidden="true" tabindex="-1"></a>**可用数据。** 每组的论点至少需引用以下两项结果:</span>
-<span id="cb32-917"><a href="#cb32-917" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-918"><a href="#cb32-918" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>k=50 时的 k-匿名性:抑制率、哪些准标识符受到影响、哪些未受影响。</span>
-<span id="cb32-919"><a href="#cb32-919" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>差分隐私:$\varepsilon \in <span class="sc">\{</span>0.1,\, 1,\, 10<span class="sc">\}</span>$ 时 <span class="in">`dp_mean`</span> 相对真实均值的准确性。</span>
-<span id="cb32-920"><a href="#cb32-920" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>合成数据:TSTR AUC(真实 0.728 对比合成 0.729);NNDR 分布,其中约 4% 的合成记录在连续变量上与某条真实记录的距离为零。</span>
-<span id="cb32-921"><a href="#cb32-921" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>案例研究对每项申请的结论(见上方标注框)。</span>
-<span id="cb32-922"><a href="#cb32-922" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-923"><a href="#cb32-923" aria-hidden="true" tabindex="-1"></a>**活动流程。**</span>
-<span id="cb32-924"><a href="#cb32-924" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-925"><a href="#cb32-925" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**(10分钟)** 各组准备两分钟立场陈述。对每项申请表明明确态度:批准、附条件批准或拒绝。每个立场均需以数据为依据。</span>
-<span id="cb32-926"><a href="#cb32-926" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**(15分钟)** 各组依次陈述。每组陈述结束后,由另一组就结果提出一个具体问题。</span>
-<span id="cb32-927"><a href="#cb32-927" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**(10分钟)** 全班投票。就每项申请表决结果及所采用的技术(如有),并与案例研究的结论进行比较 — 哪些地方意见一致,哪些地方存在分歧?</span>
-<span id="cb32-928"><a href="#cb32-928" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-929"><a href="#cb32-929" aria-hidden="true" tabindex="-1"></a>**讨论问题。** 案例研究建议:再保险公司适用合成数据,内部团队仅需治理措施,供应商适用差分隐私。哪个角色最难接受这一结论?需要什么条件才能改变其立场?</span>
-<span id="cb32-930"><a href="#cb32-930" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-931"><a href="#cb32-931" aria-hidden="true" tabindex="-1"></a><span class="fu"># 小结</span></span>
-<span id="cb32-932"><a href="#cb32-932" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-933"><a href="#cb32-933" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**重新识别风险** 即便在大型的”匿名化”数据集中依然真实存在。准标识符的组合能够唯一识别出罕见群体,而同样的风险评估工作流程(识别准标识符 → 选择匹配的隐私增强技术 → 应用 → 衡量权衡取舍 → 决策)也可迁移至其他领域。</span>
-<span id="cb32-934"><a href="#cb32-934" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>通过局部抑制实现的**k-匿名性**降低了可识别性,但并不保护敏感取值,而且一旦 $k$ 大到足以迫使真正的抑制发生(而不只是教科书式的最小值 $k = 5$),效用代价就会迅速上升。</span>
-<span id="cb32-935"><a href="#cb32-935" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**差分隐私** 提供数学上的保证,并能很好地适应大型数据集:同样的 $\varepsilon$,对100,000条记录的汇总统计量几乎没有影响,但对一个小型子群体却可能造成明显失真,因为敏感度按 $1/n$ 缩放。拉普拉斯机制对汇总统计量而言实现起来很直接。</span>
-<span id="cb32-936"><a href="#cb32-936" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>来自 <span class="in">`synthpop`</span>(CART)的**合成数据**在边际分布和模型系数上取得了良好的保真度,一个在其上训练的模型在留出的真实记录上(TSTR)的表现也几乎与在真实数据上训练的模型一样好,NNDR 证据也表明真实记录并未被复制。</span>
-<span id="cb32-937"><a href="#cb32-937" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>没有任何单一技术本身是充分的——需要在整个数据生命周期中采取**分层管控措施**。</span>
-<span id="cb32-938"><a href="#cb32-938" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-939"><a href="#cb32-939" aria-hidden="true" tabindex="-1"></a><span class="fu"># 推荐阅读</span></span>
-<span id="cb32-940"><a href="#cb32-940" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-941"><a href="#cb32-941" aria-hidden="true" tabindex="-1"></a>**重新识别风险与 k-匿名性**</span>
-<span id="cb32-942"><a href="#cb32-942" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-943"><a href="#cb32-943" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@templ2017statistical — <span class="in">`sdcMicro`</span> 与统计披露控制</span>
-<span id="cb32-944"><a href="#cb32-944" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sweeney2002kanonymity — k-匿名性</span>
-<span id="cb32-945"><a href="#cb32-945" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@machanavajjhala2007diversity — ℓ-多样性(k-匿名性的扩展)</span>
-<span id="cb32-946"><a href="#cb32-946" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-947"><a href="#cb32-947" aria-hidden="true" tabindex="-1"></a>**差分隐私与合成数据**</span>
-<span id="cb32-948"><a href="#cb32-948" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-949"><a href="#cb32-949" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@dwork2006calibrating — $\varepsilon$-差分隐私的原始论文</span>
-<span id="cb32-950"><a href="#cb32-950" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@nowok2016synthpop — <span class="in">`synthpop`</span> R 包与 CART 合成</span>
-<span id="cb32-951"><a href="#cb32-951" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@jordon2022synthetic — 合成数据:是什么、为什么以及如何(评估框架)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb32-916"><a href="#cb32-916" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**重新识别风险** 即便在大型的”匿名化”数据集中依然真实存在。准标识符的组合能够唯一识别出罕见群体,而同样的风险评估工作流程(识别准标识符 → 选择匹配的隐私增强技术 → 应用 → 衡量权衡取舍 → 决策)也可迁移至其他领域。</span>
+<span id="cb32-917"><a href="#cb32-917" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>通过局部抑制实现的**k-匿名性**降低了可识别性,但并不保护敏感取值,而且一旦 $k$ 大到足以迫使真正的抑制发生(而不只是教科书式的最小值 $k = 5$),效用代价就会迅速上升。</span>
+<span id="cb32-918"><a href="#cb32-918" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**差分隐私** 提供数学上的保证,并能很好地适应大型数据集:同样的 $\varepsilon$,对100,000条记录的汇总统计量几乎没有影响,但对一个小型子群体却可能造成明显失真,因为敏感度按 $1/n$ 缩放。拉普拉斯机制对汇总统计量而言实现起来很直接。</span>
+<span id="cb32-919"><a href="#cb32-919" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>来自 <span class="in">`synthpop`</span>(CART)的**合成数据**在边际分布和模型系数上取得了良好的保真度,一个在其上训练的模型在留出的真实记录上(TSTR)的表现也几乎与在真实数据上训练的模型一样好,NNDR 证据也表明真实记录并未被复制。</span>
+<span id="cb32-920"><a href="#cb32-920" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>没有任何单一技术本身是充分的——需要在整个数据生命周期中采取**分层管控措施**。</span>
+<span id="cb32-921"><a href="#cb32-921" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-922"><a href="#cb32-922" aria-hidden="true" tabindex="-1"></a><span class="fu"># 推荐阅读</span></span>
+<span id="cb32-923"><a href="#cb32-923" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-924"><a href="#cb32-924" aria-hidden="true" tabindex="-1"></a>**重新识别风险与 k-匿名性**</span>
+<span id="cb32-925"><a href="#cb32-925" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-926"><a href="#cb32-926" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@templ2017statistical — <span class="in">`sdcMicro`</span> 与统计披露控制</span>
+<span id="cb32-927"><a href="#cb32-927" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sweeney2002kanonymity — k-匿名性</span>
+<span id="cb32-928"><a href="#cb32-928" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@machanavajjhala2007diversity — ℓ-多样性(k-匿名性的扩展)</span>
+<span id="cb32-929"><a href="#cb32-929" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-930"><a href="#cb32-930" aria-hidden="true" tabindex="-1"></a>**差分隐私与合成数据**</span>
+<span id="cb32-931"><a href="#cb32-931" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-932"><a href="#cb32-932" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@dwork2006calibrating — $\varepsilon$-差分隐私的原始论文</span>
+<span id="cb32-933"><a href="#cb32-933" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@nowok2016synthpop — <span class="in">`synthpop`</span> R 包与 CART 合成</span>
+<span id="cb32-934"><a href="#cb32-934" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@jordon2022synthetic — 合成数据:是什么、为什么以及如何(评估框架)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
