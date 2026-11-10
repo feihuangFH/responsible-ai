@@ -925,7 +925,7 @@ r_k = \frac{1}{f_k}.
 <p>上文的准标识符在数据准备阶段就已经被<strong>泛化</strong>为分组(精确年龄归入年龄段,精确密度归入密度段,等等)。如果每一种至少被一条记录共享的准标识符取值组合,总共至少被 <span class="math inline">k</span> 条记录共享,即每条记录的等价类都包含其自身在内至少 <span class="math inline">k - 1</span> 条其他记录,则该数据集满足 <strong>k-匿名性</strong>。仅凭泛化,仍会留下许多远低于下文将要施加的 <span class="math inline">k = 50</span> 的等价类,其中一些群组小到只有一条记录,正如上文“最小的十个准标识符群组”表所示。</p>
 <p>本节在现有分组的基础上,应用<strong>局部抑制</strong>,即对规模小于 <span class="math inline">k</span> 的群组,将其最具识别性的准标识符取值抑制(设为 <code>NA</code>),使每一个剩余群组的规模都达到 <span class="math inline">k</span>。这里选用 <span class="math inline">k = 50</span>,大于教科书式的最小值 <span class="math inline">k = 5</span>,正是为了让抑制及其效用代价变得清晰可见,而非微不足道。100,000条记录中只有102条低于 <span class="math inline">k = 5</span>,因此 <span class="math inline">k = 5</span> 这一遍处理几乎不会触及数据集。</p>
 <p><strong>局部抑制如何决定要抑制哪些取值。</strong> 对于每一条等价类规模小于 <span class="math inline">k</span> 的记录,<code>localSuppression()</code> 会寻找需要设为缺失值的最少数量的准标识符取值,使该记录所在的等价类规模达到 <span class="math inline">k</span>,并依据 <code>importance</code> 向量决定优先牺牲哪些变量。<strong>数值越小</strong>,该变量越受保护、越不易被抑制;<strong>数值越大</strong>,该变量越优先被抑制。</p>
-<p><strong>默认重要性顺序的构建方式。</strong> 当 <code>importance = NULL</code> 时,<code>sdcMicro</code> 依据各变量的不同取值数量自动排序:取值数量<strong>较少</strong>的变量优先被抑制,因为其每个取值在区分记录时承载的信息更多<span class="citation" data-cites="templ2017statistical">(<a href="#ref-templ2017statistical" role="doc-biblioref">Templ 2017年</a>)</span>。在本数据集中,排序为:<code>Gender</code>(2个取值)→ <code>DensityGroup</code>、<code>ValueGroup</code>、<code>BonusGroup</code>(各4个)→ <code>AgeGroup</code>(6个)。算法因此会先尝试抑制 <code>Gender</code> 取值,再处理 <code>BonusGroup</code>。一旦该重要性顺序确定,具体哪些记录需要被抑制,以及抑制量的多少,均完全由数据驱动。</p>
+<p><strong>默认重要性顺序的构建方式。</strong> 当 <code>importance = NULL</code> 时,<code>sdcMicro</code> 对取值数量较少的变量赋予更低的重要性值(更受保护),对取值数量较多的变量赋予更高的重要性值(更不受保护)<span class="citation" data-cites="templ2017statistical">(<a href="#ref-templ2017statistical" role="doc-biblioref">Templ 2017年</a>)</span>。在本数据集中,从最先到最后被抑制的顺序为:<code>AgeGroup</code>(6个取值)→ <code>DensityGroup</code>、<code>ValueGroup</code>、<code>BonusGroup</code>(各4个)→ <code>Gender</code>(2个)。算法因此会先尝试抑制 <code>AgeGroup</code> 取值,再处理 <code>Gender</code>。一旦该重要性顺序确定,具体哪些记录需要被抑制,以及抑制量的多少,均完全由数据驱动。</p>
 <div class="cell">
 <details class="code-fold">
 <summary>应用 k = 50 匿名化</summary>
@@ -1007,11 +1007,11 @@ r_k = \frac{1}{f_k}.
 </tr>
 </tbody>
 </table>
-<p><strong>解读这一结果。</strong> 全局风险从0.77%降至0.41%,降幅约为47%,预期重新识别数量大致减半。上方抑制表显示了各变量受影响的情况。由于重要性顺序按取值数量排定,<code>Gender</code>(2个取值)最先被尝试抑制:取值越少,每次抑制操作所能合并的记录越多。高取值数量的变量则在之后处理。这也解释了为什么较小的 <span class="math inline">k</span> 此前几乎没有产生任何抑制:在 <span class="math inline">k = 5</span> 时,只有102条记录需要任何抑制,<code>localSuppression()</code> 几乎可以低成本地完成修复。随着 <span class="math inline">k</span> 增大,越来越多的等价类被迫合并,因此抑制率是加速上升,而非与 <span class="math inline">k</span> 成正比增长。</p>
+<p><strong>解读这一结果。</strong> 全局风险从0.77%降至0.41%,降幅约为47%,预期重新识别数量大致减半。上方抑制表显示了各变量受影响的情况。由于重要性顺序按取值数量排定,<code>AgeGroup</code>(6个取值)最先被尝试抑制:取值数量最多,每次抑制操作最能有效扩大等价类规模。取值数量较少的变量则在之后处理。这也解释了为什么较小的 <span class="math inline">k</span> 此前几乎没有产生任何抑制:在 <span class="math inline">k = 5</span> 时,只有102条记录需要任何抑制,<code>localSuppression()</code> 几乎可以低成本地完成修复。随着 <span class="math inline">k</span> 增大,越来越多的等价类被迫合并,因此抑制率是加速上升,而非与 <span class="math inline">k</span> 成正比增长。</p>
 </section>
 <section id="k-匿名性的效用代价" class="level3">
 <h3 class="anchored" data-anchor-id="k-匿名性的效用代价">k-匿名性的效用代价</h3>
-<p>抑制操作会降低数据的可用性。降低多少呢?下图展示了 <code>Gender</code> 和 <code>BonusGroup</code> 在匿名化前后的分布——这两个变量在基于基数的重要性顺序下最有可能承受抑制。</p>
+<p>抑制操作会降低数据的可用性。降低多少呢?下图展示了 <code>AgeGroup</code> 和 <code>BonusGroup</code> 在匿名化前后的分布——这两个变量在基于基数的重要性顺序下承受了最多的抑制。</p>
 <div class="cell">
 <details class="code-fold">
 <summary>代码</summary>
@@ -1024,7 +1024,7 @@ r_k = \frac{1}{f_k}.
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Value =</span> <span class="dv">1</span>)</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">make_dist</span>(<span class="st">"Gender"</span>), <span class="fu">make_dist</span>(<span class="st">"BonusGroup"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">make_dist</span>(<span class="st">"AgeGroup"</span>), <span class="fu">make_dist</span>(<span class="st">"BonusGroup"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Value =</span> <span class="fu">fct_explicit_na</span>(<span class="fu">as.factor</span>(Value), <span class="at">na_level =</span> <span class="st">"NA (suppressed)"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Value, <span class="at">y =</span> n, <span class="at">fill =</span> Dataset)) <span class="sc">+</span></span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
@@ -1039,12 +1039,12 @@ r_k = \frac{1}{f_k}.
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Lecture-Privacy-Practice-ZH_files/figure-html/kanon-utility-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>k=50 匿名化前后的 Gender 和 BonusGroup 分布。被抑制的记录显示为 NA。</figcaption>
+<figcaption>k=50 匿名化前后的 AgeGroup 和 BonusGroup 分布。被抑制的记录显示为 NA。</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><code>NA(已抑制)</code> 柱状条直观呈现了效用代价:失去准标识符取值的记录,正是那些处于最小、最具识别性等价类中的记录。这正是 k-匿名性所带来的权衡:披露风险最高的记录,恰恰也是信息因修复措施而损失最严重的记录。<code>Gender</code> 与 <code>BonusGroup</code> 之间 NA 柱状条的相对大小,反映了基于基数的重要性顺序:<code>Gender</code> 优先承受抑制。</p>
+<p><code>NA(已抑制)</code> 柱状条直观呈现了效用代价:失去准标识符取值的记录,正是那些处于最小、最具识别性等价类中的记录。这正是 k-匿名性所带来的权衡:披露风险最高的记录,恰恰也是信息因修复措施而损失最严重的记录。<code>AgeGroup</code> 与 <code>BonusGroup</code> 之间 NA 柱状条的相对大小,反映了基于基数的重要性顺序:<code>AgeGroup</code> 承受了最多的抑制,因为它具有最多的不同取值。</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2752,7 +2752,7 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
 <span id="cb32-298"><a href="#cb32-298" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-299"><a href="#cb32-299" aria-hidden="true" tabindex="-1"></a>**局部抑制如何决定要抑制哪些取值。** 对于每一条等价类规模小于 $k$ 的记录,`localSuppression()` 会寻找需要设为缺失值的最少数量的准标识符取值,使该记录所在的等价类规模达到 $k$,并依据 `importance` 向量决定优先牺牲哪些变量。**数值越小**,该变量越受保护、越不易被抑制;**数值越大**,该变量越优先被抑制。</span>
 <span id="cb32-300"><a href="#cb32-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-301"><a href="#cb32-301" aria-hidden="true" tabindex="-1"></a>**默认重要性顺序的构建方式。** 当 `importance = NULL` 时,`sdcMicro` 依据各变量的不同取值数量自动排序:取值数量**较少**的变量优先被抑制,因为其每个取值在区分记录时承载的信息更多<span class="co">[</span><span class="ot">@templ2017statistical</span><span class="co">]</span>。在本数据集中,排序为:<span class="in">`Gender`</span>(2个取值)→ <span class="in">`DensityGroup`</span>、<span class="in">`ValueGroup`</span>、<span class="in">`BonusGroup`</span>(各4个)→ <span class="in">`AgeGroup`</span>(6个)。算法因此会先尝试抑制 <span class="in">`Gender`</span> 取值,再处理 <span class="in">`BonusGroup`</span>。一旦该重要性顺序确定,具体哪些记录需要被抑制,以及抑制量的多少,均完全由数据驱动。</span>
+<span id="cb32-301"><a href="#cb32-301" aria-hidden="true" tabindex="-1"></a>**默认重要性顺序的构建方式。** 当 <span class="in">`importance = NULL`</span> 时,<span class="in">`sdcMicro`</span> 对取值数量较少的变量赋予更低的重要性值(更受保护),对取值数量较多的变量赋予更高的重要性值(更不受保护)<span class="co">[</span><span class="ot">@templ2017statistical</span><span class="co">]</span>。在本数据集中,从最先到最后被抑制的顺序为:<span class="in">`AgeGroup`</span>(6个取值)→ <span class="in">`DensityGroup`</span>、<span class="in">`ValueGroup`</span>、<span class="in">`BonusGroup`</span>(各4个)→ <span class="in">`Gender`</span>(2个)。算法因此会先尝试抑制 <span class="in">`AgeGroup`</span> 取值,再处理 <span class="in">`Gender`</span>。一旦该重要性顺序确定,具体哪些记录需要被抑制,以及抑制量的多少,均完全由数据驱动。</span>
 <span id="cb32-302"><a href="#cb32-302" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-303"><a href="#cb32-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r kanonymity}</span></span>
 <span id="cb32-304"><a href="#cb32-304" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
@@ -2786,14 +2786,14 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
 <span id="cb32-332"><a href="#cb32-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">12</span>)</span>
 <span id="cb32-333"><a href="#cb32-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-334"><a href="#cb32-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-335"><a href="#cb32-335" aria-hidden="true" tabindex="-1"></a>**解读这一结果。** 全局风险从0.77%降至0.41%,降幅约为47%,预期重新识别数量大致减半。上方抑制表显示了各变量受影响的情况。由于重要性顺序按取值数量排定,<span class="in">`Gender`</span>(2个取值)最先被尝试抑制:取值越少,每次抑制操作所能合并的记录越多。高取值数量的变量则在之后处理。这也解释了为什么较小的 $k$ 此前几乎没有产生任何抑制:在 $k = 5$ 时,只有102条记录需要任何抑制,<span class="in">`localSuppression()`</span> 几乎可以低成本地完成修复。随着 $k$ 增大,越来越多的等价类被迫合并,因此抑制率是加速上升,而非与 $k$ 成正比增长。</span>
+<span id="cb32-335"><a href="#cb32-335" aria-hidden="true" tabindex="-1"></a>**解读这一结果。** 全局风险从0.77%降至0.41%,降幅约为47%,预期重新识别数量大致减半。上方抑制表显示了各变量受影响的情况。由于重要性顺序按取值数量排定,<span class="in">`AgeGroup`</span>(6个取值)最先被尝试抑制:取值数量最多,每次抑制操作最能有效扩大等价类规模。取值数量较少的变量则在之后处理。这也解释了为什么较小的 $k$ 此前几乎没有产生任何抑制:在 $k = 5$ 时,只有102条记录需要任何抑制,<span class="in">`localSuppression()`</span> 几乎可以低成本地完成修复。随着 $k$ 增大,越来越多的等价类被迫合并,因此抑制率是加速上升,而非与 $k$ 成正比增长。</span>
 <span id="cb32-336"><a href="#cb32-336" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-337"><a href="#cb32-337" aria-hidden="true" tabindex="-1"></a><span class="fu">## k-匿名性的效用代价</span></span>
 <span id="cb32-338"><a href="#cb32-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-339"><a href="#cb32-339" aria-hidden="true" tabindex="-1"></a>抑制操作会降低数据的可用性。降低多少呢?下图展示了 <span class="in">`Gender`</span> 和 <span class="in">`BonusGroup`</span> 在匿名化前后的分布——这两个变量在基于基数的重要性顺序下最有可能承受抑制。</span>
+<span id="cb32-339"><a href="#cb32-339" aria-hidden="true" tabindex="-1"></a>抑制操作会降低数据的可用性。降低多少呢?下图展示了 <span class="in">`AgeGroup`</span> 和 <span class="in">`BonusGroup`</span> 在匿名化前后的分布——这两个变量在基于基数的重要性顺序下承受了最多的抑制。</span>
 <span id="cb32-340"><a href="#cb32-340" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-341"><a href="#cb32-341" aria-hidden="true" tabindex="-1"></a><span class="in">```{r kanon-utility}</span></span>
-<span id="cb32-342"><a href="#cb32-342" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "k=50 匿名化前后的 Gender 和 BonusGroup 分布。被抑制的记录显示为 NA。"</span></span>
+<span id="cb32-342"><a href="#cb32-342" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "k=50 匿名化前后的 AgeGroup 和 BonusGroup 分布。被抑制的记录显示为 NA。"</span></span>
 <span id="cb32-343"><a href="#cb32-343" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
 <span id="cb32-344"><a href="#cb32-344" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
 <span id="cb32-345"><a href="#cb32-345" aria-hidden="true" tabindex="-1"></a></span>
@@ -2806,7 +2806,7 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
 <span id="cb32-352"><a href="#cb32-352" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Value =</span> <span class="dv">1</span>)</span>
 <span id="cb32-353"><a href="#cb32-353" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb32-354"><a href="#cb32-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-355"><a href="#cb32-355" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">make_dist</span>(<span class="st">"Gender"</span>), <span class="fu">make_dist</span>(<span class="st">"BonusGroup"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-355"><a href="#cb32-355" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">make_dist</span>(<span class="st">"AgeGroup"</span>), <span class="fu">make_dist</span>(<span class="st">"BonusGroup"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb32-356"><a href="#cb32-356" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Value =</span> <span class="fu">fct_explicit_na</span>(<span class="fu">as.factor</span>(Value), <span class="at">na_level =</span> <span class="st">"NA (suppressed)"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb32-357"><a href="#cb32-357" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Value, <span class="at">y =</span> n, <span class="at">fill =</span> Dataset)) <span class="sc">+</span></span>
 <span id="cb32-358"><a href="#cb32-358" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
@@ -2818,7 +2818,7 @@ Templ, Matthias. 2017年. <em>Statistical Disclosure Control for Microdata: Meth
 <span id="cb32-364"><a href="#cb32-364" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Original"</span> <span class="ot">=</span> <span class="st">"#2196F3"</span>, <span class="st">"k=50 anonymised"</span> <span class="ot">=</span> <span class="st">"#FF9800"</span>))</span>
 <span id="cb32-365"><a href="#cb32-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-366"><a href="#cb32-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-367"><a href="#cb32-367" aria-hidden="true" tabindex="-1"></a><span class="in">`NA(已抑制)`</span> 柱状条直观呈现了效用代价:失去准标识符取值的记录,正是那些处于最小、最具识别性等价类中的记录。这正是 k-匿名性所带来的权衡:披露风险最高的记录,恰恰也是信息因修复措施而损失最严重的记录。<span class="in">`Gender`</span> 与 <span class="in">`BonusGroup`</span> 之间 NA 柱状条的相对大小,反映了基于基数的重要性顺序:<span class="in">`Gender`</span> 优先承受抑制。</span>
+<span id="cb32-367"><a href="#cb32-367" aria-hidden="true" tabindex="-1"></a><span class="in">`NA(已抑制)`</span> 柱状条直观呈现了效用代价:失去准标识符取值的记录,正是那些处于最小、最具识别性等价类中的记录。这正是 k-匿名性所带来的权衡:披露风险最高的记录,恰恰也是信息因修复措施而损失最严重的记录。<span class="in">`AgeGroup`</span> 与 <span class="in">`BonusGroup`</span> 之间 NA 柱状条的相对大小,反映了基于基数的重要性顺序:<span class="in">`AgeGroup`</span> 承受了最多的抑制,因为它具有最多的不同取值。</span>
 <span id="cb32-368"><a href="#cb32-368" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-369"><a href="#cb32-369" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
 <span id="cb32-370"><a href="#cb32-370" aria-hidden="true" tabindex="-1"></a>k-匿名性对小型数据集、或共享精细地理数据的场景很有效。对于变量众多的大型保险数据集,在教科书式的最小值 $k = 5$ 下抑制率较低,但正如上文所示,随着 $k$ 增大,抑制率会迅速上升。该方法也难以妥善处理连续变量,并且**不保护敏感取值**(理赔金额这一列本身未受触及)。</span>
