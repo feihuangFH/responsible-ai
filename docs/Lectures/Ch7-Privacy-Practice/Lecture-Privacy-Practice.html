@@ -1508,7 +1508,7 @@ Important
 <p><strong>Desired properties of synthetic data.</strong> Synthetic data generators are judged against three properties, which do not automatically move together <span class="citation" data-cites="jordon2022synthetic">(<a href="#ref-jordon2022synthetic" role="doc-biblioref">Jordon et al. 2022</a>)</span>:</p>
 <ul>
 <li><strong>Fidelity</strong>: how closely the synthetic data’s distribution resembles the real data’s, marginally (each variable on its own) and jointly (the relationships between variables). The marginal-distribution and summary-statistics checks below test this directly.</li>
-<li><strong>Utility</strong>: whether the synthetic data actually supports the downstream task it was made for, not just whether it looks similar. Coefficient agreement, and more directly the train-synthetic-test-real (TSTR) check, below test this.</li>
+<li><strong>Utility</strong>: whether the synthetic data supports the downstream task it was made for. Coefficient agreement, and more directly the train-synthetic-test-real (TSTR) check, below test this.</li>
 <li><strong>Privacy</strong>: whether releasing the synthetic data leaks information about specific real individuals. The nearest-neighbour distance check below tests this, though a complete privacy evaluation also needs membership-inference and attribute-inference testing, discussed further below.</li>
 </ul>
 <p>These three properties trade off against each other. A generator that memorised the training data would score perfectly on fidelity and utility but fail privacy completely. A generator that added so much noise or regularisation that no real record could ever be inferred would score well on privacy but poorly on fidelity and utility. The checks below test the three properties in the order a data custodian would typically need to satisfy them, fidelity first, then utility, then privacy: a synthetic dataset that does not even resemble the real data is not worth testing further.</p>
@@ -2026,27 +2026,6 @@ Important
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-note callout-titled" title="Case study, resolved: answering the three opening questions">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Case study, resolved: answering the three opening questions
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Question 1: Which recipient could you defensibly hand k-anonymised data to? Does the reinsurer’s partial background knowledge change your answer?</strong></p>
-<p>Arguably none of the three. The reinsurer needs realistic, record-level data to build an independent model, which k-anonymity degrades; the internal team does not need a degraded file at all; the vendor does not need a file at all. Where k-anonymity would otherwise apply, background knowledge matters: this chapter’s own <span class="math inline">k=50</span> result left <code>Gender</code>, <code>AgeGroup</code>, and <code>DensityGroup</code> — exactly the variables a reinsurer with prior treaty-year exposure might already know — completely untouched by suppression, so the “hides among <span class="math inline">k</span> others” argument is weaker for precisely this recipient than for a blind outsider.</p>
-<p><strong>Question 2: Does the pricing team’s need for realistic (not real) data argue for synthetic data, or is there a simpler answer?</strong></p>
-<p>The simpler answer: no PET at all, just governance. The pricing team is internal, already bound by confidentiality obligations, and its model will be validated against live production data regardless of what it is trained on. Spending synthesis effort to serve a recipient who does not need it, and who gains nothing privacy-wise from data already inside the organisation, is effort misapplied. Purpose limitation and role-based access — the “Analytics / modelling” row of the lifecycle-controls table below — is the proportionate control.</p>
-<p><strong>Question 3: Does the vendor’s aggregate-only need rule out two of the chapter’s three techniques?</strong></p>
-<p>For this specific request, yes: k-anonymity and synthetic data both protect a <em>file</em> of records, and the vendor never receives one. Differential privacy is the right tool for a statistical release. More broadly, though, both k-anonymity and differential privacy can satisfy a regulator — each provides a formal, auditable guarantee. Which one is appropriate depends on what is being shared: k-anonymity applies to record-level tabular releases (protecting against re-identification by quasi-identifier combination); differential privacy applies to statistical releases and model outputs (bounding individual contribution to a published result). A regulator evaluating a data-sharing arrangement could require either, depending on the use case.</p>
-<p><strong>Question 4: Is synthetic data the only option for the reinsurer, or could differential privacy also work?</strong></p>
-<p>Differential privacy is a legitimate alternative for Request A. Plain <code>synthpop</code> synthesis (as implemented here) lacks a formal DP guarantee — the NNDR evidence is reassuring but not a mathematical proof. DP-based synthesis (generating synthetic records using a DP mechanism, such as DP-CTGAN or DP-VAE) would provide both record-level realism and a formal <span class="math inline">\varepsilon</span>-bound. The trade-off is that DP synthesis typically reduces fidelity more than plain synthesis at the same privacy budget, and requires calibrating <span class="math inline">\varepsilon</span> across the full generative process rather than a single statistic. For a reinsurer who insists on a formal guarantee, DP synthesis is the stronger answer; for one who accepts NNDR evidence subject to a membership-inference test, plain synthetic data is simpler and preserves more utility.</p>
-<p><strong>In short:</strong> synthetic data (or DP synthesis for a stronger guarantee) for the reinsurer; governance alone for the internal team; differential privacy for the vendor. Both k-anonymity and differential privacy can satisfy a regulator — the choice depends on the type of release. Three recipients, three decisions, with technique choice driven by what is being shared and to whom.</p>
-</div>
-</div>
 </section>
 <section id="class-activity-the-data-sharing-committee" class="level3">
 <h3 class="anchored" data-anchor-id="class-activity-the-data-sharing-committee">Class activity: the data-sharing committee</h3>
@@ -2093,22 +2072,21 @@ Important
 <li>k-anonymity at <span class="math inline">k = 50</span>: suppression rate, which quasi-identifiers were affected, which were not.</li>
 <li>Differential privacy: accuracy of <code>dp_mean</code> relative to the true mean at <span class="math inline">\varepsilon \in \{0.1,\, 1,\, 10\}</span>.</li>
 <li>Synthetic data: TSTR AUC (0.728 real vs.&nbsp;0.729 synthetic); NNDR distribution with ~4% of synthetic records within distance zero of a real record on continuous variables.</li>
-<li>The case study’s own conclusion on each request (the callout above).</li>
+<li>Your group’s own conclusion on each request, drawing on the technique-selection table above.</li>
 </ul>
 <p><strong>Format.</strong></p>
 <ol type="1">
 <li><strong>(10 min)</strong> Each group prepares a two-minute position statement. Take a clear stance on each request: approve, approve with conditions, or reject. Ground every stance in the numbers.</li>
 <li><strong>(15 min)</strong> Each group presents. After each presentation, one other group challenges with one specific question drawn from the results.</li>
-<li><strong>(10 min)</strong> Class vote. For each request, vote on the outcome and the technique (if any). Compare against the case study’s own conclusion — where does the class agree, and where does it diverge?</li>
+<li><strong>(10 min)</strong> Class vote. For each request, vote on the outcome and the technique (if any). Where does the class agree, and where does it diverge?</li>
 </ol>
-<p><strong>Discussion prompt.</strong> The case study recommends synthetic data for the reinsurer, governance alone for the internal team, and differential privacy for the vendor. Which role finds that conclusion hardest to accept, and what would it take to change their mind?</p>
 </section>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
 <li><strong>Re-identification risk</strong> is real even in large, “anonymised” datasets. Quasi-identifier combinations can uniquely identify rare groups, and the same risk-assessment workflow (identify quasi-identifiers → choose a matched PET → apply → measure trade-off → decide) transfers to other domains.</li>
-<li><strong>k-Anonymity</strong> via local suppression reduces identifiability but does not protect sensitive values, and the utility cost rises sharply once <span class="math inline">k</span> is large enough to force real suppression, not just at the textbook-minimum <span class="math inline">k = 5</span>.</li>
+<li><strong>k-Anonymity</strong> via local suppression reduces identifiability but does not protect sensitive values, and the utility cost rises sharply once <span class="math inline">k</span> is large enough to force real suppression.</li>
 <li><strong>Differential privacy</strong> provides a mathematical guarantee and scales well to large datasets: the same <span class="math inline">\varepsilon</span> that leaves a 100,000-record aggregate nearly untouched can distort a small subgroup significantly, because sensitivity scales as <span class="math inline">1/n</span>. The Laplace mechanism is straightforward to implement for aggregate statistics.</li>
 <li><strong>Synthetic data</strong> from <code>synthpop</code> (CART) achieves good fidelity on marginals and model coefficients, a model trained on it generalises to held-out real records nearly as well as one trained on real data (TSTR), and NNDR evidence shows real records are not being copied.</li>
 <li>No single technique is sufficient on its own — <strong>layered controls</strong> across the data lifecycle are required.</li>
@@ -3306,7 +3284,7 @@ Templ, Matthias. 2017. <em>Statistical Disclosure Control for Microdata: Methods
 <span id="cb32-647"><a href="#cb32-647" aria-hidden="true" tabindex="-1"></a>**Desired properties of synthetic data.** Synthetic data generators are judged against three properties, which do not automatically move together <span class="co">[</span><span class="ot">@jordon2022synthetic</span><span class="co">]</span>:</span>
 <span id="cb32-648"><a href="#cb32-648" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-649"><a href="#cb32-649" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Fidelity**: how closely the synthetic data's distribution resembles the real data's, marginally (each variable on its own) and jointly (the relationships between variables). The marginal-distribution and summary-statistics checks below test this directly.</span>
-<span id="cb32-650"><a href="#cb32-650" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Utility**: whether the synthetic data actually supports the downstream task it was made for, not just whether it looks similar. Coefficient agreement, and more directly the train-synthetic-test-real (TSTR) check, below test this.</span>
+<span id="cb32-650"><a href="#cb32-650" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Utility**: whether the synthetic data supports the downstream task it was made for. Coefficient agreement, and more directly the train-synthetic-test-real (TSTR) check, below test this.</span>
 <span id="cb32-651"><a href="#cb32-651" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Privacy**: whether releasing the synthetic data leaks information about specific real individuals. The nearest-neighbour distance check below tests this, though a complete privacy evaluation also needs membership-inference and attribute-inference testing, discussed further below.</span>
 <span id="cb32-652"><a href="#cb32-652" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-653"><a href="#cb32-653" aria-hidden="true" tabindex="-1"></a>These three properties trade off against each other. A generator that memorised the training data would score perfectly on fidelity and utility but fail privacy completely. A generator that added so much noise or regularisation that no real record could ever be inferred would score well on privacy but poorly on fidelity and utility. The checks below test the three properties in the order a data custodian would typically need to satisfy them, fidelity first, then utility, then privacy: a synthetic dataset that does not even resemble the real data is not worth testing further.</span>
@@ -3637,81 +3615,60 @@ Templ, Matthias. 2017. <em>Statistical Disclosure Control for Microdata: Methods
 <span id="cb32-978"><a href="#cb32-978" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">"8em"</span>)</span>
 <span id="cb32-979"><a href="#cb32-979" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-980"><a href="#cb32-980" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-981"><a href="#cb32-981" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Case study, resolved: answering the three opening questions"}</span>
-<span id="cb32-982"><a href="#cb32-982" aria-hidden="true" tabindex="-1"></a>**Question 1: Which recipient could you defensibly hand k-anonymised data to? Does the reinsurer's partial background knowledge change your answer?**</span>
+<span id="cb32-981"><a href="#cb32-981" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-982"><a href="#cb32-982" aria-hidden="true" tabindex="-1"></a><span class="fu">## Class activity: the data-sharing committee</span></span>
 <span id="cb32-983"><a href="#cb32-983" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-984"><a href="#cb32-984" aria-hidden="true" tabindex="-1"></a>Arguably none of the three. The reinsurer needs realistic, record-level data to build an independent model, which k-anonymity degrades. The internal team does not need a degraded file at all. The vendor does not need a file at all. Where k-anonymity would otherwise apply, background knowledge matters: this chapter's own $k=50$ result left <span class="in">`Gender`</span>, <span class="in">`AgeGroup`</span>, and <span class="in">`DensityGroup`</span> — exactly the variables a reinsurer with prior treaty-year exposure might already know — completely untouched by suppression, so the "hides among $k$ others" argument is weaker for this recipient than for a blind outsider.</span>
+<span id="cb32-984"><a href="#cb32-984" aria-hidden="true" tabindex="-1"></a>The case study has produced concrete numbers. Now apply them.</span>
 <span id="cb32-985"><a href="#cb32-985" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-986"><a href="#cb32-986" aria-hidden="true" tabindex="-1"></a>**Question 2: Does the pricing team's need for realistic (not real) data argue for synthetic data, or is there a simpler answer?**</span>
+<span id="cb32-986"><a href="#cb32-986" aria-hidden="true" tabindex="-1"></a>**Scenario.** The insurer is deciding whether to approve three data-sharing requests:</span>
 <span id="cb32-987"><a href="#cb32-987" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-988"><a href="#cb32-988" aria-hidden="true" tabindex="-1"></a>The simpler answer: no PET at all, just governance. The pricing team is internal, already bound by confidentiality obligations, and its model will be validated against live production data regardless of what it is trained on. Spending synthesis effort to serve a recipient who does not need it, and who gains nothing privacy-wise from data already inside the organisation, is effort misapplied. Purpose limitation and role-based access — the "Analytics / modelling" row of the lifecycle-controls table below — is the proportionate control.</span>
-<span id="cb32-989"><a href="#cb32-989" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-990"><a href="#cb32-990" aria-hidden="true" tabindex="-1"></a>**Question 3: Does the vendor's aggregate-only need rule out two of the chapter's three techniques?**</span>
+<span id="cb32-988"><a href="#cb32-988" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Request A** — Share a record-level dataset with a reinsurer to build an independent pricing model.</span>
+<span id="cb32-989"><a href="#cb32-989" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Request B** — Allow the internal pricing team to train a new model.</span>
+<span id="cb32-990"><a href="#cb32-990" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Request C** — Release a portfolio-wide mean claim frequency to an external vendor for benchmarking.</span>
 <span id="cb32-991"><a href="#cb32-991" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-992"><a href="#cb32-992" aria-hidden="true" tabindex="-1"></a>For this specific request, yes: k-anonymity and synthetic data both protect a *file* of records, and the vendor never receives one. Differential privacy is the right tool for a statistical release. Both k-anonymity and differential privacy can satisfy a regulator. Each provides a formal, auditable guarantee. Which one fits depends on what is being shared: k-anonymity applies to record-level tabular releases (protecting against re-identification by quasi-identifier combination). Differential privacy applies to statistical releases and model outputs (bounding individual contribution to a published result). A regulator evaluating a data-sharing arrangement could require either, depending on the use case.</span>
+<span id="cb32-992"><a href="#cb32-992" aria-hidden="true" tabindex="-1"></a>**Roles.** Form four groups. Each group takes one role and uses the case study results to argue for a specific decision on each request.</span>
 <span id="cb32-993"><a href="#cb32-993" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-994"><a href="#cb32-994" aria-hidden="true" tabindex="-1"></a>**Question 4: Is synthetic data the only option for the reinsurer, or could differential privacy also work?**</span>
-<span id="cb32-995"><a href="#cb32-995" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-996"><a href="#cb32-996" aria-hidden="true" tabindex="-1"></a>Differential privacy is a legitimate alternative for Request A. Plain <span class="in">`synthpop`</span> synthesis (as implemented here) lacks a formal DP guarantee. The NNDR evidence is reassuring, but it is not a mathematical proof. DP-based synthesis (generating synthetic records using a DP mechanism, such as DP-CTGAN or DP-VAE) would provide both record-level realism and a formal $\varepsilon$-bound. The trade-off is that DP synthesis typically reduces fidelity more than plain synthesis at the same privacy budget, and requires calibrating $\varepsilon$ across the full generative process. For a reinsurer who needs a formal guarantee, DP synthesis is the stronger answer. For one who accepts NNDR evidence subject to a membership-inference test, plain synthetic data is simpler and preserves more utility.</span>
-<span id="cb32-997"><a href="#cb32-997" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-998"><a href="#cb32-998" aria-hidden="true" tabindex="-1"></a>**In short:** synthetic data (or DP synthesis for a stronger guarantee) for the reinsurer; governance alone for the internal team; differential privacy for the vendor. Both k-anonymity and differential privacy can satisfy a regulator. The choice depends on the type of release. Three recipients, three decisions. The right technique depends on what is being shared and to whom.</span>
-<span id="cb32-999"><a href="#cb32-999" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb32-994"><a href="#cb32-994" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Role <span class="pp">|</span> Primary concern <span class="pp">|</span></span>
+<span id="cb32-995"><a href="#cb32-995" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb32-996"><a href="#cb32-996" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Insurer's actuary** <span class="pp">|</span> Model utility — TSTR AUC, coefficient agreement, DP accuracy at various $\varepsilon$ <span class="pp">|</span></span>
+<span id="cb32-997"><a href="#cb32-997" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Regulator** <span class="pp">|</span> Privacy guarantees — re-identification risk, NNDR distribution, $\varepsilon$ budget <span class="pp">|</span></span>
+<span id="cb32-998"><a href="#cb32-998" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Reinsurer** <span class="pp">|</span> Data realism — do the synthetic records support independent model-building? <span class="pp">|</span></span>
+<span id="cb32-999"><a href="#cb32-999" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Customer advocate** <span class="pp">|</span> Data minimisation and purpose limitation — was this use consented to? <span class="pp">|</span></span>
 <span id="cb32-1000"><a href="#cb32-1000" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1001"><a href="#cb32-1001" aria-hidden="true" tabindex="-1"></a><span class="fu">## Class activity: the data-sharing committee</span></span>
+<span id="cb32-1001"><a href="#cb32-1001" aria-hidden="true" tabindex="-1"></a>**Numbers to work with.** Each group should anchor their argument in at least two of the following:</span>
 <span id="cb32-1002"><a href="#cb32-1002" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1003"><a href="#cb32-1003" aria-hidden="true" tabindex="-1"></a>The case study has produced concrete numbers. Now apply them.</span>
-<span id="cb32-1004"><a href="#cb32-1004" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1005"><a href="#cb32-1005" aria-hidden="true" tabindex="-1"></a>**Scenario.** The insurer is deciding whether to approve three data-sharing requests:</span>
-<span id="cb32-1006"><a href="#cb32-1006" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1007"><a href="#cb32-1007" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Request A** — Share a record-level dataset with a reinsurer to build an independent pricing model.</span>
-<span id="cb32-1008"><a href="#cb32-1008" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Request B** — Allow the internal pricing team to train a new model.</span>
-<span id="cb32-1009"><a href="#cb32-1009" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Request C** — Release a portfolio-wide mean claim frequency to an external vendor for benchmarking.</span>
-<span id="cb32-1010"><a href="#cb32-1010" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1011"><a href="#cb32-1011" aria-hidden="true" tabindex="-1"></a>**Roles.** Form four groups. Each group takes one role and uses the case study results to argue for a specific decision on each request.</span>
-<span id="cb32-1012"><a href="#cb32-1012" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1013"><a href="#cb32-1013" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Role <span class="pp">|</span> Primary concern <span class="pp">|</span></span>
-<span id="cb32-1014"><a href="#cb32-1014" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb32-1015"><a href="#cb32-1015" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Insurer's actuary** <span class="pp">|</span> Model utility — TSTR AUC, coefficient agreement, DP accuracy at various $\varepsilon$ <span class="pp">|</span></span>
-<span id="cb32-1016"><a href="#cb32-1016" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Regulator** <span class="pp">|</span> Privacy guarantees — re-identification risk, NNDR distribution, $\varepsilon$ budget <span class="pp">|</span></span>
-<span id="cb32-1017"><a href="#cb32-1017" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Reinsurer** <span class="pp">|</span> Data realism — do the synthetic records support independent model-building? <span class="pp">|</span></span>
-<span id="cb32-1018"><a href="#cb32-1018" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Customer advocate** <span class="pp">|</span> Data minimisation and purpose limitation — was this use consented to? <span class="pp">|</span></span>
-<span id="cb32-1019"><a href="#cb32-1019" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1020"><a href="#cb32-1020" aria-hidden="true" tabindex="-1"></a>**Numbers to work with.** Each group should anchor their argument in at least two of the following:</span>
+<span id="cb32-1003"><a href="#cb32-1003" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>k-anonymity at $k = 50$: suppression rate, which quasi-identifiers were affected, which were not.</span>
+<span id="cb32-1004"><a href="#cb32-1004" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Differential privacy: accuracy of <span class="in">`dp_mean`</span> relative to the true mean at $\varepsilon \in <span class="sc">\{</span>0.1,\, 1,\, 10<span class="sc">\}</span>$.</span>
+<span id="cb32-1005"><a href="#cb32-1005" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Synthetic data: TSTR AUC (0.728 real vs. 0.729 synthetic); NNDR distribution with ~4% of synthetic records within distance zero of a real record on continuous variables.</span>
+<span id="cb32-1006"><a href="#cb32-1006" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Your group's own conclusion on each request, drawing on the technique-selection table above.</span>
+<span id="cb32-1007"><a href="#cb32-1007" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1008"><a href="#cb32-1008" aria-hidden="true" tabindex="-1"></a>**Format.**</span>
+<span id="cb32-1009"><a href="#cb32-1009" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1010"><a href="#cb32-1010" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**(10 min)** Each group prepares a two-minute position statement. Take a clear stance on each request: approve, approve with conditions, or reject. Ground every stance in the numbers.</span>
+<span id="cb32-1011"><a href="#cb32-1011" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**(15 min)** Each group presents. After each presentation, one other group challenges with one specific question drawn from the results.</span>
+<span id="cb32-1012"><a href="#cb32-1012" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**(10 min)** Class vote. For each request, vote on the outcome and the technique (if any). Where does the class agree, and where does it diverge?</span>
+<span id="cb32-1013"><a href="#cb32-1013" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1014"><a href="#cb32-1014" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summary</span></span>
+<span id="cb32-1015"><a href="#cb32-1015" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1016"><a href="#cb32-1016" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Re-identification risk** is real even in large, "anonymised" datasets. Quasi-identifier combinations can uniquely identify rare groups, and the same risk-assessment workflow (identify quasi-identifiers → choose a matched PET → apply → measure trade-off → decide) transfers to other domains.</span>
+<span id="cb32-1017"><a href="#cb32-1017" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**k-Anonymity** via local suppression reduces identifiability but does not protect sensitive values, and the utility cost rises sharply once $k$ is large enough to force real suppression.</span>
+<span id="cb32-1018"><a href="#cb32-1018" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Differential privacy** provides a mathematical guarantee and scales well to large datasets: the same $\varepsilon$ that leaves a 100,000-record aggregate nearly untouched can distort a small subgroup significantly, because sensitivity scales as $1/n$. The Laplace mechanism is straightforward to implement for aggregate statistics.</span>
+<span id="cb32-1019"><a href="#cb32-1019" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Synthetic data** from <span class="in">`synthpop`</span> (CART) achieves good fidelity on marginals and model coefficients, a model trained on it generalises to held-out real records nearly as well as one trained on real data (TSTR), and NNDR evidence shows real records are not being copied.</span>
+<span id="cb32-1020"><a href="#cb32-1020" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No single technique is sufficient on its own — **layered controls** across the data lifecycle are required.</span>
 <span id="cb32-1021"><a href="#cb32-1021" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1022"><a href="#cb32-1022" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>k-anonymity at $k = 50$: suppression rate, which quasi-identifiers were affected, which were not.</span>
-<span id="cb32-1023"><a href="#cb32-1023" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Differential privacy: accuracy of <span class="in">`dp_mean`</span> relative to the true mean at $\varepsilon \in <span class="sc">\{</span>0.1,\, 1,\, 10<span class="sc">\}</span>$.</span>
-<span id="cb32-1024"><a href="#cb32-1024" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Synthetic data: TSTR AUC (0.728 real vs. 0.729 synthetic); NNDR distribution with ~4% of synthetic records within distance zero of a real record on continuous variables.</span>
-<span id="cb32-1025"><a href="#cb32-1025" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The case study's own conclusion on each request (the callout above).</span>
-<span id="cb32-1026"><a href="#cb32-1026" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1027"><a href="#cb32-1027" aria-hidden="true" tabindex="-1"></a>**Format.**</span>
-<span id="cb32-1028"><a href="#cb32-1028" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1029"><a href="#cb32-1029" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**(10 min)** Each group prepares a two-minute position statement. Take a clear stance on each request: approve, approve with conditions, or reject. Ground every stance in the numbers.</span>
-<span id="cb32-1030"><a href="#cb32-1030" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**(15 min)** Each group presents. After each presentation, one other group challenges with one specific question drawn from the results.</span>
-<span id="cb32-1031"><a href="#cb32-1031" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**(10 min)** Class vote. For each request, vote on the outcome and the technique (if any). Compare against the case study's own conclusion — where does the class agree, and where does it diverge?</span>
-<span id="cb32-1032"><a href="#cb32-1032" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1033"><a href="#cb32-1033" aria-hidden="true" tabindex="-1"></a>**Discussion prompt.** The case study recommends synthetic data for the reinsurer, governance alone for the internal team, and differential privacy for the vendor. Which role finds that conclusion hardest to accept, and what would it take to change their mind?</span>
-<span id="cb32-1034"><a href="#cb32-1034" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1035"><a href="#cb32-1035" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summary</span></span>
-<span id="cb32-1036"><a href="#cb32-1036" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1037"><a href="#cb32-1037" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Re-identification risk** is real even in large, "anonymised" datasets. Quasi-identifier combinations can uniquely identify rare groups, and the same risk-assessment workflow (identify quasi-identifiers → choose a matched PET → apply → measure trade-off → decide) transfers to other domains.</span>
-<span id="cb32-1038"><a href="#cb32-1038" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**k-Anonymity** via local suppression reduces identifiability but does not protect sensitive values, and the utility cost rises sharply once $k$ is large enough to force real suppression, not just at the textbook-minimum $k = 5$.</span>
-<span id="cb32-1039"><a href="#cb32-1039" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Differential privacy** provides a mathematical guarantee and scales well to large datasets: the same $\varepsilon$ that leaves a 100,000-record aggregate nearly untouched can distort a small subgroup significantly, because sensitivity scales as $1/n$. The Laplace mechanism is straightforward to implement for aggregate statistics.</span>
-<span id="cb32-1040"><a href="#cb32-1040" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Synthetic data** from <span class="in">`synthpop`</span> (CART) achieves good fidelity on marginals and model coefficients, a model trained on it generalises to held-out real records nearly as well as one trained on real data (TSTR), and NNDR evidence shows real records are not being copied.</span>
-<span id="cb32-1041"><a href="#cb32-1041" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No single technique is sufficient on its own — **layered controls** across the data lifecycle are required.</span>
-<span id="cb32-1042"><a href="#cb32-1042" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1043"><a href="#cb32-1043" aria-hidden="true" tabindex="-1"></a><span class="fu"># Recommended reading</span></span>
-<span id="cb32-1044"><a href="#cb32-1044" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1045"><a href="#cb32-1045" aria-hidden="true" tabindex="-1"></a>**Re-identification risk and k-anonymity**</span>
-<span id="cb32-1046"><a href="#cb32-1046" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1047"><a href="#cb32-1047" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@templ2017statistical — <span class="in">`sdcMicro`</span> and statistical disclosure control</span>
-<span id="cb32-1048"><a href="#cb32-1048" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sweeney2002kanonymity — k-anonymity</span>
-<span id="cb32-1049"><a href="#cb32-1049" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@machanavajjhala2007diversity — ℓ-diversity (extension of k-anonymity)</span>
-<span id="cb32-1050"><a href="#cb32-1050" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1051"><a href="#cb32-1051" aria-hidden="true" tabindex="-1"></a>**Differential privacy and synthetic data**</span>
-<span id="cb32-1052"><a href="#cb32-1052" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-1053"><a href="#cb32-1053" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@dwork2006calibrating — original ε-differential privacy paper</span>
-<span id="cb32-1054"><a href="#cb32-1054" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@nowok2016synthpop — <span class="in">`synthpop`</span> R package and CART synthesis</span>
-<span id="cb32-1055"><a href="#cb32-1055" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@jordon2022synthetic — synthetic data: what, why and how (evaluation framework)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb32-1022"><a href="#cb32-1022" aria-hidden="true" tabindex="-1"></a><span class="fu"># Recommended reading</span></span>
+<span id="cb32-1023"><a href="#cb32-1023" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1024"><a href="#cb32-1024" aria-hidden="true" tabindex="-1"></a>**Re-identification risk and k-anonymity**</span>
+<span id="cb32-1025"><a href="#cb32-1025" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1026"><a href="#cb32-1026" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@templ2017statistical — <span class="in">`sdcMicro`</span> and statistical disclosure control</span>
+<span id="cb32-1027"><a href="#cb32-1027" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sweeney2002kanonymity — k-anonymity</span>
+<span id="cb32-1028"><a href="#cb32-1028" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@machanavajjhala2007diversity — ℓ-diversity (extension of k-anonymity)</span>
+<span id="cb32-1029"><a href="#cb32-1029" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1030"><a href="#cb32-1030" aria-hidden="true" tabindex="-1"></a>**Differential privacy and synthetic data**</span>
+<span id="cb32-1031"><a href="#cb32-1031" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-1032"><a href="#cb32-1032" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@dwork2006calibrating — original ε-differential privacy paper</span>
+<span id="cb32-1033"><a href="#cb32-1033" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@nowok2016synthpop — <span class="in">`synthpop`</span> R package and CART synthesis</span>
+<span id="cb32-1034"><a href="#cb32-1034" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@jordon2022synthetic — synthetic data: what, why and how (evaluation framework)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
