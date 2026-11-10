@@ -1539,6 +1539,26 @@ D(P_E, P_D) \leq t,
 </table>
 <p>In practice these techniques are often <strong>combined</strong>. K-anonymity or suppression may be applied before synthetic data generation to reduce memorisation risk, and differential privacy may be used during model training to bound the influence of individual records. The first three do not change <em>where</em> the data is processed, each still assumes it is centralised, even briefly, before protection is applied. Federated learning addresses that different question directly, at the cost of the operational and residual-leakage limitations noted above.</p>
 <p>Chapter 7 applies each of the three data-release techniques to the French motor insurance dataset and examines the quantitative trade-off between privacy protection and statistical utility.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Regulatory example: ABS DataLab output clearance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Australian Bureau of Statistics DataLab requires all outputs to pass clearance before they leave the secure environment. The rules translate the techniques above into operational thresholds:</p>
+<ul>
+<li><strong>Rule of 10.</strong> Every published cell must be derived from at least 10 individuals (unweighted). This is k-anonymity at <span class="math inline">k = 10</span> applied to aggregate outputs rather than micro-data.</li>
+<li><strong>Dominance rules.</strong> No single contributor may account for more than 50% of a sum (1,50 rule), and the top two must not exceed 67% (2,67 rule). These guard against attribute disclosure in magnitude statistics.</li>
+<li><strong>Group disclosure rule.</strong> No cell may exceed 90% of its row or column total. A highly homogeneous group leaks membership even without direct identification.</li>
+<li><strong>Synthetic microdata: not cleared.</strong> The ABS does not accept synthetic data as a release format. Fidelity metrics (such as train-synthetic-test-real AUC and nearest-neighbour distance ratios) are necessary for privacy evaluation but have not yet satisfied regulators enough to permit release.</li>
+</ul>
+<p>In practice, PETs govern what can leave a controlled environment. They do not replace the environment itself.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="privacy-principles-in-practice" class="level2">
