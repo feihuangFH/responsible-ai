@@ -763,8 +763,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>2. Data collection</td>
-<td>Does the claim-history data reflect any past pattern of over-investigating particular groups? Is the claim narrative text, which may contain health or demographic detail, minimised to what the fraud model actually needs?</td>
-<td>6</td>
+<td>Does the claim-history data reflect any past pattern of over-investigating particular groups? Is the claim narrative text, which may contain health or demographic detail, minimised to what the fraud model actually needs? If k-anonymity or differential privacy were applied to the claim history before model training, what would be gained and what would be lost?</td>
+<td>6, 7</td>
 </tr>
 <tr class="odd">
 <td>3. Model development</td>
@@ -773,8 +773,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>4. Model validation</td>
-<td>What pre-committed audit protocol would demonstrate, rather than merely fail to contradict, that investigation rates do not disproportionately fall on any group?</td>
-<td>2, 3</td>
+<td>What pre-committed audit protocol would demonstrate, rather than merely fail to contradict, that investigation rates do not disproportionately fall on any group? A flat PDP for the postcode variable is not, by itself, evidence of fairness — what additional check is needed?</td>
+<td>2, 3, 4, 5</td>
 </tr>
 <tr class="odd">
 <td>5. Deployment</td>
@@ -783,8 +783,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>6. Monitoring</td>
-<td>Fraud patterns shift after major events (e.g.&nbsp;a hailstorm generating a spike in genuine claims that could look like a fraud cluster to a static model). What triggers re-validation?</td>
-<td>3, 6</td>
+<td>Fraud patterns shift after major events (e.g.&nbsp;a hailstorm generating a spike in genuine claims that could look like a fraud cluster to a static model). What triggers re-validation? Beyond flag-rate drift, should SHAP feature contributions be monitored over time, and what would a meaningful change in them signal?</td>
+<td>3, 5, 6</td>
 </tr>
 </tbody>
 </table>
@@ -807,11 +807,11 @@ window.Quarto = {
 <p><strong>1. Problem definition.</strong> A false positive (a genuine claim delayed) falls directly on an already-distressed policyholder, who may face real hardship while under investigation. A false negative (a fraudulent claim paid) falls diffusely on the wider pool of honest policyholders, through higher future premiums. The costs differ in size, timing, and who bears them, so this is a distributional question, not a symmetric accuracy one. The flagging decision is reversible in the sense that a wrongly-flagged claim can eventually be paid, but the delay and any resulting hardship are not undone by a later correction.</p>
 <p><strong>2. Data collection.</strong> If past investigation decisions were themselves shaped by human bias (for example, investigators disproportionately scrutinising certain postcodes), a model trained on that history will encode and automate the same pattern, exactly Stage 2’s question about historical discrimination. On minimisation, claim narrative text usually contains far more than the fraud signal requires. A defensible design extracts only the specific structured features the model needs (timeline inconsistencies, damage-severity mismatches) rather than feeding the full free text into the model, the data minimisation principle from Chapter 6.</p>
 <p><strong>3. Model development.</strong> Equalised investigation rates (demographic parity on who gets flagged) is the wrong criterion, since it would force flagging genuinely fraud-prone patterns evenly regardless of actual risk. Equalised false-positive rates, a form of separation (Chapter 2), fits better: it does not require flagging genuine claimants at the same rate across groups, only that innocent claimants are not more likely to be wrongly flagged in one group than another. An MCDP-style design (Chapters 2-3), debiasing only the specific proxy variables driving the disparity, enforces this at a smaller accuracy cost than full demographic parity.</p>
-<p><strong>4. Model validation.</strong> A pre-registered TOST equivalence test (Chapters 2-3), comparing false-positive investigation rates across groups against a pre-specified tolerance band, provides positive evidence of compliance, rather than the weaker claim that a plain significance test simply failed to detect a difference.</p>
+<p><strong>4. Model validation.</strong> A pre-registered TOST equivalence test (Chapters 2–3), comparing false-positive investigation rates across groups against a pre-specified tolerance band, provides positive evidence of compliance, rather than the weaker claim that a plain significance test simply failed to detect a difference. The PDP-adversarial result from Chapter 4 is directly relevant here: a PDP for Postcode that appears flat does not establish that Postcode is not influencing predictions in the dense region of the input space where most claims actually fall. The formal TOST on observed false-positive rates, not the PDP shape, is the evidential standard.</p>
 <p><strong>5. Deployment.</strong> A claimant should receive a reason specific to their own claim (for example, “the reported repair cost is significantly higher than typical for this type of damage”), generated with a local explanation method such as SHAP (Chapters 4-5), plus a genuine appeals channel with a human reviewer empowered to override the flag, not only a generic “under review” notice and a rubber-stamp process.</p>
-<p><strong>6. Monitoring.</strong> A monitored spike in the flag rate for a specific geography or claim type, relative to the model’s training-period baseline, should trigger a review of whether the shift reflects genuine new fraud patterns or a legitimate surge in real claims (for example, after a hailstorm) that the model is misreading as suspicious.</p>
+<p><strong>6. Monitoring.</strong> A monitored spike in the flag rate for a specific geography or claim type, relative to the model’s training-period baseline, should trigger a review of whether the shift reflects genuine new fraud patterns or a legitimate surge in real claims (for example, after a hailstorm) that the model is misreading as suspicious. SHAP feature contributions provide a second monitoring signal: if the top-ranked features for flagged claims shift over time (for example, Postcode gaining weight while damage-severity indicators lose it), that is evidence the model is responding to a distributional change rather than to the fraud signal it was trained on, and re-validation is warranted even without a visible accuracy drop.</p>
 <p><strong>Trade-off 1.</strong> This is a policy decision, not a modelling one, the point made earlier in this chapter. The model owner should quantify the trade-off, the measured cost in delayed genuine claims against the measured benefit in caught fraud, and present it to a decision-maker accountable for the choice, rather than resolve it unilaterally.</p>
-<p><strong>Trade-off 2.</strong> Potentially yes, if minimisation means dropping the free-text narrative outright. But Chapter 7’s techniques offer a middle path: generalising the more identifying fields while retaining a derived, less-identifying feature (for example, a timeline-inconsistency score computed once, with the raw narrative then discarded) can preserve the specific signal without retaining the full sensitive record.</p>
+<p><strong>Trade-off 2.</strong> Potentially yes, if minimisation means dropping the free-text narrative outright. Chapter 7’s techniques offer a middle path. First, extract the structured signal the model needs (a timeline-inconsistency score, a damage-severity mismatch flag) and discard the raw narrative immediately — data minimisation from Chapter 6. Second, apply k-anonymity to the claim history before model training: equivalence classes on postcode, claim type, and injury category ensure that no training record is unique, reducing the re-identification risk from model inversion attacks. Third, if only aggregate fraud statistics need to be shared with an external investigator, differential privacy can release those statistics with a calibrated privacy budget rather than sharing a record-level file. The specific Ch7 result that matters here is that at <span class="math inline">n = 100{,}000</span> the accuracy cost of DP on a portfolio-wide statistic is negligible; it rises only once the statistic is computed on a small subgroup, so the DP approach is least costly when applied at the portfolio level and most costly for rare fraud-pattern breakdowns.</p>
 <p><strong>Trade-off 3.</strong> Because the explanation obligation runs to an individual claimant, not only to a regulator, Chapter 4’s SHAP-versus-LIME discussion is directly relevant: a gradient-boosted model paired with TreeSHAP local explanations can deliver both strong fraud detection and a genuine per-claimant explanation. A simpler scorecard model trades away detection accuracy for an explanation-simplicity gain that SHAP already mostly closes, so the stronger case here is for the more accurate model with rigorous local explanations, not the simpler model by default.</p>
 </details>
 </section>
