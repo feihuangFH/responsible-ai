@@ -5866,5 +5866,19 @@
     "title": "Explainability Practice",
     "section": "Interpretation methods: an overview",
     "text": "Interpretation methods: an overview\n\n(Partially) interpretable / transparent models\n\nLM, GLM, GAM, decision trees (CART)\n\n\n\nGlobal model-agnostic methods\n\nPD plots, ALE plots, feature interaction (H-statistic), functional decomposition, permutation feature importance\n\n\n\nLocal model-agnostic methods\n\nICE curves, local surrogate models (LIME), SHAP, counterfactual explanations, scoped rules (anchors)\n\n\n\nTaxonomy from Molnar (Molnar 2025). Interpretable models were Chapter 4’s territory. This chapter works through the bulk of the global and local model-agnostic toolkit: permutation importance, PD/ALE, and SHAP, the parts most established in insurance practice. LIME, counterfactual explanations, and anchors follow the same model-agnostic logic but aren’t covered here. Pause after each category and ask students for examples or where a method they already know would fit before revealing the next one."
+  },
+  {
+    "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#discuss-3-min",
+    "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#discuss-3-min",
+    "title": "Trade-offs, Integration, and Governance",
+    "section": "💬 Discuss (3 min)",
+    "text": "💬 Discuss (3 min)\nThe scores predicted claims within every demographic group.\na. Does that mean the practice was fair? What is the objection the data alone cannot settle?\nb. Four US states banned the practice; the other 46 imposed constraints but kept it. Same evidence, different conclusions. What does that tell you about the role of technical analysis in a regulatory decision?\n\n\nThe practice satisfies actuarial fairness and within-group predictive accuracy. The objection that survived the data: why does credit history predict claims? One answer is causal — financial stress causes riskier driving. Another is historical — credit scores reflect accumulated economic inequality, so charging by score re-prices a disadvantage the insurer did not create but is now monetising. Neither answer is resolvable by better statistics; it is a question about what a price is for.\nThe technical analysis was largely shared across jurisdictions — all were reading the same FTC report and actuarial literature. The divergence in outcomes shows that the analysis sets the terms of the debate (what is predictive, by how much, for whom) but cannot close it. A ban and a disclosure requirement are both consistent with accepting the same data; they differ in how much weight the decision-maker gives to distributional consequences versus actuarial efficiency. That is a governance question, not a modelling one."
+  },
+  {
+    "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html#讨论3分钟",
+    "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html#讨论3分钟",
+    "title": "权衡取舍、整合与治理",
+    "section": "💬 讨论(3分钟)",
+    "text": "💬 讨论(3分钟)\n该评分在每个人口群体内部均对理赔具有预测效力。\na. 这是否意味着这一做法是公平的?有哪些异议是仅凭数据无法解决的?\nb. 4个州全面禁止这一做法,其余46个州在保留该做法的同时施加了限制。面对相同的证据,各方得出了不同的结论。这告诉你,技术分析在监管决策中扮演什么角色?\n\n\n这一做法满足精算公平性和组内预测准确性。在数据层面无法消解的异议在于:信用记录为何能预测理赔?一种答案是因果性的——经济压力导致更危险的驾驶行为。另一种答案是历史性的——信用评分反映了长期积累的经济不平等,按评分收费实际上是在为一种并非由保险公司造成、却正由其从中获益的不利处境重新定价。这两个问题都无法通过更好的统计分析来解决;这是一个关于”价格究竟服务于什么目的”的问题。\n各司法管辖区所依据的技术分析大体相同——它们读的是同一份FTC报告和精算文献。结果的分歧表明,分析工作确定了争论的边界(什么具有预测效力、程度如何、针对哪些群体),但无法终结这场争论。全面禁止与要求披露信息,都与接受相同的数据一致;两者的差异在于决策者对分配后果与精算效率各赋予了多少权重。这是一个治理问题,而非建模问题。"
   }
 ]
