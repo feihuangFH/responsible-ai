@@ -549,24 +549,6 @@ Fei Huang, UNSW Sydney
 <p><strong>5. Deployment.</strong> Human review for edge cases? Contestability? DPIA (data protection impact assessment) complete?</p>
 <p><strong>6. Monitoring.</strong> Fairness metrics recalculated? Data drift tracked? Retraining trigger?</p>
 </section>
-<section id="discuss-4-min-2" class="slide level2 center" data-background-color="#2c3e50">
-<h2>💬 Discuss (4 min)</h2>
-<p>Of the six lifecycle stages —</p>
-<p><strong>which do you think most AI failures actually originate in, even though they surface much later?</strong></p>
-<aside class="notes">
-<p>Sample answer. Most genuine root causes trace back to Stage 1 (problem definition) and Stage 2 (data collection), even though the failure typically surfaces much later, as a fairness audit finding, a customer complaint, or a regulatory investigation. A mis-specified objective at Stage 1, optimising for a proxy like “predicted cost” instead of the true target “medical need” is the canonical example from Chapter 1’s healthcare-algorithm case, and no amount of sophisticated Stage 3–4 modelling can fix a wrong question. Similarly, historical bias baked into training labels at Stage 2 (e.g.&nbsp;past human decisions the model is trained to imitate) gets inherited by any model regardless of how carefully it’s validated afterwards. This is why the earlier slide in this section states it plainly: a wrong choice at Stage 1 can’t be fixed by better modelling later. Worth contrasting with Stage 6 (monitoring) failures, which are common too, but those are usually failures to <em>detect</em> a problem that originated earlier, not new failures created at that stage.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="capstone-case-study-claims-triage" class="slide level2 smaller center">
 <h2>Capstone case study: claims triage</h2>
 <p>A motor insurer builds an AI claims-triage system: every incoming claim gets a fraud-risk and complexity score. Low scores → fast-tracked payout within 48h. High scores → routed to manual investigation before any payment.</p>

@@ -545,24 +545,6 @@
 <p><strong>5. 部署。</strong> 边缘案例是否有人工复核?是否具备可申诉性?数据保护影响评估(DPIA)是否完成?</p>
 <p><strong>6. 监测。</strong> 公平性指标是否重新计算?数据漂移是否被追踪?是否设有重新训练触发机制?</p>
 </section>
-<section id="讨论4分钟-2" class="slide level2 center" data-background-color="#2c3e50">
-<h2>💬 讨论(4分钟)</h2>
-<p>在这六个生命周期阶段中——</p>
-<p><strong>你认为大多数人工智能失效实际上起源于哪一个阶段,即便它们要到很久之后才会显现出来?</strong></p>
-<aside class="notes">
-<p>参考答案。大多数真正的根本原因可以追溯到第一阶段(问题定义)和第二阶段(数据收集),即便失效通常要到很久以后才会显现出来——表现为一次公平性审计发现、一起客户投诉,或一场监管调查。第一阶段中目标设定有误,例如以“预测成本”这一代理变量替代真正的目标“医疗需求”,正是第一章医疗算法案例中的典型情形,无论第三、四阶段的建模多么精巧,都无法弥补一个错误的问题设定。同样,第二阶段中固化于训练标签中的历史性偏差(例如模型被训练去模仿的过往人工决策)会被任何模型继承,无论此后验证工作做得多么细致。这正是本节前面那张幻灯片明确指出的道理:第一阶段的错误选择,无法通过后续更好的建模来弥补。也值得与第六阶段(监测)的失效作对比,那类失效同样常见,但通常属于未能<em>察觉</em>一个早已存在的问题,而非在该阶段新产生的失效。</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="综合案例研究理赔分流" class="slide level2 smaller center">
 <h2>综合案例研究:理赔分流</h2>
 <p>一家车险公司正在构建一套人工智能理赔分流系统:每一笔新提交的理赔,都会获得一个欺诈风险与复杂度评分。评分较低 → 48小时内快速赔付。评分较高 → 在赔付前转交人工调查。</p>
