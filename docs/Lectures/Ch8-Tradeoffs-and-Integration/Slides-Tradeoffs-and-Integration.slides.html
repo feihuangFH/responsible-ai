@@ -371,21 +371,11 @@ Fei Huang, UNSW Sydney
 </div>
 </div>
 </div>
-<div class="fragment">
-<p>Now you can answer more rigorously:</p>
-<ul>
-<li><strong>Ch. 2</strong>: FTU-fair, maybe. DP- or CDP-fair, probably not.</li>
-<li><strong>Ch. 3</strong>: Fit MCDP or MC. Audit with a pre-committed TOST (positive evidence of compliance).</li>
-<li><strong>Ch. 4–5</strong>: Use SHAP to find what’s driving the residual disparity, and check for interactions.</li>
-<li><strong>Ch. 6–7</strong>: Assess re-identification risk in the data. Consider whether differential privacy or synthetic data belongs in the pipeline.</li>
-</ul>
-</div>
 </section>
 <section id="discuss-4-min" class="slide level2 center" data-background-color="#2c3e50">
 <h2>💬 Discuss (4 min)</h2>
-<p>Using everything from Chapters 2–7 —</p>
-<p><strong>a.</strong> How would you now answer “has the insurer achieved fairness”? What’s still missing, even with all these tools?</p>
-<p><strong>b.</strong> Taking insurance as an example: annual mileage has a genuine causal story (more exposure, more risk); occupation correlates with gender but its independent causal story largely disappears once you control for mileage and vehicle type. How would you decide whether each should be used for pricing at all? What changes when the variable is external or non-traditional — telematics, social media activity, or credit history?</p>
+<p><strong>a.</strong> Annual mileage has a direct causal story (more exposure, more risk). Occupation correlates with gender, but once you control for mileage and vehicle type, the independent risk story is thin. Should both be used for pricing?</p>
+<p><strong>b.</strong> What is still missing, even with all the tools from this course?</p>
 <aside class="notes">
 <p>Sample answer (a). Even after this checklist, “has the insurer achieved fairness” still doesn’t have a single yes/no answer, and that’s the point. What’s still missing: (i) a decision about which criterion (DP, CDP, individual fairness) is the right one for this regulatory regime and product, a governance choice this course’s tools can inform but not make; (ii) proof the debiasing pipeline is audited going forward, not just at launch, since disparity can re-emerge as the population or correlated-feature relationships drift; (iii) contestability, an individual customer with a bad outcome still needs a route to challenge it, which no amount of aggregate SHAP or PDP analysis provides; (iv) certainty the proxy search was exhaustive, PDP and SHAP surface the most likely candidates but can’t prove no other hidden channel exists. As the credit-score case study earlier in this chapter shows, even a model that clears every quantitative test can still fail the separate, non-statistical question of whether the criterion itself is the right one to apply.</p>
 <p>Sample answer (b). A workable decision framework asks four questions of any candidate variable: (1) Is there a plausible causal or mechanical story connecting it to risk, not just a correlation? Annual mileage has one — exposure directly increases accident probability. Occupation’s story is weaker: any effect on driving behaviour is largely mediated by mileage and vehicle type already rated separately, and the residual correlation mostly tracks gender and socioeconomic status. (2) Was it collected with proper consent and a clear legal basis, and is its use consistent with data minimisation (Chapters 6–7)? (3) How tightly does it proxy a protected attribute, and is that proxying incidental or does it dominate the variable’s predictive power? (4) Would the causal story survive being said out loud to a regulator or an affected customer — echoing the credit-score case study’s finding that regulators probed <em>why</em>, not just <em>whether</em>, a factor predicted the outcome.</p>
