@@ -133,14 +133,14 @@
     "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#the-fairnessaccuracy-trade-off",
     "title": "Trade-offs, Integration, and Governance",
     "section": "The fairness–accuracy trade-off",
-    "text": "The fairness–accuracy trade-off\nEmpirical result from Huang et al. (2024) on the French motor dataset — not a universal rule.\n\n\n\nModel\nAccuracy\nDisparity\n\n\n\n\nM0\nHighest\nHighest\n\n\nMU\nModerate reduction\nModerate reduction\n\n\nMCDP / MC\nSmall reduction\nLarge reduction\n\n\nMDP\nLargest reduction\nNear zero\n\n\n\nAccuracy measured by RMSE (smaller error = higher accuracy); “reduction” describes the drop from M0’s accuracy level as fairness constraints tighten.\n\n\n\n\n\n\n\nA policy decision\n\n\nNo statistically correct level of constraint. Depends on regulatory regime, product type, stakeholder values, market structure. Practitioners quantify the trade-off. Decision-makers choose it."
+    "text": "The fairness–accuracy trade-off\nResults from Huang et al. (2024) on the French motor dataset.\n\n\n\nModel\nAccuracy\nDisparity\n\n\n\n\nM0\nHighest\nHighest\n\n\nMU\nModerate reduction\nModerate reduction\n\n\nMCDP / MC\nSmall reduction\nLarge reduction\n\n\nMDP\nLargest reduction\nNear zero\n\n\n\nAccuracy measured by RMSE (smaller error = higher accuracy); “reduction” describes the drop from M0’s accuracy level as fairness constraints tighten.\n\n\n\n\n\n\n\nA policy decision\n\n\nNo statistically correct level of constraint. Depends on regulatory regime, product type, stakeholder values, market structure. Practitioners quantify the trade-off. Decision-makers choose it."
   },
   {
     "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#the-privacyutility-trade-off",
     "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#the-privacyutility-trade-off",
     "title": "Trade-offs, Integration, and Governance",
     "section": "The privacy–utility trade-off",
-    "text": "The privacy–utility trade-off\n\n\n\nTechnique\nGuarantee\nUtility cost\n\n\n\n\nk-Anonymity\nNone formal\nReduced precision, some suppression\n\n\nDifferential privacy (ε=1)\nStrong\nHigh noise\n\n\nDP (ε=10)\nWeak\nLow noise\n\n\nSynthetic (no DP)\nNone\nHigh fidelity, memorisation risk\n\n\n\n\nTechniques are layered in practice: k-anonymise → synthesise → check NNDR (nearest-neighbour distance ratio) → DP on released summary stats. Defence-in-depth, not one silver bullet."
+    "text": "The privacy–utility trade-off\n\n\n\nTechnique\nGuarantee\nUtility cost\n\n\n\n\nk-Anonymity\nNone formal\nReduced precision, some suppression\n\n\nDifferential privacy (ε=1)\nStrong\nHigh noise\n\n\nDP (ε=10)\nWeak\nLow noise\n\n\nSynthetic (no DP)\nNone\nHigh fidelity, memorisation risk"
   },
   {
     "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html#explainability-fairness",
@@ -5624,14 +5624,14 @@
     "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html#公平性准确性权衡取舍",
     "title": "权衡取舍、整合与治理",
     "section": "公平性—准确性权衡取舍",
-    "text": "公平性—准确性权衡取舍\n基于 Huang 等 (2024年) 在法国车险数据集上的实证结果——并非普遍规律。\n\n\n\n模型\n准确性\n差异\n\n\n\n\nM0\n最高\n最大\n\n\nMU\n中度降低\n中度降低\n\n\nMCDP / MC\n小幅降低\n大幅降低\n\n\nMDP\n降低幅度最大\n接近零\n\n\n\n准确性以 RMSE 衡量(误差越小,准确性越高);“降低”指随着公平性约束收紧,准确性相对 M0 水平的下降幅度。\n\n\n\n\n\n\n\n这是政策决策\n\n\n不存在统计意义上“正确”的约束水平。取决于监管制度、产品类型、利益相关方价值取向、市场结构。从业者量化权衡取舍。决策者做出选择。"
+    "text": "公平性—准确性权衡取舍\n基于 Huang 等 (2024年) 在法国车险数据集上的结果。\n\n\n\n模型\n准确性\n差异\n\n\n\n\nM0\n最高\n最大\n\n\nMU\n中度降低\n中度降低\n\n\nMCDP / MC\n小幅降低\n大幅降低\n\n\nMDP\n降低幅度最大\n接近零\n\n\n\n准确性以 RMSE 衡量(误差越小,准确性越高);“降低”指随着公平性约束收紧,准确性相对 M0 水平的下降幅度。\n\n\n\n\n\n\n\n这是政策决策\n\n\n不存在统计意义上“正确”的约束水平。取决于监管制度、产品类型、利益相关方价值取向、市场结构。从业者量化权衡取舍。决策者做出选择。"
   },
   {
     "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html#隐私效用权衡取舍",
     "href": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html#隐私效用权衡取舍",
     "title": "权衡取舍、整合与治理",
     "section": "隐私—效用权衡取舍",
-    "text": "隐私—效用权衡取舍\n\n\n\n技术\n保证\n效用代价\n\n\n\n\nk-匿名性\n无正式保证\n精度降低,部分抑制\n\n\n差分隐私(ε=1)\n强\n噪声大\n\n\n差分隐私(ε=10)\n弱\n噪声小\n\n\n合成数据(无差分隐私)\n无\n保真度高,存在记忆风险\n\n\n\n\n实践中各类技术会被叠加使用:k-匿名化 → 合成 → 检查 NNDR(最近邻距离比)→ 对发布的汇总统计量应用差分隐私。是纵深防御,而非单一灵丹妙药。"
+    "text": "隐私—效用权衡取舍\n\n\n\n技术\n保证\n效用代价\n\n\n\n\nk-匿名性\n无正式保证\n精度降低,部分抑制\n\n\n差分隐私(ε=1)\n强\n噪声大\n\n\n差分隐私(ε=10)\n弱\n噪声小\n\n\n合成数据(无差分隐私)\n无\n保真度高,存在记忆风险"
   },
   {
     "objectID": "Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html#可解释性-公平性",
