@@ -536,27 +536,30 @@ Fei Huang, UNSW Sydney
 </section>
 <section id="stages-13" class="slide level2 smaller center">
 <h2>Stages 1–3</h2>
-<p><strong>1. Problem definition.</strong> Is AI appropriate? Which criterion applies? Who’s accountable?</p>
-<p><strong>2. Data collection.</strong> Legal basis? Historical bias? Quasi-identifiers? Minimisation?</p>
-<p><strong>3. Model development.</strong> Right model design? Proxies addressed? Explainable enough? Trade-off quantified?</p>
+<p><strong>1. Problem definition.</strong> Is AI appropriate? Which fairness criterion applies? Who is accountable if something goes wrong?</p>
+<p><strong>2. Data collection.</strong> Is there a legal basis? Could historical decisions have introduced bias? Is data collection limited to what is needed?</p>
+<p><strong>3. Model development.</strong> Are proxy variables for protected attributes addressed? Is the model explainable enough for the context? Has the fairness–accuracy trade-off been quantified?</p>
 <div class="fragment">
 <p><strong>A wrong choice at Stage 1 can’t be fixed by better modelling later.</strong></p>
 </div>
 </section>
 <section id="stages-46" class="slide level2 smaller center">
 <h2>Stages 4–6</h2>
-<p><strong>4. Validation.</strong> Pre-committed audit? TOST, not plain significance? Stable out-of-time?</p>
-<p><strong>5. Deployment.</strong> Human review for edge cases? Contestability? DPIA (data protection impact assessment) complete?</p>
-<p><strong>6. Monitoring.</strong> Fairness metrics recalculated? Data drift tracked? Retraining trigger?</p>
+<p><strong>4. Validation.</strong> Has the audit protocol been agreed before seeing results? Does it provide positive evidence of compliance, or only a failure to find a problem?</p>
+<p><strong>5. Deployment.</strong> Is there human review for high-stakes decisions? Can an affected individual challenge the outcome?</p>
+<p><strong>6. Monitoring.</strong> Are fairness metrics recalculated over time? What triggers re-validation?</p>
 </section>
 <section id="capstone-case-study-claims-triage" class="slide level2 smaller center">
 <h2>Capstone case study: claims triage</h2>
 <p>A motor insurer builds an AI claims-triage system: every incoming claim gets a fraud-risk and complexity score. Low scores → fast-tracked payout within 48h. High scores → routed to manual investigation before any payment.</p>
 <div class="fragment">
+<p><em>What tensions does this system create across the three pillars?</em></p>
+</div>
+<div class="fragment">
 <ul>
 <li><strong>Fairness</strong>: if the score correlates with postcode or vehicle type, are the claimants least able to absorb a delay also the most likely to face one?</li>
 <li><strong>Explainability</strong>: does a claimant whose payment is delayed know why, and can they appeal?</li>
-<li><strong>Privacy</strong>: the model needs claim narrative text, injury detail, third-party records, exactly what a data-sharing agreement needs to protect.</li>
+<li><strong>Privacy</strong>: the model needs claim narrative text, injury detail, third-party records — exactly what a data-sharing agreement needs to protect.</li>
 </ul>
 </div>
 </section>
@@ -579,32 +582,32 @@ Fei Huang, UNSW Sydney
 <tbody>
 <tr class="odd">
 <td>1. Problem definition</td>
-<td>Cost of a false positive vs.&nbsp;a false negative, and who bears each? Reversible?</td>
+<td>Who bears the cost of a false positive, and who bears the cost of a false negative? Is the decision reversible?</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td>2. Data collection</td>
-<td>Historical bias in claim-history data? Narrative text minimised?</td>
+<td>Could past investigation decisions have introduced bias into the training data? How much of the claim narrative does the model actually need?</td>
 <td>6</td>
 </tr>
 <tr class="odd">
 <td>3. Model development</td>
-<td>Which fairness criterion? Which design keeps the fraud signal?</td>
+<td>Which fairness criterion fits this context? Which model design preserves the fraud signal?</td>
 <td>2, 3</td>
 </tr>
 <tr class="even">
 <td>4. Validation</td>
-<td>What audit protocol <em>proves</em> fairness?</td>
+<td>What audit would provide positive evidence of fairness, not just a failure to find a problem?</td>
 <td>2, 3</td>
 </tr>
 <tr class="odd">
 <td>5. Deployment</td>
-<td>A specific explanation and a real appeal, or a generic notice?</td>
+<td>What does a claimant receive — a specific reason they can act on, or a generic notice?</td>
 <td>4, 5</td>
 </tr>
 <tr class="even">
 <td>6. Monitoring</td>
-<td>What triggers re-validation after a fraud-pattern shift?</td>
+<td>What would trigger re-validation after a shift in fraud patterns?</td>
 <td>3, 6</td>
 </tr>
 </tbody>
@@ -631,9 +634,6 @@ Fei Huang, UNSW Sydney
 <li>Does minimising claim data for privacy remove exactly the detail the fraud model needs? Is there a Ch 6/7 technique that reduces this cost instead of just accepting it?</li>
 <li>More accurate but less explainable, or less accurate but more transparent, given the explanation is owed to one claimant and to regulators?</li>
 </ul>
-<div class="fragment">
-<p><strong>There is no answer key.</strong> You should leave with a defensible position on each question, and an honest account of which trade-offs you resolved versus only acknowledged.</p>
-</div>
 <aside class="notes">
 <p>Sample answers. Trade-off 1: this is a policy decision — quantify the cost and benefit and present it to an accountable decision-maker. Trade-off 2: Ch 7 offers a middle path, generalise the more identifying fields but keep a derived feature (e.g.&nbsp;a timeline-inconsistency score) computed once, then discard the raw narrative. Trade-off 3: because the explanation is owed to an individual and to regulators, a gradient-boosted model with TreeSHAP delivers both strong detection and a genuine per-claimant explanation, a simpler scorecard trades away accuracy for an explanation-simplicity gain SHAP mostly already closes.</p>
 <style type="text/css">
