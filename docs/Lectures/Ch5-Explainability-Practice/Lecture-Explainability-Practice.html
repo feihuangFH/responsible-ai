@@ -1510,7 +1510,7 @@ ICE_i(x_j).
 <section id="accumulated-local-effects-ale" class="level3">
 <h3 class="anchored" data-anchor-id="accumulated-local-effects-ale">Accumulated Local Effects (ALE)</h3>
 <p>Accumulated local effects <span class="citation" data-cites="apley2020visualizing">(<a href="#ref-apley2020visualizing" role="doc-biblioref">Apley and Zhu 2020</a>)</span> provide an alternative approach for visualizing predictor effects. Unlike PDPs, ALE focuses on local changes in predictions within intervals of the observed data distribution and therefore reduces the influence of unrealistic observations created by correlated predictors.</p>
-<p>Rather than replacing a predictor with values that may never occur in the data, ALE evaluates how predictions change locally within the observed predictor intervals and accumulates these local effects across the predictor range.</p>
+<p>ALE evaluates how predictions change locally within the observed predictor intervals and accumulates these local effects across the predictor range, avoiding the substitution of values that never occur in the data.</p>
 <p>The general procedure for computing ALE plot is as follows:</p>
 <ol type="1">
 <li>Select a predictor variable of interest.</li>
@@ -1536,7 +1536,7 @@ ICE_i(x_j).
 <li>PDPs measure the average prediction when a predictor is fixed at specific values.</li>
 <li>ALE plots measure local prediction changes within the observed data distribution.</li>
 <li>PDPs are often easier to interpret because they are expressed directly on the prediction scale. However, they may create unrealistic observations and can become misleading when predictors are strongly correlated.</li>
-<li>ALE is generally more robust to correlated predictors, although ALE values represent deviations from the average prediction rather than absolute prediction levels, making them somewhat less straightforward to interpret.</li>
+<li>ALE is generally more robust to correlated predictors. Its values represent deviations from the average prediction, not absolute prediction levels, which makes them harder to interpret.</li>
 </ul>
 <p>Using both methods together often provides a more complete understanding of the model.</p>
 </div>
@@ -4659,7 +4659,7 @@ Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, and Himabindu Lakkaraju. 
 <span id="cb32-991"><a href="#cb32-991" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-992"><a href="#cb32-992" aria-hidden="true" tabindex="-1"></a>Accumulated local effects <span class="co">[</span><span class="ot">@apley2020visualizing</span><span class="co">]</span> provide an alternative approach for visualizing predictor effects. Unlike PDPs, ALE focuses on local changes in predictions within intervals of the observed data distribution and therefore reduces the influence of unrealistic observations created by correlated predictors.</span>
 <span id="cb32-993"><a href="#cb32-993" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-994"><a href="#cb32-994" aria-hidden="true" tabindex="-1"></a>Rather than replacing a predictor with values that may never occur in the data, ALE evaluates how predictions change locally within the observed predictor intervals and accumulates these local effects across the predictor range.</span>
+<span id="cb32-994"><a href="#cb32-994" aria-hidden="true" tabindex="-1"></a>ALE evaluates how predictions change locally within the observed predictor intervals and accumulates these local effects across the predictor range, avoiding the substitution of values that never occur in the data.</span>
 <span id="cb32-995"><a href="#cb32-995" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-996"><a href="#cb32-996" aria-hidden="true" tabindex="-1"></a>The general procedure for computing ALE plot is as follows:</span>
 <span id="cb32-997"><a href="#cb32-997" aria-hidden="true" tabindex="-1"></a></span>
@@ -4679,7 +4679,7 @@ Slack, Dylan, Sophie Hilgard, Emily Jia, Sameer Singh, and Himabindu Lakkaraju. 
 <span id="cb32-1011"><a href="#cb32-1011" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PDPs measure the average prediction when a predictor is fixed at specific values.</span>
 <span id="cb32-1012"><a href="#cb32-1012" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ALE plots measure local prediction changes within the observed data distribution.</span>
 <span id="cb32-1013"><a href="#cb32-1013" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PDPs are often easier to interpret because they are expressed directly on the prediction scale. However, they may create unrealistic observations and can become misleading when predictors are strongly correlated.</span>
-<span id="cb32-1014"><a href="#cb32-1014" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ALE is generally more robust to correlated predictors, although ALE values represent deviations from the average prediction rather than absolute prediction levels, making them somewhat less straightforward to interpret.</span>
+<span id="cb32-1014"><a href="#cb32-1014" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ALE is generally more robust to correlated predictors. Its values represent deviations from the average prediction, not absolute prediction levels, which makes them harder to interpret.</span>
 <span id="cb32-1015"><a href="#cb32-1015" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-1016"><a href="#cb32-1016" aria-hidden="true" tabindex="-1"></a>Using both methods together often provides a more complete understanding of the model.</span>
 <span id="cb32-1017"><a href="#cb32-1017" aria-hidden="true" tabindex="-1"></a></span>
