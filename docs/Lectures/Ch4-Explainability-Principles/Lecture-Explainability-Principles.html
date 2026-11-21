@@ -395,7 +395,7 @@ window.Quarto = {
 <p><strong>Question to ask.</strong> Who needs an explanation, for what purpose, and which method provides it?</p>
 <p><strong>Steps to take.</strong></p>
 <ol type="1">
-<li>Identify the audience — regulator, affected individual, internal reviewer — and the question they need answered.</li>
+<li>Identify the audience (regulator, affected individual, internal reviewer) and the question they need answered.</li>
 <li>Classify the question as global (overall model behaviour) or local (a specific prediction).</li>
 <li>Choose a method from the taxonomy that fits the model type, the audience, and the question.</li>
 <li>State explicitly what the chosen method can and cannot show.</li>
@@ -1123,7 +1123,7 @@ Note
 <p>For a single policyholder’s motor premium prediction, age (young) pushes the prediction up and bonus (low, i.e.&nbsp;a strong no-claims record) pushes it down. This is the natural format for a <strong>customer-facing explanation</strong>: “Your premium is higher than average mainly because of your age and driving history.”</p>
 </div>
 </div>
-<p>The same waterfall format works for a declined loan application or a clinical risk score, expressed as a sum of contributions from income, credit history, or lab values relative to a baseline. Beyond the waterfall, a <strong>summary plot</strong> shows importance, direction, and feature value across every observation at once; a <strong>dependence plot</strong> shows SHAP value against feature value for one feature, the local counterpart to a PDP; the <strong>mean absolute SHAP value</strong> aggregates local values into a global importance ranking; and <strong>interaction values</strong> show how pairs of features jointly move a prediction.</p>
+<p>The same waterfall format works for a declined loan application or a clinical risk score, expressed as a sum of contributions from income, credit history, or lab values relative to a baseline. Beyond the waterfall, a <strong>summary plot</strong> shows importance, direction, and feature value across every observation at once. A <strong>dependence plot</strong> shows SHAP value against feature value for one feature, the local counterpart to a PDP. The <strong>mean absolute SHAP value</strong> aggregates local values into a global importance ranking. <strong>Interaction values</strong> show how pairs of features jointly move a prediction.</p>
 </section>
 <section id="what-shap-buys-you-and-what-it-does-not" class="level3">
 <h3 class="anchored" data-anchor-id="what-shap-buys-you-and-what-it-does-not">What SHAP buys you, and what it does not</h3>
@@ -1315,7 +1315,7 @@ Note
 </table>
 </div>
 </div>
-<p>The same structure recurs outside insurance. A hiring platform owes a rejected applicant a short, plain-language reason; a bank’s model-risk committee needs the aggregated technical picture; a health regulator auditing a triage algorithm needs the subgroup-level fairness view.</p>
+<p>The same structure recurs outside insurance. A hiring platform owes a rejected applicant a short, plain-language reason. A bank’s model-risk committee needs the aggregated technical picture. A health regulator auditing a triage algorithm needs the subgroup-level fairness view.</p>
 </section>
 <section id="common-pitfalls-in-practice" class="level3">
 <h3 class="anchored" data-anchor-id="common-pitfalls-in-practice">Common pitfalls in practice</h3>
