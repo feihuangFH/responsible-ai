@@ -207,6 +207,90 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </header>
 
 
+<style>
+:root {
+  --rai-fair: #2563eb;
+  --rai-xai: #b45309;
+  --rai-priv: #047857;
+  --rai-fair-soft: #eff6ff;
+  --rai-xai-soft: #fef3c7;
+  --rai-priv-soft: #d1fae5;
+  --rai-line: #cbd5e1;
+  --rai-mid: #64748b;
+  --rai-border: #e2e8f0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme="light"]) {
+    --rai-fair: #60a5fa;
+    --rai-xai: #fbbf24;
+    --rai-priv: #34d399;
+    --rai-fair-soft: rgba(37,99,235,.18);
+    --rai-xai-soft: rgba(180,83,9,.18);
+    --rai-priv-soft: rgba(4,120,87,.18);
+    --rai-line: #475569;
+    --rai-mid: #94a3b8;
+    --rai-border: #334155;
+  }
+}
+[data-bs-theme="dark"] {
+  --rai-fair: #60a5fa;
+  --rai-xai: #fbbf24;
+  --rai-priv: #34d399;
+  --rai-fair-soft: rgba(37,99,235,.18);
+  --rai-xai-soft: rgba(180,83,9,.18);
+  --rai-priv-soft: rgba(4,120,87,.18);
+  --rai-line: #475569;
+  --rai-mid: #94a3b8;
+  --rai-border: #334155;
+}
+.rai-hero { width: 100%; display: block; overflow: visible; margin: 1.5rem 0 2.5rem; }
+.rai-lc-wrap { margin: 1.75rem 0 2rem; font-family: system-ui, sans-serif; }
+.rai-lc-title { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--rai-mid); margin: 0 0 .75rem; }
+.rai-lc-scroll { overflow-x: auto; }
+.rai-lc-grid { display: grid; grid-template-columns: auto repeat(5, 1fr); gap: 4px; min-width: 380px; }
+.rai-lc-sh { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--rai-mid); text-align: center; padding-bottom: 6px; line-height: 1.3; }
+.rai-lc-pn { font-size: .82rem; font-weight: 600; padding-right: 12px; display: flex; align-items: center; white-space: nowrap; }
+.rai-lc-c { height: 32px; border-radius: 4px; }
+.rai-lc-legend { font-size: .72rem; color: var(--rai-mid); margin: .5rem 0 0; }
+</style>
+
+<svg class="rai-hero" viewbox="0 0 760 192" xmlns="http://www.w3.org/2000/svg" aria-label="Three pillars of responsible AI: Fairness, Explainability, and Privacy">
+  <line x1="177" y1="85" x2="330" y2="85" stroke="var(--rai-line)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+  <line x1="430" y1="85" x2="583" y2="85" stroke="var(--rai-line)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+  <g transform="translate(127,85)">
+    <circle r="50" fill="var(--rai-fair-soft)" stroke="var(--rai-fair)" stroke-width="1.8"></circle>
+    <g stroke="var(--rai-fair)" stroke-width="2.1" stroke-linecap="round" fill="none">
+      <circle cx="0" cy="-18" r="2.5" fill="var(--rai-fair)" stroke="none"></circle>
+      <line x1="-20" y1="-18" x2="20" y2="-18"></line>
+      <line x1="0" y1="-15" x2="0" y2="8"></line>
+      <line x1="-14" y1="8" x2="14" y2="8"></line>
+      <line x1="-16" y1="-18" x2="-16" y2="-9"></line>
+      <line x1="16" y1="-18" x2="16" y2="-9"></line>
+      <path d="M -22,-9 Q -16,-4 -10,-9"></path>
+      <path d="M 10,-9 Q 16,-4 22,-9"></path>
+    </g>
+  </g>
+  <text x="127" y="153" text-anchor="middle" font-weight="600" font-size="15" fill="var(--rai-fair)" font-family="system-ui,sans-serif">Fairness</text>
+  <text x="127" y="171" text-anchor="middle" font-size="12" fill="var(--rai-mid)" font-family="system-ui,sans-serif">Who is affected, and how?</text>
+  <g transform="translate(380,85)">
+    <circle r="50" fill="var(--rai-xai-soft)" stroke="var(--rai-xai)" stroke-width="1.8"></circle>
+    <g stroke="var(--rai-xai)" stroke-width="2.1" stroke-linecap="round" fill="none">
+      <circle cx="-3" cy="-5" r="13"></circle>
+      <line x1="7" y1="5" x2="17" y2="15"></line>
+    </g>
+  </g>
+  <text x="380" y="153" text-anchor="middle" font-weight="600" font-size="15" fill="var(--rai-xai)" font-family="system-ui,sans-serif">Explainability</text>
+  <text x="380" y="171" text-anchor="middle" font-size="12" fill="var(--rai-mid)" font-family="system-ui,sans-serif">Why did the model decide this?</text>
+  <g transform="translate(633,85)">
+    <circle r="50" fill="var(--rai-priv-soft)" stroke="var(--rai-priv)" stroke-width="1.8"></circle>
+    <g stroke="var(--rai-priv)" stroke-width="2.1" stroke-linecap="round" fill="none">
+      <rect x="-13" y="-2" width="26" height="17" rx="3"></rect>
+      <path d="M -8,-2 L -8,-11 C -8,-17 8,-17 8,-11 L 8,-2"></path>
+    </g>
+  </g>
+  <text x="633" y="153" text-anchor="middle" font-weight="600" font-size="15" fill="var(--rai-priv)" font-family="system-ui,sans-serif">Privacy</text>
+  <text x="633" y="171" text-anchor="middle" font-size="12" fill="var(--rai-mid)" font-family="system-ui,sans-serif">What data may the model use?</text>
+</svg>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p><strong>Quantitative Responsible AI</strong> is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.</p>
@@ -259,6 +343,36 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <p><strong>Concepts and governance route.</strong> Follow Chapters 1 → 2 → 4 → 6 → 8. These chapters cover the principles, regulatory context, and governance frameworks for each pillar. No coding required.</p>
 <p><strong>Full course.</strong> Work through all eight chapters in order. The practice chapters (3, 5, 7) apply each pillar to real data in R. Chapter 8 brings everything together in a governance and integration framework.</p>
 <p>For the practice chapters, a short setup section at the start of each chapter lists the required R packages and the expected completion time.</p>
+<div class="rai-lc-wrap">
+<p class="rai-lc-title">Where each pillar applies in the AI lifecycle</p>
+<div class="rai-lc-scroll"><div class="rai-lc-grid">
+  <div></div>
+  <div class="rai-lc-sh">Collect<br>Data</div>
+  <div class="rai-lc-sh">Train<br>Model</div>
+  <div class="rai-lc-sh">Evaluate</div>
+  <div class="rai-lc-sh">Deploy</div>
+  <div class="rai-lc-sh">Monitor</div>
+  <div class="rai-lc-pn" style="color:var(--rai-fair)">Fairness</div>
+  <div class="rai-lc-c" style="background:var(--rai-fair);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-fair);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-fair);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-fair-soft)"></div>
+  <div class="rai-lc-c" style="background:var(--rai-fair-soft)"></div>
+  <div class="rai-lc-pn" style="color:var(--rai-xai)">Explainability</div>
+  <div class="rai-lc-c" style="background:var(--rai-border)"></div>
+  <div class="rai-lc-c" style="background:var(--rai-xai-soft)"></div>
+  <div class="rai-lc-c" style="background:var(--rai-xai);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-xai);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-xai-soft)"></div>
+  <div class="rai-lc-pn" style="color:var(--rai-priv)">Privacy</div>
+  <div class="rai-lc-c" style="background:var(--rai-priv);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-priv);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-priv);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-priv);opacity:.75"></div>
+  <div class="rai-lc-c" style="background:var(--rai-priv-soft)"></div>
+</div></div>
+<p class="rai-lc-legend">Darker colour: pillar is directly addressed in this stage. Lighter: relevant but not the primary focus.</p>
+</div>
 </section>
 </section>
 <section id="lectures" class="level2">
