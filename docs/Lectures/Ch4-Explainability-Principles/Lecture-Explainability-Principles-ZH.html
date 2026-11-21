@@ -271,6 +271,7 @@ window.Quarto = {
   <li><a href="#维度二模型无关-vs-模型特定" id="toc-维度二模型无关-vs-模型特定" class="nav-link" data-scroll-target="#维度二模型无关-vs-模型特定">维度二:模型无关 vs 模型特定</a></li>
   <li><a href="#维度三全局-vs-局部" id="toc-维度三全局-vs-局部" class="nav-link" data-scroll-target="#维度三全局-vs-局部">维度三:全局 vs 局部</a></li>
   <li><a href="#分类体系小结" id="toc-分类体系小结" class="nav-link" data-scroll-target="#分类体系小结">分类体系小结</a></li>
+  <li><a href="#哪个问题用哪种方法" id="toc-哪个问题用哪种方法" class="nav-link" data-scroll-target="#哪个问题用哪种方法">哪个问题用哪种方法?</a></li>
   </ul></li>
   <li><a href="#可解释模型" id="toc-可解释模型" class="nav-link" data-scroll-target="#可解释模型">可解释模型</a>
   <ul class="collapse">
@@ -368,6 +369,41 @@ window.Quarto = {
 <li>将利益相关方的需求与不同类型的解释对应起来。</li>
 <li>依据关键的分类维度,对各种可解释性方法加以归类。</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="为什么这在工作中很重要">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>为什么这在工作中很重要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>一家银行拒绝了一笔个人贷款申请。申请人问为什么。模型风险团队问这个理由是否真实。监管机构问该系统是否根本具备可解释性。本章绘制了可用于回答这三个问题的方法,以及每种方法的答案具有可信度的条件。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="从业者摘要">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>从业者摘要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>核心问题。</strong> 谁需要解释、出于什么目的、哪种方法能够提供?</p>
+<p><strong>操作步骤。</strong></p>
+<ol type="1">
+<li>确定受众(监管机构、受影响的个人、内部审查人员)及其需要回答的问题。</li>
+<li>将问题归类为全局(模型整体行为)或局部(单次预测)。</li>
+<li>从分类体系中选择与模型类型、受众和问题相匹配的方法。</li>
+<li>明确说明所选方法能展示什么、不能展示什么。</li>
+</ol>
+<p><strong>需记录的证据。</strong> 附有理由的方法选择、所选方法的适用范围与局限性说明、未覆盖内容的简要描述。</p>
+<p><strong>常见错误。</strong> 使用局部解释方法得出关于模型整体行为的结论。将看似合理的解释视为对模型推理过程的如实呈现。</p>
+</div>
+</div>
 </section>
 <section id="什么是可解释性" class="level2">
 <h2 class="anchored" data-anchor-id="什么是可解释性">什么是可解释性?</h2>
@@ -744,6 +780,83 @@ window.Quarto = {
 <li>单一 SHAP 值:<strong>局部</strong></li>
 <li>某特征在所有观测值上的平均绝对 SHAP 值:<strong>全局</strong></li>
 </ul>
+</section>
+<section id="哪个问题用哪种方法" class="level3">
+<h3 class="anchored" data-anchor-id="哪个问题用哪种方法">哪个问题用哪种方法?</h3>
+<p>从需要回答的问题出发,再选择方法。下表将从业者最常见的问题与对应方法相匹配。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>问题</th>
+<th>方法</th>
+<th>范围</th>
+<th>前提条件</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>该模型整体在做什么?(审计、审批)</td>
+<td>GLM 系数、决策树路径</td>
+<td>全局</td>
+<td>仅适用于内生式模型</td>
+</tr>
+<tr class="even">
+<td>哪些特征对该模型最重要?</td>
+<td>置换特征重要性(PFI)、平均 |SHAP|</td>
+<td>全局</td>
+<td>任意已拟合模型</td>
+</tr>
+<tr class="odd">
+<td>某一特征平均如何影响预测?</td>
+<td>PDP(特征不相关时)、ALE(特征相关时)</td>
+<td>全局</td>
+<td>任意已拟合模型</td>
+</tr>
+<tr class="even">
+<td>为什么这位个体得到了这一结果?</td>
+<td>SHAP 值(树模型用 TreeSHAP,其余用 KernelSHAP)</td>
+<td>局部</td>
+<td>任意已拟合模型</td>
+</tr>
+<tr class="odd">
+<td>需要改变什么才能得到不同结果?</td>
+<td>反事实解释</td>
+<td>局部</td>
+<td>任意已拟合模型</td>
+</tr>
+<tr class="even">
+<td>该模型对各子群体的处理是否存在差异?</td>
+<td>按子群体分解的 ALE 或平均 SHAP</td>
+<td>全局</td>
+<td>任意已拟合模型</td>
+</tr>
+<tr class="odd">
+<td>该预测附近的模型行为可用什么简单规则近似?</td>
+<td>LIME</td>
+<td>局部</td>
+<td>任意已拟合模型;稳定性不及 SHAP</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="解释方法不能说明什么">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">警告</span>解释方法不能说明什么
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>解释方法描述的是模型的行为。它无法证明模型是公平的、预测变量具有因果关系,或决策本身是合适的。一个解释充分的模型仍可能存在偏见、校准不当或被用于错误的问题。解释分析与公平性分析、因果分析是相互独立的任务。</p>
+</div>
+</div>
 </section>
 </section>
 <section id="可解释模型" class="level2">

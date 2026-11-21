@@ -271,6 +271,7 @@ window.Quarto = {
   <li><a href="#dimension-2-model-agnostic-vs-model-specific" id="toc-dimension-2-model-agnostic-vs-model-specific" class="nav-link" data-scroll-target="#dimension-2-model-agnostic-vs-model-specific">Dimension 2: Model-agnostic vs model-specific</a></li>
   <li><a href="#dimension-3-global-vs-local" id="toc-dimension-3-global-vs-local" class="nav-link" data-scroll-target="#dimension-3-global-vs-local">Dimension 3: Global vs local</a></li>
   <li><a href="#summary-taxonomy" id="toc-summary-taxonomy" class="nav-link" data-scroll-target="#summary-taxonomy">Summary taxonomy</a></li>
+  <li><a href="#which-method-for-which-question" id="toc-which-method-for-which-question" class="nav-link" data-scroll-target="#which-method-for-which-question">Which method for which question?</a></li>
   </ul></li>
   <li><a href="#explainable-models" id="toc-explainable-models" class="nav-link" data-scroll-target="#explainable-models">Explainable models</a>
   <ul class="collapse">
@@ -368,6 +369,41 @@ window.Quarto = {
 <li>Map stakeholder needs to different types of explanation.</li>
 <li>Classify explainability methods along the key taxonomic dimensions.</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Why this matters at work">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why this matters at work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A bank has declined a personal loan application. The applicant asks why. The model risk team asks whether the reason is genuine. A regulator asks whether the system is interpretable at all. This chapter maps the methods available to answer each of those three questions, and the conditions under which each has a credible answer.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Practitioner summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Practitioner summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question to ask.</strong> Who needs an explanation, for what purpose, and which method provides it?</p>
+<p><strong>Steps to take.</strong></p>
+<ol type="1">
+<li>Identify the audience — regulator, affected individual, internal reviewer — and the question they need answered.</li>
+<li>Classify the question as global (overall model behaviour) or local (a specific prediction).</li>
+<li>Choose a method from the taxonomy that fits the model type, the audience, and the question.</li>
+<li>State explicitly what the chosen method can and cannot show.</li>
+</ol>
+<p><strong>Evidence to record.</strong> Method selection with rationale, documented scope and limitations, brief description of what the explanation does not cover.</p>
+<p><strong>Common mistakes.</strong> Using a local explanation method to draw conclusions about global model behaviour. Treating a plausible explanation as a faithful representation of the model’s reasoning.</p>
+</div>
+</div>
 </section>
 <section id="what-is-explainability" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-explainability">What is explainability?</h2>
@@ -749,6 +785,83 @@ Note
 <li>A single SHAP value: <strong>local</strong></li>
 <li>The mean absolute SHAP value for a feature across all observations: <strong>global</strong></li>
 </ul>
+</section>
+<section id="which-method-for-which-question" class="level3">
+<h3 class="anchored" data-anchor-id="which-method-for-which-question">Which method for which question?</h3>
+<p>Start from the question being asked, then choose the method. The table below maps the most common practitioner questions to the appropriate method.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Method</th>
+<th>Scope</th>
+<th>Prerequisite</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>What is the model doing overall? (audit, sign-off)</td>
+<td>GLM coefficients, decision-tree paths</td>
+<td>Global</td>
+<td>Intrinsic models only</td>
+</tr>
+<tr class="even">
+<td>Which features matter most to this model?</td>
+<td>Permutation feature importance (PFI), mean |SHAP|</td>
+<td>Global</td>
+<td>Any fitted model</td>
+</tr>
+<tr class="odd">
+<td>How does one feature affect predictions on average?</td>
+<td>PDP (uncorrelated features), ALE (correlated features)</td>
+<td>Global</td>
+<td>Any fitted model</td>
+</tr>
+<tr class="even">
+<td>Why did this individual receive this outcome?</td>
+<td>SHAP values (TreeSHAP for trees, KernelSHAP otherwise)</td>
+<td>Local</td>
+<td>Any fitted model</td>
+</tr>
+<tr class="odd">
+<td>What would need to change for a different outcome?</td>
+<td>Counterfactual explanations</td>
+<td>Local</td>
+<td>Any fitted model</td>
+</tr>
+<tr class="even">
+<td>Does the model treat subgroups differently?</td>
+<td>ALE or mean SHAP disaggregated by subgroup</td>
+<td>Global</td>
+<td>Any fitted model</td>
+</tr>
+<tr class="odd">
+<td>What simple rule approximates the model near this prediction?</td>
+<td>LIME</td>
+<td>Local</td>
+<td>Any fitted model; less stable than SHAP</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="What an explanation does not show">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What an explanation does not show
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An explanation describes what a model does. It does not establish that the model is fair, that the predictor causes the outcome, or that the decision is appropriate. A well-explained model can still be biased, miscalibrated, or applied to the wrong problem. The explanation and the fairness or causal analysis are separate tasks.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="explainable-models" class="level2">

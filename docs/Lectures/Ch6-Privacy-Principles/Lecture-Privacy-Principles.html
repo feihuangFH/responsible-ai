@@ -300,6 +300,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#data-protection-impact-assessment-dpia-pia" id="toc-data-protection-impact-assessment-dpia-pia" class="nav-link" data-scroll-target="#data-protection-impact-assessment-dpia-pia">Data Protection Impact Assessment (DPIA / PIA)</a></li>
   <li><a href="#privacy-considerations-for-large-language-models" id="toc-privacy-considerations-for-large-language-models" class="nav-link" data-scroll-target="#privacy-considerations-for-large-language-models">Privacy considerations for large language models</a></li>
+  <li><a href="#practical-privacy-assessment-sequence" id="toc-practical-privacy-assessment-sequence" class="nav-link" data-scroll-target="#practical-privacy-assessment-sequence">Practical privacy assessment sequence</a></li>
   <li><a href="#summary-the-core-privacy-principles" id="toc-summary-the-core-privacy-principles" class="nav-link" data-scroll-target="#summary-the-core-privacy-principles">Summary: the core privacy principles</a></li>
   <li><a href="#recommended-reading" id="toc-recommended-reading" class="nav-link" data-scroll-target="#recommended-reading">Recommended reading</a></li>
   </ul></li>
@@ -343,6 +344,42 @@ window.Quarto = {
 <li>Apply Solove’s taxonomy of privacy violations and Nissenbaum’s contextual integrity to real-world scenarios across domains.</li>
 <li>Identify the privacy tensions arising from connected devices, big data, and AI, using insurance telematics (data collected from devices or apps that track how, when, and where a vehicle is driven) as a detailed case study.</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Why this matters at work">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why this matters at work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A health insurer’s privacy officer has two weeks before a data-sharing agreement goes to the board. She needs to identify all personal data in the shared dataset, assess re-identification risk, establish the legal basis, and document the conclusion. This chapter builds the framework to do that.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Practitioner summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Practitioner summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question to ask.</strong> What personal data is processed, who can be re-identified, and what law applies?</p>
+<p><strong>Steps to take.</strong></p>
+<ol type="1">
+<li>Map data flows and identify all personal data collected, stored, and shared.</li>
+<li>Classify data by sensitivity and re-identification risk.</li>
+<li>Check contextual norms — does data use match the context in which the data was originally collected?</li>
+<li>Identify the legal basis for each processing activity.</li>
+<li>Document privacy risks and planned controls.</li>
+</ol>
+<p><strong>Evidence to record.</strong> Data flow map, privacy risk assessment, legal basis documentation, record of processing activities.</p>
+<p><strong>Common mistakes.</strong> Treating anonymisation as binary — a dataset is not simply anonymous or not. Assuming aggregation eliminates individual re-identification risk.</p>
+</div>
+</div>
 </section>
 <section id="what-is-privacy" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-privacy">What is privacy?</h2>
@@ -1614,6 +1651,70 @@ D(P_E, P_D) \leq t,
 <p><strong>A deployment failure.</strong> A March 2023 bug in ChatGPT’s Redis library briefly exposed some users’ chat titles to other users, and exposed the names, email addresses, billing addresses, and partial payment-card details (last four digits and expiry date, not the full number) of about 1.2% of ChatGPT Plus subscribers active during a nine-hour window <span class="citation" data-cites="openai2023marchoutage">(<a href="#ref-openai2023marchoutage" role="doc-biblioref">OpenAI 2023</a>)</span>. This was a conventional software bug, unrelated to the memorisation attack described above. It shows the same point from a different angle: an LLM product is a live system handling personal data, and it is subject to the same failure modes as any other system.</p>
 <p><strong>Regulatory response.</strong> Weeks later, Italy’s data protection authority ordered a temporary halt to ChatGPT’s processing of Italian users’ data, citing this incident alongside an absence of a valid legal basis for processing and a lack of transparency about training-data sources <span class="citation" data-cites="garante2023chatgpt">(<a href="#ref-garante2023chatgpt" role="doc-biblioref">Garante per la protezione dei dati personali 2023</a>)</span>, an early, concrete precedent for applying GDPR-style lawfulness and transparency principles to a foundation model rather than a conventional database.</p>
 <p><strong>Practical implication.</strong> Two distinct privacy questions arise whenever an LLM is used in a consequential workflow: (1) <em>could the model itself leak something it was trained on</em> (a concern for whoever trained or fine-tuned it), and (2) <em>what happens to the data in this prompt</em> (a concern for whoever is calling a third-party LLM API). The second is the more immediate risk for most organisations. Sending a customer’s claim details, medical history, or identifying information into a prompt raises the same purpose-limitation and data-minimisation questions as any third-party data sharing, and depends entirely on that provider’s data-retention and training-use terms. Samsung learned this directly: in three separate incidents within three weeks in 2023, engineers pasted proprietary source code, a transcribed internal meeting, and confidential test data into ChatGPT to get help with their own work, after which the company banned the tool for staff entirely <span class="citation" data-cites="forbes2023samsung">(<a href="#ref-forbes2023samsung" role="doc-biblioref">Ray 2023</a>)</span>. The DPIA process above should treat an LLM API call as a data disclosure to a third party, subject to the same purpose-limitation and minimisation analysis as any other data transfer.</p>
+</section>
+<section id="practical-privacy-assessment-sequence" class="level3">
+<h3 class="anchored" data-anchor-id="practical-privacy-assessment-sequence">Practical privacy assessment sequence</h3>
+<p>Use this sequence as a navigational guide when assessing a new data-processing activity — a model training run, a data-sharing agreement, or a new product feature.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 32%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Question</th>
+<th>Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Map data flows</strong></td>
+<td>What personal data is collected, from whom, stored where, shared with whom?</td>
+<td>Section: Data flows and re-identification</td>
+</tr>
+<tr class="even">
+<td><strong>2. Classify by sensitivity</strong></td>
+<td>Does the data include special-category information (health, biometrics, location, financial)?</td>
+<td>Section: Regulatory frameworks — GDPR, CCPA, APP</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Check contextual norms</strong></td>
+<td>Does the new use match the context in which the data was originally shared?</td>
+<td>Section: Contextual integrity</td>
+</tr>
+<tr class="even">
+<td><strong>4. Identify legal basis</strong></td>
+<td>Is there a lawful basis for each processing activity?</td>
+<td>Section: Regulatory frameworks</td>
+</tr>
+<tr class="odd">
+<td><strong>5. Identify re-identification risk</strong></td>
+<td>Could any individual be singled out from the dataset as transformed for sharing or publication?</td>
+<td>Section: Privacy-Enhancing Techniques; Chapter 7 for implementation</td>
+</tr>
+<tr class="even">
+<td><strong>6. Document residual risks</strong></td>
+<td>What risks remain after controls are applied? Who is accountable for accepting them?</td>
+<td>Section: DPIA / PIA</td>
+</tr>
+</tbody>
+</table>
+<p>Steps 1–4 can be completed by a privacy officer without technical support. Steps 5–6 require the technical analysis covered in Chapter 7.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Anonymisation is not a one-time event">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Anonymisation is not a one-time event
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A dataset judged sufficiently anonymised at one point in time may become re-identifiable as auxiliary data grows. The assessment in Step 5 should be revisited whenever the dataset is shared with a new party, combined with a new data source, or the population size in a subgroup changes.</p>
+</div>
+</div>
 </section>
 <section id="summary-the-core-privacy-principles" class="level3">
 <h3 class="anchored" data-anchor-id="summary-the-core-privacy-principles">Summary: the core privacy principles</h3>

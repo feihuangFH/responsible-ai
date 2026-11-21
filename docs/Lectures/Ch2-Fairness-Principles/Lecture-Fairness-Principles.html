@@ -317,6 +317,41 @@ window.Quarto = {
 <li>Connect fairness criteria to model design choices and regulatory contexts.</li>
 <li>Explain why no single fairness criterion satisfies all stakeholder perspectives simultaneously.</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Why this matters at work">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why this matters at work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A pricing actuary has been asked whether a proposed motor model is “fair.” The legal team wants a written answer. The first question she should ask is: fair by which criterion? This chapter explains what the main criteria are, when each applies, and why choosing among them is a substantive technical decision, not a formality.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Practitioner summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Practitioner summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question to ask.</strong> Which fairness criterion applies to this decision system?</p>
+<p><strong>Steps to take.</strong></p>
+<ol type="1">
+<li>Identify the protected attribute(s) and check whether base rates differ across groups.</li>
+<li>Choose a criterion from the taxonomy — FTU, CPV, DP, CDP, separation, or sufficiency — and document the rationale.</li>
+<li>Check whether any regulatory requirement constrains or specifies the criterion.</li>
+<li>Record why the chosen criterion is compatible with the product’s design and what it cannot guarantee.</li>
+</ol>
+<p><strong>Evidence to record.</strong> Documented criterion choice with rationale, regulatory mapping, note on incompatible criteria and why they were not selected.</p>
+<p><strong>Common mistakes.</strong> Applying multiple criteria without resolving conflicts between them. Treating FTU as sufficient when proxy variables remain. Choosing a criterion after seeing the results.</p>
+</div>
+</div>
 </section>
 <section id="step-1-what-is-fair" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-what-is-fair">Step 1: What is fair?</h2>
@@ -468,7 +503,111 @@ Note
 <figcaption>Fairness criteria taxonomy used in this chapter: individual fairness (FTU, fairness through awareness, CPV) and group fairness (DP, CDP, separation, sufficiency).</figcaption>
 </figure>
 </div>
-<p><em>This taxonomy is illustrated with a worked life insurance example in <a href="https://fair.feihuang.org/Case%20Study%201/case_study1.html">Case Study: Fairness Metrics for Life Insurance</a> in the Fair Pricing Playbook.</em></p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="Worked example: which criterion for life insurance pricing?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Worked example: which criterion for life insurance pricing?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The same decision — setting a life insurance premium — leads to a different fairness question depending on which criterion is applied. This example, drawn from <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck et al. (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026</a>)</span>, uses three applicants to make the choice concrete.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Applicant</th>
+<th>Age</th>
+<th>Sex</th>
+<th>Smoking</th>
+<th>Notable activity</th>
+<th>Mortality risk score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gertrude</td>
+<td>34</td>
+<td>F</td>
+<td>No</td>
+<td>Jogging</td>
+<td>0.80</td>
+</tr>
+<tr class="even">
+<td>Paula</td>
+<td>36</td>
+<td>F</td>
+<td>No</td>
+<td>Yoga</td>
+<td>0.85</td>
+</tr>
+<tr class="odd">
+<td>Ricky</td>
+<td>23</td>
+<td>M</td>
+<td>Yes</td>
+<td>Rock climbing, motorcycle racing</td>
+<td>1.60</td>
+</tr>
+</tbody>
+</table>
+<p>Gertrude and Paula have similar, low mortality risk. Ricky’s score is roughly double theirs, reflecting smoking and high-risk activities.</p>
+<p><strong>What should each person pay?</strong> The answer depends on the criterion.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>What it requires</th>
+<th>Implication for Gertrude, Paula, Ricky</th>
+<th>Key assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fairness through unawareness (FTU)</td>
+<td>Remove sex from the model</td>
+<td>Premiums differ only by risk score and activities; sex plays no direct role</td>
+<td>Proxy effects through smoking or activity patterns do not carry sex information into the model</td>
+</tr>
+<tr class="even">
+<td>Fairness through awareness</td>
+<td>Similar individuals receive similar premiums</td>
+<td>Gertrude and Paula (similar scores) pay similarly; Ricky pays materially more</td>
+<td>The mortality risk score is a valid similarity metric and does not itself encode group disparities</td>
+</tr>
+<tr class="odd">
+<td>Demographic parity (DP)</td>
+<td>Average premium equal across sex groups</td>
+<td>Female average ≈ Male average; would require cross-subsidy since Ricky’s risk is genuinely higher</td>
+<td>Differences in average risk by sex are not legitimate grounds for differential average pricing</td>
+</tr>
+<tr class="even">
+<td>Sufficiency</td>
+<td>Same risk score means same expected mortality, regardless of sex</td>
+<td>Pricing tracks the score; groups with the same score are treated the same</td>
+<td>The score is equally well calibrated for men and women</td>
+</tr>
+</tbody>
+</table>
+<p>No single criterion satisfies all of these at once when the two groups differ in underlying risk. Demographic parity and sufficiency point in opposite directions here. Choosing between them is a <strong>legal and social judgement</strong>, not a statistical one.</p>
+<p>For the full walkthrough, including separation and the trade-off analysis, see <a href="https://fair.feihuang.org/Case%20Study%201/case_study1.html">Case Study: Fairness Metrics for Life Insurance</a> in the Fair Pricing Playbook.</p>
+</div>
+</div>
 <p>Let <span class="math inline">X_P</span> = protected attribute, <span class="math inline">X_{NP}</span> = other features, <span class="math inline">Y</span> = actual outcome, <span class="math inline">\hat{Y}</span> = predicted outcome or decision. The symbol <span class="math inline">\perp</span> means statistically independent of (knowing one tells you nothing about the other), and <span class="math inline">\mid</span> means given, or within groups defined by.</p>
 <p><strong>Individual fairness</strong></p>
 <table class="caption-top table">

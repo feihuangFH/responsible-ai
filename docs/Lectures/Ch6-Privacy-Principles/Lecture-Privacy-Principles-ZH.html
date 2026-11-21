@@ -301,6 +301,7 @@ window.Quarto = {
   <li><a href="#隐私影响评估dpiapia" id="toc-隐私影响评估dpiapia" class="nav-link" data-scroll-target="#隐私影响评估dpiapia">隐私影响评估(DPIA/PIA)</a></li>
   <li><a href="#大语言模型的隐私考量" id="toc-大语言模型的隐私考量" class="nav-link" data-scroll-target="#大语言模型的隐私考量">大语言模型的隐私考量</a></li>
   <li><a href="#小结核心隐私原则" id="toc-小结核心隐私原则" class="nav-link" data-scroll-target="#小结核心隐私原则">小结:核心隐私原则</a></li>
+  <li><a href="#实践隐私评估流程" id="toc-实践隐私评估流程" class="nav-link" data-scroll-target="#实践隐私评估流程">实践隐私评估流程</a></li>
   <li><a href="#推荐阅读" id="toc-推荐阅读" class="nav-link" data-scroll-target="#推荐阅读">推荐阅读</a></li>
   </ul></li>
   </ul>
@@ -343,6 +344,42 @@ window.Quarto = {
 <li>将 Solove 的隐私侵害分类体系和 Nissenbaum 的场景一致性理论,应用于各领域的真实情境。</li>
 <li>以保险车载远程信息技术(从追踪车辆如何、何时、在何处被驾驶的设备或应用中收集的数据)为详细案例研究,识别联网设备、大数据和人工智能所带来的隐私张力。</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="为什么这在工作中很重要">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>为什么这在工作中很重要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>一家健康保险公司的隐私官有两周时间,要在数据共享协议提交董事会之前完成评估。她需要识别共享数据集中的所有个人数据、评估重新识别风险、确立法律依据并记录结论。本章为完成这一工作提供框架。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="从业者摘要">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>从业者摘要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>核心问题。</strong> 处理了哪些个人数据?谁可能被重新识别?适用哪些法律?</p>
+<p><strong>操作步骤。</strong></p>
+<ol type="1">
+<li>绘制数据流图,识别收集、存储和共享的所有个人数据。</li>
+<li>按敏感程度和重新识别风险对数据进行分类。</li>
+<li>核查场景一致性——数据的使用方式是否符合数据最初收集时的场景?</li>
+<li>明确每项处理活动的法律依据。</li>
+<li>记录隐私风险及计划采取的管控措施。</li>
+</ol>
+<p><strong>需记录的证据。</strong> 数据流图、隐私风险评估、法律依据文档、数据处理活动记录。</p>
+<p><strong>常见错误。</strong> 将匿名化视为非此即彼——数据并非简单地”匿名”或”非匿名”。认为数据聚合可以消除个体重新识别风险。</p>
+</div>
+</div>
 </section>
 <section id="什么是隐私" class="level2">
 <h2 class="anchored" data-anchor-id="什么是隐私">什么是隐私?</h2>
@@ -1623,6 +1660,70 @@ D(P_E, P_D) \leq t,
 </tr>
 </tbody>
 </table>
+</section>
+<section id="实践隐私评估流程" class="level3">
+<h3 class="anchored" data-anchor-id="实践隐私评估流程">实践隐私评估流程</h3>
+<p>在评估新的数据处理活动时(包括模型训练、数据共享协议或新产品功能),请将以下流程作为导引框架。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>步骤</th>
+<th>问题</th>
+<th>参考位置</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. 绘制数据流</strong></td>
+<td>收集了哪些个人数据?来自何处?存储在哪里?与谁共享?</td>
+<td>章节:数据流与重新识别</td>
+</tr>
+<tr class="even">
+<td><strong>2. 按敏感度分类</strong></td>
+<td>数据是否包含特殊类别信息(健康、生物特征、位置、财务)?</td>
+<td>章节:监管框架 — GDPR、CCPA、APP</td>
+</tr>
+<tr class="odd">
+<td><strong>3. 核查场景规范</strong></td>
+<td>新用途是否符合数据最初被共享时所处的场景?</td>
+<td>章节:场景一致性</td>
+</tr>
+<tr class="even">
+<td><strong>4. 确认法律依据</strong></td>
+<td>每项处理活动是否具备合法依据?</td>
+<td>章节:监管框架</td>
+</tr>
+<tr class="odd">
+<td><strong>5. 识别重新识别风险</strong></td>
+<td>经转换后用于共享或发布的数据集中,是否可以识别出具体个人?</td>
+<td>章节:隐私增强技术;第七章负责实现</td>
+</tr>
+<tr class="even">
+<td><strong>6. 记录残余风险</strong></td>
+<td>管控措施实施后仍存在哪些风险?谁负责接受这些风险?</td>
+<td>章节:DPIA/PIA</td>
+</tr>
+</tbody>
+</table>
+<p>步骤1至4可由隐私官在无需技术支持的情况下完成。步骤5至6需要第七章所介绍的技术分析。</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="匿名化不是一次性工作">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">警告</span>匿名化不是一次性工作
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>某一时刻被认为充分匿名化的数据集,随着辅助数据的增长,可能在未来重新变得可识别。每当数据集与新方共享、与新数据源合并,或某个子群体的规模发生变化时,步骤5的评估都应重新进行。</p>
+</div>
+</div>
 </section>
 <section id="推荐阅读" class="level3">
 <h3 class="anchored" data-anchor-id="推荐阅读">推荐阅读</h3>

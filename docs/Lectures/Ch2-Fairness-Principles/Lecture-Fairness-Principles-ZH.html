@@ -317,6 +317,41 @@ window.Quarto = {
 <li>将公平性准则与模型设计选择及监管背景联系起来。</li>
 <li>说明为什么没有任何一种单一的公平性准则能够同时满足所有利益相关方的诉求。</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled" title="为什么这在工作中很重要">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>为什么这在工作中很重要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>一位定价精算师被要求判断一个拟议的车险模型是否”公平”,法律团队需要书面答复。她首先应该提出的问题是:按哪种准则公平?本章阐明了主要准则是什么、各自的适用情形,以及在它们之间做出选择是一项实质性的技术决策,而非流于形式。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="从业者摘要">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>从业者摘要
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>核心问题。</strong> 该决策系统适用哪一项公平性准则?</p>
+<p><strong>操作步骤。</strong></p>
+<ol type="1">
+<li>识别受保护属性,检查各群体之间的基础率是否存在差异。</li>
+<li>从分类体系中选择一项准则(FTU、CPV、DP、CDP、分离性或充分性),并记录选择理由。</li>
+<li>核查监管要求是否对准则的选择有所约束或明确规定。</li>
+<li>记录所选准则与产品设计的相容性,以及该准则无法保证的内容。</li>
+</ol>
+<p><strong>需记录的证据。</strong> 附有理由的准则选择文档、监管对应关系、未选择的不相容准则及其原因说明。</p>
+<p><strong>常见错误。</strong> 同时采用多项相互冲突的准则而不加以协调。在代理变量依然存在的情况下,将 FTU 视为充分条件。在看到结果之后才选择准则。</p>
+</div>
+</div>
 </section>
 <section id="第一步什么是公平" class="level2">
 <h2 class="anchored" data-anchor-id="第一步什么是公平">第一步:什么是公平?</h2>
@@ -464,7 +499,103 @@ window.Quarto = {
 <figcaption>本章所使用的公平性准则分类体系:个体公平性(FTU、有意识公平、CPV)与群体公平性(DP、CDP、分离性、充分性)。</figcaption>
 </figure>
 </div>
-<p><em>该分类体系在《公平定价手册》的<a href="https://fair.feihuang.org/Case%20Study%201/case_study1.html">案例研究:人寿保险公平性指标</a>中有完整的人寿保险应用示例。</em></p>
+<div class="case-study callout callout-style-default callout-note callout-titled" title="应用示例:人寿保险定价适用哪一项公平性准则?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>应用示例:人寿保险定价适用哪一项公平性准则?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>同一项决策——设定人寿保险保费——会因所采用的公平性准则不同而引出不同的公平性问题。以下示例改编自 <span class="citation" data-cites="krafcheck2026fairnessmetrics">Krafcheck 等 (<a href="#ref-krafcheck2026fairnessmetrics" role="doc-biblioref">2026年</a>)</span>，以三位投保人为例，使这一选择更加具体。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>投保人</th>
+<th>年龄</th>
+<th>性别</th>
+<th>吸烟</th>
+<th>主要活动</th>
+<th>死亡率风险评分</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gertrude</td>
+<td>34</td>
+<td>女</td>
+<td>否</td>
+<td>慢跑</td>
+<td>0.80</td>
+</tr>
+<tr class="even">
+<td>Paula</td>
+<td>36</td>
+<td>女</td>
+<td>否</td>
+<td>瑜伽</td>
+<td>0.85</td>
+</tr>
+<tr class="odd">
+<td>Ricky</td>
+<td>23</td>
+<td>男</td>
+<td>是</td>
+<td>攀岩、摩托车竞速</td>
+<td>1.60</td>
+</tr>
+</tbody>
+</table>
+<p>Gertrude 与 Paula 的死亡率风险相近且较低。Ricky 的评分约为她们的两倍,反映了吸烟习惯与高风险活动的影响。</p>
+<p><strong>三人各应缴纳多少保费?</strong> 答案取决于所选的公平性准则。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>准则</th>
+<th>要求</th>
+<th>对三人的含义</th>
+<th>核心假设</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>无意识公平(FTU)</td>
+<td>从模型中移除性别变量</td>
+<td>保费仅依据风险评分与活动情况确定,性别不直接参与</td>
+<td>吸烟或活动模式等代理变量不会将性别信息带入模型</td>
+</tr>
+<tr class="even">
+<td>有意识公平</td>
+<td>相似个体获得相似保费</td>
+<td>Gertrude 与 Paula(评分相近)保费相近；Ricky 保费明显更高</td>
+<td>死亡率风险评分是有效的相似性度量,且本身不编码群体差异</td>
+</tr>
+<tr class="odd">
+<td>人口统计学均等性(DP)</td>
+<td>各性别群体的平均保费相等</td>
+<td>女性均值 ≈ 男性均值；由于 Ricky 的真实风险更高,这要求进行交叉补贴</td>
+<td>各性别间平均风险的差异,不构成差异化平均定价的正当理由</td>
+</tr>
+<tr class="even">
+<td>充分性</td>
+<td>相同风险评分意味着相同的预期死亡率,与性别无关</td>
+<td>保费跟随评分变化；相同评分的群体受到相同对待</td>
+<td>该评分对男性与女性具有同等的校准精度</td>
+</tr>
+</tbody>
+</table>
+<p>当两个群体的基础风险存在差异时,没有任何一项准则能同时满足所有上述要求。人口统计学均等性与充分性在这里指向相反方向。在二者之间做出选择,是一项<strong>法律与社会判断</strong>,而非统计问题。</p>
+<p>关于分离性准则及权衡取舍分析的完整讲解,请参阅《公平定价手册》中的<a href="https://fair.feihuang.org/Case%20Study%201/case_study1.html">案例研究:人寿保险公平性指标</a>。</p>
+</div>
+</div>
 <p>设 <span class="math inline">X_P</span> = 受保护属性,<span class="math inline">X_{NP}</span> = 其他特征,<span class="math inline">Y</span> = 实际结果,<span class="math inline">\hat{Y}</span> = 预测结果或决策。符号 <span class="math inline">\perp</span> 表示统计独立(知道其中一个变量,并不能告诉你关于另一个变量的任何信息),<span class="math inline">\mid</span> 表示“给定”或“在……所界定的群体内”。</p>
 <p><strong>个体公平性</strong></p>
 <table class="caption-top table">
