@@ -210,46 +210,72 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p><strong>Quantitative Responsible AI</strong> is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.</p>
-<p>This open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.</p>
-<div class="columns home-columns">
-<div class="column" style="width:100%;">
-<section id="lectures" class="level3">
-<h3 class="anchored" data-anchor-id="lectures">Lectures</h3>
+<p>This open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general. Insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.</p>
+</section>
+<section id="start-here" class="level2">
+<h2 class="anchored" data-anchor-id="start-here">Start here</h2>
+<section id="who-this-is-for" class="level3">
+<h3 class="anchored" data-anchor-id="who-this-is-for">Who this is for</h3>
+<p>This course is designed for quantitative practitioners and advanced students who build, evaluate, or oversee AI-driven decision systems. The frameworks and methods apply across sectors. Insurance and actuarial examples run throughout as a consistent case study.</p>
+<p><strong>Background assumed:</strong></p>
 <ul>
-<li>Chapter 1: Introduction
-<ul>
-<li><a href="Lectures/Ch1-Introduction/Lecture-Introduction.html">Lecture Notes</a> · <a href="Lectures/Ch1-Introduction/Slides-Introduction.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 2: Fairness Principles
-<ul>
-<li><a href="Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch2-Fairness-Principles/Slides-Fairness-Principles.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 3: Fairness Practice
-<ul>
-<li><a href="Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch3-Fairness-Practice/Slides-Fairness-Practice.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 4: Explainability Principles
-<ul>
-<li><a href="Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch4-Explainability-Principles/Slides-Explainability-Principles.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 5: Explainability Practice
-<ul>
-<li><a href="Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch5-Explainability-Practice/Slides-Explainability-Practice.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 6: Privacy Principles
-<ul>
-<li><a href="Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch6-Privacy-Principles/Slides-Privacy-Principles.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 7: Privacy Practice
-<ul>
-<li><a href="Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch7-Privacy-Practice/Slides-Privacy-Practice.slides.html">Slides</a></li>
-</ul></li>
-<li>Chapter 8: Trade-offs, Integration, and Governance
-<ul>
-<li><a href="Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html">Lecture Notes</a> · <a href="Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html">Slides</a></li>
-</ul></li>
+<li>Comfort with probability and regression</li>
+<li>Some R experience is helpful for the practice chapters (Chapters 3, 5, and 7)</li>
+<li>No prior machine learning background required</li>
 </ul>
 </section>
+<section id="what-you-will-be-able-to-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-you-will-be-able-to-do">What you will be able to do</h3>
+<p>By the end of this course, you will be able to:</p>
+<ul>
+<li>Choose and justify a fairness criterion for a decision system, and explain the trade-offs when criteria conflict</li>
+<li>Select an appropriate explanation method for a given model and audience, and state what it can and cannot show</li>
+<li>Identify privacy risks in a data pipeline, apply a privacy-preserving technique, and assess residual disclosure risk</li>
+<li>Complete a structured model-risk review that covers fairness, explainability, privacy, and governance for a deployed system</li>
+</ul>
+</section>
+<section id="how-to-take-the-course" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-take-the-course">How to take the course</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Route</th>
+<th>Chapters</th>
+<th>Estimated time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Concepts and governance</td>
+<td>1, 2, 4, 6, 8</td>
+<td>~12 hours</td>
+</tr>
+<tr class="even">
+<td>Full course</td>
+<td>1–8 in order</td>
+<td>~20 hours</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Concepts and governance route.</strong> Follow Chapters 1 → 2 → 4 → 6 → 8. These chapters cover the principles, regulatory context, and governance frameworks for each pillar. No coding required.</p>
+<p><strong>Full course.</strong> Work through all eight chapters in order. The practice chapters (3, 5, 7) apply each pillar to real data in R. Chapter 8 brings everything together in a governance and integration framework.</p>
+<p>For the practice chapters, a short setup section at the start of each chapter lists the required R packages and the expected completion time.</p>
+</section>
+</section>
+<section id="lectures" class="level2">
+<h2 class="anchored" data-anchor-id="lectures">Lectures</h2>
+<div class="columns home-columns">
+<div class="column" style="width:100%;">
+<ul>
+<li><p><strong>Chapter 1: Introduction</strong> <em>Identify where in the AI lifecycle fairness, explainability, and privacy concerns arise, and connect them to real regulatory requirements.</em> <a href="Lectures/Ch1-Introduction/Lecture-Introduction.html">Lecture Notes</a> · <a href="Lectures/Ch1-Introduction/Slides-Introduction.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 2: Fairness Principles</strong> <em>Choose which fairness criterion applies to a decision system and explain why satisfying one criterion can make another impossible to meet.</em> <a href="Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch2-Fairness-Principles/Slides-Fairness-Principles.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 3: Fairness Practice</strong> <em>Fit and compare fair pricing models on real data and quantify the accuracy cost of each fairness constraint.</em> <a href="Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch3-Fairness-Practice/Slides-Fairness-Practice.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 4: Explainability Principles</strong> <em>Select an appropriate explanation method for a given model and audience, and state what the explanation can and cannot show.</em> <a href="Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch4-Explainability-Principles/Slides-Explainability-Principles.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 5: Explainability Practice</strong> <em>Produce global and local explanations for a fitted model and document their limitations for a non-technical audience.</em> <a href="Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch5-Explainability-Practice/Slides-Explainability-Practice.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 6: Privacy Principles</strong> <em>Identify privacy risks in a data pipeline and map them to the relevant legal obligations.</em> <a href="Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles.html">Lecture Notes</a> · <a href="Lectures/Ch6-Privacy-Principles/Slides-Privacy-Principles.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 7: Privacy Practice</strong> <em>Apply k-anonymity, differential privacy, and synthetic data to a real dataset and assess the residual disclosure risk of each.</em> <a href="Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice.html">Lecture Notes</a> · <a href="Lectures/Ch7-Privacy-Practice/Slides-Privacy-Practice.slides.html">Slides</a></p></li>
+<li><p><strong>Chapter 8: Trade-offs, Integration, and Governance</strong> <em>Complete a structured model-risk review that covers fairness, explainability, privacy, and governance across the full AI lifecycle.</em> <a href="Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration.html">Lecture Notes</a> · <a href="Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration.slides.html">Slides</a></p></li>
+</ul>
 </div>
 </div>
 </section>

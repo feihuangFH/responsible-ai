@@ -211,7 +211,7 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 <section id="概述" class="level2">
 <h2 class="anchored" data-anchor-id="概述">概述</h2>
 <p><strong>量化负责任人工智能</strong>是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。</p>
-<p>这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。</p>
+<p>这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性。保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。</p>
 <div class="callout callout-style-default callout-note callout-titled" title="教学使用记录">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -229,45 +229,70 @@ gtag('config', 'G-F11HECZVN7', { 'anonymize_ip': true});
 </ul>
 </div>
 </div>
-<div class="columns home-columns">
-<div class="column" style="width:100%;">
-<section id="课程讲义" class="level3">
-<h3 class="anchored" data-anchor-id="课程讲义">课程讲义</h3>
+</section>
+<section id="从这里开始" class="level2">
+<h2 class="anchored" data-anchor-id="从这里开始">从这里开始</h2>
+<section id="本课程适合谁" class="level3">
+<h3 class="anchored" data-anchor-id="本课程适合谁">本课程适合谁</h3>
+<p>本课程面向构建、评估或监督人工智能驱动决策系统的量化从业者和高年级学生。课程中的框架与方法适用于多个行业。保险与精算案例作为贯穿始终的案例研究反复出现。</p>
+<p><strong>预备知识要求:</strong></p>
 <ul>
-<li>第一章:导论
-<ul>
-<li><a href="Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html">课堂笔记</a> · <a href="Lectures/Ch1-Introduction/Slides-Introduction-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第二章:公平性原则
-<ul>
-<li><a href="Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles-ZH.html">课堂笔记</a> · <a href="Lectures/Ch2-Fairness-Principles/Slides-Fairness-Principles-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第三章:公平性实践
-<ul>
-<li><a href="Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html">课堂笔记</a> · <a href="Lectures/Ch3-Fairness-Practice/Slides-Fairness-Practice-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第四章:可解释性原则
-<ul>
-<li><a href="Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles-ZH.html">课堂笔记</a> · <a href="Lectures/Ch4-Explainability-Principles/Slides-Explainability-Principles-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第五章:可解释性实践
-<ul>
-<li><a href="Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html">课堂笔记</a> · <a href="Lectures/Ch5-Explainability-Practice/Slides-Explainability-Practice-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第六章:隐私原则
-<ul>
-<li><a href="Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles-ZH.html">课堂笔记</a> · <a href="Lectures/Ch6-Privacy-Principles/Slides-Privacy-Principles-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第七章:隐私实践
-<ul>
-<li><a href="Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html">课堂笔记</a> · <a href="Lectures/Ch7-Privacy-Practice/Slides-Privacy-Practice-ZH.slides.html">幻灯片</a></li>
-</ul></li>
-<li>第八章:权衡取舍、整合与治理
-<ul>
-<li><a href="Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration-ZH.html">课堂笔记</a> · <a href="Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html">幻灯片</a></li>
-</ul></li>
+<li>熟悉概率论与回归分析</li>
+<li>实践章节(第三、五、七章)需要一定的 R 语言基础</li>
+<li>无需机器学习背景</li>
 </ul>
 </section>
+<section id="学完本课程你将能够" class="level3">
+<h3 class="anchored" data-anchor-id="学完本课程你将能够">学完本课程,你将能够</h3>
+<ul>
+<li>为某一决策系统选择并论证适用的公平性准则,并解释准则之间发生冲突时的权衡取舍</li>
+<li>针对特定模型和受众选择合适的可解释性方法,并说明该方法能够展示什么、不能展示什么</li>
+<li>识别数据流程中的隐私风险,应用隐私保护技术,并评估各技术的残余披露风险</li>
+<li>完成一份涵盖公平性、可解释性、隐私性和治理的结构化模型风险审查</li>
+</ul>
+</section>
+<section id="如何学习本课程" class="level3">
+<h3 class="anchored" data-anchor-id="如何学习本课程">如何学习本课程</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>学习路径</th>
+<th>章节</th>
+<th>预计时长</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>概念与治理路径</td>
+<td>第一、二、四、六、八章</td>
+<td>约12小时</td>
+</tr>
+<tr class="even">
+<td>完整课程</td>
+<td>第一至八章(按顺序)</td>
+<td>约20小时</td>
+</tr>
+</tbody>
+</table>
+<p><strong>概念与治理路径。</strong> 按第一章 → 第二章 → 第四章 → 第六章 → 第八章的顺序学习。这些章节涵盖每个支柱的原则、监管背景与治理框架,无需编程基础。</p>
+<p><strong>完整课程。</strong> 按顺序学习全部八章。实践章节(第三、五、七章)使用 R 语言将各支柱应用于真实数据。第八章将所有内容整合至一个治理框架。</p>
+<p>各实践章节开头均有简短的环境配置说明,列出所需 R 包与预计完成时间。</p>
+</section>
+</section>
+<section id="课程讲义" class="level2">
+<h2 class="anchored" data-anchor-id="课程讲义">课程讲义</h2>
+<div class="columns home-columns">
+<div class="column" style="width:100%;">
+<ul>
+<li><p><strong>第一章:导论</strong> <em>识别人工智能生命周期中公平性、可解释性与隐私性问题的出现位置,并将其与真实监管要求相联系。</em> <a href="Lectures/Ch1-Introduction/Lecture-Introduction-ZH.html">课堂笔记</a> · <a href="Lectures/Ch1-Introduction/Slides-Introduction-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第二章:公平性原则</strong> <em>选择适用于某一决策系统的公平性准则,并解释为何满足一项准则可能导致另一项准则无法同时成立。</em> <a href="Lectures/Ch2-Fairness-Principles/Lecture-Fairness-Principles-ZH.html">课堂笔记</a> · <a href="Lectures/Ch2-Fairness-Principles/Slides-Fairness-Principles-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第三章:公平性实践</strong> <em>在真实数据上拟合并比较公平定价模型,量化每种公平性约束的准确性代价。</em> <a href="Lectures/Ch3-Fairness-Practice/Lecture-Fairness-Practice-ZH.html">课堂笔记</a> · <a href="Lectures/Ch3-Fairness-Practice/Slides-Fairness-Practice-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第四章:可解释性原则</strong> <em>针对特定模型和受众选择合适的可解释性方法,并说明该方法的解释边界。</em> <a href="Lectures/Ch4-Explainability-Principles/Lecture-Explainability-Principles-ZH.html">课堂笔记</a> · <a href="Lectures/Ch4-Explainability-Principles/Slides-Explainability-Principles-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第五章:可解释性实践</strong> <em>为已拟合的模型生成全局与局部解释,并以非技术受众能够理解的方式记录其局限性。</em> <a href="Lectures/Ch5-Explainability-Practice/Lecture-Explainability-Practice-ZH.html">课堂笔记</a> · <a href="Lectures/Ch5-Explainability-Practice/Slides-Explainability-Practice-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第六章:隐私原则</strong> <em>识别数据流程中的隐私风险,并将其对应到相关法律义务。</em> <a href="Lectures/Ch6-Privacy-Principles/Lecture-Privacy-Principles-ZH.html">课堂笔记</a> · <a href="Lectures/Ch6-Privacy-Principles/Slides-Privacy-Principles-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第七章:隐私实践</strong> <em>对真实数据集分别应用 k-匿名、差分隐私和合成数据技术,并评估各技术的残余披露风险。</em> <a href="Lectures/Ch7-Privacy-Practice/Lecture-Privacy-Practice-ZH.html">课堂笔记</a> · <a href="Lectures/Ch7-Privacy-Practice/Slides-Privacy-Practice-ZH.slides.html">幻灯片</a></p></li>
+<li><p><strong>第八章:权衡取舍、整合与治理</strong> <em>完成一份涵盖公平性、可解释性、隐私性和治理的结构化模型风险审查,贯穿人工智能生命周期的各个阶段。</em> <a href="Lectures/Ch8-Tradeoffs-and-Integration/Lecture-Tradeoffs-and-Integration-ZH.html">课堂笔记</a> · <a href="Lectures/Ch8-Tradeoffs-and-Integration/Slides-Tradeoffs-and-Integration-ZH.slides.html">幻灯片</a></p></li>
+</ul>
 </div>
 </div>
 </section>

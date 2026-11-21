@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "",
-    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
+    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general. Insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.",
     "crumbs": [
       "Home"
     ]
@@ -14,7 +14,7 @@
     "href": "index.html#overview",
     "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
     "section": "",
-    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general — insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.\n\n\n\n\n\nChapter 1: Introduction\n\nLecture Notes · Slides\n\nChapter 2: Fairness Principles\n\nLecture Notes · Slides\n\nChapter 3: Fairness Practice\n\nLecture Notes · Slides\n\nChapter 4: Explainability Principles\n\nLecture Notes · Slides\n\nChapter 5: Explainability Practice\n\nLecture Notes · Slides\n\nChapter 6: Privacy Principles\n\nLecture Notes · Slides\n\nChapter 7: Privacy Practice\n\nLecture Notes · Slides\n\nChapter 8: Trade-offs, Integration, and Governance\n\nLecture Notes · Slides",
+    "text": "Quantitative Responsible AI is the systematic use of quantitative methods to measure, evaluate, and manage the fairness, explainability, privacy, and risks of AI systems.\nThis open learning resource covers responsible AI for consequential automated decision systems: fairness, explainability, privacy, and how to integrate these concerns when systems are built and deployed. The principles are general. Insurance recurs as a worked case study throughout, alongside examples from hiring, lending, and healthcare. This material is used to teach ACTL4306 and ACTL6106 at UNSW Sydney.",
     "crumbs": [
       "Home"
     ]
@@ -5778,7 +5778,7 @@
     "href": "index-ZH.html",
     "title": "量化负责任人工智能:原则、治理与方法",
     "section": "",
-    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n注记教学使用记录\n\n\n\n本课程材料已用于北京大学光华管理学院 BA 工作坊的教学。\n\n课程大纲:查看链接\n课程录像:YouTube 播放列表 · 哔哩哔哩\n\n\n\n\n\n\n\n\n第一章:导论\n\n课堂笔记 · 幻灯片\n\n第二章:公平性原则\n\n课堂笔记 · 幻灯片\n\n第三章:公平性实践\n\n课堂笔记 · 幻灯片\n\n第四章:可解释性原则\n\n课堂笔记 · 幻灯片\n\n第五章:可解释性实践\n\n课堂笔记 · 幻灯片\n\n第六章:隐私原则\n\n课堂笔记 · 幻灯片\n\n第七章:隐私实践\n\n课堂笔记 · 幻灯片\n\n第八章:权衡取舍、整合与治理\n\n课堂笔记 · 幻灯片",
+    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性。保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n注记教学使用记录\n\n\n\n本课程材料已用于北京大学光华管理学院 BA 工作坊的教学。\n\n课程大纲:查看链接\n课程录像:YouTube 播放列表 · 哔哩哔哩",
     "crumbs": [
       "首页"
     ]
@@ -5788,7 +5788,7 @@
     "href": "index-ZH.html#概述",
     "title": "量化负责任人工智能:原则、治理与方法",
     "section": "",
-    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性,保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n注记教学使用记录\n\n\n\n本课程材料已用于北京大学光华管理学院 BA 工作坊的教学。\n\n课程大纲:查看链接\n课程录像:YouTube 播放列表 · 哔哩哔哩\n\n\n\n\n\n\n\n\n第一章:导论\n\n课堂笔记 · 幻灯片\n\n第二章:公平性原则\n\n课堂笔记 · 幻灯片\n\n第三章:公平性实践\n\n课堂笔记 · 幻灯片\n\n第四章:可解释性原则\n\n课堂笔记 · 幻灯片\n\n第五章:可解释性实践\n\n课堂笔记 · 幻灯片\n\n第六章:隐私原则\n\n课堂笔记 · 幻灯片\n\n第七章:隐私实践\n\n课堂笔记 · 幻灯片\n\n第八章:权衡取舍、整合与治理\n\n课堂笔记 · 幻灯片",
+    "text": "量化负责任人工智能是指系统性地运用量化方法来衡量、评估和管理人工智能系统的公平性、可解释性、隐私性与风险。\n这份学习资源涵盖具有重大影响的自动化决策系统中的负责任人工智能:公平性、可解释性、隐私,以及在系统构建与部署过程中如何整合这些考量。本课程所讲授的原则具有普适性。保险业作为贯穿全程的案例研究反复出现,同时也涉及招聘、信贷和医疗领域的实例。\n\n\n\n\n\n\n注记教学使用记录\n\n\n\n本课程材料已用于北京大学光华管理学院 BA 工作坊的教学。\n\n课程大纲:查看链接\n课程录像:YouTube 播放列表 · 哔哩哔哩",
     "crumbs": [
       "首页"
     ]
@@ -5880,5 +5880,45 @@
     "title": "权衡取舍、整合与治理",
     "section": "💬 讨论(3分钟)",
     "text": "💬 讨论(3分钟)\n该评分在每个人口群体内部均对理赔具有预测效力。\na. 这是否意味着这一做法是公平的?有哪些异议是仅凭数据无法解决的?\nb. 4个州全面禁止这一做法,其余46个州在保留该做法的同时施加了限制。面对相同的证据,各方得出了不同的结论。这告诉你,技术分析在监管决策中扮演什么角色?\n\n\n这一做法满足精算公平性和组内预测准确性。在数据层面无法消解的异议在于:信用记录为何能预测理赔?一种答案是因果性的——经济压力导致更危险的驾驶行为。另一种答案是历史性的——信用评分反映了长期积累的经济不平等,按评分收费实际上是在为一种并非由保险公司造成、却正由其从中获益的不利处境重新定价。这两个问题都无法通过更好的统计分析来解决;这是一个关于”价格究竟服务于什么目的”的问题。\n各司法管辖区所依据的技术分析大体相同——它们读的是同一份FTC报告和精算文献。结果的分歧表明,分析工作确定了争论的边界(什么具有预测效力、程度如何、针对哪些群体),但无法终结这场争论。全面禁止与要求披露信息,都与接受相同的数据一致;两者的差异在于决策者对分配后果与精算效率各赋予了多少权重。这是一个治理问题,而非建模问题。"
+  },
+  {
+    "objectID": "index.html#start-here",
+    "href": "index.html#start-here",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
+    "section": "Start here",
+    "text": "Start here\n\nWho this is for\nThis course is designed for quantitative practitioners and advanced students who build, evaluate, or oversee AI-driven decision systems. The frameworks and methods apply across sectors. Insurance and actuarial examples run throughout as a consistent case study.\nBackground assumed:\n\nComfort with probability and regression\nSome R experience is helpful for the practice chapters (Chapters 3, 5, and 7)\nNo prior machine learning background required\n\n\n\nWhat you will be able to do\nBy the end of this course, you will be able to:\n\nChoose and justify a fairness criterion for a decision system, and explain the trade-offs when criteria conflict\nSelect an appropriate explanation method for a given model and audience, and state what it can and cannot show\nIdentify privacy risks in a data pipeline, apply a privacy-preserving technique, and assess residual disclosure risk\nComplete a structured model-risk review that covers fairness, explainability, privacy, and governance for a deployed system\n\n\n\nHow to take the course\n\n\n\nRoute\nChapters\nEstimated time\n\n\n\n\nConcepts and governance\n1, 2, 4, 6, 8\n~12 hours\n\n\nFull course\n1–8 in order\n~20 hours\n\n\n\nConcepts and governance route. Follow Chapters 1 → 2 → 4 → 6 → 8. These chapters cover the principles, regulatory context, and governance frameworks for each pillar. No coding required.\nFull course. Work through all eight chapters in order. The practice chapters (3, 5, 7) apply each pillar to real data in R. Chapter 8 brings everything together in a governance and integration framework.\nFor the practice chapters, a short setup section at the start of each chapter lists the required R packages and the expected completion time.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
+    "title": "Quantitative Responsible AI: Principles, Governance, and Methods",
+    "section": "Lectures",
+    "text": "Lectures\n\n\n\nChapter 1: Introduction Identify where in the AI lifecycle fairness, explainability, and privacy concerns arise, and connect them to real regulatory requirements. Lecture Notes · Slides\nChapter 2: Fairness Principles Choose which fairness criterion applies to a decision system and explain why satisfying one criterion can make another impossible to meet. Lecture Notes · Slides\nChapter 3: Fairness Practice Fit and compare fair pricing models on real data and quantify the accuracy cost of each fairness constraint. Lecture Notes · Slides\nChapter 4: Explainability Principles Select an appropriate explanation method for a given model and audience, and state what the explanation can and cannot show. Lecture Notes · Slides\nChapter 5: Explainability Practice Produce global and local explanations for a fitted model and document their limitations for a non-technical audience. Lecture Notes · Slides\nChapter 6: Privacy Principles Identify privacy risks in a data pipeline and map them to the relevant legal obligations. Lecture Notes · Slides\nChapter 7: Privacy Practice Apply k-anonymity, differential privacy, and synthetic data to a real dataset and assess the residual disclosure risk of each. Lecture Notes · Slides\nChapter 8: Trade-offs, Integration, and Governance Complete a structured model-risk review that covers fairness, explainability, privacy, and governance across the full AI lifecycle. Lecture Notes · Slides",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index-ZH.html#从这里开始",
+    "href": "index-ZH.html#从这里开始",
+    "title": "量化负责任人工智能:原则、治理与方法",
+    "section": "从这里开始",
+    "text": "从这里开始\n\n本课程适合谁\n本课程面向构建、评估或监督人工智能驱动决策系统的量化从业者和高年级学生。课程中的框架与方法适用于多个行业。保险与精算案例作为贯穿始终的案例研究反复出现。\n预备知识要求:\n\n熟悉概率论与回归分析\n实践章节(第三、五、七章)需要一定的 R 语言基础\n无需机器学习背景\n\n\n\n学完本课程,你将能够\n\n为某一决策系统选择并论证适用的公平性准则,并解释准则之间发生冲突时的权衡取舍\n针对特定模型和受众选择合适的可解释性方法,并说明该方法能够展示什么、不能展示什么\n识别数据流程中的隐私风险,应用隐私保护技术,并评估各技术的残余披露风险\n完成一份涵盖公平性、可解释性、隐私性和治理的结构化模型风险审查\n\n\n\n如何学习本课程\n\n\n\n学习路径\n章节\n预计时长\n\n\n\n\n概念与治理路径\n第一、二、四、六、八章\n约12小时\n\n\n完整课程\n第一至八章(按顺序)\n约20小时\n\n\n\n概念与治理路径。 按第一章 → 第二章 → 第四章 → 第六章 → 第八章的顺序学习。这些章节涵盖每个支柱的原则、监管背景与治理框架,无需编程基础。\n完整课程。 按顺序学习全部八章。实践章节(第三、五、七章)使用 R 语言将各支柱应用于真实数据。第八章将所有内容整合至一个治理框架。\n各实践章节开头均有简短的环境配置说明,列出所需 R 包与预计完成时间。",
+    "crumbs": [
+      "首页"
+    ]
+  },
+  {
+    "objectID": "index-ZH.html#课程讲义",
+    "href": "index-ZH.html#课程讲义",
+    "title": "量化负责任人工智能:原则、治理与方法",
+    "section": "课程讲义",
+    "text": "课程讲义\n\n\n\n第一章:导论 识别人工智能生命周期中公平性、可解释性与隐私性问题的出现位置,并将其与真实监管要求相联系。 课堂笔记 · 幻灯片\n第二章:公平性原则 选择适用于某一决策系统的公平性准则,并解释为何满足一项准则可能导致另一项准则无法同时成立。 课堂笔记 · 幻灯片\n第三章:公平性实践 在真实数据上拟合并比较公平定价模型,量化每种公平性约束的准确性代价。 课堂笔记 · 幻灯片\n第四章:可解释性原则 针对特定模型和受众选择合适的可解释性方法,并说明该方法的解释边界。 课堂笔记 · 幻灯片\n第五章:可解释性实践 为已拟合的模型生成全局与局部解释,并以非技术受众能够理解的方式记录其局限性。 课堂笔记 · 幻灯片\n第六章:隐私原则 识别数据流程中的隐私风险,并将其对应到相关法律义务。 课堂笔记 · 幻灯片\n第七章:隐私实践 对真实数据集分别应用 k-匿名、差分隐私和合成数据技术,并评估各技术的残余披露风险。 课堂笔记 · 幻灯片\n第八章:权衡取舍、整合与治理 完成一份涵盖公平性、可解释性、隐私性和治理的结构化模型风险审查,贯穿人工智能生命周期的各个阶段。 课堂笔记 · 幻灯片",
+    "crumbs": [
+      "首页"
+    ]
   }
 ]
